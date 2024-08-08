@@ -6,6 +6,7 @@
 .pnp.js
 yarn.lock
 package-lock.json
+.env
 test.tsx
 
 # testing
@@ -17,7 +18,7 @@ test.tsx
 
 # misc
 .DS_Store
-.env.
+.env
 .env.local
 .env.development
 .env.test
