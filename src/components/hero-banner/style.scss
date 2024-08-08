@@ -1,0 +1,685 @@
+.hero-banner {
+  padding: 72px 0;
+  padding-top: 80px;
+  background: linear-gradient(169deg, rgb(180 45 179), rgb(254 143 28) 70.71%),
+    linear-gradient(190deg, rgb(254 143 28), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(9deg, rgb(90 52 131), rgba(0, 0, 255, 0) 71.71%);
+
+  .container {
+    @media screen and (max-width: 991px) {
+      padding-left: 12px;
+      padding-right: 12px;
+      max-width: 100%;
+    }
+  }
+
+  form {
+    position: relative;
+
+    .radios {
+      max-width: 595px;
+      margin: auto;
+      background: #f7f7f7;
+      border-radius: 6px;
+      margin-bottom: -100px;
+      transform: translate(-0%, -50%);
+      box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
+      min-height: 78px;
+
+      @media screen and (max-width: 767px) {
+        min-height: 65px;
+      }
+
+      .form-group {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding: 0px 0;
+
+        @media screen and (max-width: 767px) {
+          gap: 0;
+          padding: 7px 0;
+        }
+
+        .form-check-inline:nth-child(4) img {
+          margin-top: 2px;
+          margin-bottom: -2px;
+        }
+
+        .form-check {
+          position: relative;
+          padding: 0;
+          text-align: center;
+          min-width: 70px;
+
+          @media screen and (max-width: 767px) {
+            margin-right: 0;
+            min-width: 55px;
+          }
+
+          &:last-child {
+            margin-right: 0;
+          }
+
+          img {
+            object-fit: contain;
+
+            @media screen and (max-width: 767px) {
+              width: 40px;
+              height: 40px;
+            }
+          }
+
+          .form-check-input {
+            position: absolute;
+            margin: auto;
+            text-align: center;
+            position: absolute;
+            margin: auto;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            top: 0;
+            cursor: pointer;
+          }
+
+          &.active {
+            .form-check-label {
+              border-bottom: 2px solid #573781;
+              color: #573781;
+              font-weight: 700;
+            }
+          }
+
+          .form-check-label {
+            font-size: 12px;
+            font-family: "Outfit";
+            color: #4a4a4a;
+
+            @media screen and (max-width: 767px) {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+    }
+
+    .output {
+      padding: 55px 0 60px;
+      border-radius: 6px;
+      height: 200px;
+      margin-top: 20px;
+
+      @media screen and (max-width: 991px) {
+        height: auto;
+      }
+
+      .form-inputs {
+        max-width: 80%;
+        width: 855px;
+        margin: auto;
+        background: $white;
+        border: 1px solid #dedede;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08),
+          0px 4px 12px rgba(0, 0, 0, 0.05);
+
+        .content-box {
+          // width: 205px;
+
+          &:last-child {
+            .inner {
+              border-bottom: 0;
+            }
+
+            .inner,
+            .label-form {
+              &::after {
+                display: none;
+              }
+            }
+          }
+
+          .inner {
+            position: relative;
+            height: 100%;
+
+            @media screen and (max-width: 991px) {
+              border-bottom: 1px solid #dedede;
+            }
+
+            @media screen and (max-width: 767px) {
+              width: 100%;
+
+              .label-form {
+                width: 150px;
+              }
+            }
+
+            &::after {
+              content: "";
+              height: 86px;
+              width: 1px;
+              background: #dedede;
+              border: none;
+              position: absolute;
+              right: 0;
+              top: 0;
+              bottom: 0;
+              margin: auto;
+
+              @media screen and (max-width: 991px) {
+                display: none;
+              }
+            }
+
+            .label-form {
+              font-size: 15px;
+              color: #5a3483;
+              font-weight: 500;
+              font-family: "Outfit";
+              margin-bottom: 0 !important;
+              width: 100%;
+              position: relative;
+              cursor: pointer;
+
+              .date-arrow {
+                @media screen and (max-width: 767px) {
+                  margin-left: 45px !important;
+                }
+              }
+
+              @media screen and (max-width: 767px) {
+                width: 150px;
+              }
+
+              @media screen and (max-width: 375px) {
+                width: 130px;
+              }
+
+              &.pax-label {
+                width: 80px;
+                text-align: center;
+
+                @media screen and (max-width: 767px) {
+                  width: 150px;
+                  text-align: start;
+                }
+
+                @media screen and (max-width: 375px) {
+                  width: 130px;
+                }
+              }
+            }
+
+            p.label-form {
+              &:after {
+                right: 50px;
+
+                @media screen and (max-width: 767px) {
+                  width: 12px;
+                  height: 14px;
+                  right: 5px;
+                }
+              }
+            }
+
+            .form-group {
+              margin-bottom: 0 !important;
+              width: 100%;
+              padding: 16px 40px;
+              cursor: pointer;
+              height: 100%;
+              line-height: 2;
+
+              @media screen and (max-width: 1199px) {
+                padding: 16px;
+              }
+
+              @media screen and (max-width: 767px) {
+                display: flex;
+                width: 100%;
+                text-align: start;
+                align-items: center;
+                height: 100%;
+              }
+
+              .react-dropdown {
+                .react-select__control {
+                  cursor: pointer;
+                  border: 0;
+                  min-height: auto;
+
+                  .react-select__value-container {
+                    padding: 0;
+
+                    .react-select__input-container {
+                      margin: 0;
+                      padding: 0;
+                      color: #fff;
+                    }
+
+                    .react-select__single-value {
+                      font-size: 20px;
+                      line-height: 26px;
+                      color: #000;
+                      font-family: "Outfit";
+                      text-transform: capitalize;
+
+                      @media screen and (max-width: 767px) {
+                        font-size: 14px;
+                        line-height: 18px;
+                      }
+
+                      .icon {
+                        img {
+                          display: none;
+                        }
+                      }
+                    }
+                  }
+
+                  .react-select__indicators {
+                    display: none;
+                  }
+
+                  &.react-select__control--is-focused {
+                    border: 0;
+                    box-shadow: none;
+                  }
+                }
+
+                .react-select__menu {
+                  background: #fff;
+                  border: 1px solid #dedede;
+                  box-sizing: border-box;
+                  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08),
+                    0px 4px 12px rgba(0, 0, 0, 0.05);
+                  border-radius: 20px;
+                  padding: 30px 15px 30px 10px;
+                  margin-top: 35px;
+                  min-width: 360px;
+                  right: auto;
+                  left: -40px;
+                  z-index: 2;
+
+                  @media screen and (max-width: 991px) and (min-width: 768px) {
+                    left: -20px;
+                    margin-top: 10px;
+                    min-width: 300px;
+                    z-index: 3;
+                  }
+
+                  @media screen and (max-width: 767px) and (min-width: 470px) {
+                    left: -169px;
+                    margin-top: 18px;
+
+                  }
+
+                  @media screen and (max-width: 469px) and (min-width: 376px) {
+                    left: -169px;
+                    margin-top: 18px;
+                    min-width: 293px;
+                  }
+
+                  @media screen and (max-width: 375px) {
+                    left: -146px;
+                    margin-top: 18px;
+                    min-width: 279px;
+                  }
+
+                  // @media screen and (max-width: 379px) and (min-width: 376px) {
+                  //   left: -147px;
+                  //   min-width: 280px;
+                  // }
+
+                  .react-select__menu-list {
+                    min-height: 100px;
+                    max-height: 332px;
+                    padding: 0;
+                    margin-bottom: 0;
+                    width: auto;
+                    overflow-y: auto;
+                    overflow-x: hidden;
+
+                    .react-select__option {
+                      font-weight: 400;
+                      font-size: 16px;
+                      line-height: 26px;
+                      color: #727272;
+                      width: auto;
+                      white-space: normal;
+                      font-family: "Outfit";
+                      display: flex;
+                      align-items: center;
+                      padding: 7px 20px;
+                      justify-content: flex-start;
+                      cursor: pointer;
+                      text-transform: capitalize;
+
+                      &.react-select__option--is-focused,
+                      &.react-select__option--is-selected {
+                        background: transparent;
+                      }
+                      
+                    }
+
+                    &::-webkit-scrollbar {
+                      width: 4px;
+                      background-color: #f5f5f5;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                      background-color: #dedede;
+                      border: 2px solid #d3cbcb;
+                    }
+                  }
+                }
+              }
+
+              &.active {
+                box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+              }
+            }
+
+            .quantity {
+              width: auto;
+
+              .input-number {
+                border: 0;
+                max-width: 35px;
+                width: auto;
+                margin-left: 10px;
+                margin-right: 10px;
+                font-size: 20px;
+                font-weight: 600;
+                color: #000;
+                font-family: "Outfit";
+                z-index: 1;
+              }
+
+              .btn {
+                padding: 0;
+                z-index: 1;
+                border: 0;
+
+                @media screen and (max-width: 767px) {
+                  z-index: 0;
+                }
+              }
+            }
+
+            .react-datepicker-wrapper {
+              width: 100%;
+
+              @media screen and (max-width: 767px) {
+                width: 90px;
+              }
+
+              .react-datepicker__input-container {
+                input {
+                  width: 100%;
+                  font-size: 20px;
+                  line-height: 26px;
+                  color: #000;
+                  border: 0;
+                  outline: 0;
+                  font-family: "Outfit";
+                  text-align: start;
+                  padding: 0;
+                  background-color: transparent;
+
+                  @media screen and (max-width: 767px) {
+                    font-size: 14px;
+                    line-height: 18px;
+                  }
+
+                  &::placeholder {
+                    color: $white;
+                  }
+                }
+              }
+            }
+
+            .react-datepicker__tab-loop {
+              .react-datepicker-popper {
+                z-index: 2;
+                margin-top: 10px;
+
+                @media screen and (max-width: 475px) {
+                  transform: translate(0px, 0px) !important;
+                  top: 80px !important;
+                }
+
+                .react-datepicker {
+                  min-width: 300px;
+                  min-height: 100px;
+                  border: 1px solid rgba(0, 0, 0, 0.15);
+
+                  .react-datepicker__navigation {
+                    top: 5px;
+                    overflow: visible;
+
+                    &.react-datepicker__navigation--previous {
+                      .react-datepicker__navigation-icon {
+                        &:before {
+                          border: none;
+                          background-image: url(../../assets/images/calender-left.svg);
+                          background-repeat: no-repeat;
+                          height: 25px;
+                          width: 25px;
+                          transform: none;
+                          right: auto;
+                        }
+                      }
+                    }
+
+                    &.react-datepicker__navigation--next {
+                      .react-datepicker__navigation-icon {
+                        &:before {
+                          border: none;
+                          background-image: url(../../assets/images/calender-right.svg);
+                          background-repeat: no-repeat;
+                          height: 25px;
+                          width: 25px;
+                          transform: none;
+                          right: 0;
+                          left: auto;
+                        }
+                      }
+                    }
+                  }
+                }
+
+                .react-datepicker__month-container {
+                  padding: 8px;
+                  min-width: 100%;
+                  min-height: 100%;
+                  box-shadow: 0 14px 36px 2px rgba(0, 0, 0, 0.15) !important;
+                  border: 0;
+
+                  .react-datepicker__header {
+                    background-color: $white;
+                    border-bottom: 0;
+
+                    .react-datepicker__day-names {
+                      border-top: 1px solid #d7dce3;
+
+                      .react-datepicker__day-name {
+                        padding-top: 10px;
+                        padding-bottom: 10px;
+                        color: #adb2bd;
+                        text-align: center;
+                        font-size: 1rem;
+                      }
+                    }
+
+                    .react-datepicker__current-month {
+                      padding-bottom: 20px;
+                      font-family: "Outfit";
+                      font-weight: 500;
+                      color: $headingColor;
+                    }
+                  }
+
+                  .react-datepicker__month {
+                    .react-datepicker__week {
+                      .react-datepicker__day {
+                        color: $headingColor;
+
+                      
+
+                        &.future-date {
+                          border: 1px solid rgba(81, 145, 250, 0.2);
+                        }
+
+                        &.react-datepicker__day--outside-month {
+                          opacity: 0;
+                        }
+
+                        &.react-datepicker__day--today {
+                          color: #fa5535;
+                          // border: 1px solid #fa5535;
+                          border-radius: 0;
+                        }
+
+                        &.react-datepicker__day--selected {
+                          background: rgba(81, 145, 250, 0.2);
+                          border-radius: 0;
+                        }
+
+                        &.react-datepicker__day--selected {
+                          &.react-datepicker__day--today {
+                            background: rgba(81, 145, 250, 0.2);
+                            border-radius: 0;
+                            border: 1px solid rgba(81, 145, 250, 0.2);
+                          }
+                        }
+
+                        &.react-datepicker__day--keyboard-selected {
+                          background-color: transparent;
+                          border-radius: 0;
+                        }
+
+                        &.past-date,&.react-datepicker__day--disabled,&.react-datepicker__day--today {
+                          color: #d7dce3;
+                        }
+
+                        &.react-datepicker__day--disabled {
+                          border-color: transparent !important;
+                        }
+
+                        &.react-datepicker__day--today {
+                          font-weight: 400;
+                        }
+                      }
+                    }
+                  }
+
+                  .react-datepicker__day-name,
+                  .react-datepicker__day,
+                  .react-datepicker__time-name {
+                    width: 36px;
+                    font-size: 14px;
+                    line-height: 32px;
+                    margin: 0;
+                    font-family: "Outfit";
+                  }
+                }
+              }
+
+              .react-datepicker__triangle {
+                display: none;
+              }
+            }
+
+            &.location {
+              .react-select__option {
+                &:first-child {
+                  padding-bottom: 0;
+                  text-transform: none;
+
+                  .icon {
+                    padding-bottom: 20px;
+                    margin-bottom: 13px;
+                    border-bottom: 1px solid #dedede;
+                    display: block;
+                    width: 100%;
+                    color: #232323;
+                    font-weight: 500;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &.coming-soon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        h3 {
+          background: #fff;
+          border: 1px solid #dedede;
+          box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08),
+            0px 4px 12px rgba(0, 0, 0, 0.05);
+          width: fit-content;
+          margin: auto;
+          font-size: 27px;
+          padding: 10px 50px 10px 50px !important;
+          animation: Color 4s linear infinite;
+          -webkit-animation: Color 4s ease-in-out infinite;
+          text-shadow: 0px 6px #f0f0f0;
+
+          @keyframes Color {
+            0% {
+              color: #92060f;
+            }
+
+            20% {
+              color: #5a3483;
+            }
+
+            40% {
+              color: #ffce54;
+            }
+
+            60% {
+              color: #fc6e51;
+            }
+
+            80% {
+              color: #ed5565;
+            }
+
+            100% {
+              color: #ac92ec;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .search-btn {
+    position: absolute;
+    top: auto;
+    bottom: -30px;
+    left: 0;
+    right: 0;
+
+    .btn {
+      width: 270px;
+      padding: 16px;
+      margin: auto;
+      line-height: 20px;
+      color: #fff;
+      font-weight: 500;
+      background: #5a3483;
+      font-family: "Outfit";
+      font-size: 19px;
+    }
+  }
+}

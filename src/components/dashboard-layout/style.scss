@@ -1,0 +1,211 @@
+.dashboard {
+  position: relative;
+
+  .sidebar-open-button {
+    display: none;
+    position: absolute;
+    top: 15px;
+    left: 280px;
+
+    @media screen and (max-width: 767px) {
+      position: absolute;
+      top: 15px;
+      left: 12px;
+      padding: 0px;
+      border: 0px;
+      text-decoration: none;
+      display: block;
+    }
+  }
+
+  .offcanvas-close-button {
+    display: none;
+
+    @media screen and (max-width: 767px) {
+      display: block;
+    }
+  }
+
+  .offcanvas {
+    width: 270px;
+  }
+
+  .sidebar {
+    // background: linear-gradient(169deg, rgb(180 45 179), rgb(254 143 28) 70.71%), linear-gradient(190deg, rgb(254 143 28), rgba(0, 255, 0, 0) 70.71%), linear-gradient(9deg, rgb(90 52 131), rgba(0, 0, 255, 0) 71.71%);
+    background: #000;
+    height: 100%;
+    max-height: 100%;
+    position: fixed;
+    float: left;
+    z-index: 1;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+    width: 270px;
+
+    .main-logo {
+      padding: 30px;
+      position: relative;
+
+      .toggle {
+        position: absolute;
+        transform: translateY(-50%);
+        top: 50%;
+        right: 10px;
+        padding: 10px;
+      }
+    }
+
+    .sidebar-user {
+      border-top: 1px solid #2c3d5b;
+      padding: 30px;
+
+      .user-image {
+        width: 50px;
+        float: left;
+        margin-right: 15px;
+
+        img {
+          border-radius: 50px;
+        }
+      }
+
+      .user-details {
+        font-family: "Poppins", Sans-serif;
+
+        span {
+          display: block;
+          color: #a0a9b2;
+          font-weight: 500;
+
+          &.user-name {
+            font-size: 16px;
+          }
+
+          &.user-role {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    .sidebar-menu {
+      border-top: 1px solid #2c3d5b;
+      padding-bottom: 10px;
+      height: calc(100% - 326px);
+      overflow-y: auto;
+
+      ul {
+        margin-top: 12px;
+
+        li {
+          list-style: none;
+
+          .btn {
+            padding: 8px 30px;
+            color: $white;
+            display: inline-block;
+            width: 100%;
+            text-align: start;
+            border: 0;
+            font-size: 14px;
+            text-decoration: none;
+
+            img {
+              width: 20px;
+              height: 20px;
+              line-height: 20px;
+              margin-right: 10px;
+            }
+
+            &.active {
+              color: #f64e3a;
+            }
+          }
+        }
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: #000;
+      }
+
+      &::-webkit-scrollbar {
+        width: 5px;
+        background-color: #000000;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #525965;
+      }
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #000;
+    }
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      background-color: #000000;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #525965;
+    }
+
+    .sidebar-footer {
+      border-top: 1px solid #2c3d5b;
+
+      ul {
+        margin-top: 12px;
+        margin-bottom: 0;
+
+        li {
+          padding-top: 10px;
+          padding-bottom: 10px;
+
+          .btn {
+            padding: 8px 30px;
+            color: $white;
+            display: inline-block;
+            width: 100%;
+            text-align: start;
+            border: 0;
+            font-size: 14px;
+
+            img {
+              width: 20px;
+              height: 20px;
+              line-height: 20px;
+              margin-right: 10px;
+            }
+
+            &.back-to-home {
+              color: #1abc9c;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+    .placehoder-img{
+      padding: 20px;
+    }
+  }
+
+  .main-content {
+    background: #f5f7f9;
+    // height: 100vh;
+    float: right;
+    padding: 20px 40px;
+    padding-bottom: 0;
+    font-family: "Poppins";
+    transition: all 0.3s ease;
+    width: calc(100% - 270px);
+    height: calc(100vh - 0px);
+    overflow-y: scroll;
+    
+    @media screen and (max-width: 767px) {
+      width: 100%;
+      padding: 15px;
+    }
+  }
+}

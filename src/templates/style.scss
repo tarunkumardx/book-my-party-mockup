@@ -1,0 +1,414 @@
+.page-content-hero {
+	background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+	padding-top: 60px;
+	padding-bottom: 60px;
+	font-family: 'Outfit';
+
+	@media screen and (max-width: 767px) {
+		padding-top: 40px;
+		padding-bottom: 40px;
+	}
+
+	h1 {
+		color: $white;
+		font-size: 34px;
+		font-weight: 500;
+		line-height: 1.2;
+		margin-bottom: 0;
+	}
+}
+
+.page-content {
+	padding: 50px 0;
+
+	@media screen and (max-width:767px) {
+		padding: 40px 0;
+	}
+
+	.wp-block-columns {
+		.wp-block-heading {
+			font-family: 'Outfit';
+		}
+
+		h2 {
+			font-size: 28px;
+			font-weight: initial;
+		}
+
+		h3 {
+			font-size: 24px;
+		}
+
+		h4 {
+			font-size: 22px;
+		}
+	}
+
+	ol,
+	ul,
+	p {
+		font-family: 'Outfit';
+
+		li {
+			font-size: 13px;
+
+			a {
+				text-decoration: none;
+				color: #0d6efd;
+			}
+		}
+	}
+
+	.about-content {
+		.wp-block-column {
+			width: 50%;
+			float: left;
+			padding: 10px 2px;
+
+			@media screen and (max-width: 767px) {
+				width: 100%;
+				padding: 10px 0;
+			}
+
+			p {
+				color: #7a7a7a;
+
+				a {
+					text-decoration: none;
+					color: #0d6efd;
+				}
+
+				&:last-child {
+					margin-top: 40px;
+				}
+			}
+
+			figure {
+				text-align: center;
+
+				img {
+					height: auto;
+					max-width: 100%;
+				}
+			}
+		}
+	}
+
+	.gallery-content {
+		.wp-block-image {
+			border: 0;
+			max-height: 234px;
+			max-width: 100%;
+			overflow: hidden;
+			border-radius: 0;
+			width: 100%;
+
+			@media screen and (max-width: 1199px) {
+				max-height: 175px;
+			}
+
+			@media screen and (max-width: 991px) {
+				max-height: 150px;
+				width: 48% !important;
+			}
+
+			@media screen and (max-width: 767px) {
+				max-height: 100%;
+				width: 100% !important;
+			}
+
+			img {
+				transition-duration: 350ms;
+				max-width: 100%;
+				height: 100%;
+				object-fit: cover;
+				width: 100%;
+			}
+
+			&:hover {
+				img {
+					transform: scale(1.1);
+					transition-duration: 350ms;
+				}
+			}
+		}
+	}
+}
+
+.card {
+	border: none;
+	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08),
+		0px 4px 12px rgba(0, 0, 0, 0.05);
+	border-radius: 15px;
+	margin: 10px 30px;
+
+	.img-wrapper {
+		overflow: hidden;
+		border-top-left-radius: 15px;
+		border-top-right-radius: 15px;
+
+		img {
+			transition: transform 0.3s ease-in-out;
+			border-top-left-radius: 15px;
+			border-top-right-radius: 15px;
+
+			&:hover {
+				transform: scale(1.1);
+				transition-duration: 0.3s;
+			}
+		}
+
+		.wishlist {
+			position: absolute;
+			top: 22px;
+			right: 20px;
+			z-index: 9;
+
+			img {
+				transform: none;
+			}
+		}
+	}
+
+	.card-body {
+		padding: 20px;
+		position: relative;
+
+		@media screen and (max-width:1375px) {
+			padding: 12px;
+
+		}
+
+		.address {
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 22px;
+			color: #727272;
+			font-family: "Outfit";
+			margin-bottom: 0;
+			min-height: 45px;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			word-wrap: break-word;
+			display: flex;
+			// min-height: 38px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 48px;
+			@media screen and (max-width:549px) {
+				height: auto;
+			}
+
+		}
+
+		.venue-name {
+			margin-top: 6px;
+			margin-bottom: 8px;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			word-wrap: break-word;
+			display: flex;
+			min-height: 38px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 55px;
+			@media screen and (max-width:549px) {
+				height: auto;
+			}
+
+			a {
+				font-weight: 600;
+				font-size: 20px;
+				line-height: 29px;
+				text-decoration: none;
+				color: $headingColor;
+				font-family: "Outfit", sans-serif;
+			}
+		}
+
+		.avtar {
+			position: absolute;
+			top: -22px;
+			right: 20px;
+			width: 35px;
+			height: 35px;
+			border: 1px solid #dfdfdf;
+			border-radius: 100px;
+
+			img {
+				border-radius: 100px;
+			}
+		}
+
+		.rating {
+			display: flex;
+			align-items: center;
+
+			strong {
+				font-size: 16px;
+				color: #232323;
+				margin: 0 4px;
+			}
+
+			span {
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 22px;
+				color: #727272;
+				font-family: "Outfit", sans-serif;
+			}
+		}
+
+		hr {
+			border-color: #dedede;
+			margin: 0;
+		}
+
+		.footer {
+			border-top: 1px solid #dedede;
+			margin-top: 20px;
+			padding-top: 20px;
+
+
+
+			h6 {
+				font-style: normal;
+				font-weight: 700;
+				font-size: 16px;
+				line-height: 26px;
+				color: #232323;
+				margin-left: 8px;
+
+				@media screen and (max-width:1375px) {
+					font-size: 14px;
+					margin-left: 0px;
+				}
+			}
+
+			.btn-primary {
+				@media screen and (max-width:1375px) {
+					font-size: 14px;
+					white-space: nowrap;
+				}
+			}
+		}
+	}
+}
+
+.page-builder-extra {
+	.card {
+		border: 2px solid #fd532a;
+		height: 550px;
+		width: 389px;
+		box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08), 0px 4px 12px rgba(0, 0, 0, 0.05);
+		border-radius: 0;
+	}
+
+	.img {
+		border-radius: 1px;
+	}
+
+	h3 {
+		padding-top: 10px;
+		text-align: center;
+	}
+
+	hr {
+		border-top: 2px solid #fd532a;
+		width: 80%;
+		margin: 0 auto;
+		opacity: 1;
+	}
+
+	p {
+		margin-top: 10px;
+		margin-top: 0;
+		margin-bottom: 1rem;
+		text-align: center;
+		padding: 12px;
+		font-size: 15px;
+		color: #868686;
+	}
+}
+
+.perfect-for-section {
+	padding: 50px 0px;
+
+	@media screen and (max-width: 991px) {
+		padding: 40px 0px;
+	}
+
+	.book-birthday-pary-content {
+		margin-bottom: 20px;
+		align-items: center;
+
+		.bekal-cafe-button {
+			.btn {
+				display: inline;
+
+				@media screen and (max-width: 767px) {
+					white-space: nowrap;
+				}
+			}
+		}
+
+		h3 {
+			margin-bottom: 0px;
+		}
+	}
+
+	.card {
+		@media screen and (max-width: 767px) {
+			margin-left: 0px;
+			margin-right: 0px;
+			margin-bottom: 10px;
+		}
+	}
+
+}
+
+.google-star-ratings {
+	margin-top: 20px;
+	margin-bottom: 6px;
+	height: 25px;
+	overflow: hidden;
+
+	.es-main-container {
+		.es-carousel-layout-container {
+			display: none;
+		}
+
+		.es-main-content {
+			.es-header-component-top {
+				margin-bottom: 0;
+
+				.es-header-container {
+					padding: 0;
+					background-color: transparent;
+
+					.es-header-info {
+						.es-header-title-container {
+							display: none;
+						}
+
+						.es-header-source-info {
+							.es-header-rating {
+								.es-rating-value {
+									display: none;
+								}
+							}
+
+							.es-header-total-reviews-container {
+								display: none;
+							}
+						}
+					}
+
+					.es-header-write-review-button-container {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+}

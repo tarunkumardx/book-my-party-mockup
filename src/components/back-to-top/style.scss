@@ -1,0 +1,32 @@
+.back-to-top {
+	width: 42px;
+	height: 42px;
+	border-radius: 7px;
+	color: #fff;
+	text-align: center;
+	position: fixed;
+	bottom: 40px;
+	z-index: 99;
+	right: 100px;
+	transition: opacity 0.3s ease;
+	opacity: 0;
+
+	&.visible {
+		opacity: 1;
+	}
+
+	@media screen and (max-width: 550px) {
+		bottom: 80px;
+		right: 24px;
+	}
+
+	.btn {
+		padding: 0;
+		width: 100%;
+		background-color: #5a3483;
+
+		&:active {
+			background-color: #5a3483;
+		}
+	}
+}

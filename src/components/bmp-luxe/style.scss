@@ -1,0 +1,146 @@
+.luxe-selections {
+	padding: 30px 0 60px;
+
+	.main-head {
+		line-height: 1;
+		margin-bottom: 20px;
+
+		@media screen and (max-width:991px) {
+			padding-left: 10px;
+		}
+
+
+	}
+
+	.main-description {
+		@media screen and (max-width:991px) {
+			padding-bottom: 20px;
+			padding-left: 10px;
+		}
+
+		p {
+			font-family: "Outfit", Sans-serif;
+			font-size: 16px;
+			font-weight: 400;
+			color: #7a7a7a;
+			padding-bottom: 20px;
+
+			@media screen and (max-width:991px) {
+				padding-bottom: 0;
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	.btn-primary {
+		background-color: #5a3483;
+		border-radius: 5px;
+		padding: 15px 25px;
+		font-size: 15px;
+		color: #fff;
+		line-height: 1;
+		font-weight: 500;
+		width: fit-content;
+		text-transform: capitalize;
+		font-family: 'Poppins';
+	}
+
+
+
+	.swiper {
+
+		.swiper-button-prev,
+		.swiper-button-next {
+			top: 135px;
+
+			&::after {
+				font-size: 0;
+				width: 25px;
+				height: 25px;
+				background-repeat: no-repeat;
+			}
+
+			@media screen and (min-width:992px) {
+				display: none;
+			}
+		}
+
+		.swiper-button-next {
+
+			&::after {
+				background-image: url(../../assets/images/arrow-down.svg);
+				transform: rotate(-90deg);
+			}
+		}
+
+		.swiper-button-prev {
+
+			&::after {
+				background-image: url(../../assets/images/arrow-up.svg);
+				transform: rotate(-90deg);
+			}
+		}
+
+		.card {
+			border: 0;
+			text-align: center;
+
+			img {
+				width: 250px;
+				max-width: 100%;
+				height: 250px;
+				border-radius: 50%;
+				transition: transform 0.5s ease-in-out;
+				margin-top: 30px;
+
+				@media screen and (max-width:1199px) {
+					width: 190px;
+					height: 190px;
+				}
+
+				@media screen and (max-width:991px) {
+					width: 250px;
+					height: 250px;
+				}
+
+				&:hover {
+					transform: scale(1.2);
+					transition-timing-function: cubic-bezier(0.47, 2.02, .31, -.36);
+				}
+			}
+
+			.card-body {
+				padding: 0;
+				margin-top: 30px;
+
+				a {
+					text-decoration: none;
+					color: #939393;
+					font-family: "Outfit", Sans-serif;
+					font-size: 14px;
+					font-weight: 500;
+				}
+
+				hr {
+					border-color: #5a3483;
+					border-width: 4px;
+					opacity: 100%;
+					width: 60px;
+					margin: 1rem auto;
+				}
+
+				h5 {
+					a {
+						color: $black;
+						font-size: 20px;
+						font-weight: 600;
+						text-transform: capitalize;
+						font-family: "Outfit",
+							Sans-serif;
+					}
+
+				}
+			}
+		}
+	}
+}

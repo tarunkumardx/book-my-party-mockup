@@ -1,0 +1,40 @@
+.login-page-form {
+  padding-top: 60px;
+  padding-bottom: 74px;
+	max-width: 50%;
+    margin: auto;
+
+  form {
+
+    .form-group {
+      margin-bottom: 8px !important;
+
+      label {
+        color: #7a7a7a;
+        font-size: 13px;
+        font-weight: 400;
+        font-family: "Poppins";
+        margin-bottom: 1px !important;
+      }
+    }
+
+		input[type="checkbox"] {
+			height: 16px;
+			width: 16px;
+			border-radius: 2px !important;
+			margin: 1px;
+		}
+
+    .btn {
+      // background: #5a3483;
+      padding: 10px 50px 10px 50px;
+      // width: auto;
+      color: #fff;
+      font-size: 17px;
+      border-radius: 5px;
+      font-family: "Poppins";
+			margin: auto;
+    }
+  }
+
+}

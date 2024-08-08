@@ -1,0 +1,45 @@
+.career {
+	padding: 60px 0;
+
+	@media screen and (max-width:991px) {
+		padding: 30px 0;
+	}
+
+	.main-description {
+		padding-bottom: 50px;
+		margin-bottom: 0;
+
+		@media screen and (max-width:991px) {
+			padding-bottom: 20px;
+		}
+	}
+
+	ul {
+		padding-left: 18px;
+
+		li {
+			margin-top: 10px;
+		}
+	}
+
+	h4 {
+		font-size: 20px;
+		margin-bottom: 20px;
+	}
+
+	form {
+		.submit-btn {
+			margin-top: 20px;
+
+			@media screen and (max-width:991px) {
+				margin-top: 0px;
+
+			}
+
+			.btn {
+				background: #5a3483;
+				padding: 10px 40px;
+			}
+		}
+	}
+}

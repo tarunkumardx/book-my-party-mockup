@@ -1,0 +1,44 @@
+@import './color-theme.scss';
+
+.btn-loading {
+	position: relative;
+
+	.btn-text {
+		visibility: hidden;
+		opacity: 0;
+	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		width: 24px;
+		height: 24px;
+		top: 0;
+		left: 0.625rem;
+		right: 0;
+		bottom: 0.125rem;
+		margin: auto;
+		border: 3px solid transparent;
+		border-top-color: $white;
+		border-radius: 50%;
+		animation: button-loading-spinner 1s ease infinite;
+		z-index: 1;
+	}
+}
+
+// .load-btn {
+// 	&:hover {
+// 		background-color: $primary !important;
+// 		color: $white !important;
+// 	}
+// }
+
+@keyframes button-loading-spinner {
+	from {
+		transform: rotate(0turn);
+	}
+
+	to {
+		transform: rotate(1turn);
+	}
+}

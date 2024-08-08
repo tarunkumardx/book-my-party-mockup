@@ -1,0 +1,10 @@
+{
+  "editor.tabSize": 2,
+  "editor.insertSpaces": false,
+  "editor.formatOnSave": true,
+  "files.autoSave": "afterDelay",
+  // "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
+}

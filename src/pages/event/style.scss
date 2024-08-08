@@ -1,0 +1,92 @@
+.plan-event-hero {
+  background-color: #5a3483;
+  padding: 50px 0;
+
+  h1 {
+    color: #fff;
+    font-family: "Poppins", Sans-serif;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 41px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+}
+
+.plan-event-form {
+  padding-top: 60px;
+  padding-bottom: 74px;
+
+  @media screen and (max-width: 991px) {
+    padding-bottom: 50px;
+    padding-top: 35px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  form {
+    max-width: 928px;
+    margin: auto;
+
+    .form-group {
+      margin-bottom: 8px !important;
+
+      @media screen and (max-width: 991px) {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+
+      label {
+        color: #7a7a7a;
+        font-size: 13px;
+        font-weight: 400;
+        font-family: "Poppins";
+        margin-bottom: 1px !important;
+      }
+
+      .form-control,
+      .react-select__placeholder,
+      .react-select__value-container {
+        font-size: 1rem;
+        padding: 6px 12px !important;
+        font-family: "Poppins";
+
+        &::placeholder {
+          color: #6c757d;
+        }
+      }
+
+      .react-select__value-container {
+        .react-select__single-value {
+          font-size: 16px !important;
+        }
+      }
+
+      .react-tel-input {
+        .form-control {
+          padding-left: 45px !important;
+        }
+
+        .flag-dropdown {
+          background-color: #fff;
+        }
+      }
+    }
+
+    .btn {
+      background: #5a3483;
+      padding: 10px 50px 10px 50px;
+      width: auto;
+      color: #fff;
+      font-size: 17px;
+      border-radius: 0;
+      font-family: "Poppins";
+    }
+  }
+
+  .react-tel-input {
+    input {
+      height: auto;
+    }
+  }
+}

@@ -1,0 +1,219 @@
+.dashboard-content {
+  h3 {
+    font-size: 24px;
+    margin-bottom: 30px;
+
+    @media screen and (max-width: 767px) {
+      margin-left: 20px;
+    }
+
+  }
+
+  .card {
+    padding: 40px 32px;
+    border: 0;
+    text-align: center;
+    margin: 0px;
+
+    .card-body {
+      padding: 0;
+
+      p {
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: $headingColor;
+        margin-bottom: 0;
+      }
+
+      h2 {
+        color: $headingColor;
+        font-size: 36px;
+        font-family: "Poppins";
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+.sales-count {
+  background-color: $white;
+  margin-top: 30px;
+  padding: 20px 30px;
+
+  .row {
+    gap: 30px 0;
+  }
+
+  h4 {
+    color: $headingColor;
+    font-size: 18px;
+    padding-bottom: 20px;
+    margin-bottom: 0;
+  }
+
+  .card {
+    padding: 17px 32px;
+    border-radius: 3px;
+
+    .card-body {
+      padding: 0;
+
+      .main-head {
+        color: $white;
+        font-size: 20px;
+        font-weight: 400;
+        margin-bottom: 0;
+        font-family: "Poppins";
+      }
+
+      .sales-number {
+        color: $white;
+        font-size: 24px;
+        margin-bottom: 0;
+        font-family: "Poppins";
+      }
+    }
+
+    &.hotel {
+      background-color: #3498db;
+      border-color: #3498db;
+    }
+
+    &.banquet {
+      background-color: #ff7675;
+      border-color: #ff7675;
+    }
+
+    &.restaurant {
+      background-color: #2ecc71;
+      border-color: #2ecc71;
+    }
+
+    &.activity {
+      background: #f1c40f;
+      border-color: #f1c40f;
+    }
+
+    &.party {
+      background: #1abc9c;
+      border-color: #1abc9c;
+    }
+
+    &.caterers {
+      background: #e6a6a6;
+      border-color: #e6a6a6;
+    }
+  }
+}
+
+.recent-booking {
+  margin-top: 30px;
+
+  .justify-between {
+    h3 {
+      font-size: 24px;
+    }
+
+    margin-bottom: 30px;
+  }
+
+  .card {
+    border: 0;
+    border-radius: 0;
+    padding: 30px;
+    margin: 10px 0px;
+
+    .card-body {
+      padding: 0;
+    }
+  }
+
+  table {
+    thead {
+      tr {
+        th {
+          font-weight: 600;
+          text-shadow: 0 0 currentColor;
+        }
+      }
+    }
+
+    thead,
+    tbody {
+      tr {
+        height: auto;
+
+        th,
+        td {
+          padding: 8px !important;
+          line-height: 1.42857143;
+          vertical-align: top;
+          color: #333;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        height: auto;
+
+        &:nth-of-type(odd) {
+          background-color: #f9f9f9;
+        }
+
+        td {
+          background-color: transparent;
+          box-shadow: none;
+          // white-space: nowrap;
+
+          .btn {
+            font-size: 14px;
+
+            &.btn-link {
+              color: #5191fa;
+
+              &:hover {
+                text-decoration: underline;
+              }
+
+              &.id {
+                color: #333;
+              }
+            }
+
+            &.btn-primary {
+              background-color: #5a3483;
+              border-color: #5191fa;
+              width: fit-content;
+              padding: 1px 5px;
+              font-size: 12px;
+              border-radius: 3px;
+
+              .fa-circle-info {
+                margin-right: 5px;
+              }
+            }
+          }
+
+          &.status {
+            .complete {
+              margin-right: 4px;
+              color: #10cd78;
+            }
+
+            .pending {
+              color: $warning;
+              margin-right: 4px;
+            }
+
+            .delete {
+              color: $danger;
+              margin-right: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

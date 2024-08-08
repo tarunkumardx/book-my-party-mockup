@@ -1,0 +1,422 @@
+@import "../../assets/scss/color-theme.scss";
+
+footer {
+  .keep-in-touch {
+    background-color: #f55600;
+    color: $white;
+    padding: 83px 10px;
+    position: relative;
+
+    @media only screen and (max-width: 991px) {
+      padding: 40px 10px;
+    }
+
+    .please-provide-footer {
+      margin-top: 43px;
+
+      @media only screen and (max-width: 767px) {
+        margin-top: 20px;
+      }
+
+      .row {
+        justify-content: center;
+      }
+    }
+
+
+    .keep-in-touch-content {
+
+      p {
+        font-size: 18px;
+        letter-spacing: 3px;
+        color: #fffaf6;
+        font-weight: 400;
+        margin-bottom: 0px;
+
+        @media only screen and (max-width: 1440px) {
+          font-size: 16px;
+        }
+
+        @media only screen and (max-width: 720px) and (min-width: 320px) {
+          font-size: 14px;
+        }
+      }
+
+      h2 {
+        font-size: 59px;
+        color: #fffaf6;
+        font-weight: 400;
+        margin-bottom: 0px;
+
+        @media only screen and (max-width: 1440px) {
+          font-size: 35px;
+        }
+      }
+    }
+
+    .main-head {
+      font-family: "Outfit";
+      font-size: 40px;
+      font-weight: 500;
+
+      @media only screen and (max-width: 720px) and (min-width: 320px) {
+        font-size: 24px !important;
+      }
+    }
+
+    .main-description {
+      font-family: "Outfit";
+      font-size: 20px;
+      line-height: 21px;
+      color: #fffaf6;
+      font-weight: 400;
+      text-transform: capitalize;
+      margin-bottom: 0px;
+
+      @media only screen and (max-width: 1440px) {
+        font-size: 18px;
+      }
+
+      @media only screen and (max-width: 767px) {
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+    }
+
+
+
+    .form-group {
+      margin-bottom: 0 !important;
+
+      @media screen and (max-width: 767px) {
+        margin-bottom: 1rem !important;
+      }
+
+      @media screen and (max-width: 550px) {
+        padding-right: 0px;
+      }
+
+      .form-control {
+        background-color: transparent;
+        color: $white;
+        border-color: #fff;
+        border-width: 0 0 2px;
+        border-radius: 0;
+        padding: 5px 0px;
+        box-shadow: none;
+        font-size: 20px;
+        font-weight: 500;
+        font-family: "Outfit";
+
+        @media only screen and (max-width: 1440px) {
+          font-size: 18px;
+        }
+
+        @media only screen and (max-width: 1210px) {
+          font-size: 16px;
+        }
+
+        &::placeholder {
+          color: $white;
+          opacity: 0.5;
+        }
+      }
+
+      .invalid-feedback {
+        color: #fff !important;
+      }
+
+
+
+      .form-check {
+        margin: 10px 0;
+        font-size: 15px;
+        z-index: 0;
+
+        .form-check-label {
+          padding-left: 6px;
+          font-size: 20px;
+          color: #fffaf6;
+          font-weight: 400;
+          font-family: "Outfit";
+
+          @media only screen and (max-width: 1440px) {
+            font-size: 18px;
+          }
+
+          @media only screen and (max-width: 767px) {
+            font-size: 16px;
+          }
+        }
+
+        @media screen and (max-width: 991px) {
+          margin: 20px 0;
+        }
+
+        @media screen and (max-width: 767px) {
+          margin: 0;
+        }
+
+        input[type=checkbox] {
+          height: 22px;
+          width: 22px;
+        }
+
+        .form-check-input:checked {
+          &:checked {
+            background-color: #482370;
+            border-color: #482370;
+          }
+        }
+
+
+      }
+    }
+
+    .btn-white {
+      text-transform: capitalize;
+      padding: 7px 25px;
+      font-size: 24px;
+      font-weight: 500;
+      font-family: "Outfit";
+      margin-bottom: 15px;
+
+      @media only screen and (max-width: 1440px) {
+        font-size: 18px;
+      }
+
+      @media only screen and (max-width: 1210px) {
+        font-size: 16px;
+        padding: 5px 15px;
+      }
+
+      @media only screen and (max-width: 991px) {
+        margin-top: 24px;
+      }
+    }
+
+  }
+
+  .main-footer {
+    background-color: $darkPurple;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    position: relative;
+
+    .container {
+      // padding: 0 4rem;
+      max-width: 1440px;
+
+      // @media screen and (min-width: 1650px) {
+      //   padding: 0 4rem;
+      //   max-width: 1750px;
+
+      // }
+
+      @media screen and (max-width: 991px) {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+    }
+
+    hr {
+      border-width: 2px;
+      border-color: #d7d5d5;
+      opacity: 100%;
+      margin-top: 60px;
+      margin-bottom: 20px;
+
+      @media screen and (max-width: 991px) {
+        margin-top: 20px;
+
+      }
+    }
+
+    .pl-20 {
+      padding-left: 20px;
+
+      @media screen and (max-width: 991px) {
+        padding-left: 0;
+        padding-bottom: 20px;
+      }
+    }
+
+    h5 {
+      font-size: 28px;
+      font-weight: 500;
+      color: $white;
+      margin-bottom: 20px;
+      font-family: "Outfit";
+      text-transform: none;
+
+      @media screen and (max-width: 1440px) {
+        font-size: 24px;
+      }
+
+      @media screen and (max-width: 767px) {
+        font-size: 22px;
+      }
+    }
+
+    .footer-logo {
+
+      .footer-logo-row {
+        text-align: center;
+        padding-bottom: 40px;
+        justify-content: center;
+      }
+    }
+
+    .nav {
+      .nav-item {
+        .nav-link {
+          padding: 0;
+          padding-bottom: 9px;
+          color: $white;
+          font-size: 14px;
+          font-weight: 500;
+          transition: color 0.3s;
+          text-decoration: none;
+          font-family: "Outfit";
+
+          @media screen and (max-width: 1440px) {
+            font-size: 12px;
+          }
+
+          &:hover {
+            color: $hoverColor;
+            transition: color 0.3s;
+          }
+        }
+        .unclickable-nav-link {
+          padding: 0;
+          padding-bottom: 9px;
+          color: $white;
+          display: block;
+          top: 0;
+          font-size: 18px;
+          font-weight: 500;
+          transition: color 0.3s;
+          text-decoration: none;
+          font-family: "Outfit";
+
+          @media screen and (max-width: 1440px) {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    .copyright {
+      padding-top: 35px;
+
+      @media screen and (max-width: 575px) {
+        padding-top: 0;
+      }
+
+      p {
+        color: $white;
+        font-size: 16px;
+        font-family: "Outfit";
+
+        a {
+          font-size: 16px;
+          text-decoration: none;
+          font-family: "Poppins";
+          color: $white;
+        }
+
+        img {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .copyright-wrapper {
+      border-top: 2px solid #d7d5d5;
+      margin-top: 30px;
+      padding-top: 20px;
+
+      @media screen and (max-width: 768px) {
+        margin-top: 20px;
+        padding-top: 15px;
+      }
+
+      p {
+        @media screen and (max-width: 768px) {
+          font-size: 13px;
+        }
+      }
+
+      span {
+        @media screen and (max-width: 768px) {
+          font-size: 18px;
+        }
+      }
+
+      .org {
+        font-size: 30px;
+        font-weight: 500;
+        font-family: "Outfit";
+        text-transform: uppercase;
+
+        @media screen and (max-width: 768px) {
+          font-size: 24px;
+        }
+      }
+
+      .street-address {
+        @media screen and (max-width: 768px) {
+          font-size: 18px;
+        }
+      }
+
+      .tel {
+        @media screen and (max-width: 768px) {
+          font-size: 18px;
+        }
+      }
+
+      font-size: 16px;
+      text-decoration: none;
+      font-family: "Poppins";
+      color: $white;
+
+      a {
+        text-decoration: none;
+        font-size: 20px;
+        color: #ffffff;
+        font-weight: 500;
+        font-family: "Outfit";
+
+        @media screen and (max-width: 768px) {
+          font-size: 18px;
+        }
+
+        @media screen and (max-width: 550px) {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  .copy-right-area-bottam {
+    background-color: #160924;
+    padding: 30px 0px;
+
+    @media screen and (max-width: 550px) {
+      padding: 15px 0px;
+    }
+
+    p {
+      color: #fff;
+      font-size: 18px;
+      font-family: "Outfit";
+
+      @media screen and (max-width: 550px) {
+        font-size: 16px;
+
+      }
+    }
+  }
+}

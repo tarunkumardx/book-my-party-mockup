@@ -1,0 +1,130 @@
+.feedback {
+  padding: 60px 0 100px;
+
+  @media screen and (max-width: 991px) {
+    padding: 10px 0 50px;
+  }
+
+  .container {
+    @media screen and (max-width: 767px) {
+      width: 540px;
+    }
+
+    @media screen and (max-width: 576px) {
+      width: 100%;
+    }
+  }
+
+  form {
+    @media screen and (max-width: 991px) {
+      padding-right: 0;
+    }
+
+    .main-head {
+      color: $headingColor;
+      font-family: "Poppins", Sans-serif;
+      font-size: 24px;
+      font-weight: 500;
+      text-transform: none;
+      margin-bottom: 0;
+    }
+
+    .main-description {
+      color: #5e6d77;
+      font-family: "Poppins", Sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+
+    hr {
+      margin-top: 28px;
+      margin-bottom: 28px;
+      border-color: #ebeef1;
+      opacity: 100%;
+      border-width: 2px;
+    }
+
+    .form-group {
+      margin-bottom: 20px !important;
+
+      input {
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+    }
+
+    .btn-primary {
+      background-color: #5a3483;
+      padding: 15px 35px;
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+  }
+
+  .wp-armour {
+    background: #d1ecf1;
+    border: 1px solid #bee5eb;
+    border-radius: 5px;
+    color: #0c5460;
+    font-size: 14px;
+    padding: 0.75rem 1.25rem;
+    font-family: Arial;
+    margin-top: 17px;
+    margin-bottom: 17px;
+
+    .wpa-button {
+      padding: 5px 10px;
+      border-radius: 5px;
+      margin-top: 5px;
+      font-size: 14px;
+    }
+  }
+
+  .info-card {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    background-color: #fa5636;
+    padding: 30px;
+    border-radius: 0;
+    width: 320px;
+
+    @media screen and (max-width: 1199px) {
+      width: auto;
+      padding: 20px;
+    }
+
+    @media screen and (max-width: 991px) {
+      position: initial;
+      transform: none;
+      margin-top: 20px;
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+
+    .card-body {
+      padding: 0;
+      color: $white;
+
+      h4 {
+        font-family: "Poppins", Sans-serif;
+        font-size: 24px;
+        font-weight: 400;
+        padding: 0 0 50px;
+        margin-bottom: 0;
+      }
+
+      p {
+        margin-bottom: 0;
+        margin-top: 11.5px;
+
+        &:not(:last-child) {
+          padding-bottom: 12px;
+        }
+      }
+    }
+  }
+}
