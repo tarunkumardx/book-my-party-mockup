@@ -2599,6 +2599,13 @@
   }
 }
 
+// Additional css for fixing 
+.topCloseBtn {
+  position: absolute;
+  right: 18px;
+  top: 120px;
+}
+
 #faqs-data {
   .frequently-asked {
     @media screen and (max-width: 550px) {

@@ -476,7 +476,7 @@ const Listing = (props: _Object) => {
 
 								<div className="offcanvas offcanvas-start filter-offcanvas" tabIndex={-1} id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
 									<div className="offcanvas-header">
-										<button type="button" className="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+										<button type="button" className="btn-close ms-auto topCloseBtn" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 									</div>
 									<div className="offcanvas-body">
 										<div className="accordion" id="accordionFilter">
@@ -504,7 +504,7 @@ const Listing = (props: _Object) => {
 												</div>
 											} */}
 
-											<div className="accordion-item">
+											<div style={{ marginTop: '120px' }} className="accordion-item">
 												<button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded="true" aria-controls="price">
 													BUDGET / PRICE
 												</button>
