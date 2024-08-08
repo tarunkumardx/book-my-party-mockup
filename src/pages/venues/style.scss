@@ -2606,6 +2606,29 @@
   top: 120px;
 }
 
+.upperDrawer {
+  margin-top: 110px;
+  display: flex;
+  gap: 50px;
+}
+.left-drawer{
+  width: 82%;
+}
+
+.inputFiledsDrawer {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  padding: 0 8px;
+
+  li {
+    list-style: none;
+    font-size: 14px;
+    color: #1a2b48;
+    font-weight: 600;
+  }
+}
+
 #faqs-data {
   .frequently-asked {
     @media screen and (max-width: 550px) {

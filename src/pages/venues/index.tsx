@@ -478,7 +478,22 @@ const Listing = (props: _Object) => {
 									<div className="offcanvas-header">
 										<button type="button" className="btn-close ms-auto topCloseBtn" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 									</div>
-									<div className="offcanvas-body">
+									{/* side drawer body for filter */}
+									<div className="offcanvas-body upperDrawer">
+										{/* New functionality here */}
+										<div className='left-drawer'>
+											<ul className='inputFiledsDrawer'>
+												<li>BUDGET / PRICE</li>
+												<li>ACTIVITES</li>
+												<li>AGE GROUP</li>
+												<li>RESTAURANT TYPE</li>
+												<li>CUISINE</li>
+												<li>RESTRAUNT CHAIN</li>
+												<li>CAPACITY</li>
+												<li>AMENITIES</li>
+												<li>OCCASIONS</li>
+											</ul>
+										</div>
 										<div className="accordion" id="accordionFilter">
 											{/* {props?.packageTypes?.filter((item: _Object) =>
 												item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
@@ -504,7 +519,7 @@ const Listing = (props: _Object) => {
 												</div>
 											} */}
 
-											<div style={{ marginTop: '120px' }} className="accordion-item">
+											<div className="accordion-item">
 												<button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded="true" aria-controls="price">
 													BUDGET / PRICE
 												</button>
