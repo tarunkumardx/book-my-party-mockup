@@ -25,7 +25,7 @@ const BookingHistory = () => {
 	const dispatch = useDispatch<AppDispatch>()
 
 	const { loggedInUser } = useSelector((state: RootState) => state.session);
-
+	console.log(loggedInUser)
 	const [list, setList] = useState<_Object>({ entries: [], total_count: 0 })
 	const [filterData, setFilterData] = useState<_Object>({
 		page: 1,
