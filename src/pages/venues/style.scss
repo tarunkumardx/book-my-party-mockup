@@ -2706,6 +2706,10 @@
   font-weight: 600;
 
 }
+.accordion-button.active-button {
+  border-bottom: 4px solid #fc6f33;
+  width: 80px; /* Change the color to match your design */
+}
 
 
 #faqs-data {
