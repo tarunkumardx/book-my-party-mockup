@@ -2605,6 +2605,28 @@
   right: 18px;
   top: 120px;
 }
+.topClearBtn{
+  position: absolute;
+  left: 18px;
+  top: 120px;
+  background-color: white;
+  border: none;
+  font-size: 14px;
+  color: #ea522b;
+  z-index: 1;
+
+}
+.accordion-item{
+  display: flex;
+  align-items: flex-start;
+}
+.accordion-button::after {
+  background-image: initial !important;
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: initial !important;
+}
 
 .upperDrawer {
   margin-top: 110px;
@@ -2628,6 +2650,63 @@
     font-weight: 600;
   }
 }
+
+// Testing chat gpt code with css
+.filter-container {
+  display: flex;
+  margin-top: 100px;
+  overflow: scroll;
+  height: 100%;
+  padding: 16px 14px;
+}
+.customPadding{
+  padding: 20px 0;
+   
+}
+
+.filter-buttons {
+  // flex: 1;
+  // max-width: 200px; 
+  width: 50%;
+  /* Adjust this value based on your design */
+}
+
+.filter-content {
+  flex: 3;
+  font-size: 17px;
+  overflow: scroll;
+  padding: 12px 12px;  /* Space between the buttons and content */
+}
+.form-check{
+  padding: 8px 20px;
+}
+
+.accordion-item .accordion-button {
+  width: 100%;
+  color: #5a3483;
+  font-weight: 600;
+  text-align: left; /* Align text to the left */
+  
+}
+.bottomResults{
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  background-color: #fc6f33;
+  z-index: 1;
+}
+.bottomBtn{
+    height: 100%;
+    width: 100%;
+    // padding: 20px 0;
+  background-color: #fc6f33;
+  border: none;
+  color: white;
+  font-weight: 600;
+
+}
+
 
 #faqs-data {
   .frequently-asked {
