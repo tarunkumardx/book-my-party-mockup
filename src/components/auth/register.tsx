@@ -19,170 +19,170 @@ import { closeModal } from '@/utils/helpers';
 import { mail, name, password, user } from '@/assets/images';
 
 const SignUp = () => {
-	const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>()
 
-	const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
-	const formik = useFormik({
-		initialValues: {
-			firstName: '',
-			lastName: '',
-			email: '',
-			username: '',
-			password: '',
-			accountType: '',
-			permission: ''
-		},
+  const formik = useFormik({
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      username: '',
+      password: '',
+      accountType: '',
+      permission: ''
+    },
 
-		enableReinitialize: true,
+    enableReinitialize: true,
 
-		validationSchema: yup.object().shape({
-			firstName: yup.string().label('firstName').required('Full Name is required').min(4, 'firstName must be at least 4 characters'),
-			email: yup.string().label('email').required('Email is required').min(4, 'email must be at least 4 characters'),
-			username: yup.string().label('username').required('Username is required').min(4, 'username must be at least 4 characters'),
-			password: yup.string().label('Password').required('Password is required').min(8, 'Minimum password length is 8 characters'),
-			permission: yup.boolean().test({
-				name: 'required-if-true',
-				exclusive: true,
-				message: 'This is required',
-				test: function (value) {
-					const { permission } = this.parent;
-					if (permission === true) {
-						return true;
-					} else {
-						return !!value;
-					}
-				}
-			})
-		}),
+    validationSchema: yup.object().shape({
+      firstName: yup.string().label('firstName').required('Full Name is required').min(4, 'firstName must be at least 4 characters'),
+      email: yup.string().label('email').required('Email is required').min(4, 'email must be at least 4 characters'),
+      username: yup.string().label('username').required('Username is required').min(4, 'username must be at least 4 characters'),
+      password: yup.string().label('Password').required('Password is required').min(8, 'Minimum password length is 8 characters'),
+      permission: yup.boolean().test({
+        name: 'required-if-true',
+        exclusive: true,
+        message: 'This is required',
+        test: function (value) {
+          const { permission } = this.parent;
+          if (permission === true) {
+            return true;
+          } else {
+            return !!value;
+          }
+        }
+      })
+    }),
 
-		onSubmit: async (values) => {
-			setLoading(true)
-			const spaceIndex = values.firstName.indexOf(' ');
+    onSubmit: async (values) => {
+      setLoading(true)
+      const spaceIndex = values.firstName.indexOf(' ');
 
-			let firstName = '';
-			let lastName = '';
+      let firstName = '';
+      let lastName = '';
 
-			if (spaceIndex !== -1) {
-				firstName = values.firstName.substring(0, spaceIndex);
-				lastName = values.firstName.substring(spaceIndex + 1);
-			} else {
-				firstName = values.firstName;
-			}
+      if (spaceIndex !== -1) {
+        firstName = values.firstName.substring(0, spaceIndex);
+        lastName = values.firstName.substring(spaceIndex + 1);
+      } else {
+        firstName = values.firstName;
+      }
 
-			authService.registerUser(firstName, lastName, values.email, values.username, values.password, values.accountType).then((result: _Object) => {
-				if (result.jwtAuthToken) {
-					toast.success('Register successfully')
-					dispatch(setAuthToken({ refreshToken: result.jwtRefreshToken, authToken: result.jwtAuthToken }))
-					dispatch(setLoggedInUser())
-					formik.resetForm();
-					setLoading(false)
-					closeModal('SignUpModal')
-				} else {
-					setLoading(false)
-				}
-			})
-		}
-	})
+      authService.registerUser(firstName, lastName, values.email, values.username, values.password, values.accountType).then((result: _Object) => {
+        if (result.jwtAuthToken) {
+          toast.success('Register successfully')
+          dispatch(setAuthToken({ refreshToken: result.jwtRefreshToken, authToken: result.jwtAuthToken }))
+          dispatch(setLoggedInUser())
+          formik.resetForm();
+          setLoading(false)
+          closeModal('SignUpModal')
+        } else {
+          setLoading(false)
+        }
+      })
+    }
+  })
 
-	return (
-		<div className="modal fade" id="SignUpModal" tabIndex={-1} aria-labelledby="SignUpModalLabel" aria-hidden="true">
-			<div className="modal-dialog">
-				<div className="modal-content">
-					<div className="modal-body">
-						<form onSubmit={formik.handleSubmit}>
-							<h4 className="justify-between sign-up">
+  return (
+    <div className="modal fade" id="SignUpModal" tabIndex={-1} aria-labelledby="SignUpModalLabel" aria-hidden="true">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-body">
+            <form onSubmit={formik.handleSubmit}>
+              <h4 className="justify-between sign-up">
 								Sign Up
-								<button type="button" onClick={() => formik.resetForm()} className="btn border-0 p-0 modal-close" data-bs-dismiss="modal" aria-label="Close">
-									<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <button type="button" onClick={() => formik.resetForm()} className="btn border-0 p-0 modal-close" data-bs-dismiss="modal" aria-label="Close">
+                  <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
 
-										<defs></defs>
-										<g id="Ico_close" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
-											<g id="Group" stroke="#1A2B48" strokeWidth="1.5">
-												<g id="close">
-													<path d="M0.75,23.249 L23.25,0.749" id="Shape"></path>
-													<path d="M23.25,23.249 L0.75,0.749" id="Shape"></path>
-												</g>
-											</g>
-										</g>
-									</svg>
-								</button>
-							</h4>
+                    <defs></defs>
+                    <g id="Ico_close" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
+                      <g id="Group" stroke="#1A2B48" strokeWidth="1.5">
+                        <g id="close">
+                          <path d="M0.75,23.249 L23.25,0.749" id="Shape"></path>
+                          <path d="M23.25,23.249 L0.75,0.749" id="Shape"></path>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </button>
+              </h4>
 
-							<InputField
-								type="text"
-								name="username"
-								placeholder="Username *"
-								required={true}
-								value={formik.values.username}
-								onChange={formik.handleChange}
-								error={formik.touched.username && formik.errors.username}
-								image={user}
-							/>
+              <InputField
+                type="text"
+                name="username"
+                placeholder="Username *"
+                required={true}
+                value={formik.values.username}
+                onChange={formik.handleChange}
+                error={formik.touched.username && formik.errors.username}
+                image={user}
+              />
 
-							<InputField
-								type="text"
-								name="firstName"
-								placeholder="Full Name"
-								required={true}
-								value={formik.values.firstName}
-								onChange={formik.handleChange}
-								error={formik.touched.firstName && formik.errors.firstName}
-								image={name}
-							/>
+              <InputField
+                type="text"
+                name="firstName"
+                placeholder="Full Name"
+                required={true}
+                value={formik.values.firstName}
+                onChange={formik.handleChange}
+                error={formik.touched.firstName && formik.errors.firstName}
+                image={name}
+              />
 
-							<InputField
-								name="email"
-								placeholder="Email *"
-								type="email"
-								required={true}
-								value={formik.values.email}
-								onChange={formik.handleChange}
-								onBlur={formik.handleBlur}
-								error={formik.touched.email && formik.errors.email}
-								image={mail}
-							/>
+              <InputField
+                name="email"
+                placeholder="Email *"
+                type="email"
+                required={true}
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.email && formik.errors.email}
+                image={mail}
+              />
 
-							<InputField
-								name="password"
-								placeholder="Password *"
-								type="password"
-								required={true}
-								value={formik.values.password}
-								onChange={formik.handleChange}
-								error={formik.touched.password && formik.errors.password}
-								image={password}
-							/>
+              <InputField
+                name="password"
+                placeholder="Password *"
+                type="password"
+                required={true}
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                error={formik.touched.password && formik.errors.password}
+                image={password}
+              />
 
-							<RadioButton
-								label="Select User Type"
-								value={[formik.values.accountType]}
-								options={[
-									{ label: 'Normal user', value: '' },
-									{ label: 'Partner user', value: 'partner' }
-								]}
-								onChange={(e: _Object) => formik.setFieldValue('accountType', e.target.value)}
-							/>
-							<div className="d-flex acceptance">
-								<CheckBox
-									name="permission"
-									options={[{ label: 'I have read and accept the ', value: 'true' }]}
-									error={formik.touched?.permission && formik.errors?.permission}
-									onChange={formik.handleChange}
-								/>&nbsp;
-								<Link href="/privacy-and-policy" onClick={() => { closeModal('SignUpModal'), formik.resetForm() }} className="text-decoration-none fw-medium">Terms and Privacy Policy</Link>
-							</div>
-							<div className="btn-login">
-								<Button
-									className="primary w-100"
-									label="Sign up"
-									type="submit"
-									loading={loading}
-									disabled={loading}
-								/>
-							</div>
+              <RadioButton
+                label="Select User Type"
+                value={[formik.values.accountType]}
+                options={[
+                  { label: 'Normal user', value: '' },
+                  { label: 'Partner user', value: 'partner' }
+                ]}
+                onChange={(e: _Object) => formik.setFieldValue('accountType', e.target.value)}
+              />
+              <div className="d-flex acceptance">
+                <CheckBox
+                  name="permission"
+                  options={[{ label: 'I have read and accept the ', value: 'true' }]}
+                  error={formik.touched?.permission && formik.errors?.permission}
+                  onChange={formik.handleChange}
+                />&nbsp;
+                <Link href="/privacy-and-policy" onClick={() => { closeModal('SignUpModal'), formik.resetForm() }} className="text-decoration-none fw-medium">Terms and Privacy Policy</Link>
+              </div>
+              <div className="btn-login">
+                <Button
+                  className="primary w-100"
+                  label="Sign up"
+                  type="submit"
+                  loading={loading}
+                  disabled={loading}
+                />
+              </div>
 
-							{/* <p className="text-center">
+              {/* <p className="text-center">
 								or continue with
 							</p>
 
@@ -270,20 +270,20 @@ const SignUp = () => {
 								</div>
 							</div> */}
 
-							<hr />
+              <hr />
 
-							<p className="mb-0 mt-3 pt-1 text-center">
+              <p className="mb-0 mt-3 pt-1 text-center">
 								Already have an account?&nbsp;
-								<Link onClick={() => formik.resetForm()} href="#" className="text-decoration-none" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                <Link onClick={() => formik.resetForm()} href="#" className="text-decoration-none" data-bs-toggle="modal" data-bs-target="#LoginModal">
 									Log In
-								</Link>
-							</p>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	)
+                </Link>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default SignUp

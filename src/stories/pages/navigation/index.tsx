@@ -10,19 +10,19 @@ export interface NavigationProps {
 }
 
 const Navigation = (props: NavigationProps) => {
-	const router = useRouter()
+  const router = useRouter()
 
-	return (
-		<>
-			{props?.heading && <h6>{props?.heading}</h6>}
-			<ul className={props?.layout === 'horizontal' ? 'nav' : 'list-unstyled'}>
-				{props?.items?.map((item: _Object, i: number) =>
-					<li className={`nav-item ${router.asPath === '/' ? `${router.asPath === item.path ? 'active' : ''}` : `${router.asPath}/` === item.path ? 'active' : ''}`} key={i}>
-						<Link className="nav-link text-dark" href={item?.path}>{item?.label}</Link>
-					</li>
-				)}
-			</ul>
-		</>
-	)
+  return (
+    <>
+      {props?.heading && <h6>{props?.heading}</h6>}
+      <ul className={props?.layout === 'horizontal' ? 'nav' : 'list-unstyled'}>
+        {props?.items?.map((item: _Object, i: number) =>
+          <li className={`nav-item ${router.asPath === '/' ? `${router.asPath === item.path ? 'active' : ''}` : `${router.asPath}/` === item.path ? 'active' : ''}`} key={i}>
+            <Link className="nav-link text-dark" href={item?.path}>{item?.label}</Link>
+          </li>
+        )}
+      </ul>
+    </>
+  )
 }
 export default Navigation

@@ -1,9 +1,9 @@
 import CommonService from './common.service'
 
 class UserProfileService extends CommonService {
-	async me() {
-		return await this.post({
-			query:
+  async me() {
+    return await this.post({
+      query:
 				` query  {
 				customer(id: "Y3VzdG9tZXI6Mg==") {
 					firstName
@@ -19,12 +19,12 @@ class UserProfileService extends CommonService {
 					}
 				}
 		  }`
-		})
-	}
+    })
+  }
 
-	async getMe() {
-		const data = await this.post({
-			query:
+  async getMe() {
+    const data = await this.post({
+      query:
 				`query viewer{
 					viewer {
 						email
@@ -49,13 +49,13 @@ class UserProfileService extends CommonService {
 					}
 				}
 			`
-		})
+    })
 
-		return data.data.viewer
-	}
+    return data.data.viewer
+  }
 
-	async updateProfile(ID: string, firstName: string, lastName: string, email: string, mobileNumber: string) {
-		const query = `
+  async updateProfile(ID: string, firstName: string, lastName: string, email: string, mobileNumber: string) {
+    const query = `
 			mutation EditProfile($ID: ID!, $firstName: String!, $email: String!, $lastName: String!, , $mobileNumber: String!) {
 				updateUser(
 					input: {id: $ID, firstName: $firstName, lastName: $lastName, email: $email, mobileNumber: $mobileNumber}
@@ -68,21 +68,21 @@ class UserProfileService extends CommonService {
 			}
 		`
 
-		const variables = {
-			firstName,
-			lastName,
-			email,
-			ID,
-			mobileNumber
-		};
+    const variables = {
+      firstName,
+      lastName,
+      email,
+      ID,
+      mobileNumber
+    };
 
-		const result = await this.post({ query: query, variables: variables });
+    const result = await this.post({ query: query, variables: variables });
 
-		return result.data?.updateUser?.user || result
-	}
+    return result.data?.updateUser?.user || result
+  }
 
-	async updatePassword(ID: string, password: string) {
-		const query = `
+  async updatePassword(ID: string, password: string) {
+    const query = `
 			mutation EditProfile($ID: ID!, $password: String!) {
 				updateUser(
 					input: {id: $ID, password: $password}
@@ -95,14 +95,14 @@ class UserProfileService extends CommonService {
 			}
 		`
 
-		const variables = {
-			ID,
-			password
-		};
+    const variables = {
+      ID,
+      password
+    };
 
-		const result = await this.post({ query: query, variables: variables });
+    const result = await this.post({ query: query, variables: variables });
 
-		return result.data?.updateUser?.user || result
-	}
+    return result.data?.updateUser?.user || result
+  }
 }
 export const userProfileService = new UserProfileService()

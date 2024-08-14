@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react'
 import Logo from '.'
 
 const meta = {
-	title: 'Pages/Logo',
-	component: Logo
+  title: 'Pages/Logo',
+  component: Logo
 
 } satisfies Meta<typeof Logo>
 
