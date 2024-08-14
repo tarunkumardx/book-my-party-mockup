@@ -89,7 +89,7 @@ const Listing = (props: _Object) => {
 	const handleFilterClick = (id) => {
 		setActiveAccordion(prevState => (prevState === id ? '' : id));
 	};
-  
+
 	// Add an active css border in the active accordion button
 	const getButtonClass = (id) => {
 		return `accordion-button customPadding ${activeAccordion === id ? 'active-button' : ''}`;
@@ -504,20 +504,22 @@ const Listing = (props: _Object) => {
 									/> */}
 								</div>
 
-								<div className="offcanvas offcanvas-start filter-offcanvas" tabIndex={-1} id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
+								<div style={{ width: '528px' }} className="offcanvas offcanvas-start filter-offcanvas" tabIndex={-1} id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
 									<div className="offcanvas-header">
 										<button type="button" className="btn-close ms-auto topCloseBtn" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-										<button type="button" className="ms-auto topClearBtn" data-bs-dismiss="offcanvas">Clear Filter</button>
+										<button type="button" aria-label="Close" className="ms-auto topClearBtn" data-bs-dismiss="offcanvas">Clear All Filter</button>
 									</div>
 									<div className='bottomResults'>
-										<button aria-label="close" className='bottomBtn'>SHOW {list?.pageInfo?.total} RESULTS</button>
+										<button aria-label="close" data-bs-dismiss="offcanvas" className='bottomBtn'>SHOW {list?.pageInfo?.total} RESULTS</button>
 									</div>
+
+
 									{/* Testing chat gpt code */}
 									<div className="filter-container d-flex">
 
 										<div className="filter-buttons">
 											<div className="accordion-item">
-												<button  className={getButtonClass('price')} onClick={() => handleFilterClick('price')} type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded={activeAccordion === 'price'} aria-controls="price">
+												<button className={getButtonClass('price')} onClick={() => handleFilterClick('price')} type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded={activeAccordion === 'price'} aria-controls="price">
 													BUDGET / PRICE
 												</button>
 											</div>
@@ -532,7 +534,7 @@ const Listing = (props: _Object) => {
 													</div>
 												)}
 
-											{props?.venueTypes?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('category')}  className={getButtonClass('category')} type="button" data-bs-toggle="collapse" data-bs-target="#category" aria-expanded={activeAccordion === 'category'} aria-controls="category">
+											{props?.venueTypes?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('category')} className={getButtonClass('category')} type="button" data-bs-toggle="collapse" data-bs-target="#category" aria-expanded={activeAccordion === 'category'} aria-controls="category">
 												RESTAURANT TYPE
 											</button>
 											}
@@ -551,9 +553,20 @@ const Listing = (props: _Object) => {
 												</button>
 											}
 											{
-												props?.locations?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('locations')} className={getButtonClass('locations')}  type="button" data-bs-toggle="collapse" data-bs-target="#locations" aria-expanded={activeAccordion === 'locations'} aria-controls="locations">
-													LOCATIONS
-												</button>
+												props?.locations?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 &&
+												<>
+													<button
+														onClick={() => handleFilterClick('locations')}
+														className={getButtonClass('locations')}
+														type="button"
+														data-bs-toggle="collapse"
+														data-bs-target="#locations"
+														aria-expanded={activeAccordion === 'locations'}
+														aria-controls="locations"
+													>
+														LOCATIONS
+													</button> 
+												</>
 											}
 											{
 												(query?.types === 'restaurant' || query?.types === 'fun-zone') && <button onClick={() => handleFilterClick('capacity')} className={getButtonClass('capacity')} type="button" data-bs-toggle="collapse" data-bs-target="#capacity" aria-expanded={activeAccordion === 'capacity'} aria-controls="capacity">
@@ -578,6 +591,64 @@ const Listing = (props: _Object) => {
 
 
 										<div className="filter-content">
+										{/* Conditional rendering the search bar */}
+										{activeAccordion === 'locations' && (
+														<div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
+															<input
+																style={{ width: '80% !important' }}
+																type="email"
+																className="form-control"
+																id="exampleInputEmail1"
+																aria-describedby="emailHelp"
+																placeholder="Search Location"
+															/>
+														</div>
+													)}
+												{/* Conditional rendering the cuisine */}
+												{
+													activeAccordion === 'cuisine' && (
+														<div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
+															<input
+																style={{ width: '80% !important' }}
+																type="email"
+																className="form-control"
+																id="exampleInputEmail1"
+																aria-describedby="emailHelp"
+																placeholder="Search Cuisine"
+															/>
+														</div>
+													)
+												}
+												{/* Conditional rendering the cuisine */}
+												{
+													activeAccordion === 'amenities' && (
+														<div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
+															<input
+																style={{ width: '80% !important' }}
+																type="email"
+																className="form-control"
+																id="exampleInputEmail1"
+																aria-describedby="emailHelp"
+																placeholder="Search amenities"
+															/>
+														</div>
+													)
+												}
+												{/* Conditonal rendering search bar for occasions */}
+												{
+														activeAccordion === 'occasions' && (
+															<div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
+															<input
+																style={{ width: '80% !important' }}
+																type="email"
+																className="form-control"
+																id="exampleInputEmail1"
+																aria-describedby="emailHelp"
+																placeholder="Search Occasions"
+															/>
+														</div>
+														)
+												}
 
 											<div id="price" className={`accordion-collapse collapse ${activeAccordion === 'price' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#price">
 												<div className="accordion-body">
