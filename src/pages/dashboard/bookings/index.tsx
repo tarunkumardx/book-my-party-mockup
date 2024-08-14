@@ -50,6 +50,7 @@ const BookingHistory = () => {
 				const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId, venuesIds: venuesIds }, loggedInUser?.roles?.nodes?.some((item: _Object) => item.name != 'author') ? 'user' : 'admin')
 				if (data?.entries) {
 					setList(data)
+					// console.log(data)
 				} else {
 					setList({ entries: [], total_count: 0 })
 				}
@@ -138,6 +139,7 @@ const BookingHistory = () => {
 											</tr>
 										)}
 										{!loading && list?.entries?.map((item: _Object, i: number) => {
+											console.log(item)
 											return (
 												<tr key={i}>
 													<td>
@@ -163,7 +165,27 @@ const BookingHistory = () => {
 													<td>
 														{amountFormat(item['32'])}
 													</td>
-													<td className="status"><span className="complete">Completed</span></td>
+													{(loggedInUser?.roles?.nodes && loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator'))) ?
+														(<td className="status">
+															{item['134'] && item['134'] === 'Completed' ? (
+																<span className="complete">{item['134']}</span>
+															) : (
+																<><span className="pending">Pendings</span>
+																	<select className={'status-dropdown'}>
+																		<option value="Pending"><span className="pending">Pending</span></option>
+																		<option value="Completed"><span className="complete">Completed</span></option>
+																	</select></>
+															)}
+														</td>
+														)
+														:
+														(<td className="status">
+															{item['134'] && item['134'] === 'Completed' ? (
+																<span className="complete">{item['134']}</span>
+															) : (
+																<span className="pending">Pending</span>
+															)}
+														</td>)}
 													<td>
 														<Link href={`/dashboard/bookings/${item.id}`} className="btn btn-primary">
 															<FontAwesomeIcon icon={faInfoCircle} />
