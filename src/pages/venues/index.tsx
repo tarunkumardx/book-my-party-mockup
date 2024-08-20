@@ -83,15 +83,15 @@ const Listing = (props: _Object) => {
 		firstLoading: true
 	})
 
-	// Function for toggle filters 
+	// Function for toggle filters
 	const [activeAccordion, setActiveAccordion] = useState('price');
 
-	const handleFilterClick = (id) => {
+	const handleFilterClick = (id:string) => {
 		setActiveAccordion(prevState => (prevState === id ? '' : id));
 	};
-  
+
 	// Add an active css border in the active accordion button
-	const getButtonClass = (id) => {
+	const getButtonClass = (id:string) => {
 		return `accordion-button customPadding ${activeAccordion === id ? 'active-button' : ''}`;
 	};
 
@@ -361,24 +361,6 @@ const Listing = (props: _Object) => {
 		}
 	}
 
-	// Function to clear all the user fields enter filters
-	const clearAllFilters = () => {
-		const query = router.query;
-
-		// Reset all filter-related query parameters
-		delete query.price_range;
-		delete query.activities;
-		delete query.venueTypes;
-		delete query.cuisines;
-		delete query.franchises;
-
-		// Update the URL with the cleared filters
-		router.push({
-			pathname: router.pathname,
-			query: query,
-		});
-	};
-
 	return (
 		<Layout {...props}>
 			<SEOHead seo={{ title: 'Venues - Book My Party' } || ''} />
@@ -509,15 +491,15 @@ const Listing = (props: _Object) => {
 										<button type="button" className="btn-close ms-auto topCloseBtn" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 										<button type="button" className="ms-auto topClearBtn" data-bs-dismiss="offcanvas">Clear Filter</button>
 									</div>
-									<div className='bottomResults'>
-										<button aria-label="close" className='bottomBtn'>SHOW {list?.pageInfo?.total} RESULTS</button>
+									<div className="bottomResults">
+										<button aria-label="close" className="bottomBtn">SHOW {list?.pageInfo?.total} RESULTS</button>
 									</div>
 									{/* Testing chat gpt code */}
 									<div className="filter-container d-flex">
 
 										<div className="filter-buttons">
 											<div className="accordion-item">
-												<button  className={getButtonClass('price')} onClick={() => handleFilterClick('price')} type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded={activeAccordion === 'price'} aria-controls="price">
+												<button className={getButtonClass('price')} onClick={() => handleFilterClick('price')} type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded={activeAccordion === 'price'} aria-controls="price">
 													BUDGET / PRICE
 												</button>
 											</div>
@@ -525,20 +507,20 @@ const Listing = (props: _Object) => {
 											{props?.activities?.filter((item: _Object) =>
 												item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
 											)?.length > 0 && (
-													<div className="accordion-item">
-														<button className="accordion-button customPadding" type="button" data-bs-toggle="collapse" data-bs-target="#activity" aria-expanded="true" aria-controls="activity">
+												<div className="accordion-item">
+													<button className="accordion-button customPadding" type="button" data-bs-toggle="collapse" data-bs-target="#activity" aria-expanded="true" aria-controls="activity">
 															ACTIVITIES
-														</button>
-													</div>
-												)}
+													</button>
+												</div>
+											)}
 
-											{props?.venueTypes?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('category')}  className={getButtonClass('category')} type="button" data-bs-toggle="collapse" data-bs-target="#category" aria-expanded={activeAccordion === 'category'} aria-controls="category">
+											{props?.venueTypes?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('category')} className={getButtonClass('category')} type="button" data-bs-toggle="collapse" data-bs-target="#category" aria-expanded={activeAccordion === 'category'} aria-controls="category">
 												RESTAURANT TYPE
 											</button>
 											}
 
 											{props?.cuisines?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 &&
-												<div className='accordion-item'>
+												<div className="accordion-item">
 													<button onClick={() => handleFilterClick('cuisine')} className={getButtonClass('cuisine')} type="button" data-bs-toggle="collapse" data-bs-target="#cuisine" aria-expanded={activeAccordion === 'cuisine'} aria-controls="cuisine">
 														CUISINES
 													</button>
@@ -551,7 +533,7 @@ const Listing = (props: _Object) => {
 												</button>
 											}
 											{
-												props?.locations?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('locations')} className={getButtonClass('locations')}  type="button" data-bs-toggle="collapse" data-bs-target="#locations" aria-expanded={activeAccordion === 'locations'} aria-controls="locations">
+												props?.locations?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('locations')} className={getButtonClass('locations')} type="button" data-bs-toggle="collapse" data-bs-target="#locations" aria-expanded={activeAccordion === 'locations'} aria-controls="locations">
 													LOCATIONS
 												</button>
 											}
@@ -567,7 +549,7 @@ const Listing = (props: _Object) => {
 											}
 											{
 												query?.types === 'restaurant' &&
-												<div className='accordion-item'>
+												<div className="accordion-item">
 													<button onClick={() => handleFilterClick('occasions')} className={getButtonClass('occasions')} type="button" data-bs-toggle="collapse" data-bs-target="#occasions" aria-expanded={activeAccordion === 'occasions'} aria-controls="occasions">
 														OCCASIONS
 													</button>
@@ -575,7 +557,6 @@ const Listing = (props: _Object) => {
 											}
 
 										</div>
-
 
 										<div className="filter-content">
 
@@ -705,13 +686,9 @@ const Listing = (props: _Object) => {
 												</div>
 											</div>
 
-
-
-
 										</div>
 									</div>
 									{/* Testing chat gpt code ends here */}
-
 
 									{/* side drawer body for filter */}
 									<div className="offcanvas-body upperDrawer d-none">
@@ -1481,4 +1458,4 @@ const Listing = (props: _Object) => {
 	)
 }
 
-export default Listing
+export default Listing;

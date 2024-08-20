@@ -192,7 +192,13 @@ const Dashboard = () => {
 													<td>
 														{amountFormat(item['32'])}
 													</td>
-													<td className="status"><span className="complete">Completed</span></td>
+													<td className="status">
+														{item['134'] && item['134'] === 'Completed' ? (
+															<span className="complete">{item['134']}</span>
+														) : (
+															<span className="pending">Pending</span>
+														)}
+													</td>
 													<td>
 														<Link href={`/dashboard/bookings/${item.id}`} className="btn btn-primary">
 															<FontAwesomeIcon icon={faInfoCircle} />

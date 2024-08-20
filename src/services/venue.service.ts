@@ -85,6 +85,7 @@ class ListService extends CommonService {
 	                googleMap
 	                landmarks
 	              }
+                
 	            }
 	          }
 	          pageInfo {
@@ -328,6 +329,7 @@ class ListService extends CommonService {
                   googleMap
                   landmarks
                 }
+                  
                 paxPrice
                 holidays
               }
@@ -437,6 +439,7 @@ class ListService extends CommonService {
                 landmarks
                 subLocation
               }
+                
               googleReviewsId
               capacity
               faqs {
@@ -683,7 +686,8 @@ class ListService extends CommonService {
                 shortDescription
                 timing
                 validOn
-              }  
+              }
+                  
             }
             id
             slug

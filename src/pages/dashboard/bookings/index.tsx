@@ -10,23 +10,55 @@ import { AppDispatch } from '@/redux/store';
 import { bookingService } from '@/services/booking.service';
 import { listService } from '@/services/venue.service';
 import { useRouter } from 'next/router';
-import { amountFormat } from '@/utils/helpers';
+import { amountFormat, changeDateFormat, formatDate } from '@/utils/helpers';
 import Image from 'next/image';
 import { CalendarView, ListView } from '@/assets/images';
+import { Dropdown } from 'rsuite';
 
 type RootState = {
 	session: {
 		loggedInUser: _Object;
 	};
 };
+interface ListEntry {
+  id: number;
+  [key: string | number]: string | number;
+}
 
+interface List {
+  entries: ListEntry[];
+  total_count: number;
+}
+
+interface DropdownStates {
+  [key: string | number]: string | number;
+}
 const BookingHistory = () => {
 	const router: _Object = useRouter();
 	const dispatch = useDispatch<AppDispatch>()
 
 	const { loggedInUser } = useSelector((state: RootState) => state.session);
 
-	const [list, setList] = useState<_Object>({ entries: [], total_count: 0 })
+	const [list, setList] = useState<List>({ entries: [], total_count: 0 });
+	const [dropdownStates, setDropdownStates] = useState<DropdownStates>({});
+	useEffect(() => {
+		// Initialize dropdownStates when list.entries changes
+		setDropdownStates(
+			list.entries.reduce<DropdownStates>((acc, item) => {
+				console.log(typeof item.id)
+				acc[item.id] = item['134'] || 'Request Received';
+
+				console.log(item)
+				return acc;
+			}, {})
+		);
+	}, [list.entries]);
+	const handleSelect = (itemId:number, status:string) => {
+		setDropdownStates((prevStates:object)=> ({
+			...prevStates,
+			[itemId]: status
+		}));
+	};
 	const [filterData, setFilterData] = useState<_Object>({
 		page: 1,
 		per_page: 10,
@@ -37,7 +69,22 @@ const BookingHistory = () => {
 		loading: false,
 		index: 0
 	})
-
+	const getDropdownClass = (status:string | number) => {
+		switch (status) {
+			case 'Request Received':
+				return 'request_received';
+			case 'Booking Confirmed':
+				return 'booking_confirmed';
+			case 'Booking Completed':
+				return 'booking_confirmed';
+			case 'Booking Declined':
+				return 'booking_declined';
+			case 'Booking Cancelled':
+				return 'booking_declined';
+			default:
+				return '';
+		}
+	};
 	useEffect(() => {
 		dispatch(setLoggedInUser())
 		async function name() {
@@ -50,6 +97,7 @@ const BookingHistory = () => {
 				const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId, venuesIds: venuesIds }, loggedInUser?.roles?.nodes?.some((item: _Object) => item.name != 'author') ? 'user' : 'admin')
 				if (data?.entries) {
 					setList(data)
+					// console.log(data)
 				} else {
 					setList({ entries: [], total_count: 0 })
 				}
@@ -99,13 +147,14 @@ const BookingHistory = () => {
 					<div className="card-body">
 
 						<div className="tab-content" id="pills-tabContent">
-							<div className="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab" tabIndex={0}>
+							<div className="tab-pane fade show active overflow-x" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab" tabIndex={0}>
 								<table className="table table-bordered table-striped ">
 									<thead>
 										<tr>
 											<th>Booking ID</th>
 											<th>Guest Name</th>
 											<th>Booking Date</th>
+											<th>Party Date</th>
 											<th>Timing</th>
 											<th>Venue Name</th>
 											<th>Amount</th>
@@ -145,7 +194,10 @@ const BookingHistory = () => {
 													</td>
 													<td>{`${item['28.3']}` + ' ' + `${item['28.6']}`}</td>
 													<td>
-														{item['110']}
+														{changeDateFormat(item['date_created'].split(' ')[0],'dashboard')}
+													</td>
+													<td>
+														{formatDate(item['110'])}
 													</td>
 													<td>
 														{item['25']} Hours
@@ -163,7 +215,47 @@ const BookingHistory = () => {
 													<td>
 														{amountFormat(item['32'])}
 													</td>
-													<td className="status"><span className="complete">Completed</span></td>
+													{(loggedInUser?.roles?.nodes && loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator'))) ?
+														(<td className="status">
+															<Dropdown title={dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
+																<Dropdown.Item
+																	onClick={() => handleSelect(item.id, 'Request Received')}
+																>
+                      Request Received
+																</Dropdown.Item>
+																<Dropdown.Item
+																	onClick={() => handleSelect(item.id, 'Booking Confirmed')}
+																>
+                      Booking Confirmed
+																</Dropdown.Item>
+																<Dropdown.Item
+																	onClick={() => handleSelect(item.id, 'Booking Declined')}
+																>
+                      Booking Declined
+																</Dropdown.Item>
+																<Dropdown.Item
+																	onClick={() => handleSelect(item.id, 'Booking Completed')}
+																>
+                      Booking Completed
+																</Dropdown.Item>
+															</Dropdown>
+														</td>
+														)
+														:
+														(<td className="status">
+															{/* {item['134'] && item['134'] === 'Completed' ? (
+																<span className="complete">{item['134']}</span>
+															) : (
+																<span className="pending">Pending</span>
+															)} */}
+															<Dropdown title={dropdownStates[item.id]==='Request Received' ? 'Waitlisted': dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
+																<Dropdown.Item
+																	onClick={() => handleSelect(item.id, 'Booking Cancelled')}
+																>
+                      Booking Cancelled
+																</Dropdown.Item>
+															</Dropdown>
+														</td>)}
 													<td>
 														<Link href={`/dashboard/bookings/${item.id}`} className="btn btn-primary">
 															<FontAwesomeIcon icon={faInfoCircle} />
