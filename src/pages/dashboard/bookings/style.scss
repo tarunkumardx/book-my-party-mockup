@@ -336,3 +336,20 @@
 button.btn.btn-link {
   font-size: 10px;
 }
+
+.rs-dropdown-toggle, .rs-dropdown-toggle.rs-btn{
+  justify-content: space-between;
+  min-width: 200px;
+}
+.rs-dropdown .rs-dropdown-menu{
+  width: 100%;
+}
+.request_received button{
+  color: $warning !important;
+}
+.booking_confirmed button{
+  color: #10cd78 !important;
+}
+.booking_declined button{
+  color: $danger !important;
+}

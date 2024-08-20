@@ -2,7 +2,7 @@
 import moment from 'moment';
 
 export const formatDate = (dateString: string): string => {
-	const [month, day, year] = dateString.split('-');
+	const [day, month, year] = dateString.split('-');
 	const formattedDateString = `${day}/${month}/${year}`;
 
 	return formattedDateString;
@@ -82,6 +82,8 @@ export const changeDateFormat = (dateString: string, format = ''): string | null
 		return `${parts[1]}/${parts[0]}/${parts[2]}`;
 	} else if (parts?.length === 3 && format === 'form') {
 		return `${parts[1]}-${parts[0]}-${parts[2]}`;
+	} else if (parts?.length === 3 && format === 'dashboard') {
+		return `${parts[2]}/${parts[1]}/${parts[0]}`;
 	} else {
 		return null;
 	}

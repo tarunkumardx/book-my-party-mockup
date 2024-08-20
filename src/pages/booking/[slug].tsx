@@ -87,7 +87,7 @@ const Booking = () => {
 			input_113: venueDetails?.title,
 			input_114: venueDetails?.author?.node?.databaseId,
 			input_124: venueDetails?.extraOptions?.address?.address,
-			input_134: venueDetails?.extraOptions?.bookingStatus || 'Pending'
+			input_134: venueDetails?.extraOptions?.bookingStatus || 'Request Received'
 		},
 		enableReinitialize: true,
 		validationSchema: yup.object().shape({

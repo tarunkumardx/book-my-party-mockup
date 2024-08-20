@@ -10,9 +10,10 @@ import { AppDispatch } from '@/redux/store';
 import { bookingService } from '@/services/booking.service';
 import { listService } from '@/services/venue.service';
 import { useRouter } from 'next/router';
-import { amountFormat } from '@/utils/helpers';
+import { amountFormat, changeDateFormat, formatDate } from '@/utils/helpers';
 import Image from 'next/image';
 import { CalendarView, ListView } from '@/assets/images';
+import { Dropdown } from 'rsuite';
 
 type RootState = {
 	session: {
@@ -26,7 +27,26 @@ const BookingHistory = () => {
 
 	const { loggedInUser } = useSelector((state: RootState) => state.session);
 
-	const [list, setList] = useState<_Object>({ entries: [], total_count: 0 })
+	const [list, setList] = useState({ entries: [], total_count: 0 });
+	const [dropdownStates, setDropdownStates] = useState({});
+	console.log(list)
+	useEffect(() => {
+		// Initialize dropdownStates when list.entries changes
+		setDropdownStates(
+			list.entries.reduce((acc:object, item:object) => {
+				acc[item.id] = item['134'] || 'Request Received';
+
+				console.log(item)
+				return acc;
+			}, {})
+		);
+	}, [list.entries]);
+	const handleSelect = (itemId:number, status:string) => {
+		setDropdownStates((prevStates:object)=> ({
+			...prevStates,
+			[itemId]: status
+		}));
+	};
 	const [filterData, setFilterData] = useState<_Object>({
 		page: 1,
 		per_page: 10,
@@ -37,7 +57,22 @@ const BookingHistory = () => {
 		loading: false,
 		index: 0
 	})
-
+	const getDropdownClass = (status:string) => {
+		switch (status) {
+			case 'Request Received':
+				return 'request_received';
+			case 'Booking Confirmed':
+				return 'booking_confirmed';
+			case 'Booking Completed':
+				return 'booking_confirmed';
+			case 'Booking Declined':
+				return 'booking_declined';
+			case 'Booking Cancelled':
+				return 'booking_declined';
+			default:
+				return '';
+		}
+	};
 	useEffect(() => {
 		dispatch(setLoggedInUser())
 		async function name() {
@@ -107,6 +142,7 @@ const BookingHistory = () => {
 											<th>Booking ID</th>
 											<th>Guest Name</th>
 											<th>Booking Date</th>
+											<th>Party Date</th>
 											<th>Timing</th>
 											<th>Venue Name</th>
 											<th>Amount</th>
@@ -139,7 +175,6 @@ const BookingHistory = () => {
 											</tr>
 										)}
 										{!loading && list?.entries?.map((item: _Object, i: number) => {
-											console.log(item)
 											return (
 												<tr key={i}>
 													<td>
@@ -147,7 +182,10 @@ const BookingHistory = () => {
 													</td>
 													<td>{`${item['28.3']}` + ' ' + `${item['28.6']}`}</td>
 													<td>
-														{item['110']}
+														{changeDateFormat(item['date_created'].split(' ')[0],'dashboard')}
+													</td>
+													<td>
+														{formatDate(item['110'])}
 													</td>
 													<td>
 														{item['25']} Hours
@@ -167,24 +205,44 @@ const BookingHistory = () => {
 													</td>
 													{(loggedInUser?.roles?.nodes && loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator'))) ?
 														(<td className="status">
-															{item['134'] && item['134'] === 'Completed' ? (
-																<span className="complete">{item['134']}</span>
-															) : (
-																<><span className="pending">Pendings</span>
-																	<select className={'status-dropdown'}>
-																		<option value="Pending"><span className="pending">Pending</span></option>
-																		<option value="Completed"><span className="complete">Completed</span></option>
-																	</select></>
-															)}
+															<Dropdown title={dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
+																<Dropdown.Item
+																	onClick={() => handleSelect(item.id, 'Request Received')}
+																>
+                      Request Received
+																</Dropdown.Item>
+																<Dropdown.Item
+																	onClick={() => handleSelect(item.id, 'Booking Confirmed')}
+																>
+                      Booking Confirmed
+																</Dropdown.Item>
+																<Dropdown.Item
+																	onClick={() => handleSelect(item.id, 'Booking Declined')}
+																>
+                      Booking Declined
+																</Dropdown.Item>
+																<Dropdown.Item
+																	onClick={() => handleSelect(item.id, 'Booking Completed')}
+																>
+                      Booking Completed
+																</Dropdown.Item>
+															</Dropdown>
 														</td>
 														)
 														:
 														(<td className="status">
-															{item['134'] && item['134'] === 'Completed' ? (
+															{/* {item['134'] && item['134'] === 'Completed' ? (
 																<span className="complete">{item['134']}</span>
 															) : (
 																<span className="pending">Pending</span>
-															)}
+															)} */}
+															<Dropdown title={dropdownStates[item.id]==='Request Received' ? 'Waitlisted': dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
+																<Dropdown.Item
+																	onClick={() => handleSelect(item.id, 'Booking Cancelled')}
+																>
+                      Booking Cancelled
+																</Dropdown.Item>
+															</Dropdown>
 														</td>)}
 													<td>
 														<Link href={`/dashboard/bookings/${item.id}`} className="btn btn-primary">
