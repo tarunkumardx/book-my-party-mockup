@@ -25,7 +25,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 	const { loggedInUser } = useSelector((state: RootState) => state.session);
 
 	const dispatch = useDispatch<AppDispatch>()
-	const [show, setShow] = useState(true)
+	const [show, setShow] = useState(false)
 
 	const reloadPage = () => {
 		router.reload(); // Reload the page

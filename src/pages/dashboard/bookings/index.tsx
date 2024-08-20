@@ -20,20 +20,32 @@ type RootState = {
 		loggedInUser: _Object;
 	};
 };
+interface ListEntry {
+  id: number;
+  [key: string | number]: string | number;
+}
 
+interface List {
+  entries: ListEntry[];
+  total_count: number;
+}
+
+interface DropdownStates {
+  [key: string | number]: string | number;
+}
 const BookingHistory = () => {
 	const router: _Object = useRouter();
 	const dispatch = useDispatch<AppDispatch>()
 
 	const { loggedInUser } = useSelector((state: RootState) => state.session);
 
-	const [list, setList] = useState({ entries: [], total_count: 0 });
-	const [dropdownStates, setDropdownStates] = useState({});
-	console.log(list)
+	const [list, setList] = useState<List>({ entries: [], total_count: 0 });
+	const [dropdownStates, setDropdownStates] = useState<DropdownStates>({});
 	useEffect(() => {
 		// Initialize dropdownStates when list.entries changes
 		setDropdownStates(
-			list.entries.reduce((acc:object, item:object) => {
+			list.entries.reduce<DropdownStates>((acc, item) => {
+				console.log(typeof item.id)
 				acc[item.id] = item['134'] || 'Request Received';
 
 				console.log(item)
@@ -57,7 +69,7 @@ const BookingHistory = () => {
 		loading: false,
 		index: 0
 	})
-	const getDropdownClass = (status:string) => {
+	const getDropdownClass = (status:string | number) => {
 		switch (status) {
 			case 'Request Received':
 				return 'request_received';
@@ -135,7 +147,7 @@ const BookingHistory = () => {
 					<div className="card-body">
 
 						<div className="tab-content" id="pills-tabContent">
-							<div className="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab" tabIndex={0}>
+							<div className="tab-pane fade show active overflow-x" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab" tabIndex={0}>
 								<table className="table table-bordered table-striped ">
 									<thead>
 										<tr>

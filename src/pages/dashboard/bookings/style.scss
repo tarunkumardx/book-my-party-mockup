@@ -125,6 +125,11 @@
                 }
               }
             }
+            .overflow-x{
+              display: flex;
+              flex-wrap: nowrap;
+              overflow-x: auto;
+            }
           }
         }
       }
@@ -160,6 +165,18 @@
             }
           }
         }
+      }
+
+      @media (max-width:767px){
+        h3{
+          padding-left: 2rem;
+        }
+      }
+    }
+    @media (max-width:767px){
+      h3{
+        padding-left: 2rem;
+        padding-bottom: 2rem;
       }
     }
   }
@@ -317,6 +334,11 @@
           }
         }
       }
+    }
+  }
+  @media (max-width:767px){
+    h3{
+      padding-left: 2rem;
     }
   }
 }
