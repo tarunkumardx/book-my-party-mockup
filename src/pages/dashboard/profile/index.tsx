@@ -9,6 +9,8 @@ import { AppDispatch } from '@/redux/store';
 import { setLoggedInUser } from '@/redux/slices/session.slice';
 import { _Object } from '@/utils/types';
 import { userProfileService } from '@/services/profile.service';
+import { Uploader, Message, Loader, useToaster } from 'rsuite';
+import AvatarIcon from '@rsuite/icons/legacy/Avatar';
 
 type RootState = {
 	session: {
@@ -16,6 +18,15 @@ type RootState = {
 		loggedInUser: _Object;
 	};
 };
+
+function previewFile(file:Blob, callback) {
+  console.log(typeof callback)
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    callback(reader.result);
+  };
+  reader.readAsDataURL(file);
+}
 
 const Profile = () => {
   const dispatch = useDispatch<AppDispatch>()

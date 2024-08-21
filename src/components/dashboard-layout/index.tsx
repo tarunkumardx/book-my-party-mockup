@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Dotsbutton, EditUser, WishList, bookingHistory, dashboard, logo, setting, user, userAvtar, venue} from '@/assets/images';
@@ -24,13 +25,8 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 
   const { loggedInUser } = useSelector((state: RootState) => state.session);
 
-<<<<<<< HEAD
   const dispatch = useDispatch<AppDispatch>()
-  const [show, setShow] = useState(true)
-=======
-	const dispatch = useDispatch<AppDispatch>()
-	const [show, setShow] = useState(false)
->>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
+  const [show, setShow] = useState(false)
 
   const reloadPage = () => {
     router.reload(); // Reload the page
