@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import { _Object } from '@/utils/types';
 import Image from 'next/image';
 import React from 'react';

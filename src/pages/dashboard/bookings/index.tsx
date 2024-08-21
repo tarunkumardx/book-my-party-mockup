@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React, { useEffect, useState } from 'react';
 import { DashboardLayout, Pagination, SEOHead } from '@/components';
 import Link from 'next/link';
@@ -39,8 +40,26 @@ const BookingHistory = () => {
 
   const { loggedInUser } = useSelector((state: RootState) => state.session);
 
-<<<<<<< HEAD
-  const [list, setList] = useState<_Object>({ entries: [], total_count: 0 })
+  const [list, setList] = useState<List>({ entries: [], total_count: 0 });
+  const [dropdownStates, setDropdownStates] = useState<DropdownStates>({});
+  useEffect(() => {
+    // Initialize dropdownStates when list.entries changes
+    setDropdownStates(
+      list.entries.reduce<DropdownStates>((acc, item) => {
+        console.log(typeof item.id)
+        acc[item.id] = item['134'] || 'Request Received';
+
+        console.log(item)
+        return acc;
+      }, {})
+    );
+  }, [list.entries]);
+  const handleSelect = (itemId:number, status:string) => {
+    setDropdownStates((prevStates:object)=> ({
+      ...prevStates,
+      [itemId]: status
+    }));
+  };
   const [filterData, setFilterData] = useState<_Object>({
     page: 1,
     per_page: 10,
@@ -51,92 +70,41 @@ const BookingHistory = () => {
     loading: false,
     index: 0
   })
-
+  const getDropdownClass = (status:string | number) => {
+    switch (status) {
+    case 'Request Received':
+      return 'request_received';
+    case 'Booking Confirmed':
+      return 'booking_confirmed';
+    case 'Booking Completed':
+      return 'booking_confirmed';
+    case 'Booking Declined':
+      return 'booking_declined';
+    case 'Booking Cancelled':
+      return 'booking_declined';
+    default:
+      return '';
+    }
+  };
   useEffect(() => {
     dispatch(setLoggedInUser())
     async function name() {
       setLoading(true)
       if (loggedInUser?.databaseId) {
         const venues = await listService.getVenuesIds(loggedInUser.databaseId)
-=======
-	const [list, setList] = useState<List>({ entries: [], total_count: 0 });
-	const [dropdownStates, setDropdownStates] = useState<DropdownStates>({});
-	useEffect(() => {
-		// Initialize dropdownStates when list.entries changes
-		setDropdownStates(
-			list.entries.reduce<DropdownStates>((acc, item) => {
-				console.log(typeof item.id)
-				acc[item.id] = item['134'] || 'Request Received';
-
-				console.log(item)
-				return acc;
-			}, {})
-		);
-	}, [list.entries]);
-	const handleSelect = (itemId:number, status:string) => {
-		setDropdownStates((prevStates:object)=> ({
-			...prevStates,
-			[itemId]: status
-		}));
-	};
-	const [filterData, setFilterData] = useState<_Object>({
-		page: 1,
-		per_page: 10,
-		user_id: loggedInUser?.databaseId
-	})
-	const [loading, setLoading] = useState(false)
-	const [slugLoading, setSlugLoading] = useState({
-		loading: false,
-		index: 0
-	})
-	const getDropdownClass = (status:string | number) => {
-		switch (status) {
-			case 'Request Received':
-				return 'request_received';
-			case 'Booking Confirmed':
-				return 'booking_confirmed';
-			case 'Booking Completed':
-				return 'booking_confirmed';
-			case 'Booking Declined':
-				return 'booking_declined';
-			case 'Booking Cancelled':
-				return 'booking_declined';
-			default:
-				return '';
-		}
-	};
-	useEffect(() => {
-		dispatch(setLoggedInUser())
-		async function name() {
-			setLoading(true)
-			if (loggedInUser?.databaseId) {
-				const venues = await listService.getVenuesIds(loggedInUser.databaseId)
->>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
 
         const venuesIds = venues.edges.map((item: _Object) => item.node.databaseId).join(',')
 
-<<<<<<< HEAD
         const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId, venuesIds: venuesIds }, loggedInUser?.roles?.nodes?.some((item: _Object) => item.name != 'author') ? 'user' : 'admin')
         if (data?.entries) {
           setList(data)
+          // console.log(data)
         } else {
           setList({ entries: [], total_count: 0 })
         }
         setLoading(false)
       }
     }
-=======
-				const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId, venuesIds: venuesIds }, loggedInUser?.roles?.nodes?.some((item: _Object) => item.name != 'author') ? 'user' : 'admin')
-				if (data?.entries) {
-					setList(data)
-					// console.log(data)
-				} else {
-					setList({ entries: [], total_count: 0 })
-				}
-				setLoading(false)
-			}
-		}
->>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
 
     setFilterData((pre: _Object) => ({
       ...pre,
@@ -179,15 +147,15 @@ const BookingHistory = () => {
         <div className="card">
           <div className="card-body">
 
-<<<<<<< HEAD
             <div className="tab-content" id="pills-tabContent">
-              <div className="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab" tabIndex={0}>
+              <div className="tab-pane fade show active overflow-x" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab" tabIndex={0}>
                 <table className="table table-bordered table-striped ">
                   <thead>
                     <tr>
                       <th>Booking ID</th>
                       <th>Guest Name</th>
                       <th>Booking Date</th>
+                      <th>Party Date</th>
                       <th>Timing</th>
                       <th>Venue Name</th>
                       <th>Amount</th>
@@ -227,7 +195,10 @@ const BookingHistory = () => {
                           </td>
                           <td>{`${item['28.3']}` + ' ' + `${item['28.6']}`}</td>
                           <td>
-                            {item['110']}
+                            {changeDateFormat(item['date_created'].split(' ')[0],'dashboard')}
+                          </td>
+                          <td>
+                            {formatDate(item['110'])}
                           </td>
                           <td>
                             {item['25']} Hours
@@ -235,133 +206,60 @@ const BookingHistory = () => {
                           <td className="d-flex gap-2">
                             <button onClick={() => getVenueSlug(item['112'], i)} className="btn btn-link">{item['113']}</button>
                             {(slugLoading.loading && slugLoading.index === i) &&
-=======
-						<div className="tab-content" id="pills-tabContent">
-							<div className="tab-pane fade show active overflow-x" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab" tabIndex={0}>
-								<table className="table table-bordered table-striped ">
-									<thead>
-										<tr>
-											<th>Booking ID</th>
-											<th>Guest Name</th>
-											<th>Booking Date</th>
-											<th>Party Date</th>
-											<th>Timing</th>
-											<th>Venue Name</th>
-											<th>Amount</th>
-											<th>Status</th>
-											<th>Action</th>
-										</tr>
-									</thead>
-									<tbody>
-										{loading && (
-											<tr>
-												<td colSpan={8}>
-													<div className="d-flex justify-content-center align-items-center">
-														<div className="spinner-border" role="status">
-															<span className="visually-hidden">Loading...</span>
-														</div>
-													</div>
-												</td>
-											</tr>
-										)}
-
-										{!loading && list?.entries?.length == 0 && (
-											<tr>
-												<td colSpan={8}>
-													<div className="d-flex justify-content-center align-items-center">
-														<div>
-															<h6 className="mb-0">Booking not found</h6>
-														</div>
-													</div>
-												</td>
-											</tr>
-										)}
-										{!loading && list?.entries?.map((item: _Object, i: number) => {
-											return (
-												<tr key={i}>
-													<td>
-														{item.id}
-													</td>
-													<td>{`${item['28.3']}` + ' ' + `${item['28.6']}`}</td>
-													<td>
-														{changeDateFormat(item['date_created'].split(' ')[0],'dashboard')}
-													</td>
-													<td>
-														{formatDate(item['110'])}
-													</td>
-													<td>
-														{item['25']} Hours
-													</td>
-													<td className="d-flex gap-2">
-														<button onClick={() => getVenueSlug(item['112'], i)} className="btn btn-link">{item['113']}</button>
-														{(slugLoading.loading && slugLoading.index === i) &&
->>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
 															<div className="d-flex justify-content-center align-items-center">
 															  <div className="spinner-border spinner-border-sm" role="status">
 															    <span className="visually-hidden">Loading...</span>
 															  </div>
 															</div>
-<<<<<<< HEAD
                             }
                           </td>
                           <td>
                             {amountFormat(item['32'])}
                           </td>
-                          <td className="status"><span className="complete">Completed</span></td>
-                          <td>
-                            <Link href={`/dashboard/bookings/${item.id}`} className="btn btn-primary">
-                              <FontAwesomeIcon icon={faInfoCircle} />
-=======
-														}
-													</td>
-													<td>
-														{amountFormat(item['32'])}
-													</td>
-													{(loggedInUser?.roles?.nodes && loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator'))) ?
-														(<td className="status">
-															<Dropdown title={dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
-																<Dropdown.Item
-																	onClick={() => handleSelect(item.id, 'Request Received')}
-																>
+                          {(loggedInUser?.roles?.nodes && loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator'))) ?
+                            (<td className="status">
+                              <Dropdown title={dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
+                                <Dropdown.Item
+                                  onClick={() => handleSelect(item.id, 'Request Received')}
+                                >
                       Request Received
-																</Dropdown.Item>
-																<Dropdown.Item
-																	onClick={() => handleSelect(item.id, 'Booking Confirmed')}
-																>
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  onClick={() => handleSelect(item.id, 'Booking Confirmed')}
+                                >
                       Booking Confirmed
-																</Dropdown.Item>
-																<Dropdown.Item
-																	onClick={() => handleSelect(item.id, 'Booking Declined')}
-																>
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  onClick={() => handleSelect(item.id, 'Booking Declined')}
+                                >
                       Booking Declined
-																</Dropdown.Item>
-																<Dropdown.Item
-																	onClick={() => handleSelect(item.id, 'Booking Completed')}
-																>
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  onClick={() => handleSelect(item.id, 'Booking Completed')}
+                                >
                       Booking Completed
-																</Dropdown.Item>
-															</Dropdown>
-														</td>
-														)
-														:
-														(<td className="status">
-															{/* {item['134'] && item['134'] === 'Completed' ? (
+                                </Dropdown.Item>
+                              </Dropdown>
+                            </td>
+                            )
+                            :
+                            (<td className="status">
+                              {/* {item['134'] && item['134'] === 'Completed' ? (
 																<span className="complete">{item['134']}</span>
 															) : (
 																<span className="pending">Pending</span>
 															)} */}
-															<Dropdown title={dropdownStates[item.id]==='Request Received' ? 'Waitlisted': dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
-																<Dropdown.Item
-																	onClick={() => handleSelect(item.id, 'Booking Cancelled')}
-																>
+                              <Dropdown title={dropdownStates[item.id]==='Request Received' ? 'Waitlisted': dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
+                                <Dropdown.Item
+                                  onClick={() => handleSelect(item.id, 'Booking Cancelled')}
+                                >
                       Booking Cancelled
-																</Dropdown.Item>
-															</Dropdown>
-														</td>)}
-													<td>
-														<Link href={`/dashboard/bookings/${item.id}`} className="btn btn-primary">
-															<FontAwesomeIcon icon={faInfoCircle} />
->>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
+                                </Dropdown.Item>
+                              </Dropdown>
+                            </td>)}
+                          <td>
+                            <Link href={`/dashboard/bookings/${item.id}`} className="btn btn-primary">
+                              <FontAwesomeIcon icon={faInfoCircle} />
 
 															Details
                             </Link>

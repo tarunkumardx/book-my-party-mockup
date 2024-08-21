@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable no-unsafe-optional-chaining */
 import React, { useEffect, useState } from 'react';
 

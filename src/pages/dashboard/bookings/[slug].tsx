@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React, { useEffect, useState } from 'react';
 import { DashboardLayout, Loading, SEOHead } from '@/components';
 import { _Object } from '@/utils/types';

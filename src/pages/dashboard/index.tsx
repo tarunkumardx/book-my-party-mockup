@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React, { useEffect, useState } from 'react';
 import { DashboardLayout, SEOHead } from '@/components';
 import Link from 'next/link';
@@ -187,33 +188,21 @@ const Dashboard = () => {
 															    <span className="visually-hidden">Loading...</span>
 															  </div>
 															</div>
-<<<<<<< HEAD
                             }
                           </td>
                           <td>
                             {amountFormat(item['32'])}
                           </td>
-                          <td className="status"><span className="complete">Completed</span></td>
+                          <td className="status">
+                            {item['134'] && item['134'] === 'Completed' ? (
+                              <span className="complete">{item['134']}</span>
+                            ) : (
+                              <span className="pending">Pending</span>
+                            )}
+                          </td>
                           <td>
                             <Link href={`/dashboard/bookings/${item.id}`} className="btn btn-primary">
                               <FontAwesomeIcon icon={faInfoCircle} />
-=======
-														}
-													</td>
-													<td>
-														{amountFormat(item['32'])}
-													</td>
-													<td className="status">
-														{item['134'] && item['134'] === 'Completed' ? (
-															<span className="complete">{item['134']}</span>
-														) : (
-															<span className="pending">Pending</span>
-														)}
-													</td>
-													<td>
-														<Link href={`/dashboard/bookings/${item.id}`} className="btn btn-primary">
-															<FontAwesomeIcon icon={faInfoCircle} />
->>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
 
 															Details
                             </Link>
