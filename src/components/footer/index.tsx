@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 'use client'
 
 import React, { useEffect, useState } from 'react'
@@ -29,6 +30,17 @@ const Footer = () => {
       menus: []
     }
   });
+
+  // Initialize an array of false values, one for each menu item.
+  const [showAll, setShowAll] = useState<{ [key: string]: boolean }>({});
+
+  // Function to toggle visibility for a specific column based on label
+  const toggleShowAll = (label:string) => {
+    setShowAll((prevShowAll) => ({
+      ...prevShowAll,
+      [label]: !prevShowAll[label]
+    }));
+  };
 
   useEffect(() => {
     setIsClient(true);
@@ -269,22 +281,29 @@ const Footer = () => {
 				            </div>
 				          </div>
 				          <div className="row">
+				            {console.log(pageProps?.footer?.menus)
+				            }
 				            {pageProps?.footer?.menus?.length > 0 &&
 											pageProps?.footer?.menus[0]?.map((item: _Object, i: number) => {
+											  // Get the current toggle state for this item based on its label
+											  const isExpanded = showAll[item.label] || false;
+
 											  return (
 											    item?.childItems?.nodes?.length > 0 && item.parentId === null &&
 													<div key={i} className="col-12 col-sm-6 col-md-6 col-lg-3">
 													  <div className="pl-20">
 													    <h5>{item.label}</h5>
 													    <ul className="nav flex-column">
-													      {item?.childItems?.nodes?.map((child: _Object, index: number) => {
+													      {item?.childItems?.nodes?.slice(0, isExpanded ? item?.childItems?.nodes?.length : 5).map((child: _Object, index: number) => {
 													        return (
 													          <li key={index} className="nav-item">
 													            {
 													              child.label === 'List your Restaurant' || child.label === 'List your Banquet' || child.label === 'List your Catering Services' ?
-													                (<> <button type="button" className="nav-link" data-bs-toggle="modal" data-bs-target="#venueModal">
-													                  {child.label}
-													                </button></>
+													                (<>
+													                  <button type="button" className="nav-link" data-bs-toggle="modal" data-bs-target="#venueModal">
+													                    {child.label}
+													                  </button>
+													                </>
 													                ) :
 													                (
 													                  <>
@@ -303,6 +322,12 @@ const Footer = () => {
 													      })
 													      }
 													    </ul>
+													    {/* View More/ Less Button */}
+													    {item?.childItems?.nodes?.length > 5 && (
+													      <button style={{ color: '#f55600', marginLeft: '-16px' }} onClick={() => toggleShowAll(item.label)} className="btn btn-link">
+													        {isExpanded ? 'View Less' : 'View More'}
+													      </button>
+													    )}
 													  </div>
 													</div>
 											  )
@@ -312,17 +337,20 @@ const Footer = () => {
 				          </div>
 
 				          <hr />
+				          {/* Second section of Footer */}
 
 				          <div className="row">
 				            {pageProps?.footer?.menus?.length > 0 &&
 											pageProps?.footer?.menus[1]?.map((item: _Object, i: number) => {
+											  // Get the current toggle state for this item based on its label
+											  const isExpanded = showAll[item.label] || false;
 											  return (
 											    item?.childItems?.nodes?.length > 0 && item.parentId === null &&
 													<div key={i} className="col-12 col-sm-6 col-md-6 col-lg-3">
 													  <div className="pl-20">
 													    <h5>{item.label}</h5>
 													    <ul className="nav flex-column">
-													      {item?.childItems?.nodes?.map((child: _Object, index: number) => {
+													      {item?.childItems?.nodes?.slice(0, isExpanded ? item?.childItems?.nodes?.length : 5).map((child: _Object, index: number) =>{
 													        return (
 													          <li key={index} className="nav-item">
 													            {child.label === 'Party@home' || child.label === 'Trending Party Places' || child.label === 'Service Providers' ?
@@ -346,6 +374,12 @@ const Footer = () => {
 													        )
 													      })
 													      }
+													      {/* View More/ Less Button */}
+													      {item?.childItems?.nodes?.length > 5 && (
+													        <button style={{ color: '#f55600', marginLeft: '-260px' }} onClick={() => toggleShowAll(item.label)} className="btn btn-link">
+													          {isExpanded ? 'View Less' : 'View More'}
+													        </button>
+													      )}
 													    </ul>
 													  </div>
 													</div>
