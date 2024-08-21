@@ -493,7 +493,7 @@ const Listing = (props: _Object) => {
                     <button type="button" className="ms-auto topClearBtn" data-bs-dismiss="offcanvas">Clear Filter</button>
                   </div>
                   <div className="bottomResults">
-                    <button aria-label="close" className="bottomBtn">SHOW {list?.pageInfo?.total} RESULTS</button>
+                    <button aria-label="close" data-bs-dismiss="offcanvas" className="bottomBtn">SHOW {list?.pageInfo?.total} RESULTS</button>
                   </div>
                   {/* Testing chat gpt code */}
                   <div className="filter-container d-flex">
@@ -560,7 +560,75 @@ const Listing = (props: _Object) => {
                     </div>
 
                     <div className="filter-content">
-
+                      {/* Conditional rendering the search bar */}
+                      {activeAccordion === 'locations' && (
+                        <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
+                          <input
+                            style={{ width: '80% !important' }}
+                            type="email"
+                            className="form-control"
+                            id="exampleInputEmail1"
+                            aria-describedby="emailHelp"
+                            placeholder="Search Location"
+                          />
+                        </div>
+                      )}
+                      {/* Conditional rendering the cuisine */}
+                      {
+                        activeAccordion === 'cuisine' && (
+                          <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
+                            <input
+                              style={{ width: '80% !important' }}
+                              type="email"
+                              className="form-control"
+                              id="exampleInputEmail1"
+                              aria-describedby="emailHelp"
+                              placeholder="Search Cuisine"
+                            />
+                          </div>
+                        )
+                      }
+                      {/* Conditional rendering the cuisine */}
+                      {
+                        activeAccordion === 'amenities' && (
+                          <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
+                            <input
+                              style={{ width: '80% !important' }}
+                              type="email"
+                              className="form-control"
+                              id="exampleInputEmail1"
+                              aria-describedby="emailHelp"
+                              placeholder="Search amenities"
+                            />
+                          </div>
+                        )
+                      }
+                      {/* Conditonal rendering search bar for occasions */}
+                      {
+                        activeAccordion === 'occasions' && (
+                          <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
+                            <input
+                              style={{ width: '80% !important' }}
+                              type="email"
+                              className="form-control"
+                              id="exampleInputEmail1"
+                              aria-describedby="emailHelp"
+                              placeholder="Search Occasions"
+                            />
+                          </div>
+                        )
+                      }
+                      <div id="price" className={`accordion-collapse collapse ${activeAccordion === 'price' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#price">
+                        <div className="accordion-body">
+                          <CheckBox
+                            showMoreOption={true}
+                            name="price_range"
+                            values={router?.query?.price_range?.split('+')}
+                            options={priceRange?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'price_range')}
+                          />
+                        </div>
+                      </div>
                       <div id="activity" className={`accordion-collapse collapse ${activeAccordion === 'price' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#activity">
                         <div className="accordion-body">
                           <CheckBox
