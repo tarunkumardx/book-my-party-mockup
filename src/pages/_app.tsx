@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import type { AppProps } from 'next/app'
 import '../assets/scss/app.scss'
 import '../assets/scss/main.scss'
+import 'rsuite/dist/rsuite.min.css'
 
 import { Provider } from 'react-redux'
 import { ToastContainer } from 'react-toastify';

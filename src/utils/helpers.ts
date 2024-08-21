@@ -2,8 +2,13 @@
 import moment from 'moment';
 
 export const formatDate = (dateString: string): string => {
+<<<<<<< HEAD
   const [month, day, year] = dateString.split('-');
   const formattedDateString = `${day}/${month}/${year}`;
+=======
+	const [day, month, year] = dateString.split('-');
+	const formattedDateString = `${day}/${month}/${year}`;
+>>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
 
   return formattedDateString;
 };
@@ -75,6 +80,7 @@ export const uploadImages = async (fileInput: File) => {
 };
 
 export const changeDateFormat = (dateString: string, format = ''): string | null => {
+<<<<<<< HEAD
   const parts = dateString?.split('-');
   if (parts?.length === 3 && format === '') {
     return `${parts[2]}-${parts[0]}-${parts[1]}`;
@@ -85,6 +91,20 @@ export const changeDateFormat = (dateString: string, format = ''): string | null
   } else {
     return null;
   }
+=======
+	const parts = dateString?.split('-');
+	if (parts?.length === 3 && format === '') {
+		return `${parts[2]}-${parts[0]}-${parts[1]}`;
+	} else if (parts?.length === 3 && format === 'date') {
+		return `${parts[1]}/${parts[0]}/${parts[2]}`;
+	} else if (parts?.length === 3 && format === 'form') {
+		return `${parts[1]}-${parts[0]}-${parts[2]}`;
+	} else if (parts?.length === 3 && format === 'dashboard') {
+		return `${parts[2]}/${parts[1]}/${parts[0]}`;
+	} else {
+		return null;
+	}
+>>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
 }
 
 export const formatPhoneNumber = (phoneNumber: string) => {

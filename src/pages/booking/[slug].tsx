@@ -65,6 +65,7 @@ const Booking = () => {
     dinner: 'input_119'
   }
 
+<<<<<<< HEAD
   const formik: _Object = useFormik({
     initialValues: {
       input_22: 'Mr',
@@ -107,6 +108,51 @@ const Booking = () => {
     onSubmit: async (values: _Object) => {
       if (isUserLoggedIn) {
         const datesArray = venueDetails?.extraOptions?.holidays?.split(',')?.map((date: string) => date.trim());
+=======
+	const formik: _Object = useFormik({
+		initialValues: {
+			input_22: 'Mr',
+			first_name: '',
+			last_name: '',
+			input_25: '',
+			input_29: '',
+			input_30: '',
+			input_31: router?.query?.package,
+			input_32: router?.query?.package ? venueDetails?.extraOptions?.packages?.find((item: _Object) => item.title?.trim() === router?.query?.package)?.salePrice ? venueDetails?.extraOptions?.packages?.find((item: _Object) => item.title?.trim() === router?.query?.package)?.salePrice : venueDetails?.extraOptions?.packages?.find((item: _Object) => item.title?.trim() === router?.query?.package)?.price || 0 : router?.query?.price || 0,
+			input_33: venueDetails?.extraOptions?.packages?.find((item: _Object) => item.title?.trim() === router?.query?.package)?.minPax ? router?.query?.pax >= venueDetails?.extraOptions?.packages?.find((item: _Object) => item.title?.trim() === router?.query?.package)?.minPax ? router?.query?.pax : venueDetails?.extraOptions?.packages?.find((item: _Object) => item.title?.trim() === router?.query?.package)?.minPax : router?.query?.pax || 1,
+			input_24: '',
+			input_50: '',
+			input_42: '',
+			input_122: venueDetails?.venueOwnerEmail,
+			input_111: capitalize(router?.query?.occasions?.split('+')[0]) || '',
+			input_110: changeDateFormat(router?.query?.date, 'form'),
+			input_109: router?.query?.locations?.split('+')[0],
+			input_112: venueDetails?.databaseId,
+			input_113: venueDetails?.title,
+			input_114: venueDetails?.author?.node?.databaseId,
+			input_124: venueDetails?.extraOptions?.address?.address,
+			input_134: venueDetails?.extraOptions?.bookingStatus || 'Request Received'
+		},
+		enableReinitialize: true,
+		validationSchema: yup.object().shape({
+			first_name: yup.string().label('First Name').required('First Name is required').min(4, 'First Name must be at least 4 characters'),
+			last_name: yup.string().label('Last Name').required('Last Name is required').min(4, 'Last Name must be at least 4 characters'),
+			input_29: yup.string().email().test('atLeastFourCharsAfterAt', 'Email must be at least 4 characters', (value) => {
+				if (!value) return true;
+				const atIndex = value.indexOf('@');
+				return (atIndex !== -1 && value.length - atIndex > 4);
+			}).label('Email').required('Email is required'),
+			input_30: yup.string().label('Phone Number').required('Phone Number is required').min(12, 'Phone Number must be at least 10 digits'),
+			input_24: router?.query.types === 'banquet' || router?.query?.types === 'farm-house' ? yup.string().label('Day Part').required('Day Part is required').min(2, 'Select one option') : yup.string(),
+			input_111: yup.string().label('Occasion').required('Occasion is required'),
+			input_109: yup.string().label('Location').required('Location is required'),
+			input_31: yup.string().label('Package').required('Package is required'),
+			input_25: yup.string().label('Time').required('Time is required')
+		}),
+		onSubmit: async (values: _Object) => {
+			if (isUserLoggedIn) {
+				const datesArray = venueDetails?.extraOptions?.holidays?.split(',')?.map((date: string) => date.trim());
+>>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
 
         if (!datesArray?.includes(changeDateFormat(values.input_110))) {
           setLoading(true)
