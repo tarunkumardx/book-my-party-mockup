@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React, { useEffect, useState } from 'react';
 import { Layout } from '@/components';
 import { useRouter } from 'next/router';

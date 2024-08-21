@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React, { useEffect, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -83,29 +84,15 @@ const Listing = (props: _Object) => {
     firstLoading: true
   })
 
-<<<<<<< HEAD
   // Function for toggle filters
   const [activeAccordion, setActiveAccordion] = useState('price');
 
-  const handleFilterClick = (id) => {
+  const handleFilterClick = (id:string) => {
     setActiveAccordion(prevState => (prevState === id ? '' : id));
   };
-=======
-	// Function for toggle filters
-	const [activeAccordion, setActiveAccordion] = useState('price');
-
-	const handleFilterClick = (id:string) => {
-		setActiveAccordion(prevState => (prevState === id ? '' : id));
-	};
-
-	// Add an active css border in the active accordion button
-	const getButtonClass = (id:string) => {
-		return `accordion-button customPadding ${activeAccordion === id ? 'active-button' : ''}`;
-	};
->>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
 
   // Add an active css border in the active accordion button
-  const getButtonClass = (id) => {
+  const getButtonClass = (id:string) => {
     return `accordion-button customPadding ${activeAccordion === id ? 'active-button' : ''}`;
   };
 
@@ -375,33 +362,9 @@ const Listing = (props: _Object) => {
     }
   }
 
-<<<<<<< HEAD
-  // Function to clear all the user fields enter filters
-  const clearAllFilters = () => {
-    const query = router.query;
-
-    // Reset all filter-related query parameters
-    delete query.price_range;
-    delete query.activities;
-    delete query.venueTypes;
-    delete query.cuisines;
-    delete query.franchises;
-
-    // Update the URL with the cleared filters
-    router.push({
-      pathname: router.pathname,
-      query: query
-    });
-  };
-
   return (
     <Layout {...props}>
       <SEOHead seo={{ title: 'Venues - Book My Party' } || ''} />
-=======
-	return (
-		<Layout {...props}>
-			<SEOHead seo={{ title: 'Venues - Book My Party' } || ''} />
->>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
 
       <section className="search-form search-form-content">
         <div className="container-fluid">
@@ -524,43 +487,24 @@ const Listing = (props: _Object) => {
 									/> */}
                 </div>
 
-<<<<<<< HEAD
-                <div style={{ width: '528px' }} className="offcanvas offcanvas-start filter-offcanvas" tabIndex={-1} id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
+                <div className="offcanvas offcanvas-start filter-offcanvas" tabIndex={-1} id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
                   <div className="offcanvas-header">
                     <button type="button" className="btn-close ms-auto topCloseBtn" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    <button type="button" aria-label="Close" className="ms-auto topClearBtn" data-bs-dismiss="offcanvas">Clear All Filter</button>
+                    <button type="button" className="ms-auto topClearBtn" data-bs-dismiss="offcanvas">Clear Filter</button>
                   </div>
                   <div className="bottomResults">
-                    <button aria-label="close" data-bs-dismiss="offcanvas" className="bottomBtn">SHOW {list?.pageInfo?.total} RESULTS</button>
+                    <button aria-label="close" className="bottomBtn">SHOW {list?.pageInfo?.total} RESULTS</button>
                   </div>
-
                   {/* Testing chat gpt code */}
                   <div className="filter-container d-flex">
 
                     <div className="filter-buttons">
                       <div className="accordion-item">
                         <button className={getButtonClass('price')} onClick={() => handleFilterClick('price')} type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded={activeAccordion === 'price'} aria-controls="price">
-=======
-								<div className="offcanvas offcanvas-start filter-offcanvas" tabIndex={-1} id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
-									<div className="offcanvas-header">
-										<button type="button" className="btn-close ms-auto topCloseBtn" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-										<button type="button" className="ms-auto topClearBtn" data-bs-dismiss="offcanvas">Clear Filter</button>
-									</div>
-									<div className="bottomResults">
-										<button aria-label="close" className="bottomBtn">SHOW {list?.pageInfo?.total} RESULTS</button>
-									</div>
-									{/* Testing chat gpt code */}
-									<div className="filter-container d-flex">
-
-										<div className="filter-buttons">
-											<div className="accordion-item">
-												<button className={getButtonClass('price')} onClick={() => handleFilterClick('price')} type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded={activeAccordion === 'price'} aria-controls="price">
->>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
 													BUDGET / PRICE
                         </button>
                       </div>
 
-<<<<<<< HEAD
                       {props?.activities?.filter((item: _Object) =>
                         item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
                       )?.length > 0 && (
@@ -572,32 +516,13 @@ const Listing = (props: _Object) => {
                       )}
 
                       {props?.venueTypes?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('category')} className={getButtonClass('category')} type="button" data-bs-toggle="collapse" data-bs-target="#category" aria-expanded={activeAccordion === 'category'} aria-controls="category">
-=======
-											{props?.activities?.filter((item: _Object) =>
-												item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
-											)?.length > 0 && (
-												<div className="accordion-item">
-													<button className="accordion-button customPadding" type="button" data-bs-toggle="collapse" data-bs-target="#activity" aria-expanded="true" aria-controls="activity">
-															ACTIVITIES
-													</button>
-												</div>
-											)}
-
-											{props?.venueTypes?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('category')} className={getButtonClass('category')} type="button" data-bs-toggle="collapse" data-bs-target="#category" aria-expanded={activeAccordion === 'category'} aria-controls="category">
->>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
 												RESTAURANT TYPE
                       </button>
                       }
 
-<<<<<<< HEAD
                       {props?.cuisines?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 &&
 												<div className="accordion-item">
 												  <button onClick={() => handleFilterClick('cuisine')} className={getButtonClass('cuisine')} type="button" data-bs-toggle="collapse" data-bs-target="#cuisine" aria-expanded={activeAccordion === 'cuisine'} aria-controls="cuisine">
-=======
-											{props?.cuisines?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 &&
-												<div className="accordion-item">
-													<button onClick={() => handleFilterClick('cuisine')} className={getButtonClass('cuisine')} type="button" data-bs-toggle="collapse" data-bs-target="#cuisine" aria-expanded={activeAccordion === 'cuisine'} aria-controls="cuisine">
->>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
 														CUISINES
 												  </button>
 												</div>
@@ -607,57 +532,26 @@ const Listing = (props: _Object) => {
 												<button onClick={() => handleFilterClick('restaurantChain')} className={getButtonClass('restaurantChain')} type="button" data-bs-toggle="collapse" data-bs-target="#restaurantChain" aria-expanded={activeAccordion === 'restaurantChain'} aria-controls="restaurantChain">
 													RESTRAUNT CHAIN
 												</button>
-<<<<<<< HEAD
                       }
                       {
-                        props?.locations?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 &&
-												<>
-												  <button
-												    onClick={() => handleFilterClick('locations')}
-												    className={getButtonClass('locations')}
-												    type="button"
-												    data-bs-toggle="collapse"
-												    data-bs-target="#locations"
-												    aria-expanded={activeAccordion === 'locations'}
-												    aria-controls="locations"
-												  >
-														LOCATIONS
-												  </button>
-												</>
+                        props?.locations?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('locations')} className={getButtonClass('locations')} type="button" data-bs-toggle="collapse" data-bs-target="#locations" aria-expanded={activeAccordion === 'locations'} aria-controls="locations">
+													LOCATIONS
+                        </button>
                       }
                       {
                         (query?.types === 'restaurant' || query?.types === 'fun-zone') && <button onClick={() => handleFilterClick('capacity')} className={getButtonClass('capacity')} type="button" data-bs-toggle="collapse" data-bs-target="#capacity" aria-expanded={activeAccordion === 'capacity'} aria-controls="capacity">
-=======
-											}
-											{
-												props?.locations?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('locations')} className={getButtonClass('locations')} type="button" data-bs-toggle="collapse" data-bs-target="#locations" aria-expanded={activeAccordion === 'locations'} aria-controls="locations">
-													LOCATIONS
-												</button>
-											}
-											{
-												(query?.types === 'restaurant' || query?.types === 'fun-zone') && <button onClick={() => handleFilterClick('capacity')} className={getButtonClass('capacity')} type="button" data-bs-toggle="collapse" data-bs-target="#capacity" aria-expanded={activeAccordion === 'capacity'} aria-controls="capacity">
->>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
 													CAPACITY
                         </button>
                       }
                       {
                         props?.amenities?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('amenities')} className={getButtonClass('amenities')} type="button" data-bs-toggle="collapse" data-bs-target="#amenities" aria-expanded={activeAccordion === 'amenities'} aria-controls="amenities">
 													AMENITIES
-<<<<<<< HEAD
                         </button>
                       }
                       {
                         query?.types === 'restaurant' &&
 												<div className="accordion-item">
 												  <button onClick={() => handleFilterClick('occasions')} className={getButtonClass('occasions')} type="button" data-bs-toggle="collapse" data-bs-target="#occasions" aria-expanded={activeAccordion === 'occasions'} aria-controls="occasions">
-=======
-												</button>
-											}
-											{
-												query?.types === 'restaurant' &&
-												<div className="accordion-item">
-													<button onClick={() => handleFilterClick('occasions')} className={getButtonClass('occasions')} type="button" data-bs-toggle="collapse" data-bs-target="#occasions" aria-expanded={activeAccordion === 'occasions'} aria-controls="occasions">
->>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
 														OCCASIONS
 												  </button>
 												</div>
@@ -665,81 +559,7 @@ const Listing = (props: _Object) => {
 
                     </div>
 
-<<<<<<< HEAD
                     <div className="filter-content">
-                      {/* Conditional rendering the search bar */}
-                      {activeAccordion === 'locations' && (
-                        <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
-                          <input
-                            style={{ width: '80% !important' }}
-                            type="email"
-                            className="form-control"
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
-                            placeholder="Search Location"
-                          />
-                        </div>
-                      )}
-                      {/* Conditional rendering the cuisine */}
-                      {
-                        activeAccordion === 'cuisine' && (
-                          <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
-                            <input
-                              style={{ width: '80% !important' }}
-                              type="email"
-                              className="form-control"
-                              id="exampleInputEmail1"
-                              aria-describedby="emailHelp"
-                              placeholder="Search Cuisine"
-                            />
-                          </div>
-                        )
-                      }
-                      {/* Conditional rendering the cuisine */}
-                      {
-                        activeAccordion === 'amenities' && (
-                          <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
-                            <input
-                              style={{ width: '80% !important' }}
-                              type="email"
-                              className="form-control"
-                              id="exampleInputEmail1"
-                              aria-describedby="emailHelp"
-                              placeholder="Search amenities"
-                            />
-                          </div>
-                        )
-                      }
-                      {/* Conditonal rendering search bar for occasions */}
-                      {
-                        activeAccordion === 'occasions' && (
-                          <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
-                            <input
-                              style={{ width: '80% !important' }}
-                              type="email"
-                              className="form-control"
-                              id="exampleInputEmail1"
-                              aria-describedby="emailHelp"
-                              placeholder="Search Occasions"
-                            />
-                          </div>
-                        )
-                      }
-
-                      <div id="price" className={`accordion-collapse collapse ${activeAccordion === 'price' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#price">
-                        <div className="accordion-body">
-                          <CheckBox
-                            showMoreOption={true}
-                            name="price_range"
-                            values={router?.query?.price_range?.split('+')}
-                            options={priceRange?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'price_range')}
-                          />
-                        </div>
-                      </div>
-=======
-										<div className="filter-content">
->>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
 
                       <div id="activity" className={`accordion-collapse collapse ${activeAccordion === 'price' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#activity">
                         <div className="accordion-body">
@@ -859,21 +679,14 @@ const Listing = (props: _Object) => {
                   </div>
                   {/* Testing chat gpt code ends here */}
 
-<<<<<<< HEAD
-                  {/* side drawer body for filter */}
-                  <div className="offcanvas-body upperDrawer d-none">
-                    {/* New functionality here */}
-                    {/* <div className='left-drawer'>
-=======
-										</div>
-									</div>
-									{/* Testing chat gpt code ends here */}
+                </div>
+              </div>
+              {/* Testing chat gpt code ends here */}
 
-									{/* side drawer body for filter */}
-									<div className="offcanvas-body upperDrawer d-none">
-										{/* New functionality here */}
-										{/* <div className='left-drawer'>
->>>>>>> 1eb2f1a91995890d21e20cd8a44c225c13b4c48d
+              {/* side drawer body for filter */}
+              <div className="offcanvas-body upperDrawer d-none">
+                {/* New functionality here */}
+                {/* <div className='left-drawer'>
 											<ul className='inputFiledsDrawer'>
 												<li>BUDGET / PRICE</li>
 												<li>ACTIVITES</li>
@@ -887,8 +700,8 @@ const Listing = (props: _Object) => {
 												<li>OCCASIONS</li>
 											</ul>
 										</div> */}
-                    <div className="accordion" id="accordionFilter">
-                      {/* {props?.packageTypes?.filter((item: _Object) =>
+                <div className="accordion" id="accordionFilter">
+                  {/* {props?.packageTypes?.filter((item: _Object) =>
 												item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
 											)?.length > 0 &&
 												<div className="accordion-item">
@@ -912,27 +725,27 @@ const Listing = (props: _Object) => {
 												</div>
 											} */}
 
-                      <div className="accordion-item">
-                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded="true" aria-controls="price">
+                  <div className="accordion-item">
+                    <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded="true" aria-controls="price">
 													BUDGET / PRICE
-                        </button>
+                    </button>
 
-                        <div id="price" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#price">
-                          <div className="accordion-body">
-                            <CheckBox
-                              showMoreOption={true}
-                              name="price_range"
-                              values={router?.query?.price_range?.split('+')}
-                              options={priceRange?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
-                              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'price_range')}
-                            />
-                          </div>
-                        </div>
+                    <div id="price" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#price">
+                      <div className="accordion-body">
+                        <CheckBox
+                          showMoreOption={true}
+                          name="price_range"
+                          values={router?.query?.price_range?.split('+')}
+                          options={priceRange?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'price_range')}
+                        />
                       </div>
+                    </div>
+                  </div>
 
-                      {props?.activities?.filter((item: _Object) =>
-                        item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
-                      )?.length > 0 &&
+                  {props?.activities?.filter((item: _Object) =>
+                    item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
+                  )?.length > 0 &&
 												<div className="accordion-item">
 												  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#activity" aria-expanded="true" aria-controls="activity">
 														ACTIVITES
@@ -952,11 +765,11 @@ const Listing = (props: _Object) => {
 												    </div>
 												  </div>
 												</div>
-                      }
+                  }
 
-                      {props?.ageGroups?.filter((item: _Object) =>
-                        item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
-                      )?.length > 0 &&
+                  {props?.ageGroups?.filter((item: _Object) =>
+                    item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
+                  )?.length > 0 &&
 												<div className="accordion-item">
 												  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#age" aria-expanded="true" aria-controls="age">
 														AGE GROUP
@@ -976,11 +789,11 @@ const Listing = (props: _Object) => {
 												    </div>
 												  </div>
 												</div>
-                      }
+                  }
 
-                      {props?.venueTypes?.filter((item: _Object) =>
-                        item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
-                      )?.length > 0 &&
+                  {props?.venueTypes?.filter((item: _Object) =>
+                    item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
+                  )?.length > 0 &&
 												<div className="accordion-item">
 												  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#category" aria-expanded="true" aria-controls="category">
 														RESTAURANT TYPE
@@ -1000,11 +813,11 @@ const Listing = (props: _Object) => {
 												    </div>
 												  </div>
 												</div>
-                      }
+                  }
 
-                      {props?.cuisines?.filter((item: _Object) =>
-                        item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
-                      )?.length > 0 &&
+                  {props?.cuisines?.filter((item: _Object) =>
+                    item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
+                  )?.length > 0 &&
 												<div className="accordion-item">
 												  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#cuisine" aria-expanded="false" aria-controls="cuisine">
 														Cuisine
@@ -1024,11 +837,11 @@ const Listing = (props: _Object) => {
 												    </div>
 												  </div>
 												</div>
-                      }
+                  }
 
-                      {props?.franchiseChain?.filter((item: _Object) =>
-                        item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-                      )?.length > 0 &&
+                  {props?.franchiseChain?.filter((item: _Object) =>
+                    item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+                  )?.length > 0 &&
 												<div className="accordion-item">
 												  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#restaurantChain" aria-expanded="true" aria-controls="restaurantChain">
 														Restaurant Chain
@@ -1049,11 +862,11 @@ const Listing = (props: _Object) => {
 												    </div>
 												  </div>
 												</div>
-                      }
+                  }
 
-                      {props?.locations?.filter((item: _Object) =>
-                        item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
-                      )?.length > 0 &&
+                  {props?.locations?.filter((item: _Object) =>
+                    item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
+                  )?.length > 0 &&
 												<div className="accordion-item">
 												  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#locations" aria-expanded="true" aria-controls="locations">
 														Locations
@@ -1074,10 +887,10 @@ const Listing = (props: _Object) => {
 												    </div>
 												  </div>
 												</div>
-                      }
+                  }
 
-                      {
-                        (query?.types === 'restaurant' || query?.types === 'fun-zone') &&
+                  {
+                    (query?.types === 'restaurant' || query?.types === 'fun-zone') &&
 												<div className="accordion-item">
 												  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#capacity" aria-expanded="true" aria-controls="capacity">
 														CAPACITY
@@ -1095,11 +908,11 @@ const Listing = (props: _Object) => {
 												    </div>
 												  </div>
 												</div>
-                      }
+                  }
 
-                      {props?.amenities?.filter((item: _Object) =>
-                        item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-                      )?.length > 0 &&
+                  {props?.amenities?.filter((item: _Object) =>
+                    item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+                  )?.length > 0 &&
 												<div className="accordion-item">
 												  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#amenities" aria-expanded="true" aria-controls="amenities">
 														Amenities
@@ -1120,10 +933,10 @@ const Listing = (props: _Object) => {
 												    </div>
 												  </div>
 												</div>
-                      }
+                  }
 
-                      {
-                        query?.types === 'restaurant' &&
+                  {
+                    query?.types === 'restaurant' &&
 												<div className="accordion-item">
 												  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#occasions" aria-expanded="true" aria-controls="occasions">
 														Occasions
@@ -1144,16 +957,16 @@ const Listing = (props: _Object) => {
 												    </div>
 												  </div>
 												</div>
-                      }
+                  }
 
-                    </div>
-                  </div>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <div className="accordion d-none d-lg-inline-block" id="accordionFilter">
+          <div className="accordion d-none d-lg-inline-block" id="accordionFilter">
 
-                {/* {props?.packageTypes?.filter((item: _Object) =>
+            {/* {props?.packageTypes?.filter((item: _Object) =>
 									item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
 								)?.length > 0 &&
 									<div className="accordion-item">
@@ -1177,27 +990,27 @@ const Listing = (props: _Object) => {
 									</div>
 								} */}
 
-                <div className="accordion-item">
-                  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded="true" aria-controls="price">
+            <div className="accordion-item">
+              <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded="true" aria-controls="price">
 										BUDGET / PRICE
-                  </button>
+              </button>
 
-                  <div id="price" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#price">
-                    <div className="accordion-body">
-                      <CheckBox
-                        showMoreOption={true}
-                        name="price_range"
-                        values={router?.query?.price_range?.split('+')}
-                        options={priceRange?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'price_range')}
-                      />
-                    </div>
-                  </div>
+              <div id="price" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#price">
+                <div className="accordion-body">
+                  <CheckBox
+                    showMoreOption={true}
+                    name="price_range"
+                    values={router?.query?.price_range?.split('+')}
+                    options={priceRange?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'price_range')}
+                  />
                 </div>
+              </div>
+            </div>
 
-                {props?.activities?.filter((item: _Object) =>
-                  item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-                )?.length > 0 &&
+            {props?.activities?.filter((item: _Object) =>
+              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+            )?.length > 0 &&
 									<div className="accordion-item">
 									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#activity" aria-expanded="true" aria-controls="activity">
 											ACTIVITES
@@ -1217,11 +1030,11 @@ const Listing = (props: _Object) => {
 									    </div>
 									  </div>
 									</div>
-                }
+            }
 
-                {props?.ageGroups?.filter((item: _Object) =>
-                  item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-                )?.length > 0 &&
+            {props?.ageGroups?.filter((item: _Object) =>
+              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+            )?.length > 0 &&
 									<div className="accordion-item">
 									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ageGroup" aria-expanded="true" aria-controls="ageGroup">
 											AGE GROUP
@@ -1241,11 +1054,11 @@ const Listing = (props: _Object) => {
 									    </div>
 									  </div>
 									</div>
-                }
+            }
 
-                {props?.venueTypes?.filter((item: _Object) =>
-                  item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-                )?.length > 0 &&
+            {props?.venueTypes?.filter((item: _Object) =>
+              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+            )?.length > 0 &&
 									<div className="accordion-item">
 									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#category" aria-expanded="true" aria-controls="category">
 											RESTAURANT TYPE
@@ -1265,11 +1078,11 @@ const Listing = (props: _Object) => {
 									    </div>
 									  </div>
 									</div>
-                }
+            }
 
-                {props?.cuisines?.filter((item: _Object) =>
-                  item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-                )?.length > 0 &&
+            {props?.cuisines?.filter((item: _Object) =>
+              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+            )?.length > 0 &&
 									<div className="accordion-item">
 									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#cuisine" aria-expanded="false" aria-controls="cuisine">
 											Cuisine
@@ -1289,11 +1102,11 @@ const Listing = (props: _Object) => {
 									    </div>
 									  </div>
 									</div>
-                }
+            }
 
-                {props?.franchiseChain?.filter((item: _Object) =>
-                  item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-                )?.length > 0 &&
+            {props?.franchiseChain?.filter((item: _Object) =>
+              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+            )?.length > 0 &&
 									<div className="accordion-item">
 									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#restaurantChain" aria-expanded="true" aria-controls="restaurantChain">
 											Restaurant Chain
@@ -1314,11 +1127,11 @@ const Listing = (props: _Object) => {
 									    </div>
 									  </div>
 									</div>
-                }
+            }
 
-                {props?.locations?.filter((item: _Object) =>
-                  item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-                )?.length > 0 &&
+            {props?.locations?.filter((item: _Object) =>
+              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+            )?.length > 0 &&
 									<div className="accordion-item">
 									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#locations" aria-expanded="true" aria-controls="locations">
 											Locations
@@ -1339,10 +1152,10 @@ const Listing = (props: _Object) => {
 									    </div>
 									  </div>
 									</div>
-                }
+            }
 
-                {
-                  (query.types === 'restaurant' || query.types === 'fun-zone') &&
+            {
+              (query.types === 'restaurant' || query.types === 'fun-zone') &&
 									<div className="accordion-item">
 									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#capacity" aria-expanded="true" aria-controls="capacity">
 											CAPACITY
@@ -1360,11 +1173,11 @@ const Listing = (props: _Object) => {
 									    </div>
 									  </div>
 									</div>
-                }
+            }
 
-                {props?.amenities?.filter((item: _Object) =>
-                  item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-                )?.length > 0 &&
+            {props?.amenities?.filter((item: _Object) =>
+              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+            )?.length > 0 &&
 									<div className="accordion-item">
 									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#amenities" aria-expanded="true" aria-controls="amenities">
 											Amenities
@@ -1385,10 +1198,10 @@ const Listing = (props: _Object) => {
 									    </div>
 									  </div>
 									</div>
-                }
+            }
 
-                {
-                  query?.types === 'restaurant' &&
+            {
+              query?.types === 'restaurant' &&
 									<div className="accordion-item">
 									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#occasions" aria-expanded="true" aria-controls="occasions">
 											Occasions
@@ -1409,62 +1222,62 @@ const Listing = (props: _Object) => {
 									    </div>
 									  </div>
 									</div>
-                }
+            }
+          </div>
+        </div>
+
+        <div className="col-12 col-lg-9">
+          <div className="d-flex justify-content-between align-items-center result-head">
+            {(loading.main || loading.firstLoading) ?
+              <h5 className="card-title placeholder-glow col-2">
+                <span className="placeholder col-12"></span>
+              </h5>
+              :
+              <h4 className="d-flex">{list?.pageInfo?.total} Results found</h4>
+            }
+            {(loading.main || loading.firstLoading) ?
+              <h5 className="card-title placeholder-glow col-2">
+                <span className="placeholder col-12"></span>
+              </h5>
+              :
+              <div className="d-flex align-items-center gap-2">
+                <h6 className="mb-0">Sort</h6>
+                <SelectField
+                  value={{ value: query?.order_by || '-title' }}
+                  options={[
+                    { label: 'Title - A to Z', value: '-title' },
+                    { label: 'Title - Z to A', value: 'title' },
+                    { label: 'Price - Low to High', value: '-price' },
+                    { label: 'Price - High to Low', value: 'price' }
+                  ]}
+                  onChange={(val: _Object) => {
+                    const date = new Date(query.date)
+
+                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                    const day = date.getDate().toString().padStart(2, '0');
+                    const year = date.getFullYear();
+
+                    const formattedDate = `${month}-${day}-${year}`;
+                    setCursor({
+                      endCursor: null
+                    })
+
+                    setFilter(true)
+                    setLoading({ main: true })
+                    router.push({
+                      pathname: '/venues',
+                      query: `locations=${query.locations?.replace(/\+/g, '%2B') || ''}&types=${query?.types?.replace(/\+/g, '%2B') || ''}&date=${formattedDate}&occasions=${query?.occasions?.replace(/\+/g, '%2B') || ''}&pax=${query?.pax || ''}&cuisines=${query?.cuisines?.replace(/\+/g, '%2B') || ''}&franchises=${query?.franchises?.replace(/\+/g, '%2B') || ''}&amenities=${query?.amenities?.replace(/\+/g, '%2B') || ''}&price_range=${query?.price_range?.replace(/\+/g, '%2B') || ''}&order_by=${val.value}`
+                    })
+                  }}
+                  getOptionLabel={(option: { [key: string]: string }) => option?.label}
+                  getOptionValue={(option: { [key: string]: string }) => option?.label}
+                  isSearchable={isSearchable}
+                />
               </div>
-            </div>
+            }
+          </div>
 
-            <div className="col-12 col-lg-9">
-              <div className="d-flex justify-content-between align-items-center result-head">
-                {(loading.main || loading.firstLoading) ?
-                  <h5 className="card-title placeholder-glow col-2">
-                    <span className="placeholder col-12"></span>
-                  </h5>
-                  :
-                  <h4 className="d-flex">{list?.pageInfo?.total} Results found</h4>
-                }
-                {(loading.main || loading.firstLoading) ?
-                  <h5 className="card-title placeholder-glow col-2">
-                    <span className="placeholder col-12"></span>
-                  </h5>
-                  :
-                  <div className="d-flex align-items-center gap-2">
-                    <h6 className="mb-0">Sort</h6>
-                    <SelectField
-                      value={{ value: query?.order_by || '-title' }}
-                      options={[
-                        { label: 'Title - A to Z', value: '-title' },
-                        { label: 'Title - Z to A', value: 'title' },
-                        { label: 'Price - Low to High', value: '-price' },
-                        { label: 'Price - High to Low', value: 'price' }
-                      ]}
-                      onChange={(val: _Object) => {
-                        const date = new Date(query.date)
-
-                        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                        const day = date.getDate().toString().padStart(2, '0');
-                        const year = date.getFullYear();
-
-                        const formattedDate = `${month}-${day}-${year}`;
-                        setCursor({
-                          endCursor: null
-                        })
-
-                        setFilter(true)
-                        setLoading({ main: true })
-                        router.push({
-                          pathname: '/venues',
-                          query: `locations=${query.locations?.replace(/\+/g, '%2B') || ''}&types=${query?.types?.replace(/\+/g, '%2B') || ''}&date=${formattedDate}&occasions=${query?.occasions?.replace(/\+/g, '%2B') || ''}&pax=${query?.pax || ''}&cuisines=${query?.cuisines?.replace(/\+/g, '%2B') || ''}&franchises=${query?.franchises?.replace(/\+/g, '%2B') || ''}&amenities=${query?.amenities?.replace(/\+/g, '%2B') || ''}&price_range=${query?.price_range?.replace(/\+/g, '%2B') || ''}&order_by=${val.value}`
-                        })
-                      }}
-                      getOptionLabel={(option: { [key: string]: string }) => option?.label}
-                      getOptionValue={(option: { [key: string]: string }) => option?.label}
-                      isSearchable={isSearchable}
-                    />
-                  </div>
-                }
-              </div>
-
-              {loading.main &&
+          {loading.main &&
 								<div className="card" aria-hidden="true">
 								  <div className="card-body p-0">
 								    <div className="row">
@@ -1515,66 +1328,66 @@ const Listing = (props: _Object) => {
 								    </div>
 								  </div>
 								</div>
-              }
+          }
 
-              {!loading.main && !loading.firstLoading && list?.nodes?.length > 0 && list?.nodes?.map((item: _Object, i: number) => {
-                return (
-                  <div className="card" key={i}>
-                    <div className="card-body p-0">
-                      <div className="row">
-                        <div className="col-sm-12 col-md-4">
-                          <div className="image-wraper">
-                            <Link href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
-                              <Image src={item?.featuredImage?.node?.sourceUrl || placeholder} width="450" height="300" alt="" />
-                            </Link>
-                            <button disabled={like.loading} onClick={() => addToWishlist(item.databaseId, i)} className="btn wishlist">
-                              {like.loading && like.index === i ?
-                                <div className="spinner-border spinner-border-sm text-light" role="status">
-                                  <span className="visually-hidden">Loading...</span>
-                                </div>
-                                :
-                                <Image src={userWishlist?.some((wishlist: _Object) => wishlist.id === `${item.databaseId}`) ? RedHeart : wishlistWhite} alt="" width="22" height="22" />
-                              }
-                            </button>
-                          </div>
-                        </div>
-                        <div className="col-sm-8 col-md-5">
-                          <div className="details">
-                            <h5>
-                              <Link href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
-                                {item.title}
-                              </Link>
-                            </h5>
-                            <p>{truncateText(item?.extraOptions?.address?.address || '')}</p>
-                            {
-                              item?.extraOptions?.googleReviewsId &&
+          {!loading.main && !loading.firstLoading && list?.nodes?.length > 0 && list?.nodes?.map((item: _Object, i: number) => {
+            return (
+              <div className="card" key={i}>
+                <div className="card-body p-0">
+                  <div className="row">
+                    <div className="col-sm-12 col-md-4">
+                      <div className="image-wraper">
+                        <Link href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
+                          <Image src={item?.featuredImage?.node?.sourceUrl || placeholder} width="450" height="300" alt="" />
+                        </Link>
+                        <button disabled={like.loading} onClick={() => addToWishlist(item.databaseId, i)} className="btn wishlist">
+                          {like.loading && like.index === i ?
+                            <div className="spinner-border spinner-border-sm text-light" role="status">
+                              <span className="visually-hidden">Loading...</span>
+                            </div>
+                            :
+                            <Image src={userWishlist?.some((wishlist: _Object) => wishlist.id === `${item.databaseId}`) ? RedHeart : wishlistWhite} alt="" width="22" height="22" />
+                          }
+                        </button>
+                      </div>
+                    </div>
+                    <div className="col-sm-8 col-md-5">
+                      <div className="details">
+                        <h5>
+                          <Link href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
+                            {item.title}
+                          </Link>
+                        </h5>
+                        <p>{truncateText(item?.extraOptions?.address?.address || '')}</p>
+                        {
+                          item?.extraOptions?.googleReviewsId &&
 															<div className="google-star-ratings">
 															  <ElfsightWidget widgetId={item?.extraOptions?.googleReviewsId} />
 															</div>
-                            }
-                            <div dangerouslySetInnerHTML={{ __html: truncateText(item?.content || '') }} />
-                          </div>
-                        </div>
-                        <div className="col-sm-4 col-md-3">
-                          <div className="price-details">
-                            {item?.extraOptions?.paxPrice > 0 && <h4>₹{item.extraOptions.paxPrice || 0} / Pax</h4>}
-                            <Link href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${formik?.values?.pax || 1}`} className="btn btn-primary" target="_blank">View Venue</Link>
-                          </div>
-                        </div>
+                        }
+                        <div dangerouslySetInnerHTML={{ __html: truncateText(item?.content || '') }} />
+                      </div>
+                    </div>
+                    <div className="col-sm-4 col-md-3">
+                      <div className="price-details">
+                        {item?.extraOptions?.paxPrice > 0 && <h4>₹{item.extraOptions.paxPrice || 0} / Pax</h4>}
+                        <Link href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${formik?.values?.pax || 1}`} className="btn btn-primary" target="_blank">View Venue</Link>
                       </div>
                     </div>
                   </div>
-                )
-              })
-              }
+                </div>
+              </div>
+            )
+          })
+          }
 
-              {!loading?.main && !loading?.firstLoading && list?.nodes?.length === 0 &&
+          {!loading?.main && !loading?.firstLoading && list?.nodes?.length === 0 &&
 								<div className="results-not-found">
 								  <h3>Could not find any results.</h3>
 								</div>
-              }
+          }
 
-              {loading?.firstLoading &&
+          {loading?.firstLoading &&
 								<div className="card" aria-hidden="true">
 								  <div className="card-body p-0">
 								    <div className="row">
@@ -1625,16 +1438,14 @@ const Listing = (props: _Object) => {
 								    </div>
 								  </div>
 								</div>
-              }
+          }
 
-              {list?.pageInfo?.hasNextPage && !loading?.main &&
+          {list?.pageInfo?.hasNextPage && !loading?.main &&
 								<Button label="Load More" loading={loading?.loader} onClick={loadMore} className="primary mx-auto" />
-              }
-            </div>
-          </div>
+          }
         </div>
       </section>
-    </Layout >
+    </Layout>
   )
 }
 
