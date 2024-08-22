@@ -24,7 +24,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const router: _Object = useRouter();
 
   const { loggedInUser } = useSelector((state: RootState) => state.session);
-
+  const [avatar, setAvatar] = useState(userAvtar);
   const dispatch = useDispatch<AppDispatch>()
   const [show, setShow] = useState(false)
 
@@ -41,6 +41,10 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
       router.push('/')
     }
   }, [])
+
+  useEffect(()=>{
+    setAvatar(loggedInUser?.extraOptionsUser?.avatar)
+  },[loggedInUser])
 
   const handleLogout = () => {
     dispatch(destroyAuthSession());
@@ -95,7 +99,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               :
               <div className="sidebar-user">
                 <div className="user-image">
-                  <Image src={userAvtar} width="50" height="50" alt="" />
+                  <Image src={avatar} width="50" height="50" alt="" />
                 </div>
                 <div className="user-details">
                   {loggedInUser?.firstName && (
