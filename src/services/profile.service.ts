@@ -51,7 +51,7 @@ class UserProfileService extends CommonService {
 				}
 			`
     })
-
+    console.log(data.data.viewer)
     return data.data.viewer
   }
 

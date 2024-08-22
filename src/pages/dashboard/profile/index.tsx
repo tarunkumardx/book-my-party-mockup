@@ -34,7 +34,7 @@ const Profile = () => {
       lastName: loggedInUser?.lastName,
       email: loggedInUser?.email,
       mobile_number: loggedInUser?.extraOptionsUser?.mobileNumber || '',
-      avatar: loggedInUser?.extraOptionsUser?.avatar
+      avatar: loggedInUser?.extraOptionsUser?.avatar || ''
     },
 
     enableReinitialize: true,
@@ -73,7 +73,8 @@ const Profile = () => {
   }
 
   useEffect(()=>{
-    setFileInfo(loggedInUser?.extraOptionsUser?.avatar)
+    if(loggedInUser?.extraOptionsUser?.avatar)
+      setFileInfo(loggedInUser?.extraOptionsUser?.avatar)
   },[loggedInUser])
   return (
     <DashboardLayout>
