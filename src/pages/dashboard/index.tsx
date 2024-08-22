@@ -9,7 +9,7 @@ import { setLoggedInUser } from '@/redux/slices/session.slice';
 import { bookingService } from '@/services/booking.service';
 import { useRouter } from 'next/router';
 import { listService } from '@/services/venue.service';
-import { amountFormat } from '@/utils/helpers';
+import { amountFormat, changeDateFormat, formatDate } from '@/utils/helpers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -133,12 +133,15 @@ const Dashboard = () => {
                   <thead>
                     <tr>
                       <th>Booking ID</th>
-                      <th>Guest Name</th>
+                      <th>Customer Name</th>
                       <th>Booking Date</th>
+                      <th>Party Date</th>
                       <th>Timing</th>
-                      <th>Venue Name</th>
+                      <th>Booking Status</th>
+                      <th>Outlet Name</th>
+                      <th>Package</th>
+                      <th>Pax</th>
                       <th>Amount</th>
-                      <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -175,10 +178,22 @@ const Dashboard = () => {
                           </td>
                           <td>{`${item['28.3']}` + ' ' + `${item['28.6']}`}</td>
                           <td>
-                            {item['110']}
+                            {changeDateFormat(item['date_created'].split(' ')[0],'dashboard')}
+                          </td>
+                          <td>
+                            {formatDate(item['110'])}
                           </td>
                           <td>
                             {item['25']}
+                          </td>
+                          <td className="status">
+                            {item['134'] === 'Booking Cancelled' || item['134'] === 'Booking Declined' ? (
+                              <span className="delete">{item['134']}</span>
+                            ) : item['134'] && (item['134'] === 'Booking Confirmed' || item['134'] === 'Booking Completed') ? (
+                              <span className="complete">{item['134']}</span>
+                            ) : (
+                              <span className="pending">{item['134'] ? item['134'] : 'Request Received'}</span>
+                            )}
                           </td>
                           <td className="d-flex gap-2">
                             <button onClick={() => getVenueSlug(item['112'], i)} className="btn btn-link">{item['113']}</button>
@@ -190,15 +205,10 @@ const Dashboard = () => {
 															</div>
                             }
                           </td>
+                          <td>{item['31']}</td>
+                          <td>{item['33']}</td>
                           <td>
                             {amountFormat(item['32'])}
-                          </td>
-                          <td className="status">
-                            {item['134'] && item['134'] === 'Completed' ? (
-                              <span className="complete">{item['134']}</span>
-                            ) : (
-                              <span className="pending">Pending</span>
-                            )}
                           </td>
                           <td>
                             <Link href={`/dashboard/bookings/${item.id}`} className="btn btn-primary">

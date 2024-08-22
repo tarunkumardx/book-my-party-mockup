@@ -40,7 +40,7 @@ const BookingDetails = () => {
   const [loadingMain, setLoadingMain] = useState(false)
   const [data, setData] = useState<_Object>({})
   const [venueDetails, setVenueDetails] = useState<_Object>({})
-
+  console.log(venueDetails)
   // const breakfastArray = [
   // 	'48', '105', '106', '107', '108', '49', '104', '52'
   // ];
@@ -283,9 +283,13 @@ const BookingDetails = () => {
 
                       </div>
                       :
-                      <div className="card">
-                        <p>{venueDetails?.extraOptions?.packages?.find((itemData: _Object) => itemData?.title === data['31'])?.shortDescription}</p>
-                      </div>
+                      <>{venueDetails?.extraOptions?.packages?.find((itemData: _Object) => itemData?.title === data['31'])?.shortDescription &&
+                        <div className="card">
+                          <p>{venueDetails?.extraOptions?.packages?.find((itemData: _Object) => itemData?.title === data['31'])?.shortDescription}</p>
+                        </div>}
+                      {venueDetails?.extraOptions?.packages?.find((itemData: _Object) => itemData?.title === data['31'])?.content &&
+                      <div className="card" dangerouslySetInnerHTML={{ __html: venueDetails?.extraOptions?.packages?.find((itemData: _Object) => itemData?.title === data['31'])?.content}}/>
+                      }</>
                     }
                     {
                       data['42']?.length > 0 &&
