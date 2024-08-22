@@ -11,7 +11,7 @@ import { AppDispatch } from '@/redux/store';
 import { bookingService } from '@/services/booking.service';
 import { listService } from '@/services/venue.service';
 import { useRouter } from 'next/router';
-import { amountFormat, changeDateFormat, formatDate } from '@/utils/helpers';
+import { changeDateFormat, formatDate } from '@/utils/helpers';
 import Image from 'next/image';
 import { CalendarView, ListView } from '@/assets/images';
 import { Dropdown } from 'rsuite';
@@ -42,6 +42,9 @@ const BookingHistory = () => {
 
   const [list, setList] = useState<List>({ entries: [], total_count: 0 });
   const [dropdownStates, setDropdownStates] = useState<DropdownStates>({});
+  const [isVendor, setIsVendor] = useState(false);
+
+  console.log(isVendor)
   useEffect(() => {
     // Initialize dropdownStates when list.entries changes
     setDropdownStates(
@@ -54,6 +57,10 @@ const BookingHistory = () => {
       }, {})
     );
   }, [list.entries]);
+  useEffect (()=>{
+    const name = loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator'));
+    name ? setIsVendor(true) : setIsVendor(false);
+  })
   const handleSelect = (itemId:number, status:string) => {
     setDropdownStates((prevStates:object)=> ({
       ...prevStates,
@@ -95,7 +102,7 @@ const BookingHistory = () => {
 
         const venuesIds = venues.edges.map((item: _Object) => item.node.databaseId).join(',')
 
-        const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId, venuesIds: venuesIds }, loggedInUser?.roles?.nodes?.some((item: _Object) => item.name != 'author') ? 'user' : 'admin')
+        const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId, venuesIds: venuesIds }, !isVendor ? 'user' : 'admin')
         if (data?.entries) {
           setList(data)
           // console.log(data)
@@ -152,14 +159,13 @@ const BookingHistory = () => {
                 <table className="table table-bordered table-striped ">
                   <thead>
                     <tr>
-                      <th>Booking ID</th>
-                      <th>Guest Name</th>
+                      <th>{isVendor ? 'Customer Name' : 'Booking Id'}</th>
                       <th>Booking Date</th>
                       <th>Party Date</th>
-                      <th>Timing</th>
-                      <th>Venue Name</th>
-                      <th>Amount</th>
-                      <th>Status</th>
+                      <th>Booking Status</th>
+                      {!isVendor && <th>Outlet Name</th>}
+                      <th>Package</th>
+                      <th>Pax</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -191,32 +197,15 @@ const BookingHistory = () => {
                       return (
                         <tr key={i}>
                           <td>
-                            {item.id}
+                            {isVendor ? `${item['28.3']}` + ' ' + `${item['28.6']}`: item.id}
                           </td>
-                          <td>{`${item['28.3']}` + ' ' + `${item['28.6']}`}</td>
                           <td>
                             {changeDateFormat(item['date_created'].split(' ')[0],'dashboard')}
                           </td>
                           <td>
                             {formatDate(item['110'])}
                           </td>
-                          <td>
-                            {item['25']} Hours
-                          </td>
-                          <td className="d-flex gap-2">
-                            <button onClick={() => getVenueSlug(item['112'], i)} className="btn btn-link">{item['113']}</button>
-                            {(slugLoading.loading && slugLoading.index === i) &&
-															<div className="d-flex justify-content-center align-items-center">
-															  <div className="spinner-border spinner-border-sm" role="status">
-															    <span className="visually-hidden">Loading...</span>
-															  </div>
-															</div>
-                            }
-                          </td>
-                          <td>
-                            {amountFormat(item['32'])}
-                          </td>
-                          {(loggedInUser?.roles?.nodes && loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator'))) ?
+                          {isVendor ?
                             (<td className="status">
                               <Dropdown title={dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
                                 <Dropdown.Item
@@ -257,6 +246,18 @@ const BookingHistory = () => {
                                 </Dropdown.Item>
                               </Dropdown>
                             </td>)}
+                          {!isVendor && <td className="d-flex gap-2">
+                            <button onClick={() => getVenueSlug(item['112'], i)} className="btn btn-link">{item['113']}</button>
+                            {(slugLoading.loading && slugLoading.index === i) &&
+															<div className="d-flex justify-content-center align-items-center">
+															  <div className="spinner-border spinner-border-sm" role="status">
+															    <span className="visually-hidden">Loading...</span>
+															  </div>
+															</div>
+                            }
+                          </td>}
+                          <td>{item['31']}</td>
+                          <td>{item['33']}</td>
                           <td>
                             <Link href={`/dashboard/bookings/${item.id}`} className="btn btn-primary">
                               <FontAwesomeIcon icon={faInfoCircle} />

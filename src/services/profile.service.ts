@@ -39,6 +39,7 @@ class UserProfileService extends CommonService {
 						venuesStatistics
 						extraOptionsUser {
 							mobileNumber
+							avatar
 						}
 						roles {
 							nodes {
@@ -54,11 +55,13 @@ class UserProfileService extends CommonService {
     return data.data.viewer
   }
 
-  async updateProfile(ID: string, firstName: string, lastName: string, email: string, mobileNumber: string) {
+  async updateProfile(ID: string, firstName: string, lastName: string, email: string, mobileNumber: string, avatar:string) {
+    console.log(avatar)
     const query = `
-			mutation EditProfile($ID: ID!, $firstName: String!, $email: String!, $lastName: String!, , $mobileNumber: String!) {
+			mutation EditProfile($ID: ID!, $firstName: String!, $email: String!, $lastName: String!, , $mobileNumber: String!, $avatar: String!) {
 				updateUser(
 					input: {id: $ID, firstName: $firstName, lastName: $lastName, email: $email, mobileNumber: $mobileNumber}
+					
 				) {
 					clientMutationId
 					user {
@@ -73,7 +76,8 @@ class UserProfileService extends CommonService {
       lastName,
       email,
       ID,
-      mobileNumber
+      mobileNumber,
+      avatar
     };
 
     const result = await this.post({ query: query, variables: variables });
