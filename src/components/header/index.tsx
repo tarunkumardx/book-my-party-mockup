@@ -11,7 +11,7 @@ import Link from 'next/link'
 import { destroyAuthSession, getUserWishlist, setLoggedInUser } from '@/redux/slices/session.slice'
 import Avatar from '../avatar'
 import Image from 'next/image';
-import { facebook, indiaFalg, instagram, linkedin, youtube } from '@/assets/images';
+import { facebook, indiaFalg, instagram, youtube } from '@/assets/images';
 import { LoginModal, SignUp, VenueModal } from '..';
 import { useRouter } from 'next/router'
 
@@ -70,11 +70,11 @@ const Header = () => {
                           <Image src={instagram} width="14" height="16" alt="Instagram" />
                         </Link>
                       </li>
-                      <li className="nav-item">
+                      {/* <li className="nav-item">
                         <Link href="https://www.linkedin.com/company/bookmypartyofficial/?viewAsMember=true" className="nav-link" target="_blank">
                           <Image src={linkedin} width="14" height="16" alt="Linkedin" />
                         </Link>
-                      </li>
+                      </li> */}
                       <li className="nav-item">
                         <Link href="https://www.youtube.com/channel/UCxOwNpLSkvA584zVgASr5GQ" className="nav-link" target="_blank">
                           <Image src={youtube} width="18" height="16" alt="Youtube" />
