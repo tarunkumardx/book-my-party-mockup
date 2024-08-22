@@ -1029,323 +1029,321 @@ const Listing = (props: _Object) => {
 
                 </div>
               </div>
-            </div>
-          </div>
 
-          <div className="accordion d-none d-lg-inline-block" id="accordionFilter">
+              <div className="accordion d-none d-lg-inline-block" id="accordionFilter">
 
-            {/* {props?.packageTypes?.filter((item: _Object) =>
-									item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-								)?.length > 0 &&
-									<div className="accordion-item">
-										<button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#packageType" aria-expanded="true" aria-controls="packageType">
-											PACKAGE
-										</button>
+                {/* {props?.packageTypes?.filter((item: _Object) =>
+      item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+    )?.length > 0 &&
+      <div className="accordion-item">
+        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#packageType" aria-expanded="true" aria-controls="packageType">
+          PACKAGE
+        </button>
 
-										<div id="packageType" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#packageType">
-											<div className="accordion-body">
-												<CheckBox
-													showMoreOption={true}
-													name="package_types"
-													values={router?.query?.package_types?.split('+')}
-													options={props?.packageTypes?.filter((item: _Object) =>
-														item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-													)?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-													onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'package_types')}
-												/>
-											</div>
-										</div>
-									</div>
-								} */}
-
-            <div className="accordion-item">
-              <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded="true" aria-controls="price">
-										BUDGET / PRICE
-              </button>
-
-              <div id="price" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#price">
-                <div className="accordion-body">
-                  <CheckBox
-                    showMoreOption={true}
-                    name="price_range"
-                    values={router?.query?.price_range?.split('+')}
-                    options={priceRange?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'price_range')}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {props?.activities?.filter((item: _Object) =>
-              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-            )?.length > 0 &&
-									<div className="accordion-item">
-									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#activity" aria-expanded="true" aria-controls="activity">
-											ACTIVITES
-									  </button>
-
-									  <div id="activity" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#activity">
-									    <div className="accordion-body">
-									      <CheckBox
-									        showMoreOption={true}
-									        name="activities"
-									        values={router?.query?.activities?.split('+')}
-									        options={props?.activities?.filter((item: _Object) =>
-									          item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-									        )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-									        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'activities')}
-									      />
-									    </div>
-									  </div>
-									</div>
-            }
-
-            {props?.ageGroups?.filter((item: _Object) =>
-              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-            )?.length > 0 &&
-									<div className="accordion-item">
-									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ageGroup" aria-expanded="true" aria-controls="ageGroup">
-											AGE GROUP
-									  </button>
-
-									  <div id="ageGroup" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#ageGroup">
-									    <div className="accordion-body">
-									      <CheckBox
-									        showMoreOption={true}
-									        name="age"
-									        values={router?.query?.age?.split('+')}
-									        options={props?.ageGroups?.filter((item: _Object) =>
-									          item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-									        )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-									        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'age')}
-									      />
-									    </div>
-									  </div>
-									</div>
-            }
-
-            {props?.venueTypes?.filter((item: _Object) =>
-              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-            )?.length > 0 &&
-									<div className="accordion-item">
-									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#category" aria-expanded="true" aria-controls="category">
-											RESTAURANT TYPE
-									  </button>
-
-									  <div id="category" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#category">
-									    <div className="accordion-body">
-									      <CheckBox
-									        showMoreOption={true}
-									        name="venueTypes"
-									        values={router?.query?.venueTypes?.split('+')}
-									        options={props?.venueTypes?.filter((item: _Object) =>
-									          item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-									        )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-									        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'venueTypes')}
-									      />
-									    </div>
-									  </div>
-									</div>
-            }
-
-            {props?.cuisines?.filter((item: _Object) =>
-              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-            )?.length > 0 &&
-									<div className="accordion-item">
-									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#cuisine" aria-expanded="false" aria-controls="cuisine">
-											Cuisine
-									  </button>
-
-									  <div id="cuisine" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#cuisines">
-									    <div className="accordion-body">
-									      <CheckBox
-									        showMoreOption={true}
-									        name="cuisines"
-									        values={router?.query?.cuisines?.split('+')}
-									        options={props?.cuisines?.filter((item: _Object) =>
-									          item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-									        )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-									        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'cuisines')}
-									      />
-									    </div>
-									  </div>
-									</div>
-            }
-
-            {props?.franchiseChain?.filter((item: _Object) =>
-              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-            )?.length > 0 &&
-									<div className="accordion-item">
-									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#restaurantChain" aria-expanded="true" aria-controls="restaurantChain">
-											Restaurant Chain
-									  </button>
-
-									  <div id="restaurantChain" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#restaurantChains">
-									    <div className="accordion-body">
-									      <CheckBox
-									        showMoreOption={true}
-									        name="franchises"
-									        values={router?.query?.franchises?.split('+')}
-									        options={props?.franchiseChain?.filter((item: _Object) =>
-									          item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-									        )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-									        checked={false}
-									        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'franchises')}
-									      />
-									    </div>
-									  </div>
-									</div>
-            }
-
-            {props?.locations?.filter((item: _Object) =>
-              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-            )?.length > 0 &&
-									<div className="accordion-item">
-									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#locations" aria-expanded="true" aria-controls="locations">
-											Locations
-									  </button>
-
-									  <div id="locations" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#locations">
-									    <div className="accordion-body">
-									      <CheckBox
-									        showMoreOption={true}
-									        name="locations"
-									        values={router?.query?.locations?.split('+')}
-									        options={props?.locations?.filter((item: _Object) =>
-									          item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-									        )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-									        checked={false}
-									        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'locations')}
-									      />
-									    </div>
-									  </div>
-									</div>
-            }
-
-            {
-              (query.types === 'restaurant' || query.types === 'fun-zone') &&
-									<div className="accordion-item">
-									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#capacity" aria-expanded="true" aria-controls="capacity">
-											CAPACITY
-									  </button>
-
-									  <div id="capacity" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#capacity">
-									    <div className="accordion-body">
-									      <CheckBox
-									        showMoreOption={true}
-									        name="capacity"
-									        values={router?.query?.capacity?.split('+')}
-									        options={capacity}
-									        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'capacity')}
-									      />
-									    </div>
-									  </div>
-									</div>
-            }
-
-            {props?.amenities?.filter((item: _Object) =>
-              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-            )?.length > 0 &&
-									<div className="accordion-item">
-									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#amenities" aria-expanded="true" aria-controls="amenities">
-											Amenities
-									  </button>
-
-									  <div id="amenities" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#amenities">
-									    <div className="accordion-body">
-									      <CheckBox
-									        showMoreOption={true}
-									        name="amenities"
-									        values={router?.query?.amenities?.split('+')}
-									        options={props?.amenities?.filter((item: _Object) =>
-									          item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-									        )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-									        checked={false}
-									        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'amenities')}
-									      />
-									    </div>
-									  </div>
-									</div>
-            }
-
-            {
-              query?.types === 'restaurant' &&
-									<div className="accordion-item">
-									  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#occasions" aria-expanded="true" aria-controls="occasions">
-											Occasions
-									  </button>
-
-									  <div id="occasions" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#occasions">
-									    <div className="accordion-body">
-									      <CheckBox
-									        showMoreOption={true}
-									        name="occasions"
-									        values={router?.query?.occasions?.split('+')}
-									        options={props?.occasions?.filter((item: _Object) =>
-									          item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-									        )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-									        checked={false}
-									        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'occasions')}
-									      />
-									    </div>
-									  </div>
-									</div>
-            }
+        <div id="packageType" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#packageType">
+          <div className="accordion-body">
+            <CheckBox
+              showMoreOption={true}
+              name="package_types"
+              values={router?.query?.package_types?.split('+')}
+              options={props?.packageTypes?.filter((item: _Object) =>
+                item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+              )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'package_types')}
+            />
           </div>
         </div>
+      </div>
+    } */}
 
-        <div className="col-12 col-lg-9">
-          <div className="d-flex justify-content-between align-items-center result-head">
-            {(loading.main || loading.firstLoading) ?
-              <h5 className="card-title placeholder-glow col-2">
-                <span className="placeholder col-12"></span>
-              </h5>
-              :
-              <h4 className="d-flex">{list?.pageInfo?.total} Results found</h4>
-            }
-            {(loading.main || loading.firstLoading) ?
-              <h5 className="card-title placeholder-glow col-2">
-                <span className="placeholder col-12"></span>
-              </h5>
-              :
-              <div className="d-flex align-items-center gap-2">
-                <h6 className="mb-0">Sort</h6>
-                <SelectField
-                  value={{ value: query?.order_by || '-title' }}
-                  options={[
-                    { label: 'Title - A to Z', value: '-title' },
-                    { label: 'Title - Z to A', value: 'title' },
-                    { label: 'Price - Low to High', value: '-price' },
-                    { label: 'Price - High to Low', value: 'price' }
-                  ]}
-                  onChange={(val: _Object) => {
-                    const date = new Date(query.date)
+                <div className="accordion-item">
+                  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded="true" aria-controls="price">
+        BUDGET / PRICE
+                  </button>
 
-                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                    const day = date.getDate().toString().padStart(2, '0');
-                    const year = date.getFullYear();
+                  <div id="price" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#price">
+                    <div className="accordion-body">
+                      <CheckBox
+                        showMoreOption={true}
+                        name="price_range"
+                        values={router?.query?.price_range?.split('+')}
+                        options={priceRange?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'price_range')}
+                      />
+                    </div>
+                  </div>
+                </div>
 
-                    const formattedDate = `${month}-${day}-${year}`;
-                    setCursor({
-                      endCursor: null
-                    })
+                {props?.activities?.filter((item: _Object) =>
+                  item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+                )?.length > 0 &&
+      <div className="accordion-item">
+        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#activity" aria-expanded="true" aria-controls="activity">
+          ACTIVITES
+        </button>
 
-                    setFilter(true)
-                    setLoading({ main: true })
-                    router.push({
-                      pathname: '/venues',
-                      query: `locations=${query.locations?.replace(/\+/g, '%2B') || ''}&types=${query?.types?.replace(/\+/g, '%2B') || ''}&date=${formattedDate}&occasions=${query?.occasions?.replace(/\+/g, '%2B') || ''}&pax=${query?.pax || ''}&cuisines=${query?.cuisines?.replace(/\+/g, '%2B') || ''}&franchises=${query?.franchises?.replace(/\+/g, '%2B') || ''}&amenities=${query?.amenities?.replace(/\+/g, '%2B') || ''}&price_range=${query?.price_range?.replace(/\+/g, '%2B') || ''}&order_by=${val.value}`
-                    })
-                  }}
-                  getOptionLabel={(option: { [key: string]: string }) => option?.label}
-                  getOptionValue={(option: { [key: string]: string }) => option?.label}
-                  isSearchable={isSearchable}
-                />
-              </div>
-            }
+        <div id="activity" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#activity">
+          <div className="accordion-body">
+            <CheckBox
+              showMoreOption={true}
+              name="activities"
+              values={router?.query?.activities?.split('+')}
+              options={props?.activities?.filter((item: _Object) =>
+                item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+              )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'activities')}
+            />
           </div>
+        </div>
+      </div>
+                }
 
-          {loading.main &&
+                {props?.ageGroups?.filter((item: _Object) =>
+                  item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+                )?.length > 0 &&
+      <div className="accordion-item">
+        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ageGroup" aria-expanded="true" aria-controls="ageGroup">
+          AGE GROUP
+        </button>
+
+        <div id="ageGroup" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#ageGroup">
+          <div className="accordion-body">
+            <CheckBox
+              showMoreOption={true}
+              name="age"
+              values={router?.query?.age?.split('+')}
+              options={props?.ageGroups?.filter((item: _Object) =>
+                item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+              )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'age')}
+            />
+          </div>
+        </div>
+      </div>
+                }
+
+                {props?.venueTypes?.filter((item: _Object) =>
+                  item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+                )?.length > 0 &&
+      <div className="accordion-item">
+        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#category" aria-expanded="true" aria-controls="category">
+          RESTAURANT TYPE
+        </button>
+
+        <div id="category" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#category">
+          <div className="accordion-body">
+            <CheckBox
+              showMoreOption={true}
+              name="venueTypes"
+              values={router?.query?.venueTypes?.split('+')}
+              options={props?.venueTypes?.filter((item: _Object) =>
+                item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+              )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'venueTypes')}
+            />
+          </div>
+        </div>
+      </div>
+                }
+
+                {props?.cuisines?.filter((item: _Object) =>
+                  item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+                )?.length > 0 &&
+      <div className="accordion-item">
+        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#cuisine" aria-expanded="false" aria-controls="cuisine">
+          Cuisine
+        </button>
+
+        <div id="cuisine" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#cuisines">
+          <div className="accordion-body">
+            <CheckBox
+              showMoreOption={true}
+              name="cuisines"
+              values={router?.query?.cuisines?.split('+')}
+              options={props?.cuisines?.filter((item: _Object) =>
+                item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+              )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'cuisines')}
+            />
+          </div>
+        </div>
+      </div>
+                }
+
+                {props?.franchiseChain?.filter((item: _Object) =>
+                  item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+                )?.length > 0 &&
+      <div className="accordion-item">
+        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#restaurantChain" aria-expanded="true" aria-controls="restaurantChain">
+          Restaurant Chain
+        </button>
+
+        <div id="restaurantChain" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#restaurantChains">
+          <div className="accordion-body">
+            <CheckBox
+              showMoreOption={true}
+              name="franchises"
+              values={router?.query?.franchises?.split('+')}
+              options={props?.franchiseChain?.filter((item: _Object) =>
+                item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+              )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
+              checked={false}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'franchises')}
+            />
+          </div>
+        </div>
+      </div>
+                }
+
+                {props?.locations?.filter((item: _Object) =>
+                  item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+                )?.length > 0 &&
+      <div className="accordion-item">
+        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#locations" aria-expanded="true" aria-controls="locations">
+          Locations
+        </button>
+
+        <div id="locations" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#locations">
+          <div className="accordion-body">
+            <CheckBox
+              showMoreOption={true}
+              name="locations"
+              values={router?.query?.locations?.split('+')}
+              options={props?.locations?.filter((item: _Object) =>
+                item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+              )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
+              checked={false}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'locations')}
+            />
+          </div>
+        </div>
+      </div>
+                }
+
+                {
+                  (query.types === 'restaurant' || query.types === 'fun-zone') &&
+      <div className="accordion-item">
+        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#capacity" aria-expanded="true" aria-controls="capacity">
+          CAPACITY
+        </button>
+
+        <div id="capacity" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#capacity">
+          <div className="accordion-body">
+            <CheckBox
+              showMoreOption={true}
+              name="capacity"
+              values={router?.query?.capacity?.split('+')}
+              options={capacity}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'capacity')}
+            />
+          </div>
+        </div>
+      </div>
+                }
+
+                {props?.amenities?.filter((item: _Object) =>
+                  item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+                )?.length > 0 &&
+      <div className="accordion-item">
+        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#amenities" aria-expanded="true" aria-controls="amenities">
+          Amenities
+        </button>
+
+        <div id="amenities" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#amenities">
+          <div className="accordion-body">
+            <CheckBox
+              showMoreOption={true}
+              name="amenities"
+              values={router?.query?.amenities?.split('+')}
+              options={props?.amenities?.filter((item: _Object) =>
+                item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+              )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
+              checked={false}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'amenities')}
+            />
+          </div>
+        </div>
+      </div>
+                }
+
+                {
+                  query?.types === 'restaurant' &&
+      <div className="accordion-item">
+        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#occasions" aria-expanded="true" aria-controls="occasions">
+          Occasions
+        </button>
+
+        <div id="occasions" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#occasions">
+          <div className="accordion-body">
+            <CheckBox
+              showMoreOption={true}
+              name="occasions"
+              values={router?.query?.occasions?.split('+')}
+              options={props?.occasions?.filter((item: _Object) =>
+                item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+              )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
+              checked={false}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'occasions')}
+            />
+          </div>
+        </div>
+      </div>
+                }
+              </div>
+            </div>
+
+            <div className="col-12 col-lg-9">
+              <div className="d-flex justify-content-between align-items-center result-head">
+                {(loading.main || loading.firstLoading) ?
+                  <h5 className="card-title placeholder-glow col-2">
+                    <span className="placeholder col-12"></span>
+                  </h5>
+                  :
+                  <h4 className="d-flex">{list?.pageInfo?.total} Results found</h4>
+                }
+                {(loading.main || loading.firstLoading) ?
+                  <h5 className="card-title placeholder-glow col-2">
+                    <span className="placeholder col-12"></span>
+                  </h5>
+                  :
+                  <div className="d-flex align-items-center gap-2">
+                    <h6 className="mb-0">Sort</h6>
+                    <SelectField
+                      value={{ value: query?.order_by || '-title' }}
+                      options={[
+                        { label: 'Title - A to Z', value: '-title' },
+                        { label: 'Title - Z to A', value: 'title' },
+                        { label: 'Price - Low to High', value: '-price' },
+                        { label: 'Price - High to Low', value: 'price' }
+                      ]}
+                      onChange={(val: _Object) => {
+                        const date = new Date(query.date)
+
+                        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                        const day = date.getDate().toString().padStart(2, '0');
+                        const year = date.getFullYear();
+
+                        const formattedDate = `${month}-${day}-${year}`;
+                        setCursor({
+                          endCursor: null
+                        })
+
+                        setFilter(true)
+                        setLoading({ main: true })
+                        router.push({
+                          pathname: '/venues',
+                          query: `locations=${query.locations?.replace(/\+/g, '%2B') || ''}&types=${query?.types?.replace(/\+/g, '%2B') || ''}&date=${formattedDate}&occasions=${query?.occasions?.replace(/\+/g, '%2B') || ''}&pax=${query?.pax || ''}&cuisines=${query?.cuisines?.replace(/\+/g, '%2B') || ''}&franchises=${query?.franchises?.replace(/\+/g, '%2B') || ''}&amenities=${query?.amenities?.replace(/\+/g, '%2B') || ''}&price_range=${query?.price_range?.replace(/\+/g, '%2B') || ''}&order_by=${val.value}`
+                        })
+                      }}
+                      getOptionLabel={(option: { [key: string]: string }) => option?.label}
+                      getOptionValue={(option: { [key: string]: string }) => option?.label}
+                      isSearchable={isSearchable}
+                    />
+                  </div>
+                }
+              </div>
+
+              {loading.main &&
 								<div className="card" aria-hidden="true">
 								  <div className="card-body p-0">
 								    <div className="row">
@@ -1396,66 +1394,66 @@ const Listing = (props: _Object) => {
 								    </div>
 								  </div>
 								</div>
-          }
+              }
 
-          {!loading.main && !loading.firstLoading && list?.nodes?.length > 0 && list?.nodes?.map((item: _Object, i: number) => {
-            return (
-              <div className="card" key={i}>
-                <div className="card-body p-0">
-                  <div className="row">
-                    <div className="col-sm-12 col-md-4">
-                      <div className="image-wraper">
-                        <Link href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
-                          <Image src={item?.featuredImage?.node?.sourceUrl || placeholder} width="450" height="300" alt="" />
-                        </Link>
-                        <button disabled={like.loading} onClick={() => addToWishlist(item.databaseId, i)} className="btn wishlist">
-                          {like.loading && like.index === i ?
-                            <div className="spinner-border spinner-border-sm text-light" role="status">
-                              <span className="visually-hidden">Loading...</span>
-                            </div>
-                            :
-                            <Image src={userWishlist?.some((wishlist: _Object) => wishlist.id === `${item.databaseId}`) ? RedHeart : wishlistWhite} alt="" width="22" height="22" />
-                          }
-                        </button>
-                      </div>
-                    </div>
-                    <div className="col-sm-8 col-md-5">
-                      <div className="details">
-                        <h5>
-                          <Link href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
-                            {item.title}
-                          </Link>
-                        </h5>
-                        <p>{truncateText(item?.extraOptions?.address?.address || '')}</p>
-                        {
-                          item?.extraOptions?.googleReviewsId &&
+              {!loading.main && !loading.firstLoading && list?.nodes?.length > 0 && list?.nodes?.map((item: _Object, i: number) => {
+                return (
+                  <div className="card" key={i}>
+                    <div className="card-body p-0">
+                      <div className="row">
+                        <div className="col-sm-12 col-md-4">
+                          <div className="image-wraper">
+                            <Link href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
+                              <Image src={item?.featuredImage?.node?.sourceUrl || placeholder} width="450" height="300" alt="" />
+                            </Link>
+                            <button disabled={like.loading} onClick={() => addToWishlist(item.databaseId, i)} className="btn wishlist">
+                              {like.loading && like.index === i ?
+                                <div className="spinner-border spinner-border-sm text-light" role="status">
+                                  <span className="visually-hidden">Loading...</span>
+                                </div>
+                                :
+                                <Image src={userWishlist?.some((wishlist: _Object) => wishlist.id === `${item.databaseId}`) ? RedHeart : wishlistWhite} alt="" width="22" height="22" />
+                              }
+                            </button>
+                          </div>
+                        </div>
+                        <div className="col-sm-8 col-md-5">
+                          <div className="details">
+                            <h5>
+                              <Link href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
+                                {item.title}
+                              </Link>
+                            </h5>
+                            <p>{truncateText(item?.extraOptions?.address?.address || '')}</p>
+                            {
+                              item?.extraOptions?.googleReviewsId &&
 															<div className="google-star-ratings">
 															  <ElfsightWidget widgetId={item?.extraOptions?.googleReviewsId} />
 															</div>
-                        }
-                        <div dangerouslySetInnerHTML={{ __html: truncateText(item?.content || '') }} />
-                      </div>
-                    </div>
-                    <div className="col-sm-4 col-md-3">
-                      <div className="price-details">
-                        {item?.extraOptions?.paxPrice > 0 && <h4>₹{item.extraOptions.paxPrice || 0} / Pax</h4>}
-                        <Link href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${formik?.values?.pax || 1}`} className="btn btn-primary" target="_blank">View Venue</Link>
+                            }
+                            <div dangerouslySetInnerHTML={{ __html: truncateText(item?.content || '') }} />
+                          </div>
+                        </div>
+                        <div className="col-sm-4 col-md-3">
+                          <div className="price-details">
+                            {item?.extraOptions?.paxPrice > 0 && <h4>₹{item.extraOptions.paxPrice || 0} / Pax</h4>}
+                            <Link href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${formik?.values?.pax || 1}`} className="btn btn-primary" target="_blank">View Venue</Link>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            )
-          })
-          }
+                )
+              })
+              }
 
-          {!loading?.main && !loading?.firstLoading && list?.nodes?.length === 0 &&
+              {!loading?.main && !loading?.firstLoading && list?.nodes?.length === 0 &&
 								<div className="results-not-found">
 								  <h3>Could not find any results.</h3>
 								</div>
-          }
+              }
 
-          {loading?.firstLoading &&
+              {loading?.firstLoading &&
 								<div className="card" aria-hidden="true">
 								  <div className="card-body p-0">
 								    <div className="row">
@@ -1506,11 +1504,13 @@ const Listing = (props: _Object) => {
 								    </div>
 								  </div>
 								</div>
-          }
+              }
 
-          {list?.pageInfo?.hasNextPage && !loading?.main &&
+              {list?.pageInfo?.hasNextPage && !loading?.main &&
 								<Button label="Load More" loading={loading?.loader} onClick={loadMore} className="primary mx-auto" />
-          }
+              }
+            </div>
+          </div>
         </div>
       </section>
     </Layout>
