@@ -345,6 +345,16 @@
   position: relative;
   z-index: 1;
 }
+.search-form2{
+  background: #fc6f33;
+  padding: 13px 45px;
+  font-family: "Outfit";
+  position: sticky;
+  top: -1px;
+}
+.rs-dropdown .rs-dropdown-menu{
+  width: 17% !important;
+}
 
 .search-form {
   background: #fc6f33;
