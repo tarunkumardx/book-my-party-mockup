@@ -11,13 +11,13 @@ const HowItWorks = ({ props }: _Object) => {
           {props?.workBoxes?.map((item: _Object, i: number) => {
             return (
               <div key={i} className="col">
-                <div className="card h-100">
+                <div style={{height:'520px'}} className="card">
                   <Image src={item?.icon?.node?.mediaItemUrl} height="95" width="95" alt="" />
                   <div className="card-body">
                     <h3>
                       {item.title}
                     </h3>
-                    <div dangerouslySetInnerHTML={{ __html: item?.description }} />
+                    <div style={{paddingTop:'10px'}} dangerouslySetInnerHTML={{ __html: item?.description }} />
                   </div>
                 </div>
               </div>
