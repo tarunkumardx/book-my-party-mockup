@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as yup from 'yup'
 import { useFormik } from 'formik';
 import { DashboardLayout, PhoneNumberField, SEOHead } from '@/components';
@@ -24,15 +24,15 @@ type PreviewCallback = (result: string | ArrayBuffer | null) => void;
 const Profile = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [uploading, setUploading] = React.useState(false);
-  const [fileInfo, setFileInfo] = React.useState(null);
   const [loading, setLoading] = useState<boolean>(false)
   const { loggedInUser } = useSelector((state: RootState) => state.session);
+  const [fileInfo, setFileInfo] = React.useState(null);
   console.log(loggedInUser)
   const formik = useFormik({
     initialValues: {
-      firstName: loggedInUser.firstName,
-      lastName: loggedInUser.lastName,
-      email: loggedInUser.email,
+      firstName: loggedInUser?.firstName,
+      lastName: loggedInUser?.lastName,
+      email: loggedInUser?.email,
       mobile_number: loggedInUser?.extraOptionsUser?.mobileNumber || '',
       avatar: loggedInUser?.extraOptionsUser?.avatar
     },
@@ -49,7 +49,7 @@ const Profile = () => {
     onSubmit: async (values) => {
       setLoading(true)
       console.log(values)
-      userProfileService.updateProfile(loggedInUser.id, values.firstName, values.lastName, values.email, values.mobile_number, values.avatar).then((result: _Object) => {
+      userProfileService.updateProfile(loggedInUser?.id, values?.firstName, values?.lastName, values?.email, values?.mobile_number, values?.avatar).then((result: _Object) => {
         if (result?.email) {
           toast.success('Your profile updated successfully')
           dispatch(setLoggedInUser())
@@ -71,6 +71,10 @@ const Profile = () => {
     };
     reader.readAsDataURL(file);
   }
+
+  useEffect(()=>{
+    setFileInfo(loggedInUser?.extraOptionsUser?.avatar)
+  },[loggedInUser])
   return (
     <DashboardLayout>
       <SEOHead seo={{ title: 'My Profile - Book My Party' } || ''} />
@@ -98,7 +102,9 @@ const Profile = () => {
               setUploading(false);
             }}
           >
-            <button style={{ width: 150, height: 150 }}>
+            <button type="button" style={{ width: 150, height: 150 }} onClick={(e) => {
+              e.preventDefault();
+            }}>
               {uploading && <Loader backdrop center />}
               {fileInfo ? (
                 <img src={fileInfo} width="100%" height="100%" />

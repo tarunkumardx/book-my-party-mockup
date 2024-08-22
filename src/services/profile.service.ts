@@ -60,7 +60,7 @@ class UserProfileService extends CommonService {
     const query = `
 			mutation EditProfile($ID: ID!, $firstName: String!, $email: String!, $lastName: String!, , $mobileNumber: String!, $avatar: String!) {
 				updateUser(
-					input: {id: $ID, firstName: $firstName, lastName: $lastName, email: $email, mobileNumber: $mobileNumber}
+					input: {id: $ID, firstName: $firstName, lastName: $lastName, email: $email, mobileNumber: $mobileNumber, avatar: $avatar}
 					
 				) {
 					clientMutationId
