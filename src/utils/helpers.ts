@@ -52,6 +52,7 @@ export const amountFormat = (amount: string, type = 'float') => {
 }
 
 export const uploadImages = async (fileInput: File) => {
+  console.log(typeof fileInput)
   if (fileInput) {
     const formData = new FormData();
     formData.append('image', fileInput);

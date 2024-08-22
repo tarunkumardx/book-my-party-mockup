@@ -9,6 +9,9 @@ import { AppDispatch } from '@/redux/store';
 import { setLoggedInUser } from '@/redux/slices/session.slice';
 import { _Object } from '@/utils/types';
 import { userProfileService } from '@/services/profile.service';
+import { Uploader, Loader } from 'rsuite';
+import AvatarIcon from '@rsuite/icons/legacy/Avatar';
+import { uploadImages } from '@/utils/helpers';
 
 type RootState = {
 	session: {
@@ -16,19 +19,22 @@ type RootState = {
 		loggedInUser: _Object;
 	};
 };
+type PreviewCallback = (result: string | ArrayBuffer | null) => void;
 
 const Profile = () => {
   const dispatch = useDispatch<AppDispatch>()
-
+  const [uploading, setUploading] = React.useState(false);
+  const [fileInfo, setFileInfo] = React.useState(null);
   const [loading, setLoading] = useState<boolean>(false)
   const { loggedInUser } = useSelector((state: RootState) => state.session);
-
+  console.log(loggedInUser)
   const formik = useFormik({
     initialValues: {
       firstName: loggedInUser.firstName,
       lastName: loggedInUser.lastName,
       email: loggedInUser.email,
-      mobile_number: loggedInUser?.extraOptionsUser?.mobileNumber || ''
+      mobile_number: loggedInUser?.extraOptionsUser?.mobileNumber || '',
+      avatar: loggedInUser?.extraOptionsUser?.avatar
     },
 
     enableReinitialize: true,
@@ -42,7 +48,8 @@ const Profile = () => {
 
     onSubmit: async (values) => {
       setLoading(true)
-      userProfileService.updateProfile(loggedInUser.id, values.firstName, values.lastName, values.email, values.mobile_number).then((result: _Object) => {
+      console.log(values)
+      userProfileService.updateProfile(loggedInUser.id, values.firstName, values.lastName, values.email, values.mobile_number, values.avatar).then((result: _Object) => {
         if (result?.email) {
           toast.success('Your profile updated successfully')
           dispatch(setLoggedInUser())
@@ -54,7 +61,16 @@ const Profile = () => {
       })
     }
   })
-
+  async function previewFile (file:File, callback: PreviewCallback){
+    const avatar = await uploadImages(file);
+    formik.setFieldValue('avatar', avatar)
+    console.log(avatar)
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      callback(reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
   return (
     <DashboardLayout>
       <SEOHead seo={{ title: 'My Profile - Book My Party' } || ''} />
@@ -63,6 +79,34 @@ const Profile = () => {
         <h1 className="mb-3">Profile</h1>
 
         <form onSubmit={formik.handleSubmit}>
+          <Uploader
+            fileListVisible={false}
+            listType="picture"
+            action="//jsonplaceholder.typicode.com/posts/"
+            onUpload={file => {
+              setUploading(true);
+              previewFile(file.blobFile, value => {
+                setFileInfo(value);
+              });
+            }}
+            onSuccess={(response) => {
+              setUploading(false);
+              console.log(response);
+            }}
+            onError={() => {
+              setFileInfo(null);
+              setUploading(false);
+            }}
+          >
+            <button style={{ width: 150, height: 150 }}>
+              {uploading && <Loader backdrop center />}
+              {fileInfo ? (
+                <img src={fileInfo} width="100%" height="100%" />
+              ) : (
+                <AvatarIcon style={{ fontSize: 80 }} />
+              )}
+            </button>
+          </Uploader>
           <InputField
             type="text"
             label="First Name"
