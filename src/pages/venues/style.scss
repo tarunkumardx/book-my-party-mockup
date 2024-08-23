@@ -2734,6 +2734,41 @@
   // width: 80px; /* Change the color to match your design */
 }
 
+// Bootstrap accordion class to remove 
+.accordion {
+  width: 50%;
+  
+}
+.accordion-button {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  color: inherit;
+}
+
+/* Remove focus and hover effects */
+.accordion-button:not(.collapsed) {
+  color: inherit;
+  background-color: transparent;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+/* Remove the borders around the accordion items */
+.accordion-item {
+  border: none;
+}
+
+/* Remove the border and padding around the accordion body */
+.accordion-body {
+  padding: 0;
+  border-top: none;
+}
+
 
 #faqs-data {
   .frequently-asked {
