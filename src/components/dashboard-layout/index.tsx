@@ -43,7 +43,8 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   }, [])
 
   useEffect(()=>{
-    setAvatar(loggedInUser?.extraOptionsUser?.avatar)
+    if(loggedInUser?.extraOptionsUser?.avatar)
+      setAvatar(loggedInUser?.extraOptionsUser?.avatar)
   },[loggedInUser])
 
   const handleLogout = () => {
