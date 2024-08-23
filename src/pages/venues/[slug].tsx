@@ -21,6 +21,10 @@ import { amountFormat, calculateDiscountPercentage, capitalize, changeDateFormat
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
+import { IoShareOutline } from 'react-icons/io5';
+import { MdContentCopy } from 'react-icons/md';
+import { FaWhatsapp } from 'react-icons/fa';
+import Accordion from 'react-bootstrap/Accordion';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -211,11 +215,32 @@ const VenueDetails = (props: _Object) => {
 		}
 	}
 	// fetch avtive page url
-	// const fetchURL = () => {
-	// 	const activeURL = window.location.href;
-	// 	console.log('Active Page URL:', activeURL)
-	// 	return activeURL;
-	// }
+	const fetchURL = () => {
+		const activeURL = window.location.href;
+		console.log('Active Page URL:', activeURL);
+
+		// Copy the URL to the clipboard
+		navigator.clipboard.writeText(activeURL).then(() => {
+			console.log('URL copied to clipboard!');
+		}).catch(err => {
+			console.error('Failed to copy the URL:', err);
+		});
+
+		return activeURL;
+	};
+
+	// Share active URL code on whatsapp
+	const shareOnWhatsApp = () => {
+		const activeURL = window.location.href;
+		const message = 'I found an amazing venue at BookMyParty, check it out here: ';
+		const whatsappURL = `https://api.whatsapp.com/send?text=${encodeURIComponent(message + activeURL)}`;
+
+		// Log the WhatsApp URL (optional)
+		console.log('WhatsApp Share URL:', whatsappURL);
+
+		// Open the WhatsApp share link in a new tab or window
+		window.open(whatsappURL, '_blank');
+	};
 
 	return (
 		<>
@@ -322,9 +347,26 @@ const VenueDetails = (props: _Object) => {
 							<div className="page-container">
 								<div className="row">
 									<div className="col-7">
-										<h2>
-											{props?.data?.title}
-										</h2>
+										<div className="d-flex align-items-start headingShare">
+											<h2>
+												{props?.data?.title}
+											</h2>
+											<Accordion >
+												<Accordion.Item eventKey="0">
+													<Accordion.Header><IoShareOutline color="#fc6f33" size={20} /></Accordion.Header>
+													<Accordion.Body>
+														<div className="d-flex align-items-start gap-2">
+															<li onClick={() => fetchURL()} style={{ listStyle: 'none', cursor: 'pointer' }}>Copy Link</li>
+															<MdContentCopy />
+														</div>
+														<div className="d-flex align-items-start gap-2 mt-2">
+															<li onClick={() => shareOnWhatsApp()} style={{ listStyle: 'none', cursor: 'pointer' }}>Share via whatsapp</li>
+															<FaWhatsapp color="#36bd49" />
+														</div>
+													</Accordion.Body>
+												</Accordion.Item>
+											</Accordion>
+										</div>
 
 										<div className="d-flex align-items-center">
 											<div className="flex-shrink-0">
@@ -350,6 +392,8 @@ const VenueDetails = (props: _Object) => {
 									}
 
 								</div>
+								{/* Dropdown here */}
+
 							</div>
 						</section>
 
