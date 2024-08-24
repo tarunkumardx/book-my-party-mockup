@@ -365,7 +365,7 @@ const Listing = (props: _Object) => {
     }
   }
   // Share on whatsapp
-  const shareOnWhatsApp = (slug) => {
+  const shareOnWhatsApp = (slug:string) => {
     const baseUrl = `${window.location.origin}/venues/${slug}`;
     const fullUrl = `${baseUrl}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${query?.types || ''}&occasions=${query?.occasions || ''}&amenities=${query?.amenities || ''}&franchises=${query?.franchises || ''}&cuisines=${query?.cuisines || ''}&price_range=${query?.price_range || ''}&pax=${query?.pax || 1}`;
 

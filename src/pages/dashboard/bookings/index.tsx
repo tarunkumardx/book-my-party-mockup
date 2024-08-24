@@ -108,7 +108,7 @@ const BookingHistory = () => {
         //   }
         // }
         // else{
-        const data = await bookingService.getAll(14, { ...filterData, user_id: isVendor ? loggedInUser.email : loggedInUser.databaseId, venuesIds: venuesIds, vendorEmail:loggedInUser.email }, !isVendor ? 'user' : 'admin')
+        const data = loggedInUser?.roles?.nodes && await bookingService.getAll(14, { ...filterData, user_id: isVendor ? loggedInUser.email : loggedInUser.databaseId, venuesIds: venuesIds, vendorEmail:loggedInUser.email }, !isVendor ? 'user' : 'admin')
         if (data?.entries) {
           setList(data)
           console.log(data)
