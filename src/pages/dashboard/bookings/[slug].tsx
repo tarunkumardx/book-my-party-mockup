@@ -288,7 +288,7 @@ const BookingDetails = () => {
                           <p>{venueDetails?.extraOptions?.packages?.find((itemData: _Object) => itemData?.title === data['31'])?.shortDescription}</p>
                         </div>}
                       {venueDetails?.extraOptions?.packages?.find((itemData: _Object) => itemData?.title === data['31'])?.content &&
-                      <div className="card" dangerouslySetInnerHTML={{ __html: venueDetails?.extraOptions?.packages?.find((itemData: _Object) => itemData?.title === data['31'])?.content}}/>
+                      <div className="card venueMenu" dangerouslySetInnerHTML={{ __html: venueDetails?.extraOptions?.packages?.find((itemData: _Object) => itemData?.title === data['31'])?.content}}/>
                       }</>
                     }
                     {

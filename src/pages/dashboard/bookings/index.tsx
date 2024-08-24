@@ -43,16 +43,11 @@ const BookingHistory = () => {
   const [list, setList] = useState<List>({ entries: [], total_count: 0 });
   const [dropdownStates, setDropdownStates] = useState<DropdownStates>({});
   const [isVendor, setIsVendor] = useState(false);
-
-  console.log(isVendor)
+  console.log(list)
   useEffect(() => {
-    // Initialize dropdownStates when list.entries changes
     setDropdownStates(
       list.entries.reduce<DropdownStates>((acc, item) => {
-        console.log(typeof item.id)
         acc[item.id] = item['134'] || 'Request Received';
-
-        console.log(item)
         return acc;
       }, {})
     );
@@ -60,7 +55,7 @@ const BookingHistory = () => {
   useEffect (()=>{
     const name = loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator'));
     name ? setIsVendor(true) : setIsVendor(false);
-  })
+  },[loggedInUser])
   const handleSelect = (itemId:number, status:string) => {
     setDropdownStates((prevStates:object)=> ({
       ...prevStates,
@@ -81,13 +76,13 @@ const BookingHistory = () => {
     switch (status) {
     case 'Request Received':
       return 'request_received';
-    case 'Booking Confirmed':
+    case 'Confirmed':
       return 'booking_confirmed';
-    case 'Booking Completed':
+    case 'Completed':
       return 'booking_confirmed';
-    case 'Booking Declined':
+    case 'Declined':
       return 'booking_declined';
-    case 'Booking Cancelled':
+    case 'Cancelled':
       return 'booking_declined';
     default:
       return '';
@@ -101,14 +96,26 @@ const BookingHistory = () => {
         const venues = await listService.getVenuesIds(loggedInUser.databaseId)
 
         const venuesIds = venues.edges.map((item: _Object) => item.node.databaseId).join(',')
+        // if(loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator'))){
+        //   const allData = await bookingService.getAll(14,{ ...filterData, user_id: loggedInUser.email, venuesIds: venuesIds }, !isVendor ? 'user' : 'admin');
+        //   const filteredAllData = allData.entries.filter((item:string) => item[122] === loggedInUser.email);
 
-        const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId, venuesIds: venuesIds }, !isVendor ? 'user' : 'admin')
+        //   console.log(allData)
+        //   if (filteredAllData){
+        //     setList({entries: filteredAllData, total_count:allData.total_count});
+        //   } else {
+        //     setList({ entries: [], total_count: 0 })
+        //   }
+        // }
+        // else{
+        const data = await bookingService.getAll(14, { ...filterData, user_id: isVendor ? loggedInUser.email : loggedInUser.databaseId, venuesIds: venuesIds, vendorEmail:loggedInUser.email }, !isVendor ? 'user' : 'admin')
         if (data?.entries) {
           setList(data)
-          // console.log(data)
+          console.log(data)
         } else {
           setList({ entries: [], total_count: 0 })
         }
+        // }
         setLoading(false)
       }
     }
@@ -119,7 +126,7 @@ const BookingHistory = () => {
     }))
 
     name()
-  }, [filterData.page, loggedInUser?.databaseId])
+  }, [filterData.page, loggedInUser?.databaseId, isVendor])
 
   const getVenueSlug = async (venueId: number, index: number) => {
     setSlugLoading({
@@ -214,17 +221,17 @@ const BookingHistory = () => {
                       Request Received
                                 </Dropdown.Item>
                                 <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Booking Confirmed')}
+                                  onClick={() => handleSelect(item.id, 'Confirmed')}
                                 >
                       Booking Confirmed
                                 </Dropdown.Item>
                                 <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Booking Declined')}
+                                  onClick={() => handleSelect(item.id, 'Declined')}
                                 >
                       Booking Declined
                                 </Dropdown.Item>
                                 <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Booking Completed')}
+                                  onClick={() => handleSelect(item.id, 'Completed')}
                                 >
                       Booking Completed
                                 </Dropdown.Item>
@@ -240,7 +247,7 @@ const BookingHistory = () => {
 															)} */}
                               <Dropdown title={dropdownStates[item.id]==='Request Received' ? 'Waitlisted': dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
                                 <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Booking Cancelled')}
+                                  onClick={() => handleSelect(item.id, 'Cancelled')}
                                 >
                       Booking Cancelled
                                 </Dropdown.Item>
