@@ -377,7 +377,7 @@ const Footer = () => {
 																}
 																{/* View More/ Less Button */}
 																{item?.childItems?.nodes?.length > 4 && (
-																	<span style={{ color: '#ffffff !important', cursor: 'pointer', textDecoration: 'underline', fontWeight: '600', fontFamily: 'Outfit' }} onClick={() => toggleShowAll(item.label)} className="unclickable-nav-link">
+																	<span style={{ color: 'white', cursor: 'pointer', textDecoration: 'underline', fontWeight: '600', fontFamily: 'Outfit' }} onClick={() => toggleShowAll(item.label)} className="unclickable-nav-link">
 																		{isExpanded ? 'View Less' : 'View More'}
 																	</span>
 																)}
