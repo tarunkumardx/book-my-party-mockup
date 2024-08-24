@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable no-mixed-spaces-and-tabs */
 import React, { useEffect, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
@@ -28,6 +29,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import useIsSearchable from '@/components/useIsSearchable';
 import { FaLocationDot } from 'react-icons/fa6';
+import { FaRegShareFromSquare } from 'react-icons/fa6';
 
 export const getStaticProps: GetStaticProps = async () => {
   const amenities = await listService.getAmenities()
@@ -362,6 +364,14 @@ const Listing = (props: _Object) => {
       }
     }
   }
+  // Share on whatsapp
+  const shareOnWhatsApp = (slug) => {
+    const baseUrl = `${window.location.origin}/venues/${slug}`;
+    const fullUrl = `${baseUrl}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${query?.types || ''}&occasions=${query?.occasions || ''}&amenities=${query?.amenities || ''}&franchises=${query?.franchises || ''}&cuisines=${query?.cuisines || ''}&price_range=${query?.price_range || ''}&pax=${query?.pax || 1}`;
+
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(fullUrl)}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   return (
     <Layout {...props}>
@@ -497,7 +507,7 @@ const Listing = (props: _Object) => {
                     <button aria-label="close" data-bs-dismiss="offcanvas" className="bottomBtn">SHOW {list?.pageInfo?.total} RESULTS</button>
                   </div>
                   {/* Testing chat gpt code */}
-                  <div className="filter-container d-flex">
+                  <div className="filter-container">
 
                     <div className="filter-buttons">
                       <div className="accordion-item">
@@ -509,12 +519,12 @@ const Listing = (props: _Object) => {
                       {props?.activities?.filter((item: _Object) =>
                         item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
                       )?.length > 0 && (
-                        <div className="accordion-item">
-                          <button className="accordion-button customPadding" type="button" data-bs-toggle="collapse" data-bs-target="#activity" aria-expanded="true" aria-controls="activity">
+                          <div className="accordion-item">
+                            <button className="accordion-button customPadding" type="button" data-bs-toggle="collapse" data-bs-target="#activity" aria-expanded="true" aria-controls="activity">
                               ACTIVITIES
-                          </button>
-                        </div>
-                      )}
+                            </button>
+                          </div>
+                        )}
 
                       {props?.venueTypes?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('category')} className={getButtonClass('category')} type="button" data-bs-toggle="collapse" data-bs-target="#category" aria-expanded={activeAccordion === 'category'} aria-controls="category">
                         RESTAURANT TYPE
@@ -753,7 +763,7 @@ const Listing = (props: _Object) => {
               {/* Testing chat gpt code ends here */}
 
               {/* side drawer body for filter */}
-              <div className="offcanvas-body upperDrawer d-none">
+              <div className="offcanvas-body upperDrawer">
                 {/* New functionality here */}
                 {/* <div className='left-drawer'>
 											<ul className='inputFiledsDrawer'>
@@ -769,7 +779,7 @@ const Listing = (props: _Object) => {
 												<li>OCCASIONS</li>
 											</ul>
 										</div> */}
-                <div className="accordion" id="accordionFilter">
+                <div className="accordion d-none d-md-block" id="accordionFilter">
                   {/* {props?.packageTypes?.filter((item: _Object) =>
 												item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
 											)?.length > 0 &&
@@ -793,13 +803,12 @@ const Listing = (props: _Object) => {
 													</div>
 												</div>
 											} */}
-
                   <div className="accordion-item">
                     <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded="true" aria-controls="price">
                       BUDGET / PRICE
                     </button>
 
-                    <div id="price" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#price">
+                    <div id="price" className="accordion-collapse collapse show customAccD" aria-labelledby="" data-bs-parent="#price">
                       <div className="accordion-body">
                         <CheckBox
                           showMoreOption={true}
@@ -820,7 +829,7 @@ const Listing = (props: _Object) => {
                         ACTIVITES
                       </button>
 
-                      <div id="activity" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#activity">
+                      <div id="activity" className="accordion-collapse collapse show customAccD" aria-labelledby="" data-bs-parent="#activity">
                         <div className="accordion-body">
                           <CheckBox
                             showMoreOption={true}
@@ -844,7 +853,7 @@ const Listing = (props: _Object) => {
                         AGE GROUP
                       </button>
 
-                      <div id="age" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#age">
+                      <div id="age" className="accordion-collapse collapse show customAccD" aria-labelledby="" data-bs-parent="#age">
                         <div className="accordion-body">
                           <CheckBox
                             showMoreOption={true}
@@ -868,7 +877,7 @@ const Listing = (props: _Object) => {
                         RESTAURANT TYPE
                       </button>
 
-                      <div id="category" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#category">
+                      <div id="category" className="accordion-collapse collapse show customAccD" aria-labelledby="" data-bs-parent="#category">
                         <div className="accordion-body">
                           <CheckBox
                             showMoreOption={true}
@@ -892,7 +901,7 @@ const Listing = (props: _Object) => {
                         Cuisine
                       </button>
 
-                      <div id="cuisine" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#cuisines">
+                      <div id="cuisine" className="accordion-collapse collapse show customAccD" aria-labelledby="" data-bs-parent="#cuisines">
                         <div className="accordion-body">
                           <CheckBox
                             showMoreOption={true}
@@ -916,7 +925,7 @@ const Listing = (props: _Object) => {
                         Restaurant Chain
                       </button>
 
-                      <div id="restaurantChain" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#restaurantChains">
+                      <div id="restaurantChain" className="accordion-collapse collapse show customAccD" aria-labelledby="" data-bs-parent="#restaurantChains">
                         <div className="accordion-body">
                           <CheckBox
                             showMoreOption={true}
@@ -941,7 +950,7 @@ const Listing = (props: _Object) => {
                         Locations
                       </button>
 
-                      <div id="locations" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#locations">
+                      <div id="locations" className="accordion-collapse collapse show customAccD" aria-labelledby="" data-bs-parent="#locations">
                         <div className="accordion-body">
                           <CheckBox
                             showMoreOption={true}
@@ -965,7 +974,7 @@ const Listing = (props: _Object) => {
                         CAPACITY
                       </button>
 
-                      <div id="capacity" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#capacity">
+                      <div id="capacity" className="accordion-collapse collapse show customAccD" aria-labelledby="" data-bs-parent="#capacity">
                         <div className="accordion-body">
                           <CheckBox
                             showMoreOption={true}
@@ -987,7 +996,7 @@ const Listing = (props: _Object) => {
                         Amenities
                       </button>
 
-                      <div id="amenities" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#amenities">
+                      <div id="amenities" className="accordion-collapse collapse show customAccD" aria-labelledby="" data-bs-parent="#amenities">
                         <div className="accordion-body">
                           <CheckBox
                             showMoreOption={true}
@@ -1011,7 +1020,7 @@ const Listing = (props: _Object) => {
                         Occasions
                       </button>
 
-                      <div id="occasions" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#occasions">
+                      <div id="occasions" className="accordion-collapse collapse show customAccD" aria-labelledby="" data-bs-parent="#occasions">
                         <div className="accordion-body">
                           <CheckBox
                             showMoreOption={true}
@@ -1031,7 +1040,7 @@ const Listing = (props: _Object) => {
                 </div>
               </div>
 
-              <div className="accordion d-none d-lg-inline-block" id="accordionFilter">
+              <div className="accordion d-none d-lg-inline-none" id="accordionFilter">
 
                 {/* {props?.packageTypes?.filter((item: _Object) =>
       item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
@@ -1406,6 +1415,7 @@ const Listing = (props: _Object) => {
                           <div className="image-wraper">
                             <Link href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
                               <Image src={item?.featuredImage?.node?.sourceUrl || placeholder} width="450" height="300" alt="" />
+
                             </Link>
                             <button disabled={like.loading} onClick={() => addToWishlist(item.databaseId, i)} className="btn wishlist">
                               {like.loading && like.index === i ?
@@ -1416,16 +1426,17 @@ const Listing = (props: _Object) => {
                                 <Image src={userWishlist?.some((wishlist: _Object) => wishlist.id === `${item.databaseId}`) ? RedHeart : wishlistWhite} alt="" width="22" height="22" />
                               }
                             </button>
+                            <FaRegShareFromSquare onClick={() => shareOnWhatsApp(item.slug)} className="share-btn" size={22} style={{ position: 'absolute', top: '60px', right: '23px', zIndex: '1', cursor: 'pointer' }} color="white" />
                           </div>
                         </div>
                         <div className="col-sm-8 col-md-5">
                           <div className="details">
                             <h5 >
-                              <Link style={{position:'absolute',top:'0'}} href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
+                              <Link className="nameStyling" href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
                                 {item.title}
                               </Link>
                             </h5>
-                            <div style={{ position: 'absolute', top: '60px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '6px' }}><FaLocationDot />
+                            <div className="addressStyle"><FaLocationDot size={15} />
                               <p >{truncateText(item?.extraOptions?.address?.address || '')}</p>
                             </div>
 
@@ -1435,7 +1446,7 @@ const Listing = (props: _Object) => {
                                 <ElfsightWidget widgetId={item?.extraOptions?.googleReviewsId} />
                               </div>
                             }
-                            <div style={{ position: 'absolute', top: '110px' }} dangerouslySetInnerHTML={{ __html: truncateText(item?.content || '') }} />
+                            <div className="restrauDesc" dangerouslySetInnerHTML={{ __html: truncateText(item?.content || '') }} />
                           </div>
                         </div>
                         <div className="col-sm-4 col-md-3">

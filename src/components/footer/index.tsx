@@ -325,7 +325,7 @@ const Footer = () => {
 															</ul>
 															{/* View More/ Less Button */}
 															{item?.childItems?.nodes?.length > 4 && (
-																<button style={{ color: '#ffffff', textDecoration:'underline', marginLeft: '-16px',fontWeight:'600' }} onClick={() => toggleShowAll(item.label)} className="btn btn-link">
+																<button style={{ color: '#ffffff', textDecoration: 'underline', marginLeft: '-16px', fontWeight: '600' }} onClick={() => toggleShowAll(item.label)} className="btn btn-link">
 																	{isExpanded ? 'View Less' : 'View More'}
 																</button>
 															)}
@@ -377,7 +377,7 @@ const Footer = () => {
 																}
 																{/* View More/ Less Button */}
 																{item?.childItems?.nodes?.length > 4 && (
-																	<button style={{ color: '#ffffff', textDecoration:'underline', marginLeft: '-240px',fontWeight:'600' }} onClick={() => toggleShowAll(item.label)} className="btn btn-link">
+																	<button style={{ color: '#ffffff', textDecoration: 'underline', marginLeft: '-240px', fontWeight: '600', fontFamily: 'Outfit' }} onClick={() => toggleShowAll(item.label)} className="btn btn-link">
 																		{isExpanded ? 'View Less' : 'View More'}
 																	</button>
 																)}
@@ -407,7 +407,7 @@ const Footer = () => {
 												<span className="family-name"></span>
 											</span>
 											<h6 className="org">Book My Party</h6>
-											<ul className="list-inline">
+											<ul className="list-inline mt-4">
 												<li className="list-inline-item">
 													<a className="email" href="mailto:info@bookmyparty.co.in">info@bookmyparty.co.in</a>
 												</li>

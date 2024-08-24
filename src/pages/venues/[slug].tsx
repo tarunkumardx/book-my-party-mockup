@@ -346,7 +346,7 @@ const VenueDetails = (props: _Object) => {
 						<section className="masala-lane-location">
 							<div className="page-container">
 								<div className="row">
-									<div className="col-7">
+									<div className="col-12">
 										<div className="d-flex align-items-start headingShare">
 											<h2>
 												{props?.data?.title}
