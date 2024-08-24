@@ -325,9 +325,9 @@ const Footer = () => {
 															</ul>
 															{/* View More/ Less Button */}
 															{item?.childItems?.nodes?.length > 4 && (
-																<button style={{ color: '#ffffff', textDecoration: 'underline', marginLeft: '-16px', fontWeight: '600' }} onClick={() => toggleShowAll(item.label)} className="btn btn-link">
+																<span style={{ color: '#ffffff', textDecoration: 'underline', cursor:'pointer', fontWeight: '600', fontFamily: 'Outfit' }} onClick={() => toggleShowAll(item.label)} className="unclickable-nav-link">
 																	{isExpanded ? 'View Less' : 'View More'}
-																</button>
+																</span>
 															)}
 														</div>
 													</div>
@@ -377,9 +377,9 @@ const Footer = () => {
 																}
 																{/* View More/ Less Button */}
 																{item?.childItems?.nodes?.length > 4 && (
-																	<button style={{ color: '#ffffff', textDecoration: 'underline', marginLeft: '-240px', fontWeight: '600', fontFamily: 'Outfit' }} onClick={() => toggleShowAll(item.label)} className="btn btn-link">
+																	<span style={{ color: '#ffffff !important', cursor: 'pointer', textDecoration: 'underline', fontWeight: '600', fontFamily: 'Outfit' }} onClick={() => toggleShowAll(item.label)} className="unclickable-nav-link">
 																		{isExpanded ? 'View Less' : 'View More'}
-																	</button>
+																	</span>
 																)}
 															</ul>
 														</div>
