@@ -1,0 +1,380 @@
+.dashboard {
+  .main-content {
+    .booking {
+      h3 {
+        font-size: 30px;
+        margin-bottom: 30px;
+      }
+
+      .card {
+        border: 0;
+        border-radius: 0;
+        padding: 30px;
+        margin: 0px;
+
+        .card-body {
+          padding: 0;
+
+          #pills-tab {
+            .nav-item {
+              margin-right: 30px;
+
+              .nav-link {
+                padding: 10px 0;
+                font-size: 14px;
+                font-weight: 600;
+                text-transform: uppercase;
+                color: $headingColor;
+
+                &.active {
+                  border-bottom: 3px solid #5191fa;
+                  color: #5191fa;
+                  background-color: transparent;
+                  border-radius: 0;
+                }
+              }
+            }
+          }
+
+          .tab-content {
+            .tab-pane {
+              table {
+                thead {
+                  tr {
+                    th {
+                      font-weight: 600;
+                      text-shadow: 0 0 currentColor;
+                    }
+                  }
+                }
+
+                thead,
+                tbody {
+                  tr {
+                    height: auto;
+
+                    th,
+                    td {
+                      padding: 8px;
+                      line-height: 1.42857143;
+                      vertical-align: top;
+                      color: #333;
+                    }
+                  }
+                }
+
+                tbody {
+                  tr {
+                    height: auto;
+
+                    &:nth-of-type(odd) {
+                      background-color: #f9f9f9;
+                    }
+
+                    td {
+                      background-color: transparent;
+                      box-shadow: none;
+
+                      .btn {
+                        font-size: 14px;
+
+                        &.btn-link {
+                          color: #5191fa;
+
+                          &:hover {
+                            text-decoration: underline;
+                          }
+
+                          &.id {
+                            color: #333;
+                          }
+                        }
+
+                        &.btn-primary {
+                          background-color: #5a3483;
+                          border-color: #5191fa;
+                          width: fit-content;
+                          padding: 1px 5px;
+                          font-size: 12px;
+                          border-radius: 3px;
+
+                          .fa-circle-info {
+                            margin-right: 5px;
+                          }
+                        }
+                      }
+
+                      &.status {
+                        .complete {
+                          margin-right: 4px;
+                          color: #10cd78;
+                        }
+
+                        .pending {
+                          color: $warning;
+                          margin-right: 4px;
+                        }
+
+                        .delete {
+                          color: $danger;
+                          margin-right: 4px;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            .overflow-x{
+              display: flex;
+              flex-wrap: nowrap;
+              overflow-x: auto;
+            }
+          }
+        }
+      }
+
+      .pagination {
+        padding-left: 0;
+        margin: 20px 0;
+        border-radius: 4px;
+
+        li {
+          a {
+            padding: 5px 13px;
+            background-color: transparent;
+            border-color: transparent;
+            line-height: 18px;
+            color: #5191fa;
+            font-size: 14px;
+
+            &:focus {
+              box-shadow: none;
+              text-decoration: none;
+            }
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+
+          &.active {
+            a {
+              background-color: #5191fa;
+              color: #fff;
+            }
+          }
+        }
+      }
+
+      @media (max-width:767px){
+        h3{
+          padding-left: 2rem;
+        }
+      }
+    }
+    @media (max-width:767px){
+      h3{
+        padding-left: 2rem;
+        padding-bottom: 2rem;
+      }
+    }
+  }
+}
+
+.booking-details {
+  .venueMenu h3{
+    font-size: 15px !important;
+  }
+  .card {
+    border: 0;
+    border-radius: 0;
+    padding: 30px;
+    margin-top: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: transparent;
+      padding: 0;
+      border: 0;
+
+      h6 {
+        text-transform: capitalize;
+      }
+
+      .approved {
+        background-color: #10cd7830;
+        color: #10cd78;
+        padding: 1px 10px;
+        border-radius: 80px;
+        margin-top: 15px;
+      }
+    }
+
+    .note-order {
+      margin-top: 20px;
+      padding: 20px;
+      border: 2px dashed #cecece;
+      border-radius: 8px;
+    }
+
+    .card-body {
+      margin-top: 20px;
+      padding: 0;
+
+      .card {
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+          rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+
+        .detail-icon {
+          background-color: #dbdbdb;
+          padding: 10px;
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          text-align: center;
+        }
+
+        h5,
+        h6 {
+          text-transform: capitalize;
+        }
+
+        &.DayPart {
+          table {
+            tbody {
+              tr:nth-of-type(odd) {
+                background-color: transparent;
+              }
+            }
+          }
+        }
+
+        p {
+          color: #968f8f;
+
+          span {
+            color: #000;
+          }
+        }
+
+        .order-item {
+          margin-bottom: 12px;
+        }
+      }
+
+      table {
+        thead {
+          tr {
+            th {
+              font-weight: 600;
+              text-shadow: 0 0 currentColor;
+            }
+          }
+        }
+
+        thead,
+        tbody {
+          tr {
+            height: auto;
+
+            th,
+            td {
+              padding: 8px;
+              line-height: 1.42857143;
+              vertical-align: top;
+              color: #333;
+            }
+          }
+        }
+
+        tbody {
+          tr {
+            height: auto;
+
+            &:nth-of-type(odd) {
+              background-color: #f9f9f9;
+            }
+
+            td {
+              background-color: transparent;
+              box-shadow: none;
+
+              .btn {
+                font-size: 14px;
+
+                &.btn-link {
+                  color: #5191fa;
+
+                  &:hover {
+                    text-decoration: underline;
+                  }
+
+                  &.id {
+                    color: #333;
+                  }
+                }
+
+                &.btn-primary {
+                  background-color: #5a3483;
+                  border-color: #5191fa;
+                  width: fit-content;
+                  padding: 1px 5px;
+                  font-size: 12px;
+                  border-radius: 3px;
+
+                  .fa-circle-info {
+                    margin-right: 5px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  @media (max-width:767px){
+    h3{
+      padding-left: 2rem;
+    }
+  }
+}
+
+.fc .fc-button-primary:disabled {
+  background-color: var(--fc-button-bg-color);
+  border-color: var(--fc-button-border-color);
+  color: var(--fc-button-text-color);
+  text-transform: capitalize;
+}
+
+.fc .fc-button:not(:disabled) {
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+button.btn.btn-link {
+  font-size: 10px;
+}
+
+.rs-dropdown-toggle, .rs-dropdown-toggle.rs-btn{
+  justify-content: space-between;
+  min-width: 200px;
+}
+.rs-dropdown .rs-dropdown-menu{
+  width: 100%;
+}
+.request_received button{
+  color: $warning !important;
+}
+.booking_confirmed button{
+  color: #10cd78 !important;
+}
+.booking_declined button{
+  color: $danger !important;
+}

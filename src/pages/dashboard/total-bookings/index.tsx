@@ -93,16 +93,14 @@ const BookingHistory = () => {
     async function name() {
       setLoading(true)
       if (loggedInUser?.databaseId) {
-        const venues = await listService.getVenuesIds(loggedInUser.databaseId)
-
-        const venuesIds = venues.edges.map((item: _Object) => item.node.databaseId).join(',')
-        const data = loggedInUser?.roles?.nodes && await bookingService.getAll(14, { ...filterData, user_id: isVendor ? loggedInUser.email : loggedInUser.databaseId, venuesIds: venuesIds, vendorEmail:loggedInUser.email }, !isVendor ? 'user' : 'vendor')
+        const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId}, 'admin')
         if (data?.entries) {
           setList(data)
           console.log(data)
         } else {
           setList({ entries: [], total_count: 0 })
         }
+        // }
         setLoading(false)
       }
     }
