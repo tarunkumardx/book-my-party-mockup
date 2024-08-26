@@ -42,8 +42,9 @@ const BookingHistory = () => {
 
   const [list, setList] = useState<List>({ entries: [], total_count: 0 });
   const [dropdownStates, setDropdownStates] = useState<DropdownStates>({});
+  const [filterOption, setFilterOption] = useState('all');
   const [isVendor, setIsVendor] = useState(false);
-  console.log(list)
+  console.log(filterOption)
   useEffect(() => {
     setDropdownStates(
       list.entries.reduce<DropdownStates>((acc, item) => {
@@ -129,14 +130,72 @@ const BookingHistory = () => {
     });
   }
 
+  const fetchData = async () => {
+    const now = new Date();
+    // Function to format date to "YYYY-MM-DD HH:mm:ss"
+    function formatDate(date:Date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
+
+    let startDate;
+    const endDate = formatDate(now);
+    switch(filterOption) {
+    case 'daily':
+      startDate = formatDate(new Date(now.setDate(now.getDate() - 1)));
+      break;
+    case 'weekly':
+      startDate = formatDate(new Date(now.setDate(now.getDate() - 7)));
+      break;
+    case 'monthly':
+      startDate = formatDate(new Date(now.setMonth(now.getMonth() - 1)));
+      break;
+    case 'yearly':
+      startDate = formatDate(new Date(now.setFullYear(now.getFullYear() - 1)));
+      break;
+    default:
+      startDate = endDate;
+    }
+
+    const filterData = {
+      user_id: loggedInUser.databaseId,
+      field_filters: [
+        { key: 122, value: loggedInUser.databaseId, operator: 'contains' },
+        { key: 'date_created', value: [startDate, endDate], operator: 'BETWEEN' }
+      ]
+    };
+    console.log(filterData)
+    // Call the bookingService.getAll method with the filterData
+    const data = await bookingService.getAll(14, filterData, 'admin');
+    console.log(data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [filterOption]);
+
   return (
     <DashboardLayout>
       <SEOHead seo={{ title: 'Bookings - Book My Party' } || ''} />
 
       <div className="booking">
         <h3>
-					Bookings
+					Total Bookings
         </h3>
+        <div>
+          <select onChange={e => setFilterOption(e.target.value)} value={filterOption}>
+            <option value="all">All</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+          </select>
+        </div>
         <div>
           <ul className="list-unstyled d-flex gap-3 align-left justify-content-end">
             <li><Link className="btn-primary" title="List View" href="/dashboard/bookings"><Image src={ListView} width={20} height={20} alt="" /></Link></li>
