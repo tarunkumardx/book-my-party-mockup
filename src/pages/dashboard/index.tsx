@@ -24,7 +24,8 @@ const Dashboard = () => {
   const router: _Object = useRouter();
 
   const { loggedInUser } = useSelector((state: RootState) => state.session);
-
+  const [totalIncome, setTotalIncome] = useState(0);
+  const [totalBookings, setTotalBookings] = useState(0);
   const [list, setList] = useState<_Object>({})
   const [filterData, setFilterData] = useState<_Object>({
     page: 1,
@@ -36,6 +37,13 @@ const Dashboard = () => {
     loading: false,
     index: 0
   })
+  console.log(list?.entries?.length)
+  useEffect(()=>{
+    if(list?.entries?.length){
+      setTotalBookings(list?.entries?.length);
+      list?.entries?.map((item: _Object) => {
+        setTotalIncome(prevTotalIncome => prevTotalIncome + parseFloat(item['32']))})}
+  },[list]);
 
   useEffect(() => {
     dispatch(setLoggedInUser())
@@ -88,12 +96,13 @@ const Dashboard = () => {
           <h3>
 						Dashboard
           </h3>
-          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-2">
             <div className="col">
               <div className="card">
                 <div className="card-body">
-                  <p>THIS MONTH EARNING</p>
-                  <h2>{loggedInUser?.venuesStatistics ? amountFormat(JSON.parse(loggedInUser.venuesStatistics)?.total_income) : '0'}</h2>
+                  <p>TOTAL REVENUE GENERATED</p>
+                  {/* <h2>{loggedInUser?.venuesStatistics ? amountFormat(JSON.parse(loggedInUser.venuesStatistics)?.total_income) : '0'}</h2> */}
+                  <h2>{amountFormat(totalIncome?.toString())}</h2>
                 </div>
               </div>
             </div>
@@ -102,7 +111,8 @@ const Dashboard = () => {
               <div className="card">
                 <div className="card-body">
                   <p>Number of bookings</p>
-                  <h2>{loggedInUser?.venuesStatistics ? JSON.parse(loggedInUser.venuesStatistics)?.number_of_bookings : '0'}</h2>
+                  {/* <h2>{loggedInUser?.venuesStatistics ? JSON.parse(loggedInUser.venuesStatistics)?.number_of_bookings : '0'}</h2> */}
+                  <h2>{totalBookings?.toString() || '0'}</h2>
                 </div>
               </div>
             </div>
@@ -116,6 +126,14 @@ const Dashboard = () => {
               </div>
             </div>
 
+            <div className="col">
+              <div className="card">
+                <div className="card-body">
+                  <p>BMP Shares</p>
+                  <h2>{amountFormat((totalIncome*0.1)?.toString())}</h2>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -149,7 +167,7 @@ const Dashboard = () => {
                     {
                       loading &&
 											<tr>
-											  <td colSpan={8}>
+											  <td colSpan={11}>
 											    <div className="d-flex justify-content-center align-items-center">
 											      <div className="spinner-border" role="status">
 											        <span className="visually-hidden">Loading...</span>
@@ -161,7 +179,7 @@ const Dashboard = () => {
 
                     {!loading && list?.entries?.length == 0 && (
                       <tr>
-                        <td colSpan={8}>
+                        <td colSpan={11}>
                           <div className="d-flex justify-content-center align-items-center">
                             <div>
                               <h6 className="mb-0">Booking not found</h6>
@@ -187,9 +205,9 @@ const Dashboard = () => {
                             {item['25']}
                           </td>
                           <td className="status">
-                            {item['134'] === 'Booking Cancelled' || item['134'] === 'Booking Declined' ? (
+                            {item['134'] === 'Cancelled' || item['134'] === 'Declined' ? (
                               <span className="delete">{item['134']}</span>
-                            ) : item['134'] && (item['134'] === 'Booking Confirmed' || item['134'] === 'Booking Completed') ? (
+                            ) : item['134'] && (item['134'] === 'Confirmed' || item['134'] === 'Completed') ? (
                               <span className="complete">{item['134']}</span>
                             ) : (
                               <span className="pending">{item['134'] ? item['134'] : 'Request Received'}</span>

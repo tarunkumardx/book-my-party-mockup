@@ -26,10 +26,12 @@ export default class CommonBookingService {
     }
 
     let key
+    console.log(filterData?.user_id)
     if (role === 'user') {
       key = `{"field_filters":[{"key":115,"value":${filterData?.user_id},"operator":"contains"}]}`
     } else {
-      key = `{"field_filters":[{"key":114,"value":${filterData?.user_id},"operator":"contains"},{"key":112,"value":[${filterData?.venuesIds}],"operator":"IN"}]}`
+      // key = `{"field_filters":[{"key":114,"value":${filterData?.user_id},"operator":"contains"},{"key":112,"value":[${filterData?.venuesIds}],"operator":"IN"}]}`
+      key = `{"field_filters":[{"key":122,"value":"${filterData?.user_id}","operator":"contains"}]}`
     }
 
     let url = ''
