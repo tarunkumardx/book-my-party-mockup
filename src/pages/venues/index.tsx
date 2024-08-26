@@ -499,9 +499,9 @@ const Listing = (props: _Object) => {
                 </div>
 
                 <div className="offcanvas offcanvas-start filter-offcanvas" tabIndex={-1} id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
-                  <div className="offcanvas-header">
+                  <div className="offcanvas-header filterBoxHeader">
                     <button type="button" className="btn-close ms-auto topCloseBtn" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    <button type="button" className="ms-auto topClearBtn" data-bs-dismiss="offcanvas">Clear Filter</button>
+                    <button onClick={() => clearFilter()} type="button" className="ms-auto topClearBtn" data-bs-dismiss="offcanvas">Clear Filter</button>
                   </div>
                   <div className="bottomResults">
                     <button aria-label="close" data-bs-dismiss="offcanvas" className="bottomBtn">SHOW {list?.pageInfo?.total} RESULTS</button>
