@@ -138,6 +138,7 @@ class ListService extends CommonService {
     ];
 
     function updateTaxArray(filters: _Object, taxArray: string[]) {
+      console.log(filters)
       for (const config of taxonomyConfigs) {
         const filterValues = filters?.[config.filterKey];
         if (filterValues?.length > 0 && filterValues[0]?.length > 0) {

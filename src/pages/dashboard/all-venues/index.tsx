@@ -59,14 +59,8 @@ const Venues = () => {
       router.push('/');
     }
 
-    let author: number = 0
-
-    if (loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator'))) {
-      author = loggedInUser?.databaseId
-    }
-    console.log(author)
     async function fetchData() {
-      const newData = await listService.getVenues(10, cursor.endCursor, null, { author: author });
+      const newData = await listService.getVenues(10, cursor.endCursor, null);
       console.log(newData)
       if (filter) {
         setList({ nodes: newData.nodes, pageInfo: newData.pageInfo })

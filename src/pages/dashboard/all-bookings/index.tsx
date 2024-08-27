@@ -14,7 +14,6 @@ import { useRouter } from 'next/router';
 import { changeDateFormat, formatDate } from '@/utils/helpers';
 import Image from 'next/image';
 import { CalendarView, ListView } from '@/assets/images';
-import { Dropdown } from 'rsuite';
 
 type RootState = {
 	session: {
@@ -30,9 +29,23 @@ interface List {
   entries: ListEntry[];
   total_count: number;
 }
-
-interface DropdownStates {
-  [key: string | number]: string | number;
+function getColor(status: string): string {
+  switch (status) {
+  case 'Completed':
+    return 'green';
+  case 'Confirmed':
+    return 'green';
+  case 'Request Received':
+    return '#f1c40f';
+  case 'Request Waitlisted':
+    return '#f1c40f';
+  case 'Cancelled':
+    return 'red';
+  case 'Declined':
+    return 'red';
+  default:
+    return 'black';
+  }
 }
 const BookingHistory = () => {
   const router: _Object = useRouter();
@@ -41,28 +54,14 @@ const BookingHistory = () => {
   const { loggedInUser } = useSelector((state: RootState) => state.session);
 
   const [list, setList] = useState<List>({ entries: [], total_count: 0 });
-  const [dropdownStates, setDropdownStates] = useState<DropdownStates>({});
   const [filterOption, setFilterOption] = useState('all');
   const [isVendor, setIsVendor] = useState(false);
   console.log(filterOption)
-  useEffect(() => {
-    setDropdownStates(
-      list.entries.reduce<DropdownStates>((acc, item) => {
-        acc[item.id] = item['134'] || 'Request Received';
-        return acc;
-      }, {})
-    );
-  }, [list.entries]);
   useEffect (()=>{
     const name = loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator'));
     name ? setIsVendor(true) : setIsVendor(false);
   },[loggedInUser])
-  const handleSelect = (itemId:number, status:string) => {
-    setDropdownStates((prevStates:object)=> ({
-      ...prevStates,
-      [itemId]: status
-    }));
-  };
+
   const [filterData, setFilterData] = useState<_Object>({
     page: 1,
     per_page: 10,
@@ -73,22 +72,8 @@ const BookingHistory = () => {
     loading: false,
     index: 0
   })
-  const getDropdownClass = (status:string | number) => {
-    switch (status) {
-    case 'Request Received':
-      return 'request_received';
-    case 'Confirmed':
-      return 'booking_confirmed';
-    case 'Completed':
-      return 'booking_confirmed';
-    case 'Declined':
-      return 'booking_declined';
-    case 'Cancelled':
-      return 'booking_declined';
-    default:
-      return '';
-    }
-  };
+  console.log(list)
+
   useEffect(() => {
     dispatch(setLoggedInUser())
     async function name() {
@@ -97,11 +82,9 @@ const BookingHistory = () => {
         const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId}, 'admin')
         if (data?.entries) {
           setList(data)
-          console.log(data)
         } else {
           setList({ entries: [], total_count: 0 })
         }
-        // }
         setLoading(false)
       }
     }
@@ -161,18 +144,16 @@ const BookingHistory = () => {
     default:
       startDate = endDate;
     }
-
-    const filterData = {
-      user_id: loggedInUser.databaseId,
-      field_filters: [
-        { key: 122, value: loggedInUser.databaseId, operator: 'contains' },
-        { key: 'date_created', value: [startDate, endDate], operator: 'BETWEEN' }
-      ]
-    };
-    console.log(filterData)
-    // Call the bookingService.getAll method with the filterData
-    const data = await bookingService.getAll(14, filterData, 'admin');
-    console.log(data);
+    setLoading(true)
+    if(filterOption !== 'all'){
+      const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId}, 'admin', undefined, undefined, startDate, endDate);
+      setList(data);
+    }
+    else{
+      const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId}, 'admin')
+      setList(data);
+    }
+    setLoading(false)
   };
 
   useEffect(() => {
@@ -185,7 +166,7 @@ const BookingHistory = () => {
 
       <div className="booking">
         <h3>
-					Total Bookings
+					All Bookings
         </h3>
         <div>
           <select onChange={e => setFilterOption(e.target.value)} value={filterOption}>
@@ -256,47 +237,9 @@ const BookingHistory = () => {
                           <td>
                             {formatDate(item['110'])}
                           </td>
-                          {isVendor ?
-                            (<td className="status">
-                              <Dropdown title={dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
-                                <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Request Received')}
-                                >
-                      Request Received
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Confirmed')}
-                                >
-                      Booking Confirmed
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Declined')}
-                                >
-                      Booking Declined
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Completed')}
-                                >
-                      Booking Completed
-                                </Dropdown.Item>
-                              </Dropdown>
-                            </td>
-                            )
-                            :
-                            (<td className="status">
-                              {/* {item['134'] && item['134'] === 'Completed' ? (
-																<span className="complete">{item['134']}</span>
-															) : (
-																<span className="pending">Pending</span>
-															)} */}
-                              <Dropdown title={dropdownStates[item.id]==='Request Received' ? 'Waitlisted': dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
-                                <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Cancelled')}
-                                >
-                      Booking Cancelled
-                                </Dropdown.Item>
-                              </Dropdown>
-                            </td>)}
+                          <td className="status">
+                            <span style={{ color: getColor(item['134']) }}>{item['134']}</span>
+                          </td>
                           {!isVendor && <td className="d-flex gap-2">
                             <button onClick={() => getVenueSlug(item['112'], i)} className="btn btn-link">{item['113']}</button>
                             {(slugLoading.loading && slugLoading.index === i) &&
@@ -330,7 +273,7 @@ const BookingHistory = () => {
         </div>
 
         {
-          (list.total_count / filterData.per_page) > 1 &&
+          (list.total_count / filterData.per_page) > 1 && !loading &&
 					<Pagination
 					  current_page={filterData.page}
 					  per_page={filterData.per_page}

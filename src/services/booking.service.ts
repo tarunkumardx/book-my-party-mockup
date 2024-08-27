@@ -7,8 +7,8 @@ class BookingService extends CommonBookingService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async getAll(formNumber: number, filterData?: any, role?: string) {
-    return await this.get({}, formNumber, filterData, 'entries', role)
+  async getAll(formNumber: number, filterData?: any, role?: string, id?: number, type?: string, startDate?: string, endDate?: string) {
+    return await this.get({}, formNumber, filterData, 'entries', role, id, type, startDate, endDate)
   }
 
   async getDetials(id: number) {
