@@ -60,8 +60,6 @@ const BookingHistory = () => {
   const [customStartDate, setCustomStartDate] = useState(new Date());
   const [customEndDate, setCustomEndDate] = useState(new Date());
   const [showCustomDate, setShowCustomDate] = useState(false);
-  console.log(customStartDate)
-  console.log(customEndDate)
 
   useEffect (()=>{
     const name = loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator'));
@@ -84,7 +82,7 @@ const BookingHistory = () => {
     dispatch(setLoggedInUser())
     async function name() {
       setLoading(true)
-      if (loggedInUser?.databaseId) {
+      if (loggedInUser?.databaseId && filterOption ==='all') {
         const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId}, 'admin')
         if (data?.entries) {
           setList(data)
@@ -100,7 +98,7 @@ const BookingHistory = () => {
       user_id: loggedInUser?.databaseId
     }))
 
-    name()
+    filterOption === 'all' ? name() : fetchData(filterOption,customStartDate,customEndDate,showCustomDate);
   }, [filterData.page, loggedInUser?.databaseId, isVendor])
 
   const getVenueSlug = async (venueId: number, index: number) => {
@@ -134,28 +132,28 @@ const BookingHistory = () => {
     }
 
     let startDate= '';
-    const endDate = showCustomDate && customEndDate ? formatDate(customEndDate) : formatDate(now);
+    const endDate = showCustomDate && customEndDate && filterOption === 'custom' ? formatDate(customEndDate) : formatDate(now);
     console.log(endDate)
-    if (customStartDate && showCustomDate) {
+    if (customStartDate && showCustomDate && filterOption ==='custom') {
       startDate = formatDate(customStartDate);
     } else {
       // Use default date filtering based on the filter option
       switch (filterOption) {
       case 'daily':
-        startDate = formatDate(new Date(now.setDate(now.getDate() - 1)));
         setShowCustomDate(false);
+        startDate = formatDate(new Date(now.setDate(now.getDate() - 1)));
         break;
       case 'weekly':
-        startDate = formatDate(new Date(now.setDate(now.getDate() - 7)));
         setShowCustomDate(false);
+        startDate = formatDate(new Date(now.setDate(now.getDate() - 7)));
         break;
       case 'monthly':
-        startDate = formatDate(new Date(now.setMonth(now.getMonth() - 1)));
         setShowCustomDate(false);
+        startDate = formatDate(new Date(now.setMonth(now.getMonth() - 1)));
         break;
       case 'yearly':
-        startDate = formatDate(new Date(now.setFullYear(now.getFullYear() - 1)));
         setShowCustomDate(false);
+        startDate = formatDate(new Date(now.setFullYear(now.getFullYear() - 1)));
         break;
       case 'custom':
         setShowCustomDate(true);
@@ -323,7 +321,7 @@ const BookingHistory = () => {
         </div>
 
         {
-          (list.total_count / filterData.per_page) > 1 && !loading &&
+          (list.total_count / filterData.per_page) > 1 &&
 					<Pagination
 					  current_page={filterData.page}
 					  per_page={filterData.per_page}

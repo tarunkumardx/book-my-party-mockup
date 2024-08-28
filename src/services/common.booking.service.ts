@@ -48,9 +48,10 @@ export default class CommonBookingService {
 
     if (type === 'single') {
       url = `https://${domain}/wp-json/gf/v2/entries/${id}`
-    }else if(startDate && endDate){
-      url = `https://${domain}/wp-json/gf/v2/forms/${formNumber}/${endPoint}?search=${key}`
     }
+    // else if(startDate && endDate){
+    //   url = `https://${domain}/wp-json/gf/v2/forms/${formNumber}/${endPoint}?search=${key}`
+    // }
     else {
       url = `https://${domain}/wp-json/gf/v2/forms/${formNumber}/${endPoint}?paging[page_size]=${filterData?.per_page}&paging[current_page]=${filterData?.page}&search=${key}`
     }
