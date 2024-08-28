@@ -222,3 +222,75 @@ select {
   border-radius: 6px;
   padding: 6px;
 }
+
+.form-group-all-bookings{
+  background: white !important;
+  margin-right: 10px;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 14px 36px 2px rgba(0, 0, 0, 0.01) !important;
+
+  input{
+    border: none;
+  }
+
+  .react-datepicker__tab-loop .react-datepicker-popper .react-datepicker {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    left: 2rem;
+}
+.react-datepicker__tab-loop .react-datepicker-popper .react-datepicker__month-container {
+  padding: 8px;
+  min-width: 100%;
+  min-height: 100%;
+  box-shadow: 0 14px 36px 2px rgba(0, 0, 0, 0.15) !important;
+  border: 0;
+}
+.react-datepicker__tab-loop .react-datepicker-popper .react-datepicker__month-container .react-datepicker__header {
+  background-color: #ffffff;
+  border-bottom: 0;
+}
+.react-datepicker__tab-loop .react-datepicker-popper .react-datepicker__month-container .react-datepicker__month .react-datepicker__week .react-datepicker__day.react-datepicker__day--selected {
+  background: rgba(81, 145, 250, 0.2);
+  border-radius: 0;
+}
+.react-datepicker__tab-loop .react-datepicker-popper .react-datepicker__month-container .react-datepicker__month .react-datepicker__week .react-datepicker__day.future-date {
+  border: 1px solid rgba(81, 145, 250, 0.2);
+}
+.react-datepicker__tab-loop .react-datepicker-popper .react-datepicker__month-container .react-datepicker__month .react-datepicker__week .react-datepicker__day {
+  color: #1a2b48;
+}
+.react-datepicker__tab-loop .react-datepicker-popper .react-datepicker__month-container .react-datepicker__header .react-datepicker__current-month {
+  padding-bottom: 20px;
+  font-family: "Outfit";
+  font-weight: 500;
+  color: #1a2b48;
+}
+.react-datepicker__tab-loop .react-datepicker-popper .react-datepicker__month-container .react-datepicker__header .react-datepicker__day-names {
+  border-top: 1px solid #d7dce3;
+}
+.react-datepicker__tab-loop .react-datepicker-popper .react-datepicker .react-datepicker__navigation.react-datepicker__navigation--next .react-datepicker__navigation-icon:before {
+  border: none;
+  background-image: url(/_next/static/media/calender-right.577b9320.svg);
+  background-repeat: no-repeat;
+  height: 17px;
+  width: 17px;
+  transform: none;
+  right: 0;
+  left: auto;
+  background-size: cover;
+}
+.react-datepicker__tab-loop .react-datepicker-popper .react-datepicker .react-datepicker__navigation.react-datepicker__navigation--previous .react-datepicker__navigation-icon:before {
+  border: none;
+  background-image: url(/_next/static/media/calender-left.6faea181.svg);
+  background-repeat: no-repeat;
+  height: 17px;
+  width: 17px;
+  transform: none;
+  right: auto;
+  background-size: cover;
+}
+.react-datepicker__tab-loop .react-datepicker-popper .react-datepicker .react-datepicker__navigation {
+  top: 5px;
+  overflow: visible;
+}
+}

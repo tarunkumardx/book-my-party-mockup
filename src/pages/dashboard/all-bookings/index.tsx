@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import { changeDateFormat, formatDate } from '@/utils/helpers';
 import Image from 'next/image';
 import { CalendarView, ListView } from '@/assets/images';
+import ReactDatePicker from 'react-datepicker';
 
 type RootState = {
 	session: {
@@ -56,7 +57,12 @@ const BookingHistory = () => {
   const [list, setList] = useState<List>({ entries: [], total_count: 0 });
   const [filterOption, setFilterOption] = useState('all');
   const [isVendor, setIsVendor] = useState(false);
-  console.log(filterOption)
+  const [customStartDate, setCustomStartDate] = useState(new Date());
+  const [customEndDate, setCustomEndDate] = useState(new Date());
+  const [showCustomDate, setShowCustomDate] = useState(false);
+  console.log(customStartDate)
+  console.log(customEndDate)
+
   useEffect (()=>{
     const name = loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator'));
     name ? setIsVendor(true) : setIsVendor(false);
@@ -113,10 +119,11 @@ const BookingHistory = () => {
     });
   }
 
-  const fetchData = async () => {
+  const fetchData = async (filterOption: string, customStartDate?: Date, customEndDate?: Date, showCustomDate?: boolean) => {
     const now = new Date();
+
     // Function to format date to "YYYY-MM-DD HH:mm:ss"
-    function formatDate(date:Date) {
+    function formatDate(date: Date): string {
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, '0');
       const day = String(date.getDate()).padStart(2, '0');
@@ -126,39 +133,68 @@ const BookingHistory = () => {
       return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     }
 
-    let startDate;
-    const endDate = formatDate(now);
-    switch(filterOption) {
-    case 'daily':
-      startDate = formatDate(new Date(now.setDate(now.getDate() - 1)));
-      break;
-    case 'weekly':
-      startDate = formatDate(new Date(now.setDate(now.getDate() - 7)));
-      break;
-    case 'monthly':
-      startDate = formatDate(new Date(now.setMonth(now.getMonth() - 1)));
-      break;
-    case 'yearly':
-      startDate = formatDate(new Date(now.setFullYear(now.getFullYear() - 1)));
-      break;
-    default:
-      startDate = endDate;
+    let startDate= '';
+    const endDate = showCustomDate && customEndDate ? formatDate(customEndDate) : formatDate(now);
+    console.log(endDate)
+    if (customStartDate && showCustomDate) {
+      startDate = formatDate(customStartDate);
+    } else {
+      // Use default date filtering based on the filter option
+      switch (filterOption) {
+      case 'daily':
+        startDate = formatDate(new Date(now.setDate(now.getDate() - 1)));
+        setShowCustomDate(false);
+        break;
+      case 'weekly':
+        startDate = formatDate(new Date(now.setDate(now.getDate() - 7)));
+        setShowCustomDate(false);
+        break;
+      case 'monthly':
+        startDate = formatDate(new Date(now.setMonth(now.getMonth() - 1)));
+        setShowCustomDate(false);
+        break;
+      case 'yearly':
+        startDate = formatDate(new Date(now.setFullYear(now.getFullYear() - 1)));
+        setShowCustomDate(false);
+        break;
+      case 'custom':
+        setShowCustomDate(true);
+        break;
+      }
     }
-    setLoading(true)
-    if(filterOption !== 'all'){
-      const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId}, 'admin', undefined, undefined, startDate, endDate);
-      setList(data);
+
+    console.log(startDate)
+
+    setLoading(true);
+
+    try {
+      if(filterOption !== 'all'){
+        console.log(startDate)
+        const data = await bookingService.getAll(
+          14,
+          { ...filterData, user_id: loggedInUser.databaseId },
+          'admin',
+          undefined,
+          undefined,
+          startDate,
+          endDate
+        );
+        setList(data);}
+      else{
+        const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId}, 'admin')
+        setList(data);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      // Handle error accordingly
+    } finally {
+      setLoading(false);
     }
-    else{
-      const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId}, 'admin')
-      setList(data);
-    }
-    setLoading(false)
   };
 
   useEffect(() => {
-    fetchData();
-  }, [filterOption]);
+    fetchData(filterOption,customStartDate,customEndDate,showCustomDate);
+  }, [filterOption, customStartDate,customEndDate,showCustomDate]);
 
   return (
     <DashboardLayout>
@@ -175,7 +211,21 @@ const BookingHistory = () => {
             <option value="weekly">Weekly</option>
             <option value="monthly">Monthly</option>
             <option value="yearly">Yearly</option>
+            <option value="custom">Custom</option>
           </select>
+          {showCustomDate && <>
+            <div className="d-flex my-3">
+              <div className="form-group-all-bookings">
+                <p className="label-form">Starting Date</p><ReactDatePicker
+                  selected={customStartDate}
+                  onChange={(date: Date) => { setCustomStartDate(date)}}
+                /></div>
+              <div className="form-group-all-bookings">
+                <p className="label-form">Ending Date</p> <ReactDatePicker
+                  selected={customEndDate}
+                  onChange={(date: Date) => { setCustomEndDate(date)}}
+                /></div></div></>}
+
         </div>
         <div>
           <ul className="list-unstyled d-flex gap-3 align-left justify-content-end">
