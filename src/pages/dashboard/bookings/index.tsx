@@ -15,6 +15,7 @@ import { changeDateFormat, formatDate } from '@/utils/helpers';
 import Image from 'next/image';
 import { CalendarView, ListView } from '@/assets/images';
 import { Dropdown } from 'rsuite';
+import { toast } from 'react-toastify';
 
 type RootState = {
 	session: {
@@ -57,6 +58,7 @@ const BookingHistory = () => {
     name ? setIsVendor(true) : setIsVendor(false);
   },[loggedInUser])
   const handleSelect = (itemId:number, status:string) => {
+    bookingService.updateDetails(itemId,'134',status).then(()=>toast.success('Updated successfully'))
     setDropdownStates((prevStates:object)=> ({
       ...prevStates,
       [itemId]: status

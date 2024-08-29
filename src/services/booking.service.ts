@@ -14,6 +14,9 @@ class BookingService extends CommonBookingService {
   async getDetials(id: number) {
     return await this.getSingle(id)
   }
+  async updateDetails(entryId: number, meta_key:string, meta_value: string) {
+    return await this.updateSingle(entryId, meta_key, meta_value);
+  }
 }
 
 export const bookingService = new BookingService()

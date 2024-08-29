@@ -10,7 +10,7 @@ export default class CommonBookingService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async request(method: string, params?: _Object, formNumber?: number, endPoint?: string, filterData?: any, role?: any, id?: number, type?: string, startDate?: string, endDate?: string) {
+  async request(method: string, params?: _Object, formNumber?: number, endPoint?: string, filterData?: any, role?: any, id?: number, type?: string, startDate?: string, endDate?: string, meta_key?: string, meta_value?: string) {
     const domain = new URL(this.baseURL).hostname;
 
     const headers: _Object = {
@@ -23,6 +23,16 @@ export default class CommonBookingService {
 
     if (method === 'POST') {
       config.body = JSON.stringify(params);
+    }
+
+    if (method === 'PATCH') {
+      if (typeof meta_key === 'string') {
+        config.body = JSON.stringify({
+          [meta_key]: meta_value
+        });
+      } else {
+        throw new Error('meta_key must be a string');
+      }
     }
 
     let key
@@ -59,6 +69,7 @@ export default class CommonBookingService {
     try {
       const response = await fetch(url, config);
       const data = await response.json();
+      console.log(data)
       return data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -76,5 +87,8 @@ export default class CommonBookingService {
 
   async getSingle(id: number) {
     return await this.request('GET', {}, 0, 'endPoint', {}, '', id, 'single');
+  }
+  async updateSingle(entryId: number, meta_key:string, meta_value: string) {
+    return await this.request('PATCH', {}, 0, 'entries', {}, '', entryId, 'single', undefined, undefined, meta_key, meta_value);
   }
 }
