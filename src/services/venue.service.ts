@@ -85,7 +85,8 @@ class ListService extends CommonService {
 	                googleMap
 	                landmarks
 	              }
-                
+                rankingPriority
+                hide
 	            }
 	          }
 	          pageInfo {
@@ -262,6 +263,10 @@ class ListService extends CommonService {
     let sortValue: string
 
     switch (filters?.sort) {
+    case 'recommended':
+      sortKey = 'RANKING_PRIORITY';
+      sortValue = 'DESC';
+      break;
     case '-price':
       sortKey = 'PAXPRICE';
       sortValue = 'ASC';
@@ -279,8 +284,8 @@ class ListService extends CommonService {
       sortValue = 'DESC';
       break;
     default:
-      sortKey = 'TITLE';
-      sortValue = 'ASC';
+      sortKey = 'RANKING_PRIORITY';
+      sortValue = 'DESC';
       break;
     }
 
@@ -333,6 +338,8 @@ class ListService extends CommonService {
                   
                 paxPrice
                 holidays
+                rankingPriority
+                hide
               }
             }
             pageInfo {
@@ -414,6 +421,8 @@ class ListService extends CommonService {
               }
             }
             extraOptions {
+            rankingPriority
+                hide
               packageStartingFrom {
                 packageStartingType
                 packageStartingTitle
@@ -675,6 +684,8 @@ class ListService extends CommonService {
               }
             }
             extraOptions {
+            rankingPriority
+                hide
               packages {
                 content
                 price

@@ -72,6 +72,7 @@ const Listing = (props: _Object) => {
   const { query }: _Object = router;
 
   const [list, setList] = useState<_Object>({ nodes: [] })
+  console.log(list)
   const [cursor, setCursor] = useState<_Object>({
     endCursor: null,
     nextCursor: null
@@ -132,7 +133,7 @@ const Listing = (props: _Object) => {
           package_types: query?.package_types?.split('+'),
           sort: query?.order_by
         });
-
+console.log(query.order_by)
       if (filter) {
         setList({ nodes: newData.nodes, pageInfo: newData.pageInfo })
       } else {
@@ -1319,8 +1320,9 @@ const Listing = (props: _Object) => {
                   <div className="d-flex align-items-center gap-2">
                     <h6 className="mb-0">Sort</h6>
                     <SelectField
-                      value={{ value: query?.order_by || '-title' }}
+                      value={{ value: query?.order_by || 'recommended' }}
                       options={[
+                        { label: 'Recommended', value: 'recommended' },
                         { label: 'Title - A to Z', value: '-title' },
                         { label: 'Title - Z to A', value: 'title' },
                         { label: 'Price - Low to High', value: '-price' },
