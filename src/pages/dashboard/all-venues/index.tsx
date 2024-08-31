@@ -1,14 +1,9 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import React, { useEffect, useState } from 'react';
 
-// import { useFormik } from 'formik';
-
-import store from 'store'
-
-import { DashboardLayout, Loading, SEOHead } from '@/components';
+import { DashboardLayout, SEOHead } from '@/components';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { faPencilSquare } from '@fortawesome/free-solid-svg-icons';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 
@@ -23,33 +18,36 @@ import { getUserWishlist } from '@/redux/slices/session.slice';
 import { AppDispatch } from '@/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
 import { venueData } from '@/redux/slices/venue.slice';
+import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
+import Modal from 'react-bootstrap/Modal';
 import moment from 'moment';
+import { toast } from 'react-toastify';
 
 const Venues = () => {
   const dispatch = useDispatch<AppDispatch>()
   const router: _Object = useRouter();
-
   const [like, setLike] = useState({
     loading: false,
     index: 0
   })
   const { userWishlist, isUserLoggedIn, loggedInUser } = useSelector((state: RootState) => state.session);
   const [list, setList] = useState<_Object>({ nodes: [] })
+  const [venueRank, setVenueRank] = useState(null);
   const [cursor, setCursor] = useState<_Object>({
     endCursor: null,
     nextCursor: null
   })
   const [filter, setFilter] = useState(false)
+  const [modalShow, setModalShow] = useState({
+    visible: false,
+    venueId: null
+  });
   const [loading, setLoading] = useState<_Object>({
     loader: false,
     main: true,
     firstLoading: true
-  })
-  const [deleteLoading, setDeleteLoading] = useState<_Object>({
-    loading: false,
-    id: ''
   })
 
   useEffect(() => {
@@ -88,53 +86,13 @@ const Venues = () => {
     })
   }
 
-  // const formik = useFormik({
-  // 	initialValues: {
-  // 		search: ''
-  // 	},
+  const handleRangeChange = (event: _Object) => {
+    setVenueRank(event.target.value);
+  };
 
-  // 	enableReinitialize: true,
-
-  // 	onSubmit: async (values) => {
-  // 		let author: number = 0
-
-  // 		setLoading({ main: true })
-
-  // 		if (loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author'))) {
-  // 			author = loggedInUser?.databaseId
-  // 		}
-
-  // 		const newData = await listService.getVenues(10, null, null, { author: author }, values.search);
-
-  // 		setList({ nodes: newData.nodes, pageInfo: newData.pageInfo })
-  // 		setLoading({ main: false })
-  // 	}
-  // })
-
-  const deleteVenue = async (id: string) => {
-    const isConfirmed = window.confirm('Are you sure you want to delete this item?');
-
-    if (isConfirmed) {
-      setDeleteLoading({
-        loading: true,
-        id: id
-      })
-      const data = await listService.deleteVenue(id)
-
-      if (data?.deletedId) {
-        const listData = list.nodes.filter((item: _Object) => item.id != id)
-
-        setList({ nodes: listData })
-        toast.success('Venue successfully deleted')
-        setDeleteLoading({
-          loading: false,
-          id: id
-        })
-      }
-    } else (
-      console.log('Deletion canceled')
-    )
-  }
+  const handleVenueListing = (venueId: null | number, rankingPriority?: null | number, hide?: null | boolean) => {
+    listService.updateVenueListing(venueId,rankingPriority,hide).then(()=>toast.success('Venue Listing Updated successfully'))
+  };
 
   const addToWishlist = async (venueId: number, index: number) => {
     if (isUserLoggedIn) {
@@ -239,10 +197,10 @@ const Venues = () => {
                 </div>
 
                 <ul className="list-unstyled">
-                  <li className="d-flex faTimes">{deleteLoading?.id != item.id && <button className="bg-transparent border-0" onClick={() => deleteVenue(item?.id)}><FontAwesomeIcon icon={faTimes} /></button>}{deleteLoading.id === item.id && deleteLoading.loading && <span><Loading small={true} /></span>}</li>
+                  {/* <li className="d-flex faTimes">{deleteLoading?.id != item.id && <button className="bg-transparent border-0" onClick={() => deleteVenue(item?.id)}><FontAwesomeIcon icon={faTimes} /></button>}{deleteLoading.id === item.id && deleteLoading.loading && <span><Loading small={true} /></span>}</li> */}
                   {/* <li className="faCheckSquare"><Link href="#"><FontAwesomeIcon icon={faCheckSquare} /></Link></li> */}
-                  <li className="faPencilSquare"><Link onClick={() => { store.remove('steps') }} href={`/dashboard/venues/${item.databaseId}`}><FontAwesomeIcon icon={faPencilSquare} /></Link></li>
-                  <li className="faEye"><Link href={`/venues/${item.slug}`}><FontAwesomeIcon icon={faEye} /></Link></li>
+                  <li className="faPencilSquare"><FontAwesomeIcon icon={faPencilSquare} onClick={() => setModalShow((prevState) => ({ ...prevState, visible: true, venueId: item.databaseId }))}/></li>
+                  <li className="faEye"><FontAwesomeIcon icon={faEye} /></li>
                 </ul>
               </div>
             </div>
@@ -256,6 +214,23 @@ const Venues = () => {
         </div>
       </div>
 
+      <Modal show={modalShow.visible} onHide={() => setModalShow((prevState) => ({ ...prevState, visible: false }))} aria-labelledby="contained-modal-title-vcenter">
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+          Set Ranking for the VenueId : {modalShow.venueId}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="grid-example">
+          <Container>
+            <Form.Label>High the Ranking Number: Achieve the top position for the item</Form.Label>
+            <Form.Range onChange={handleRangeChange}/>
+            {venueRank}
+          </Container>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button label="Set" onClick={() => {setModalShow((prevState) => ({ ...prevState, visible: false })), handleVenueListing(modalShow.venueId, venueRank)}}/>
+        </Modal.Footer>
+      </Modal>
     </DashboardLayout>
   )
 }

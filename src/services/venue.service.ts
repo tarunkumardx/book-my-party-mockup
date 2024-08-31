@@ -1321,6 +1321,23 @@ class ListService extends CommonService {
 
     return data?.authorsList
   }
+
+  async updateVenueListing(id:number | null, rankingPriority:number | null = null, hide:boolean | null = null){
+    const {data} = await this.post({
+      query: `mutation MyMutation {
+  updateVenue(input: {id: ${id}, rankingPriority: ${rankingPriority}, hide: ${hide}}) {
+    venue {
+      extraOptions {
+        rankingPriority
+        hide
+      }
+    }
+  }
+}`
+    })
+    console.log(data)
+    return data
+  }
 }
 
 export const listService = new ListService()

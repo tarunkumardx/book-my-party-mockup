@@ -381,7 +381,7 @@ console.log(query.order_by)
       <section className="search-form search-form-content">
         <div className="container-fluid">
           <form className="row g-2" onSubmit={formik.handleSubmit}>
-            <div className="col-12 col-sm-6 col-md-3">
+            <div className="col-6 col-sm-6 col-md-3">
               <div className="inner">
                 <SelectField
                   name="location"
@@ -401,7 +401,7 @@ console.log(query.order_by)
               </div>
             </div>
 
-            <div className="col-12 col-sm-6 col-md-2">
+            <div className="col-6 col-sm-6 col-md-2">
               <div className="inner">
                 <div id="datepicker-herobanner-1" className={`form-group ${calendarOpen ? 'active' : ''}`} onClick={handleClick}>
                   <p className="label-form">Date</p>
@@ -421,7 +421,7 @@ console.log(query.order_by)
               </div>
             </div>
 
-            <div className="col-12 col-sm-6 col-md-3">
+            <div className="col-6 col-sm-6 col-md-3">
               <div className="inner">
                 <SelectField
                   label="Occasion"
@@ -439,7 +439,7 @@ console.log(query.order_by)
               </div>
             </div>
 
-            <div className="col-12 col-sm-6 col-md-2">
+            <div className="col-6 col-sm-6 col-md-2">
               <div className="inner">
                 <div className="form-group">
                   <p className="label-form pax-label">Pax</p>
