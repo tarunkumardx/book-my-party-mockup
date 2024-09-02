@@ -15,7 +15,7 @@ import * as yup from 'yup'
 import { listService } from '@/services/venue.service';
 ``
 import { RootState, _Object } from '@/utils/types';
-import { dateFormaterForReactDatePicker, truncateText } from '@/utils/helpers';
+import { dateFormaterForReactDatePicker, truncateText, truncateToWords } from '@/utils/helpers';
 
 import { RedHeart, filterlist, placeholder, wishlistWhite } from '@/assets/images';
 
@@ -133,7 +133,7 @@ const Listing = (props: _Object) => {
           package_types: query?.package_types?.split('+'),
           sort: query?.order_by
         });
-console.log(query.order_by)
+      console.log(query.order_by)
       if (filter) {
         setList({ nodes: newData.nodes, pageInfo: newData.pageInfo })
       } else {
@@ -479,9 +479,9 @@ console.log(query.order_by)
                 </div>
 
                 <div className="d-flex">
-                  {/* {(router?.query?.price_range?.length > 0 || router?.query?.cuisines?.length > 0 || router?.query?.franchises?.length > 0 || router?.query?.amenities?.length > 0 || router?.query?.occasions?.split('+')?.length > 1 || router?.query?.types?.split('+')?.length > 1 || router?.query?.venueTypes?.length > 1 || router?.query?.age?.length > 1 || router?.query?.activities?.length > 1 || router?.query?.package_types?.length > 1) && <Button className="transparent p-0 clear-filter" onClick={() => clearFilter()} label="Clear filter" />}									<button className="btn d-lg-none filter" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter">
+                  {(router?.query?.price_range?.length > 0 || router?.query?.cuisines?.length > 0 || router?.query?.franchises?.length > 0 || router?.query?.amenities?.length > 0 || router?.query?.occasions?.split('+')?.length > 1 || router?.query?.types?.split('+')?.length > 1 || router?.query?.venueTypes?.length > 1 || router?.query?.age?.length > 1 || router?.query?.activities?.length > 1 || router?.query?.package_types?.length > 1) && <Button className="transparent p-0 clear-filter" onClick={() => clearFilter()} label="Clear filter" />}									<button className="btn d-lg-none filter" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter">
                     <Image src={filterlist} width={20} height={20} alt="" />
-                  </button> */}
+                  </button>
 
                   {/* <div className="dropdown">
 										<button className="btn btn-transparent dropdown-toggle p-0 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -505,8 +505,9 @@ console.log(query.order_by)
 
                 <div className="offcanvas offcanvas-start filter-offcanvas" tabIndex={-1} id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
                   <div className="offcanvas-header filterBoxHeader">
-                    <button type="button" className="btn-close ms-auto topCloseBtn" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    <button onClick={() => clearFilter()} type="button" className="ms-auto topClearBtn" data-bs-dismiss="offcanvas">Clear Filter</button>
+                    <button onClick={() => clearFilter()} type="button" className="ms-auto topClearBtn">Clear Filter</button>
+                    <button type="button" className=" ms-auto topCloseBtn" data-bs-dismiss="offcanvas" aria-label="">Back</button>
+
                   </div>
                   <div className="bottomResults">
                     <button aria-label="close" data-bs-dismiss="offcanvas" className="bottomBtn">SHOW {list?.pageInfo?.total} RESULTS</button>
@@ -1473,7 +1474,8 @@ console.log(query.order_by)
                                 <ElfsightWidget widgetId={item?.extraOptions?.googleReviewsId} />
                               </div>
                             }
-                            <div className="restrauDesc" dangerouslySetInnerHTML={{ __html: truncateText(item?.content || '') }} />
+                            <div className="restrauDesc" dangerouslySetInnerHTML={{ __html: truncateToWords(item?.content || '') }} />
+                            {/* {cuisineData?.length > 0 && <p><b>Cuisine serve:</b> {cuisineData.map((item: string) => item).join(', ')}</p>} */}
                           </div>
                         </div>
                         <div className="col-sm-4 col-md-3">

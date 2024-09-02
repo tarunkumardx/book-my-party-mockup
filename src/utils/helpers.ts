@@ -20,6 +20,15 @@ export const truncateTextMore = (paramsText: string, show = 30) => {
   return `${truncatedText}...`;
 }
 
+export const truncateToWords = (paramsText: string, wordLimit = 13): string => {
+  if (!paramsText) return '';
+
+  const words = paramsText.split(' ');
+  const truncatedText = words.slice(0, wordLimit).join(' ');
+
+  return `${truncatedText}....`;
+}
+
 export const capitalize = (params: string) => {
   if (!params) return '-';
   return params

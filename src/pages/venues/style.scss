@@ -343,9 +343,9 @@
     }
   }
 }
-.filterBoxHeader{
-  
-}
+
+.filterBoxHeader {}
+
 .search-form-content {
   position: relative;
   z-index: 1;
@@ -2619,13 +2619,15 @@
 
 .topCloseBtn {
   position: absolute;
-  right: 18px;
+  left: 18px;
   top: 120px;
+  background: transparent;
+  font-size: 17px;
 }
 
 .topClearBtn {
   position: absolute;
-  left: 18px;
+  right: 18px;
   top: 120px;
   background-color: white;
   border: none;
@@ -2810,7 +2812,7 @@
 
   @media (max-width: 500px) {
     position: static;
-    top: auto; 
+    top: auto;
   }
 }
 
