@@ -584,6 +584,7 @@ const Booking = () => {
                     <div className="form-group col-lg-6 label-none">
                       <label className="label-form mb-1">Phone</label>
                       <PhoneNumberField
+                        required={true}
                         args={{
                           country: 'in',
                           value: formik.values.input_30 || '+91',

@@ -365,7 +365,7 @@ const Listing = (props: _Object) => {
     }
   }
   // Share on whatsapp
-  const shareOnWhatsApp = (slug:string) => {
+  const shareOnWhatsApp = (slug: string) => {
     const baseUrl = `${window.location.origin}/venues/${slug}`;
     const fullUrl = `${baseUrl}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${query?.types || ''}&occasions=${query?.occasions || ''}&amenities=${query?.amenities || ''}&franchises=${query?.franchises || ''}&cuisines=${query?.cuisines || ''}&price_range=${query?.price_range || ''}&pax=${query?.pax || 1}`;
 
@@ -472,11 +472,15 @@ const Listing = (props: _Object) => {
             <div className="col-12 col-lg-3">
 
               <div className="justify-between filter-heading">
-                <h4 className="main-head">FILTER BY</h4>
+                <div className="w-100 d-flex justify-between gap-6">
+                  <h4 className="main-head">FILTER BY</h4>
+                  <span onClick={() => clearFilter()} style={{ cursor: 'pointer', color: '#482370' }}>Clear Filter</span>
+                </div>
+
                 <div className="d-flex">
-                  {(router?.query?.price_range?.length > 0 || router?.query?.cuisines?.length > 0 || router?.query?.franchises?.length > 0 || router?.query?.amenities?.length > 0 || router?.query?.occasions?.split('+')?.length > 1 || router?.query?.types?.split('+')?.length > 1 || router?.query?.venueTypes?.length > 1 || router?.query?.age?.length > 1 || router?.query?.activities?.length > 1 || router?.query?.package_types?.length > 1) && <Button className="transparent p-0 clear-filter" onClick={() => clearFilter()} label="Clear filter" />}									<button className="btn d-lg-none filter" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter">
+                  {/* {(router?.query?.price_range?.length > 0 || router?.query?.cuisines?.length > 0 || router?.query?.franchises?.length > 0 || router?.query?.amenities?.length > 0 || router?.query?.occasions?.split('+')?.length > 1 || router?.query?.types?.split('+')?.length > 1 || router?.query?.venueTypes?.length > 1 || router?.query?.age?.length > 1 || router?.query?.activities?.length > 1 || router?.query?.package_types?.length > 1) && <Button className="transparent p-0 clear-filter" onClick={() => clearFilter()} label="Clear filter" />}									<button className="btn d-lg-none filter" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter">
                     <Image src={filterlist} width={20} height={20} alt="" />
-                  </button>
+                  </button> */}
 
                   {/* <div className="dropdown">
 										<button className="btn btn-transparent dropdown-toggle p-0 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -545,9 +549,30 @@ const Listing = (props: _Object) => {
                         </button>
                       }
                       {
-                        props?.locations?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('locations')} className={getButtonClass('locations')} type="button" data-bs-toggle="collapse" data-bs-target="#locations" aria-expanded={activeAccordion === 'locations'} aria-controls="locations">
-                          LOCATIONS
-                        </button>
+                        props?.locations
+                          ?.filter((item: _Object) =>
+                            item?.filtersOptions?.displayAt?.nodes?.some(
+                              (node: _Object) => node?.slug === router?.query?.types
+                            )
+                          )
+                          .sort((a: _Object, b: _Object) => {
+                            const nameA = a?.filtersOptions?.displayAt?.nodes[0]?.name?.toLowerCase() || '';
+                            const nameB = b?.filtersOptions?.displayAt?.nodes[0]?.name?.toLowerCase() || '';
+                            return nameA.localeCompare(nameB);
+                          })
+                          ?.length > 0 && (
+                          <button
+                            onClick={() => handleFilterClick('locations')}
+                            className={getButtonClass('locations')}
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#locations"
+                            aria-expanded={activeAccordion === 'locations'}
+                            aria-controls="locations"
+                          >
+                            LOCATIONS
+                          </button>
+                        )
                       }
                       {
                         (query?.types === 'restaurant' || query?.types === 'fun-zone') && <button onClick={() => handleFilterClick('capacity')} className={getButtonClass('capacity')} type="button" data-bs-toggle="collapse" data-bs-target="#capacity" aria-expanded={activeAccordion === 'capacity'} aria-controls="capacity">
