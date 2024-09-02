@@ -14,8 +14,7 @@ import { useRouter } from 'next/router';
 import { changeDateFormat, formatDate } from '@/utils/helpers';
 import Image from 'next/image';
 import { CalendarView, ListView } from '@/assets/images';
-import { Dropdown } from 'rsuite';
-import { toast } from 'react-toastify';
+import ReactDatePicker from 'react-datepicker';
 
 type RootState = {
 	session: {
@@ -31,9 +30,23 @@ interface List {
   entries: ListEntry[];
   total_count: number;
 }
-
-interface DropdownStates {
-  [key: string | number]: string | number;
+function getColor(status: string): string {
+  switch (status) {
+  case 'Completed':
+    return 'green';
+  case 'Confirmed':
+    return 'green';
+  case 'Request Received':
+    return '#f1c40f';
+  case 'Request Waitlisted':
+    return '#f1c40f';
+  case 'Cancelled':
+    return 'red';
+  case 'Declined':
+    return 'red';
+  default:
+    return 'black';
+  }
 }
 const BookingHistory = () => {
   const router: _Object = useRouter();
@@ -42,28 +55,17 @@ const BookingHistory = () => {
   const { loggedInUser } = useSelector((state: RootState) => state.session);
 
   const [list, setList] = useState<List>({ entries: [], total_count: 0 });
-  const [dropdownStates, setDropdownStates] = useState<DropdownStates>({});
+  const [filterOption, setFilterOption] = useState('all');
   const [isVendor, setIsVendor] = useState(false);
-  console.log(list)
-  useEffect(() => {
-    setDropdownStates(
-      list.entries.reduce<DropdownStates>((acc, item) => {
-        acc[item.id] = item['134'] || 'Request Received';
-        return acc;
-      }, {})
-    );
-  }, [list.entries]);
+  const [customStartDate, setCustomStartDate] = useState(new Date());
+  const [customEndDate, setCustomEndDate] = useState(new Date());
+  const [showCustomDate, setShowCustomDate] = useState(false);
+
   useEffect (()=>{
     const name = loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator'));
     name ? setIsVendor(true) : setIsVendor(false);
   },[loggedInUser])
-  const handleSelect = (itemId:number, status:string) => {
-    bookingService.updateDetails(itemId,'134',status).then(()=>toast.success('Updated successfully'))
-    setDropdownStates((prevStates:object)=> ({
-      ...prevStates,
-      [itemId]: status
-    }));
-  };
+
   const [filterData, setFilterData] = useState<_Object>({
     page: 1,
     per_page: 10,
@@ -74,34 +76,16 @@ const BookingHistory = () => {
     loading: false,
     index: 0
   })
-  const getDropdownClass = (status:string | number) => {
-    switch (status) {
-    case 'Request Received':
-      return 'request_received';
-    case 'Confirmed':
-      return 'booking_confirmed';
-    case 'Completed':
-      return 'booking_confirmed';
-    case 'Declined':
-      return 'booking_declined';
-    case 'Cancelled':
-      return 'booking_declined';
-    default:
-      return '';
-    }
-  };
+  console.log(list)
+
   useEffect(() => {
     dispatch(setLoggedInUser())
     async function name() {
       setLoading(true)
-      if (loggedInUser?.databaseId) {
-        const venues = await listService.getVenuesIds(loggedInUser.databaseId)
-
-        const venuesIds = venues.edges.map((item: _Object) => item.node.databaseId).join(',')
-        const data = loggedInUser?.roles?.nodes && await bookingService.getAll(14, { ...filterData, user_id: isVendor ? loggedInUser.email : loggedInUser.databaseId, venuesIds: venuesIds, vendorEmail:loggedInUser.email }, !isVendor ? 'user' : 'vendor')
+      if (loggedInUser?.databaseId && filterOption ==='all') {
+        const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId}, 'admin')
         if (data?.entries) {
           setList(data)
-          console.log(data)
         } else {
           setList({ entries: [], total_count: 0 })
         }
@@ -114,7 +98,7 @@ const BookingHistory = () => {
       user_id: loggedInUser?.databaseId
     }))
 
-    name()
+    filterOption === 'all' ? name() : fetchData(filterOption,customStartDate,customEndDate,showCustomDate);
   }, [filterData.page, loggedInUser?.databaseId, isVendor])
 
   const getVenueSlug = async (venueId: number, index: number) => {
@@ -133,14 +117,114 @@ const BookingHistory = () => {
     });
   }
 
+  const fetchData = async (filterOption: string, customStartDate?: Date, customEndDate?: Date, showCustomDate?: boolean) => {
+    const now = new Date();
+
+    // Function to format date to "YYYY-MM-DD HH:mm:ss"
+    function formatDate(date: Date): string {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
+
+    let startDate= '';
+    const endDate = showCustomDate && customEndDate && filterOption === 'custom' ? formatDate(customEndDate) : formatDate(now);
+    console.log(endDate)
+    if (customStartDate && showCustomDate && filterOption ==='custom') {
+      startDate = formatDate(customStartDate);
+    } else {
+      // Use default date filtering based on the filter option
+      switch (filterOption) {
+      case 'daily':
+        setShowCustomDate(false);
+        startDate = formatDate(new Date(now.setDate(now.getDate() - 1)));
+        break;
+      case 'weekly':
+        setShowCustomDate(false);
+        startDate = formatDate(new Date(now.setDate(now.getDate() - 7)));
+        break;
+      case 'monthly':
+        setShowCustomDate(false);
+        startDate = formatDate(new Date(now.setMonth(now.getMonth() - 1)));
+        break;
+      case 'yearly':
+        setShowCustomDate(false);
+        startDate = formatDate(new Date(now.setFullYear(now.getFullYear() - 1)));
+        break;
+      case 'custom':
+        setShowCustomDate(true);
+        break;
+      }
+    }
+
+    console.log(startDate)
+
+    setLoading(true);
+
+    try {
+      if(filterOption !== 'all'){
+        console.log(startDate)
+        const data = await bookingService.getAll(
+          14,
+          { ...filterData, user_id: loggedInUser.databaseId },
+          'admin',
+          undefined,
+          undefined,
+          startDate,
+          endDate
+        );
+        setList(data);}
+      else{
+        const data = await bookingService.getAll(14, { ...filterData, user_id: loggedInUser.databaseId}, 'admin')
+        setList(data);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      // Handle error accordingly
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData(filterOption,customStartDate,customEndDate,showCustomDate);
+  }, [filterOption, customStartDate,customEndDate,showCustomDate]);
+
   return (
     <DashboardLayout>
       <SEOHead seo={{ title: 'Bookings - Book My Party' } || ''} />
 
       <div className="booking">
         <h3>
-					Bookings
+					All Bookings
         </h3>
+        <div>
+          <select onChange={e => setFilterOption(e.target.value)} value={filterOption}>
+            <option value="all">All</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+            <option value="custom">Custom</option>
+          </select>
+          {showCustomDate && <>
+            <div className="d-flex my-3">
+              <div className="form-group-all-bookings">
+                <p className="label-form">Starting Date</p><ReactDatePicker
+                  selected={customStartDate}
+                  onChange={(date: Date) => { setCustomStartDate(date)}}
+                /></div>
+              <div className="form-group-all-bookings">
+                <p className="label-form">Ending Date</p> <ReactDatePicker
+                  selected={customEndDate}
+                  onChange={(date: Date) => { setCustomEndDate(date)}}
+                /></div></div></>}
+
+        </div>
         <div>
           <ul className="list-unstyled d-flex gap-3 align-left justify-content-end">
             <li><Link className="btn-primary" title="List View" href="/dashboard/bookings"><Image src={ListView} width={20} height={20} alt="" /></Link></li>
@@ -201,47 +285,9 @@ const BookingHistory = () => {
                           <td>
                             {formatDate(item['110'])}
                           </td>
-                          {isVendor ?
-                            (<td className="status">
-                              <Dropdown title={dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
-                                <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Request Received')}
-                                >
-                      Request Received
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Confirmed')}
-                                >
-                      Booking Confirmed
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Declined')}
-                                >
-                      Booking Declined
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Completed')}
-                                >
-                      Booking Completed
-                                </Dropdown.Item>
-                              </Dropdown>
-                            </td>
-                            )
-                            :
-                            (<td className="status">
-                              {/* {item['134'] && item['134'] === 'Completed' ? (
-																<span className="complete">{item['134']}</span>
-															) : (
-																<span className="pending">Pending</span>
-															)} */}
-                              <Dropdown title={dropdownStates[item.id]==='Request Received' ? 'Waitlisted': dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
-                                <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Cancelled')}
-                                >
-                      Booking Cancelled
-                                </Dropdown.Item>
-                              </Dropdown>
-                            </td>)}
+                          <td className="status">
+                            <span style={{ color: getColor(item['134']) }}>{item['134']}</span>
+                          </td>
                           {!isVendor && <td className="d-flex gap-2">
                             <button onClick={() => getVenueSlug(item['112'], i)} className="btn btn-link">{item['113']}</button>
                             {(slugLoading.loading && slugLoading.index === i) &&
