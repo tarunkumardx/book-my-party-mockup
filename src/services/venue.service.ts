@@ -265,7 +265,7 @@ class ListService extends CommonService {
     switch (filters?.sort) {
     case 'recommended':
       sortKey = 'RANKING_PRIORITY';
-      sortValue = 'DESC';
+      sortValue = 'ASC';
       break;
     case '-price':
       sortKey = 'PAXPRICE';
@@ -285,7 +285,7 @@ class ListService extends CommonService {
       break;
     default:
       sortKey = 'RANKING_PRIORITY';
-      sortValue = 'DESC';
+      sortValue = 'ASC';
       break;
     }
 

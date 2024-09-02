@@ -154,56 +154,58 @@ const Venues = () => {
 
         {list?.nodes?.map((item: _Object, i: number) => {
           return (
-            <div key={i} className="row venue-list">
-              <div className="col-lg-3 col-md-3 col-sm-12 ps-0 venue-list-img-wrap">
-                <div className="thumb">
-                  <div className="add-wishlist">
-                    <button disabled={like.loading} onClick={() => addToWishlist(item.databaseId, i)} className="btn wishlist">
-                      {like.loading && like.index === i ?
-                        <div className="spinner-border spinner-border-sm text-light" role="status">
-                          <span className="visually-hidden">Loading...</span>
-                        </div>
-                        :
-                        <Image src={userWishlist?.some((wishlist: _Object) => wishlist.id === `${item.databaseId}`) ? RedHeart : wishlistWhite} alt="" width="22" height="22" />
-                      }
-                    </button>
+            <>
+              <div key={i} className="row venue-list" style={item.extraOptions.hide ? {opacity: '0.5'}: {}}>
+                <div className="col-lg-3 col-md-3 col-sm-12 ps-0 venue-list-img-wrap">
+                  <div className="thumb">
+                    <div className="add-wishlist">
+                      <button disabled={like.loading} onClick={() => addToWishlist(item.databaseId, i)} className="btn wishlist">
+                        {like.loading && like.index === i ?
+                          <div className="spinner-border spinner-border-sm text-light" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                          :
+                          <Image src={userWishlist?.some((wishlist: _Object) => wishlist.id === `${item.databaseId}`) ? RedHeart : wishlistWhite} alt="" width="22" height="22" />
+                        }
+                      </button>
+                    </div>
+                    <Link href={`/venues/${item.slug}`}>
+                      <Image src={item?.featuredImage?.node?.sourceUrl || placeholder} width={364} height={337} alt="" />
+                    </Link>
                   </div>
-                  <Link href={`/venues/${item.slug}`}>
-                    <Image src={item?.featuredImage?.node?.sourceUrl || placeholder} width={364} height={337} alt="" />
-                  </Link>
                 </div>
-              </div>
 
-              <div className="col item-content items-p">
-                <p>{item.extraOptions.address.address}</p>
+                <div className="col item-content items-p">
+                  <p>{item.extraOptions.address.address}</p>
 
-                <h5><Link href={`/venues/${item.slug}`}>{item.title}</Link></h5>
-                {
-                  item?.extraOptions?.googleReviewsId &&
+                  <h5><Link href={`/venues/${item.slug}`}>{item.title}</Link></h5>
+                  {
+                    item?.extraOptions?.googleReviewsId &&
 									<div className="google-star-ratings">
 									  <ElfsightWidget widgetId={item.extraOptions.googleReviewsId} />
 									</div>
-                }
+                  }
 
-                <div dangerouslySetInnerHTML={{ __html: truncateText(item.content || '') }} />
-                {item?.extraOptions?.holidays?.length > 0 && <span>Holidays: {item?.extraOptions?.holidays?.split(',')?.map((date: string) => moment(date).format('MMM DD, YYYY')).join(', ')}</span>}
-              </div>
-
-              <div className="col-lg-3 col-md-3 col-sm-12 casual-item items-p">
-                <div className="px-3">
-                  {/* <p>Casual dining</p> */}
-
-                  <Link href={`/venues/${item.slug}`} className="btn btn-primary">View Venue</Link>
+                  <div dangerouslySetInnerHTML={{ __html: truncateText(item.content || '') }} />
+                  {item?.extraOptions?.holidays?.length > 0 && <span>Holidays: {item?.extraOptions?.holidays?.split(',')?.map((date: string) => moment(date).format('MMM DD, YYYY')).join(', ')}</span>}
                 </div>
 
-                <ul className="list-unstyled">
-                  {/* <li className="d-flex faTimes">{deleteLoading?.id != item.id && <button className="bg-transparent border-0" onClick={() => deleteVenue(item?.id)}><FontAwesomeIcon icon={faTimes} /></button>}{deleteLoading.id === item.id && deleteLoading.loading && <span><Loading small={true} /></span>}</li> */}
-                  {/* <li className="faCheckSquare"><Link href="#"><FontAwesomeIcon icon={faCheckSquare} /></Link></li> */}
-                  <li className="faPencilSquare"><FontAwesomeIcon icon={faPencilSquare} onClick={() => setModalShow((prevState) => ({ ...prevState, visible: true, venueId: item.databaseId }))}/></li>
-                  <li className="faEye"><FontAwesomeIcon icon={faEye} /></li>
-                </ul>
+                <div className="col-lg-3 col-md-3 col-sm-12 casual-item items-p">
+                  <div className="px-3">
+                    {/* <p>Casual dining</p> */}
+                    <span>Ranking Position: {item.extraOptions.rankingPriority}</span>
+                    <Link href={`/venues/${item.slug}`} className="btn btn-primary">View Venue</Link>
+                  </div>
+
+                  <ul className="list-unstyled">
+                    {/* <li className="d-flex faTimes">{deleteLoading?.id != item.id && <button className="bg-transparent border-0" onClick={() => deleteVenue(item?.id)}><FontAwesomeIcon icon={faTimes} /></button>}{deleteLoading.id === item.id && deleteLoading.loading && <span><Loading small={true} /></span>}</li> */}
+                    {/* <li className="faCheckSquare"><Link href="#"><FontAwesomeIcon icon={faCheckSquare} /></Link></li> */}
+                    <li className="faPencilSquare"><FontAwesomeIcon icon={faPencilSquare} onClick={() => setModalShow((prevState) => ({ ...prevState, visible: true, venueId: item.databaseId }))}/></li>
+                    <li className="faEye"><FontAwesomeIcon icon={faEye} onClick={()=>handleVenueListing(item.databaseId, null, !item.extraOptions.hide)}/></li>
+                  </ul>
+                </div>
               </div>
-            </div>
+            </>
           )
         })}
 
@@ -214,7 +216,7 @@ const Venues = () => {
         </div>
       </div>
 
-      <Modal show={modalShow.visible} onHide={() => setModalShow((prevState) => ({ ...prevState, visible: false }))} aria-labelledby="contained-modal-title-vcenter">
+      <Modal show={modalShow.visible} onHide={() => {setModalShow((prevState) => ({ ...prevState, visible: false })), setVenueRank(null)}} aria-labelledby="contained-modal-title-vcenter">
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
           Set Ranking for the VenueId : {modalShow.venueId}
