@@ -42,7 +42,8 @@ const Venues = () => {
   const [filter, setFilter] = useState(false)
   const [modalShow, setModalShow] = useState({
     visible: false,
-    venueId: null
+    venueId: null,
+    venueName: ''
   });
   const [loading, setLoading] = useState<_Object>({
     loader: false,
@@ -200,7 +201,7 @@ const Venues = () => {
                   <ul className="list-unstyled">
                     {/* <li className="d-flex faTimes">{deleteLoading?.id != item.id && <button className="bg-transparent border-0" onClick={() => deleteVenue(item?.id)}><FontAwesomeIcon icon={faTimes} /></button>}{deleteLoading.id === item.id && deleteLoading.loading && <span><Loading small={true} /></span>}</li> */}
                     {/* <li className="faCheckSquare"><Link href="#"><FontAwesomeIcon icon={faCheckSquare} /></Link></li> */}
-                    <li className="faPencilSquare"><FontAwesomeIcon icon={faPencilSquare} onClick={() => setModalShow((prevState) => ({ ...prevState, visible: true, venueId: item.databaseId }))}/></li>
+                    <li className="faPencilSquare"><FontAwesomeIcon icon={faPencilSquare} onClick={() => setModalShow((prevState) => ({ ...prevState, visible: true, venueId: item.databaseId, venueName: item.title }))}/></li>
                     <li className="faEye"><FontAwesomeIcon icon={faEye} onClick={()=>handleVenueListing(item.databaseId, null, !item.extraOptions.hide)}/></li>
                   </ul>
                 </div>
@@ -219,7 +220,7 @@ const Venues = () => {
       <Modal show={modalShow.visible} onHide={() => {setModalShow((prevState) => ({ ...prevState, visible: false })), setVenueRank(null)}} aria-labelledby="contained-modal-title-vcenter">
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-          Set Ranking for the VenueId : {modalShow.venueId}
+          Set Ranking for the Venue Name :<br/> <b>{modalShow.venueName}</b>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="grid-example">
