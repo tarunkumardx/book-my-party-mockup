@@ -50,28 +50,27 @@ const Venues = () => {
     main: true,
     firstLoading: true
   })
+  async function fetchData() {
+    const newData = await listService.getVenues(10, cursor.endCursor, null);
+    console.log(newData)
+    if (filter) {
+      setList({ nodes: newData.nodes, pageInfo: newData.pageInfo })
+    } else {
+      setList({ nodes: newData.nodes?.length > 0 ? [...list.nodes, ...newData.nodes] : [], pageInfo: newData.pageInfo })
+    }
+
+    setLoading({
+      loader: false,
+      main: false,
+      firstLoading: false
+    })
+  }
 
   useEffect(() => {
     setLoading({ main: true })
 
     if (loggedInUser?.roles?.nodes && loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator')) === false) {
       router.push('/');
-    }
-
-    async function fetchData() {
-      const newData = await listService.getVenues(10, cursor.endCursor, null);
-      console.log(newData)
-      if (filter) {
-        setList({ nodes: newData.nodes, pageInfo: newData.pageInfo })
-      } else {
-        setList({ nodes: newData.nodes?.length > 0 ? [...list.nodes, ...newData.nodes] : [], pageInfo: newData.pageInfo })
-      }
-
-      setLoading({
-        loader: false,
-        main: false,
-        firstLoading: false
-      })
     }
 
     if (loggedInUser?.roles?.nodes) {
@@ -91,8 +90,17 @@ const Venues = () => {
     setVenueRank(event.target.value);
   };
 
-  const handleVenueListing = (venueId: null | number, rankingPriority?: null | number, hide?: null | boolean) => {
-    listService.updateVenueListing(venueId,rankingPriority,hide).then(()=>toast.success('Venue Listing Updated successfully'))
+  const handleVenueListing = async(venueId: null | number, rankingPriority?: null | number, hide?: null | boolean) => {
+    await listService.updateVenueListing(venueId,rankingPriority,hide).then(()=>setList({nodes: []})).then(()=>toast.success('Venue Listing Updated successfully')).then(()=>setLoading({ main: true }));
+    const newData = await listService.getVenues(10, cursor.endCursor, null);
+    setList({ nodes: newData.nodes, pageInfo: newData.pageInfo })
+
+    setLoading({
+      loader: false,
+      main: false,
+      firstLoading: false
+    })
+    setVenueRank(null)
   };
 
   const addToWishlist = async (venueId: number, index: number) => {
