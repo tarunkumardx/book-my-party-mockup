@@ -160,6 +160,23 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                   </Link>
                 </li>
               </ul>
+              {loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'administrator')) &&
+              <ul className="list-unstyled" style={{borderTop: '1px solid #2c3d5b'}}>
+                <li>
+                  <Link href="/dashboard/all-bookings" className={`btn ${router?.pathname?.split('/')[2] === 'all-bookings' ? 'active' : ''}`}>
+                    <Image src={bookingHistory} width={20} height={20} alt="" />
+										All Bookings
+                  </Link>
+                </li>
+                <li>
+									  <Link href="/dashboard/all-venues" className={`btn ${router?.pathname?.split('/')?.length === 2 ? 'active' : ''}`}>
+									    <Image src={venue} width={20} height={20} alt="" />
+											All Venues
+									  </Link>
+                </li>
+              </ul>
+              }
+
             </div>
 
             <div className="sidebar-footer">

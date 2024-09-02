@@ -48,7 +48,7 @@ const HeroBanner = ({ props }: _Object) => {
 
       router.push({
         pathname: '/venues',
-        query: `locations=${values?.location}&types=${values?.type}&date=${formattedDate}&occasions=${values?.occasion}&pax=${values?.pax}&order_by=-title`
+        query: `locations=${values?.location}&types=${values?.type}&date=${formattedDate}&occasions=${values?.occasion}&pax=${values?.pax}&order_by=recommended`
       });
     }
   })

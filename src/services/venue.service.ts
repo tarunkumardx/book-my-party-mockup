@@ -85,7 +85,8 @@ class ListService extends CommonService {
 	                googleMap
 	                landmarks
 	              }
-                
+                rankingPriority
+                hide
 	            }
 	          }
 	          pageInfo {
@@ -138,6 +139,7 @@ class ListService extends CommonService {
     ];
 
     function updateTaxArray(filters: _Object, taxArray: string[]) {
+      console.log(filters)
       for (const config of taxonomyConfigs) {
         const filterValues = filters?.[config.filterKey];
         if (filterValues?.length > 0 && filterValues[0]?.length > 0) {
@@ -261,6 +263,10 @@ class ListService extends CommonService {
     let sortValue: string
 
     switch (filters?.sort) {
+    case 'recommended':
+      sortKey = 'RANKING_PRIORITY';
+      sortValue = 'ASC';
+      break;
     case '-price':
       sortKey = 'PAXPRICE';
       sortValue = 'ASC';
@@ -278,7 +284,7 @@ class ListService extends CommonService {
       sortValue = 'DESC';
       break;
     default:
-      sortKey = 'TITLE';
+      sortKey = 'RANKING_PRIORITY';
       sortValue = 'ASC';
       break;
     }
@@ -332,6 +338,8 @@ class ListService extends CommonService {
                   
                 paxPrice
                 holidays
+                rankingPriority
+                hide
               }
             }
             pageInfo {
@@ -413,6 +421,8 @@ class ListService extends CommonService {
               }
             }
             extraOptions {
+            rankingPriority
+                hide
               packageStartingFrom {
                 packageStartingType
                 packageStartingTitle
@@ -674,6 +684,8 @@ class ListService extends CommonService {
               }
             }
             extraOptions {
+            rankingPriority
+                hide
               packages {
                 content
                 price
@@ -1308,6 +1320,23 @@ class ListService extends CommonService {
     })
 
     return data?.authorsList
+  }
+
+  async updateVenueListing(id:number | null, rankingPriority:number | null = null, hide:boolean | null = null){
+    const {data} = await this.post({
+      query: `mutation MyMutation {
+  updateVenue(input: {id: ${id}, rankingPriority: ${rankingPriority}, hide: ${hide}}) {
+    venue {
+      extraOptions {
+        rankingPriority
+        hide
+      }
+    }
+  }
+}`
+    })
+    console.log(data)
+    return data
   }
 }
 

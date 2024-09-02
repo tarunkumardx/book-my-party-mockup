@@ -86,6 +86,7 @@ const CreateVenue = ({ amenities, cuisines, franchiseChain, locations, occasions
     }),
 
     onSubmit: async (values) => {
+      console.log(values)
       dispatch(venueData({ ...venueState, title: values.title, description: values.description, highlights: values.highlights }))
       setSteps((prev: _Object) => ({
         ...prev,
