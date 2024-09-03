@@ -43,12 +43,14 @@
         font-family: "Poppins";
         margin-bottom: 1px !important;
       }
-
+      .form-control{
+        padding: 6px 12px !important;
+      }
       .form-control,
       .react-select__placeholder,
       .react-select__value-container {
-        font-size: 1rem;
-        padding: 6px 12px !important;
+        font-size: 1rem !important;
+        // padding: 6px 12px !important;
         font-family: "Poppins";
 
         &::placeholder {

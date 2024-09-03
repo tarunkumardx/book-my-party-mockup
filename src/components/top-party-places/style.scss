@@ -13,6 +13,8 @@
   .nav {
     margin-bottom: 45px;
     justify-content: center;
+    white-space: nowrap;
+    flex-wrap: nowrap;
 
     .nav-item {
       .nav-link {
