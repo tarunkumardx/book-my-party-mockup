@@ -169,7 +169,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                   </Link>
                 </li>
                 <li>
-									  <Link href="/dashboard/all-venues" className={`btn ${router?.pathname?.split('/')?.length === 2 ? 'active' : ''}`}>
+									  <Link href="/dashboard/all-venues" className={`btn ${router?.pathname?.split('/')[2] === 'all-venues' ? 'active' : ''}`}>
 									    <Image src={venue} width={20} height={20} alt="" />
 											All Venues
 									  </Link>

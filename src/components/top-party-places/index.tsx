@@ -18,6 +18,13 @@ const TopPartyPlaces = ({ props }: _Object) => {
   })
   const { userWishlist, isUserLoggedIn } = useSelector((state: RootState) => state.session);
 
+  const currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() + 2);
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+  const day = currentDate.getDate().toString().padStart(2, '0');
+  const year = currentDate.getFullYear();
+  const formattedDate = `${month}-${day}-${year}`;
+
   const handleClick = (index: number) => {
     setIndex(index)
   }
@@ -71,7 +78,7 @@ const TopPartyPlaces = ({ props }: _Object) => {
 
                               <div className="col-lg-6 col-md-12">
                                 <div className="image-wrapper">
-                                  <Link href={`/venues/${item.slug}`}>
+                                  <Link href={`/venues/${item.slug}?locations=${props?.places[index].location.nodes[0].slug}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`} target="_blank">
                                     <Image src={item?.featuredImage?.node ? item?.featuredImage?.node?.mediaItemUrl : placeholder} width="200" height="100" alt="feture-img" />
                                   </Link>
                                   <button disabled={like.loading} onClick={() => addToWishlist(item.databaseId, i)} className="btn wishlist">
@@ -88,7 +95,7 @@ const TopPartyPlaces = ({ props }: _Object) => {
                               <div className="col-lg-6 col-md-12">
                                 <div className="card-body">
                                   <h5 className="card-title">
-                                    <Link href={`/venues/${item.slug}`}>
+                                    <Link href={`/venues/${item.slug}?locations=${props?.places[index].location.nodes[0].slug}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`} target="_blank">
                                       {item.title}
                                     </Link>
                                   </h5>
@@ -99,7 +106,7 @@ const TopPartyPlaces = ({ props }: _Object) => {
                                   <h5 className="price">
 																		₹{' '}{item?.extraOptions?.paxPrice ? item?.extraOptions?.paxPrice : ''}
                                   </h5>
-                                  <Link href={`/venues/${item.slug}`} passHref legacyBehavior className="btn btn-primary w-100">
+                                  <Link href={`/venues/${item.slug}?locations=${props?.places[index].location.nodes[0].slug}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`} target="_blank" passHref legacyBehavior className="btn btn-primary w-100">
                                     <a className="btn btn-primary w-100" rel="noopener noreferrer">View Venue</a>
                                   </Link>
                                 </div>

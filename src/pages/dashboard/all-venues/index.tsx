@@ -125,7 +125,7 @@ const Venues = () => {
 
       <div className="my-venue">
         <div className="venue-header d-flex justify-content-between align-items-center">
-          <h3 className="mb-0">My Venue</h3>
+          <h3 className="mb-0">All Venues</h3>
           <Link href="/dashboard/venues/create" className="btn btn-primary" onClick={() => dispatch(venueData({}))}>Add New Venue</Link>
         </div>
 
