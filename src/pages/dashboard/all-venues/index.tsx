@@ -18,14 +18,27 @@ import { getUserWishlist } from '@/redux/slices/session.slice';
 import { AppDispatch } from '@/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { venueData } from '@/redux/slices/venue.slice';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import moment from 'moment';
 import { toast } from 'react-toastify';
+import { GetStaticProps } from 'next';
+import SelectField from '@/stories/form-inputs/select-field';
 
-const Venues = () => {
+export const getStaticProps: GetStaticProps = async () => {
+  const locations = await listService.getLocations()
+  const occasions = await listService.getOccasions()
+
+  return {
+    props: {
+      locations: locations,
+      occasions: occasions
+    }
+  }
+}
+
+const Venues = (props: _Object) => {
   const dispatch = useDispatch<AppDispatch>()
   const router: _Object = useRouter();
   const [like, setLike] = useState({
@@ -35,6 +48,10 @@ const Venues = () => {
   const { userWishlist, isUserLoggedIn, loggedInUser } = useSelector((state: RootState) => state.session);
   const [list, setList] = useState<_Object>({ nodes: [] })
   const [venueRank, setVenueRank] = useState(null);
+  const [selectedDataToFilter, setSelectedDataToFilter] = useState({
+    locations:''?.split('+'),
+    occasions:''?.split('+')
+  });
   const [cursor, setCursor] = useState<_Object>({
     endCursor: null,
     nextCursor: null
@@ -51,7 +68,7 @@ const Venues = () => {
     firstLoading: true
   })
   async function fetchData() {
-    const newData = await listService.getVenues(10, cursor.endCursor, null);
+    const newData = await listService.getVenues(10, cursor.endCursor, null,selectedDataToFilter);
     console.log(newData)
     if (filter) {
       setList({ nodes: newData.nodes, pageInfo: newData.pageInfo })
@@ -76,7 +93,7 @@ const Venues = () => {
     if (loggedInUser?.roles?.nodes) {
       fetchData()
     }
-  }, [cursor.endCursor, loggedInUser?.roles?.nodes])
+  }, [cursor.endCursor, loggedInUser?.roles?.nodes, selectedDataToFilter])
 
   const loadMore = () => {
     setLoading({ loader: true })
@@ -125,8 +142,24 @@ const Venues = () => {
 
       <div className="my-venue">
         <div className="venue-header d-flex justify-content-between align-items-center">
-          <h3 className="mb-0">All Venues</h3>
-          <Link href="/dashboard/venues/create" className="btn btn-primary" onClick={() => dispatch(venueData({}))}>Add New Venue</Link>
+          <h3 className="mb-3">All Venues</h3>
+          <SelectField
+            className="col-6 col-md-3"
+            placeholder="Choose location"
+            options={(() => {
+              const locations = props?.locations || [];
+              const options = locations
+                .filter((item: _Object) => item?.slug !== 'india')
+                .map((item: _Object) => ({ label: item?.name, value: item?.slug }));
+
+              return [{ label: 'All', value: '' }, ...options];
+            })()}
+            onChange={(val: _Object) => {
+              setSelectedDataToFilter((prevState) =>({...prevState, locations: val.value?.split('+')}))
+            }}
+            getOptionLabel={(option: { [key: string]: string }) => option && option.label}
+            getOptionValue={(option: { [key: string]: string }) => option && option.value}
+          />
         </div>
 
         {/* <form onSubmit={formik.handleSubmit} className="row">
