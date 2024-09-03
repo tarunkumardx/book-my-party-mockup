@@ -11,6 +11,13 @@ import 'swiper/css/navigation';
 import 'swiper/swiper-bundle.css';
 
 const BMPLuxe = ({ props }: _Object) => {
+  const currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() + 2);
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+  const day = currentDate.getDate().toString().padStart(2, '0');
+  const year = currentDate.getFullYear();
+  const formattedDate = `${month}-${day}-${year}`;
+
   return (
     <section className="luxe-selections">
       <div className="container">
@@ -47,7 +54,7 @@ const BMPLuxe = ({ props }: _Object) => {
                     <SwiperSlide key={i}>
                       <div className="col">
                         <div className="card">
-                          <Link href={`/venues/${item?.link?.target}`} className="d-inline-block">
+                          <Link href={`/venues/${item?.link?.target}?locations=${'delhi-ncr'}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`} className="d-inline-block">
                             <Image
                               src={item?.image?.node?.mediaItemUrl}
                               width={250}
@@ -57,13 +64,13 @@ const BMPLuxe = ({ props }: _Object) => {
                           </Link>
                           <div className="card-body">
                             <h5>
-                              <Link href={`/venues/${item?.link?.target}`}>
+                              <Link href={`/venues/${item?.link?.target}?locations=${'delhi-ncr'}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`}>
                                 {item?.title}
                               </Link>
                             </h5>
                             <hr />
                             <p>
-                              <Link href={`/venues/${item?.link?.target}`}>
+                              <Link href={`/venues/${item?.link?.target}?locations=${'delhi-ncr'}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`}>
                                 {item?.location}
                               </Link>
                             </p>
