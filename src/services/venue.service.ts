@@ -309,7 +309,8 @@ class ListService extends CommonService {
             },
             orderby: {field: ${sortKey}, order: ${sortValue}},
             search: "${search?.length > 0 ? search : ''}",
-            author: ${filters?.author || 0}
+            author: ${filters?.author || 0},
+            ${filters?.hideVenues === true ? 'hide: false' : ''}
           }
           ) 
           {

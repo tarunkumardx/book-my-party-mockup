@@ -131,7 +131,8 @@ const Listing = (props: _Object) => {
           age: query?.age?.split('+'),
           date: query?.date || '',
           package_types: query?.package_types?.split('+'),
-          sort: query?.order_by
+          sort: query?.order_by,
+          hideVenues: true
         });
       console.log(query.order_by)
       if (filter) {
