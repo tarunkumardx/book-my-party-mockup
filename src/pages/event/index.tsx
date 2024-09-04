@@ -35,10 +35,10 @@ const VenueModal = (props: _Object) => {
       input_1: '',
       input_3: '',
       input_11: '',
-      input_6: 'Rs 1600+',
-      input_7: 'alumni-meets',
+      input_6: '',
+      input_7: '',
       input_8: '',
-      input_9: 'east-delhi',
+      input_9: '',
       input_10: ''
     },
 
@@ -153,7 +153,7 @@ const VenueModal = (props: _Object) => {
               className="col-12"
               placeholder="Select Budget"
               name="input_6"
-              value={formik.values.input_6 ? { value: formik.values.input_6 } : null}
+              value={{ value: formik.values.input_6 }}
               options={budgets}
               onChange={(val: _Object) => {
                 formik.setFieldValue('input_6', val.value)
