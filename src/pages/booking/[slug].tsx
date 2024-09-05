@@ -99,7 +99,7 @@ const Booking = () => {
         const atIndex = value.indexOf('@');
         return (atIndex !== -1 && value.length - atIndex > 4);
       }).label('Email').required('Email is required'),
-      input_30: yup.string().label('Phone Number').required('Phone Number is required').min(12, 'Phone Number must be at least 10 digits'),
+      input_30: yup.string().label('Phone Number').required('Phone Number is required').min(10, 'Phone Number must be at least 10 digits'),
       input_24: router?.query.types === 'banquet' || router?.query?.types === 'farm-house' ? yup.string().label('Day Part').required('Day Part is required').min(2, 'Select one option') : yup.string(),
       input_111: yup.string().label('Occasion').required('Occasion is required'),
       input_109: yup.string().label('Location').required('Location is required'),
@@ -590,7 +590,7 @@ const Booking = () => {
                           country: 'in',
                           value: formik.values.input_30 || '+91',
                           onChange: (phone: string) => {
-                            if (phone?.length <= 12) {
+                            if (phone?.length <= 10) {
                               formik.setFieldValue('input_30', phone)
                             }
                           },

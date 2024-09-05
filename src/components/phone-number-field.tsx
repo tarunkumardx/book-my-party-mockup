@@ -4,7 +4,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
 const PhoneNumberField = ({ args }: _Object) => {
-  const [phoneNumber, setPhoneNumber] = useState(args.value);
+  const [phoneNumber, setPhoneNumber] = useState<string>(args.value);
 
   const handleChange = (phone: string, country: _Object) => {
     const isIndia = country.countryCode === 'in';
@@ -24,7 +24,7 @@ const PhoneNumberField = ({ args }: _Object) => {
       e.preventDefault();
     }
   };
-
+  console.log(phoneNumber, ' ',args.value)
   return (
     <div className={`form-group mb-3 ${args?.className}`}>
       {args.label && (
@@ -38,7 +38,7 @@ const PhoneNumberField = ({ args }: _Object) => {
         onlyCountries={['in']}
         autoFormat={false} // Auto format is set to false
         inputClass="invalid"
-        value={phoneNumber}
+        value={args.value}
         onChange={handleChange}
         onKeyDown={handleKeyPress} // Add onKeyDown to handle key press events
         disabled={args.disabled}
