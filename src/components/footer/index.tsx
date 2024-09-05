@@ -309,7 +309,7 @@ const Footer = () => {
 																					(
 																						<>
 																							{child.path === '/' || child.path === '#' ? (
-																								<span className="unclickable-nav-link">{child.label}</span>
+																								<span className="nav-link">{child.label}</span>
 																							) : (
 																								<Link href={child.path} className="nav-link">
 																									{child.label}
@@ -365,7 +365,7 @@ const Footer = () => {
 																				) : (
 																					<>
 																						{child.path === '/' || child.path === '#' ? (
-																							<span className="unclickable-nav-link">{child.label}</span>
+																							<span className="nav-link">{child.label}</span>
 																						) : (
 																							<Link href={child.path} className="nav-link">{child.label}</Link>
 																						)}
