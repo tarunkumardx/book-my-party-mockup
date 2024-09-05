@@ -27,7 +27,7 @@ const BMPLuxe = ({ props }: _Object) => {
               {props?.title}
             </h2>
             <div className="main-description" dangerouslySetInnerHTML={{ __html: props?.description }} />
-            <Link href={props?.link?.target} className="btn btn-primary d-none d-lg-inline-block">{props?.link?.label}</Link>
+            <Link href={props?.link?.target} className="btn btn-primary d-none d-lg-inline-block" target="_blank">{props?.link?.label}</Link>
           </div>
           <div className="col-lg-8 col-xl-9">
             <div className="swiper-container">
@@ -54,7 +54,7 @@ const BMPLuxe = ({ props }: _Object) => {
                     <SwiperSlide key={i}>
                       <div className="col">
                         <div className="card">
-                          <Link href={`/venues/${item?.link?.target}?locations=${'delhi-ncr'}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`} className="d-inline-block">
+                          <Link href={`/venues/${item?.link?.target}?locations=${'delhi-ncr'}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`} className="d-inline-block" target="_blank">
                             <Image
                               src={item?.image?.node?.mediaItemUrl}
                               width={250}
@@ -64,13 +64,13 @@ const BMPLuxe = ({ props }: _Object) => {
                           </Link>
                           <div className="card-body">
                             <h5>
-                              <Link href={`/venues/${item?.link?.target}?locations=${'delhi-ncr'}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`}>
+                              <Link href={`/venues/${item?.link?.target}?locations=${'delhi-ncr'}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`} target="_blank">
                                 {item?.title}
                               </Link>
                             </h5>
                             <hr />
                             <p>
-                              <Link href={`/venues/${item?.link?.target}?locations=${'delhi-ncr'}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`}>
+                              <Link href={`/venues/${item?.link?.target}?locations=${'delhi-ncr'}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`} target="_blank">
                                 {item?.location}
                               </Link>
                             </p>
@@ -81,7 +81,7 @@ const BMPLuxe = ({ props }: _Object) => {
                   )
                 })}
 
-                <Link href={props?.link?.target} className="btn btn-primary d-lg-none mx-auto mt-4">{props?.link?.label}</Link>
+                <Link href={props?.link?.target} className="btn btn-primary d-lg-none mx-auto mt-4" target="_blank">{props?.link?.label}</Link>
               </Swiper>
             </div>
           </div>

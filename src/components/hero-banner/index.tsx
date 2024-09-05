@@ -24,7 +24,7 @@ const HeroBanner = ({ props }: _Object) => {
   const formik = useFormik({
     initialValues: {
       type: 'restaurant',
-      location: 'ghaziabad',
+      location: 'delhi-ncr',
       locations: [],
       date: '',
       occasion: 'get-together',

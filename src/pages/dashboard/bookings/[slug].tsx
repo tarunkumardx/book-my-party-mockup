@@ -7,6 +7,12 @@ import { amountFormat, capitalize } from '@/utils/helpers';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import { listService } from '@/services/venue.service';
+import SelectField from '@/stories/form-inputs/select-field';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Modal from 'react-bootstrap/Modal';
+import Row from 'react-bootstrap/Row';
 
 // export const getStaticPaths: GetStaticPaths = async () => {
 // 	const data: _Object = await bookingService.getAll(6)
@@ -40,6 +46,10 @@ const BookingDetails = () => {
   const [loadingMain, setLoadingMain] = useState(false)
   const [data, setData] = useState<_Object>({})
   const [venueDetails, setVenueDetails] = useState<_Object>({})
+  const [modalShow, setModalShow] = useState({
+    show: false,
+    status: data['134']
+  });
   console.log(venueDetails)
   // const breakfastArray = [
   // 	'48', '105', '106', '107', '108', '49', '104', '52'
@@ -115,7 +125,26 @@ const BookingDetails = () => {
                   <p className="mb-1"><span>{data['110'] ? formatDate(data['110']) : '-'}</span></p>
                   <span className="approved">Approved</span>
                 </div>
-
+                <SelectField
+                  className="col-6 col-md-3"
+                  placeholder={data['134']}
+                  options={(() => {
+                    const options=[
+                      { label: 'Request Received'},
+                      { label: 'Confirmed'},
+                      { label: 'Declined'},
+                      { label: 'Completed'},
+                      { label: 'Cancelled'}
+                    ]
+                    return [...options];
+                  })()}
+                  onChange={(val: _Object) => {setModalShow((prev)=>({...prev, show: true, status: val.label}))
+                    console.log(val)
+                    // setSelectedDataToFilter((prevState) =>({...prevState, types: val.value?.split('+')})),setFilter(true),setList({ nodes: [] }),setCursor({endCursor: null,nextCursor: null})
+                  }}
+                  getOptionLabel={(option: { [key: string]: string }) => option && option.label}
+                  getOptionValue={(option: { [key: string]: string }) => option && option.label}
+                />
                 <button onClick={() => handleBack()} className="btn btn-primary">
 									Back
                 </button>
@@ -324,8 +353,43 @@ const BookingDetails = () => {
             </div>
           </div>
         </div>
+        <Modal show={modalShow.show} onHide={() => setModalShow((prev)=>({...prev, show: false}))} aria-labelledby="contained-modal-title-vcenter">
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+          Update Booking Status
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="grid-example">
+            <Container>
+              <Row>
+                <Col xs={12} md={8}>
+              .col-xs-12 .col-md-8
+                </Col>
+                <Col xs={6} md={4}>
+              .col-xs-6 .col-md-4
+                </Col>
+              </Row>
+
+              <Row>
+                <Col xs={6} md={4}>
+              .col-xs-6 .col-md-4
+                </Col>
+                <Col xs={6} md={4}>
+              .col-xs-6 .col-md-4
+                </Col>
+                <Col xs={6} md={4}>
+              .col-xs-6 .col-md-4
+                </Col>
+              </Row>
+            </Container>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="outline-secondary" onClick={() => setModalShow((prev)=>({...prev, show: false}))}>Cancel</Button>
+            <Button onClick={() => setModalShow((prev)=>({...prev, show: false}))}>{modalShow.status}</Button>
+          </Modal.Footer>
+        </Modal>
       </div>
-    </DashboardLayout >
+    </DashboardLayout>
   )
 }
 

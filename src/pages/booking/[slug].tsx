@@ -107,6 +107,7 @@ const Booking = () => {
       input_25: yup.string().label('Time').required('Time is required')
     }),
     onSubmit: async (values: _Object) => {
+      console.log(values)
       if (isUserLoggedIn) {
         const datesArray = venueDetails?.extraOptions?.holidays?.split(',')?.map((date: string) => date.trim());
 
@@ -166,7 +167,7 @@ const Booking = () => {
       }
     }
   });
-
+  console.log(formik)
   useEffect(() => {
     setMainLoading(true)
     async function name() {

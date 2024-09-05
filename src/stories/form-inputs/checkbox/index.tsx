@@ -27,11 +27,12 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   disabled,
   showMoreOption = false
 }: CheckBoxProps) => {
-  const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(true);
   const visibleOptions = showMore ? options : options?.slice(0, 5);
 
   const handleShowMore = () => {
-    setShowMore(!showMore);
+    // setShowMore(!showMore);
+    setShowMore(true)
   };
   useEffect(()=>{
     if(window.innerWidth < 768){
