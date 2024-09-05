@@ -2632,7 +2632,7 @@
   background-color: white;
   border: none;
   font-size: 14px;
-  color: #ea522b;
+  color: #ea522b; 
   z-index: 1;
 
 }
@@ -2641,20 +2641,15 @@
 //   display: flex;
 //   align-items: flex-start;
 // }
-.accordion-button::after {
-  background-image: initial !important;
-}
-
-.accordion-button:not(.collapsed)::after {
-  background-image: initial !important;
-}
 
 .upperDrawer {
   // margin-top: 110px;
   display: flex;
   gap: 50px;
 }
-
+button.accordion-button {
+  font-size: 12px !important;
+}
 .left-drawer {
   width: 82%;
 }
@@ -2753,12 +2748,6 @@
   border-bottom: 4px solid #fc6f33;
   background-color: #e4e4e4 !important;
   // width: 80px; /* Change the color to match your design */
-}
-
-// Bootstrap accordion class to remove 
-.accordion {
-  width: 50%;
-
 }
 
 .accordion-button {
