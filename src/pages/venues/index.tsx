@@ -63,6 +63,8 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const Listing = (props: _Object) => {
+  console.log(props?.locations);
+
   const dispatch = useDispatch<AppDispatch>()
   const isSearchable = useIsSearchable();
 
@@ -102,6 +104,8 @@ const Listing = (props: _Object) => {
 
   const { userWishlist, isUserLoggedIn } = useSelector((state: RootState) => state.session);
 
+  console.log('wishlist is here' + userWishlist)
+
   const locationsOptions = props.locations
 
   const slugToMove = 'india';
@@ -117,6 +121,7 @@ const Listing = (props: _Object) => {
   useEffect(() => {
     async function fetchData() {
       const newData = await listService.getVenues(20, cursor.endCursor, null,
+
         {
           locations: query?.locations?.split('+'),
           types: query?.types?.split('+'),
@@ -134,6 +139,8 @@ const Listing = (props: _Object) => {
           sort: query?.order_by
         });
       console.log(query.order_by)
+      console.log('Here is all data' + newData);
+
       if (filter) {
         setList({ nodes: newData.nodes, pageInfo: newData.pageInfo })
       } else {
