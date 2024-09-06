@@ -99,8 +99,8 @@ const Header = () => {
 
                         <VenueModal />
                       </li>
-                      <li className="list-inline-item d-none d-md-inline-block img-flag">
-                        <Image src={indiaFalg} alt="Flag" />
+                      <li className="list-inline-item d-md-inline-block img-flag">
+                        <Image src={indiaFalg} alt="Flag" height={25}/>
                       </li>
                     </ul>
                   </div>

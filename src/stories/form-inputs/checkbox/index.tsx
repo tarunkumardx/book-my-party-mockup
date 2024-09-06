@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface CheckBoxProps {
 	name?: string;
@@ -27,13 +27,18 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   disabled,
   showMoreOption = false
 }: CheckBoxProps) => {
-  const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(true);
   const visibleOptions = showMore ? options : options?.slice(0, 5);
 
   const handleShowMore = () => {
-    setShowMore(!showMore);
+    // setShowMore(!showMore);
+    setShowMore(true)
   };
-
+  useEffect(()=>{
+    if(window.innerWidth < 768){
+      setShowMore(true)
+    }
+  },[])
   return (
     <div className={`form-group ${className}`}>
       {label && <label className="form-label mb-1 d-block">{label}</label>}

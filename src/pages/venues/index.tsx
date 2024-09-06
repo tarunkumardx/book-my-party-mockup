@@ -63,11 +63,11 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const Listing = (props: _Object) => {
-  console.log(props?.locations);
+  console.log(props);
 
   const dispatch = useDispatch<AppDispatch>()
   const isSearchable = useIsSearchable();
-
+  const [searchQuery, setSearchQuery] = useState('');
   const currentDate = new Date();
   currentDate.setDate(currentDate.getDate() + 2);
   const router: _Object = useRouter();
@@ -75,6 +75,8 @@ const Listing = (props: _Object) => {
 
   const [list, setList] = useState<_Object>({ nodes: [] })
   console.log(list)
+  console.log(searchQuery);
+
   const [cursor, setCursor] = useState<_Object>({
     endCursor: null,
     nextCursor: null
@@ -99,12 +101,10 @@ const Listing = (props: _Object) => {
 
   // Add an active css border in the active accordion button
   const getButtonClass = (id: string) => {
-    return `accordion-button customPadding ${activeAccordion === id ? 'active-button' : ''}`;
+    return `accordion-button customPadding mobFilter ${activeAccordion === id ? 'active-button' : ''}`;
   };
 
   const { userWishlist, isUserLoggedIn } = useSelector((state: RootState) => state.session);
-
-  console.log('wishlist is here' + userWishlist)
 
   const locationsOptions = props.locations
 
@@ -136,10 +136,9 @@ const Listing = (props: _Object) => {
           age: query?.age?.split('+'),
           date: query?.date || '',
           package_types: query?.package_types?.split('+'),
-          sort: query?.order_by
+          sort: query?.order_by,
+          hideVenues: true
         });
-      console.log(query.order_by)
-      console.log('Here is all data' + newData);
 
       if (filter) {
         setList({ nodes: newData.nodes, pageInfo: newData.pageInfo })
@@ -263,6 +262,9 @@ const Listing = (props: _Object) => {
     }
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
   const priceRange = (query.types === 'restaurant' || query.types === 'fun-zone') ? [
     { name: '< 500', slug: '0-500' },
     { name: '500-999', slug: '500-999' },
@@ -482,7 +484,7 @@ const Listing = (props: _Object) => {
               <div className="justify-between filter-heading">
                 <div className="w-100 d-flex justify-between gap-6">
                   <h4 className="main-head">FILTER BY</h4>
-                  <span onClick={() => clearFilter()} style={{ cursor: 'pointer', color: '#482370' }}>Clear Filter</span>
+                  {/* <span onClick={() => clearFilter()} style={{ cursor: 'pointer', color: '#482370' }}>Clear Filter</span> */}
                 </div>
 
                 <div className="d-flex">
@@ -610,11 +612,12 @@ const Listing = (props: _Object) => {
                         <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
                           <input
                             style={{ width: '80% !important' }}
-                            type="email"
+                            type="text"
                             className="form-control"
                             id="exampleInputEmail1"
                             aria-describedby="emailHelp"
                             placeholder="Search Location"
+                            onChange={handleSearchChange}
                           />
                         </div>
                       )}
@@ -624,11 +627,12 @@ const Listing = (props: _Object) => {
                           <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
                             <input
                               style={{ width: '80% !important' }}
-                              type="email"
+                              type="text"
                               className="form-control"
                               id="exampleInputEmail1"
                               aria-describedby="emailHelp"
                               placeholder="Search Cuisine"
+                              onChange={handleSearchChange}
                             />
                           </div>
                         )
@@ -639,11 +643,12 @@ const Listing = (props: _Object) => {
                           <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
                             <input
                               style={{ width: '80% !important' }}
-                              type="email"
+                              type="text"
                               className="form-control"
                               id="exampleInputEmail1"
                               aria-describedby="emailHelp"
                               placeholder="Search amenities"
+                              onChange={handleSearchChange}
                             />
                           </div>
                         )
@@ -654,11 +659,12 @@ const Listing = (props: _Object) => {
                           <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
                             <input
                               style={{ width: '80% !important' }}
-                              type="email"
+                              type="text"
                               className="form-control"
                               id="exampleInputEmail1"
                               aria-describedby="emailHelp"
                               placeholder="Search Occasions"
+                              onChange={handleSearchChange}
                             />
                           </div>
                         )
@@ -710,6 +716,8 @@ const Listing = (props: _Object) => {
                             values={router?.query?.cuisines?.split('+')}
                             options={props?.cuisines?.filter((item: _Object) =>
                               item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
+                            )?.filter((item:_Object) =>
+                              item?.name.toLowerCase().includes(searchQuery.toLowerCase())
                             )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'cuisines')}
                           />
@@ -739,6 +747,8 @@ const Listing = (props: _Object) => {
                             values={router?.query?.locations?.split('+')}
                             options={props?.locations?.filter((item: _Object) =>
                               item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
+                            )?.filter((item:_Object) =>
+                              item?.name.toLowerCase().includes(searchQuery.toLowerCase())
                             )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
                             checked={false}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'locations')}
@@ -766,6 +776,8 @@ const Listing = (props: _Object) => {
                             values={router?.query?.amenities?.split('+')}
                             options={props?.amenities?.filter((item: _Object) =>
                               item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+                            )?.filter((item:_Object) =>
+                              item?.name.toLowerCase().includes(searchQuery.toLowerCase())
                             )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
                             checked={false}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'amenities')}
@@ -781,6 +793,8 @@ const Listing = (props: _Object) => {
                             values={router?.query?.occasions?.split('+')}
                             options={props?.occasions?.filter((item: _Object) =>
                               item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+                            )?.filter((item:_Object) =>
+                              item?.name.toLowerCase().includes(searchQuery.toLowerCase())
                             )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
                             checked={false}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'occasions')}

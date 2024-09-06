@@ -50,6 +50,7 @@ const Booking = () => {
   const [selectData, setSelectData] = useState<_Object>({})
   const [isActive, setIsActive] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const [result, setResult] = useState<_Object>({})
   console.log('result :>> ', result);
   const [showItems, setShowItems] = useState<_Object>({ items: [] })
@@ -99,7 +100,7 @@ const Booking = () => {
         const atIndex = value.indexOf('@');
         return (atIndex !== -1 && value.length - atIndex > 4);
       }).label('Email').required('Email is required'),
-      input_30: yup.string().label('Phone Number').required('Phone Number is required').min(12, 'Phone Number must be at least 10 digits'),
+      input_30: yup.string().label('Phone Number').required('Phone Number is required').min(10, 'Phone Number must be at least 10 digits'),
       input_24: router?.query.types === 'banquet' || router?.query?.types === 'farm-house' ? yup.string().label('Day Part').required('Day Part is required').min(2, 'Select one option') : yup.string(),
       input_111: yup.string().label('Occasion').required('Occasion is required'),
       input_109: yup.string().label('Location').required('Location is required'),
@@ -107,6 +108,7 @@ const Booking = () => {
       input_25: yup.string().label('Time').required('Time is required')
     }),
     onSubmit: async (values: _Object) => {
+      console.log(values)
       if (isUserLoggedIn) {
         const datesArray = venueDetails?.extraOptions?.holidays?.split(',')?.map((date: string) => date.trim());
 
@@ -167,6 +169,17 @@ const Booking = () => {
     }
   });
 
+  const handleSubmit = async (event:_Object) => {
+    event.preventDefault();
+    const errors = await formik.validateForm();
+
+    if (Object.keys(errors).length > 0) {
+      formik.handleSubmit();
+      window.alert('fill all the required fields');
+    } else {
+      formik.handleSubmit();
+    }
+  };
   useEffect(() => {
     setMainLoading(true)
     async function name() {
@@ -246,6 +259,22 @@ const Booking = () => {
     };
   }, [formGroupRef]);
 
+  useEffect(() => {
+    if (showModal) {
+      const id = setTimeout(() => {
+        setShowModal(false);
+      }, 5000);
+      // Save the timeout ID so we can clear it if needed
+      setTimeoutId(id);
+    }
+
+    // Clean up the timeout if the component unmounts or modal is closed manually
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [showModal]);
   // const inputId: _Object = {
   // 	'148': 'input_107',
   // 	'150': 'input_55',
@@ -519,7 +548,7 @@ const Booking = () => {
           <div className="row align-items-start main-row">
             {/* <div className="col-lg-1"></div> */}
             <div className="col-lg">
-              <form className="row main-inner-row" onSubmit={formik.handleSubmit}>
+              <form className="row main-inner-row" onSubmit={handleSubmit}>
                 {/* <h1>Booking</h1> */}
                 <div className="card">
                   <div className="card-body row">
@@ -589,7 +618,7 @@ const Booking = () => {
                           country: 'in',
                           value: formik.values.input_30 || '+91',
                           onChange: (phone: string) => {
-                            if (phone?.length <= 12) {
+                            if (phone?.length <= 10) {
                               formik.setFieldValue('input_30', phone)
                             }
                           },

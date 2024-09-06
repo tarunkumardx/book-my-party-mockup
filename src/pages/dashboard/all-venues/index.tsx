@@ -49,13 +49,16 @@ const Venues = (props: _Object) => {
   const [list, setList] = useState<_Object>({ nodes: [] })
   const [venueRank, setVenueRank] = useState(null);
   const [selectedDataToFilter, setSelectedDataToFilter] = useState({
-    locations:''?.split('+'),
-    occasions:''?.split('+')
+    locations: undefined,
+    occasions:undefined,
+    types: undefined
   });
+  console.log(selectedDataToFilter)
   const [cursor, setCursor] = useState<_Object>({
     endCursor: null,
     nextCursor: null
   })
+  console.log(cursor)
   const [filter, setFilter] = useState(false)
   const [modalShow, setModalShow] = useState({
     visible: false,
@@ -86,7 +89,7 @@ const Venues = (props: _Object) => {
   useEffect(() => {
     setLoading({ main: true })
 
-    if (loggedInUser?.roles?.nodes && loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator')) === false) {
+    if (loggedInUser?.roles?.nodes && loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'administrator')) === false) {
       router.push('/');
     }
 
@@ -108,8 +111,8 @@ const Venues = (props: _Object) => {
   };
 
   const handleVenueListing = async(venueId: null | number, rankingPriority?: null | number, hide?: null | boolean) => {
-    await listService.updateVenueListing(venueId,rankingPriority,hide).then(()=>setList({nodes: []})).then(()=>toast.success('Venue Listing Updated successfully')).then(()=>setLoading({ main: true }));
-    const newData = await listService.getVenues(10, cursor.endCursor, null);
+    await listService.updateVenueListing(venueId,rankingPriority,hide).then(()=>{setFilter(true),setCursor({endCursor: null,nextCursor: null}),setList({nodes: []})}).then(()=>toast.success('Venue Listing Updated successfully')).then(()=>setLoading({ main: true }));
+    const newData = await listService.getVenues(10, cursor.endCursor, null,selectedDataToFilter);
     setList({ nodes: newData.nodes, pageInfo: newData.pageInfo })
 
     setLoading({
@@ -152,10 +155,46 @@ const Venues = (props: _Object) => {
                 .filter((item: _Object) => item?.slug !== 'india')
                 .map((item: _Object) => ({ label: item?.name, value: item?.slug }));
 
-              return [{ label: 'All', value: '' }, ...options];
+              return [{ label: 'All', value: undefined }, ...options];
             })()}
             onChange={(val: _Object) => {
-              setSelectedDataToFilter((prevState) =>({...prevState, locations: val.value?.split('+')}))
+              setSelectedDataToFilter((prevState) =>({...prevState, locations: val.value?.split('+')})),setFilter(true),setList({ nodes: [] }),setCursor({endCursor: null,nextCursor: null})
+            }}
+            getOptionLabel={(option: { [key: string]: string }) => option && option.label}
+            getOptionValue={(option: { [key: string]: string }) => option && option.value}
+          />
+          <SelectField
+            className="col-6 col-md-3"
+            placeholder="Choose Ocassion"
+            options={(() => {
+              const occasions = props?.occasions || [];
+              const options = occasions
+                .filter((item: _Object) => item?.slug !== 'india')
+                .map((item: _Object) => ({ label: item?.name, value: item?.slug }));
+
+              return [{ label: 'All', value: undefined }, ...options];
+            })()}
+            onChange={(val: _Object) => {
+              setSelectedDataToFilter((prevState) =>({...prevState, occasions: val.value?.split('+')})),setFilter(true),setList({ nodes: [] }),setCursor({endCursor: null,nextCursor: null})
+            }}
+            getOptionLabel={(option: { [key: string]: string }) => option && option.label}
+            getOptionValue={(option: { [key: string]: string }) => option && option.value}
+          />
+          <SelectField
+            className="col-6 col-md-3"
+            placeholder="Choose Venue Type"
+            options={(() => {
+              const options=[
+                { label: 'Restaurant', value: 'restaurant'},
+                { label: 'Banquet', value: 'banquet'},
+                { label: 'Farm House', value: 'farm-house'},
+                { label: 'Fun Zone', value: 'fun-zone'},
+                { label: 'Caterers', value: 'caterers'}
+              ]
+              return [{ label: 'All', value: undefined }, ...options];
+            })()}
+            onChange={(val: _Object) => {
+              setSelectedDataToFilter((prevState) =>({...prevState, types: val.value?.split('+')})),setFilter(true),setList({ nodes: [] }),setCursor({endCursor: null,nextCursor: null})
             }}
             getOptionLabel={(option: { [key: string]: string }) => option && option.label}
             getOptionValue={(option: { [key: string]: string }) => option && option.value}
@@ -177,14 +216,6 @@ const Venues = (props: _Object) => {
 						</div>
 					</div>
 				</form> */}
-
-        {loading.main &&
-					<div className="d-flex justify-content-center align-items-center mt-5">
-					  <div className="spinner-border" role="status">
-					    <span className="visually-hidden">Loading...</span>
-					  </div>
-					</div>
-        }
 
         {!loading.main && list?.nodes?.length === 0 &&
 					<div className="d-flex justify-content-center align-items-center mt-5">
@@ -250,6 +281,14 @@ const Venues = (props: _Object) => {
             </>
           )
         })}
+
+        {loading.main &&
+					<div className="d-flex justify-content-center align-items-center mt-5">
+					  <div className="spinner-border" role="status">
+					    <span className="visually-hidden">Loading...</span>
+					  </div>
+					</div>
+        }
 
         <div className="d-flex justify-content-center mt-3 mb-4">
           {list?.pageInfo?.hasNextPage && !loading.main &&

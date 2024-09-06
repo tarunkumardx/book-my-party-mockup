@@ -78,9 +78,10 @@ const TopPartyPlaces = ({ props }: _Object) => {
 
                               <div className="col-lg-6 col-md-12">
                                 <div className="image-wrapper">
-                                  <Link href={`/venues/${item.slug}?locations=${props?.places[index].location.nodes[0].slug}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`} target="_blank">
-                                    <Image src={item?.featuredImage?.node ? item?.featuredImage?.node?.mediaItemUrl : placeholder} width="200" height="100" alt="feture-img" />
-                                  </Link>
+                                  <Link href={`/venues/${item.slug}?locations=${props?.places[index].location.nodes[0].slug}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`} target="_blank" passHref legacyBehavior>
+                                    <a target="_blank" rel="noopener noreferrer">
+                                      <Image src={item?.featuredImage?.node ? item?.featuredImage?.node?.mediaItemUrl : placeholder} width="200" height="100" alt="feture-img" />
+                                    </a></Link>
                                   <button disabled={like.loading} onClick={() => addToWishlist(item.databaseId, i)} className="btn wishlist">
                                     {like.loading && like.index === i ?
                                       <div className="spinner-border spinner-border-sm text-light" role="status">
@@ -95,9 +96,9 @@ const TopPartyPlaces = ({ props }: _Object) => {
                               <div className="col-lg-6 col-md-12">
                                 <div className="card-body">
                                   <h5 className="card-title">
-                                    <Link href={`/venues/${item.slug}?locations=${props?.places[index].location.nodes[0].slug}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`} target="_blank">
-                                      {item.title}
-                                    </Link>
+                                    <Link href={`/venues/${item.slug}?locations=${props?.places[index].location.nodes[0].slug}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`} target="_blank" passHref legacyBehavior>
+                                      <a target="_blank" rel="noopener noreferrer">{item.title}
+                                      </a></Link>
                                   </h5>
                                   <p className="card-text m-0">
                                     {item?.extraOptions?.address?.address?.length && <Image src={location} width="15" height="15" alt="Location" />}
@@ -107,7 +108,7 @@ const TopPartyPlaces = ({ props }: _Object) => {
 																		₹{' '}{item?.extraOptions?.paxPrice ? item?.extraOptions?.paxPrice : ''}
                                   </h5>
                                   <Link href={`/venues/${item.slug}?locations=${props?.places[index].location.nodes[0].slug}&date=${formattedDate}&types=restaurant&occasions=get-together&pax=${1}`} target="_blank" passHref legacyBehavior className="btn btn-primary w-100">
-                                    <a className="btn btn-primary w-100" rel="noopener noreferrer">View Venue</a>
+                                    <a className="btn btn-primary w-100" rel="noopener noreferrer" target="_blank">View Venue</a>
                                   </Link>
                                 </div>
                               </div>
