@@ -420,3 +420,37 @@ footer {
     }
   }
 }
+
+.mobFooter{
+  background: black;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+  ul{
+    color: white;
+    list-style: none;
+    justify-content: space-around;
+    padding-left: 0 !important;
+    margin: 10px 0 !important;
+    li{
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    align-items: center;
+
+    button{
+      background: transparent !important;
+    }
+    a{
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    img{
+      width: 24px;
+      height: 24px;
+    }
+    }
+  }
+}
