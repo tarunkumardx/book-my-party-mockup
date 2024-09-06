@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 'use client'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,10 +17,10 @@ import { LoginModal, SignUp, VenueModal } from '..';
 import { useRouter } from 'next/router'
 
 type RootState = {
-	session: {
-		isUserLoggedIn: boolean;
-		loggedInUser: _Object;
-	};
+  session: {
+    isUserLoggedIn: boolean;
+    loggedInUser: _Object;
+  };
 };
 
 const Header = () => {
@@ -94,13 +95,13 @@ const Header = () => {
 
                       <li className="list-inline-item">
                         <button type="button" className="btn btn-head" data-bs-toggle="modal" data-bs-target="#venueModal">
-													List Your Venue
+                          List Your Venue
                         </button>
 
                         <VenueModal />
                       </li>
                       <li className="list-inline-item d-md-inline-block img-flag">
-                        <Image src={indiaFalg} alt="Flag" height={25}/>
+                        <Image src={indiaFalg} alt="Flag" height={25} />
                       </li>
                     </ul>
                   </div>
@@ -112,44 +113,81 @@ const Header = () => {
           <div className="main-header">
             <div className="page-container">
               <div className="row align-items-center">
+                {/* Logo Section */}
                 <div className="col-4 col-md-3">
                   <Logo />
                 </div>
-                <div className="col-8 col-md-9">
+
+                {/* Buttons Section */}
+                <div className="col-4 col-md-6 text-center d-flex justify-content-center">
+                  <button className="btn btn-primary corporate-gifting-btn me-2"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/cake/">Cake Shop</a></button>
+                  <button style={{ background: '#fc6f33', border: 'none' }} className="btn btn-primary corporate-gifting-btn"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/corporate-gifting/">Corporate Giftings</a></button>
+                </div>
+
+                {/* Right Side User/Account Section */}
+                <div className="col-4 col-md-3">
                   <ul className="list-inline float-end mb-0">
-                    {isUserLoggedIn ?
+                    {isUserLoggedIn ? (
                       <>
                         <li className="list-inline-item dropdown">
-                          <button className="btn dropdown-toggle avatar-btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            <Avatar data={`${loggedInUser?.firstName?.length > 0 ? loggedInUser?.firstName : loggedInUser?.name || ''} ${loggedInUser?.lastName?.length > 0 ? loggedInUser?.lastName : ''}`} />
+                          <button
+                            className="btn dropdown-toggle avatar-btn"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                            <Avatar
+                              data={`${loggedInUser?.firstName?.length > 0 ? loggedInUser?.firstName : loggedInUser?.name || ''} ${loggedInUser?.lastName?.length > 0 ? loggedInUser?.lastName : ''
+                                }`}
+                            />
                             <span className="user-name">{`${loggedInUser?.firstName || ''}`}</span>
                           </button>
                           <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                            {loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator')) &&
-															<li className="me-0"><a className="dropdown-item" href="/dashboard">Dashboard</a></li>
-                            }
-                            <li><a className="dropdown-item" href="/dashboard/bookings">{loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator')) ? 'Booking History' : 'My Account'}</a></li>
-                            <li><hr className="dropdown-divider" /></li>
-                            <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
+                            {loggedInUser?.roles?.nodes?.some((item: _Object) => item.name == 'author' || item.name == 'administrator') && (
+                              <li className="me-0">
+                                <a className="dropdown-item" href="/dashboard">
+                                  Dashboard
+                                </a>
+                              </li>
+                            )}
+                            <li>
+                              <a className="dropdown-item" href="/dashboard/bookings">
+                                {loggedInUser?.roles?.nodes?.some((item: _Object) => item.name == 'author' || item.name == 'administrator')
+                                  ? 'Booking History'
+                                  : 'My Account'}
+                              </a>
+                            </li>
+                            <li>
+                              <hr className="dropdown-divider" />
+                            </li>
+                            <li>
+                              <button className="dropdown-item" onClick={handleLogout}>
+                                Logout
+                              </button>
+                            </li>
                           </ul>
                         </li>
                       </>
-                      : (
-                        <li className="list-inline-item">
-                          <button id="login-model-id" type="button" className="btn login-btn p-0" data-bs-toggle="modal" data-bs-target="#LoginModal">
-														Login
-                          </button>
-                        </li>
-                      )}
+                    ) : (
+                      <li className="list-inline-item">
+                        <button
+                          id="login-model-id"
+                          type="button"
+                          className="btn login-btn p-0"
+                          data-bs-toggle="modal"
+                          data-bs-target="#LoginModal"
+                        >
+                          Login
+                        </button>
+                      </li>
+                    )}
 
                     <li className="list-inline-item me-0 me-md-3">
                       <Link href="/event" className="btn btn-primary">
-												Plan your event
+                        Plan your event
                       </Link>
                     </li>
-                    {/* <li className="list-inline-item d-none d-md-inline-block img-flag">
-											<Image src={indiaFalg} alt="Flag" />
-										</li> */}
                   </ul>
                 </div>
               </div>
