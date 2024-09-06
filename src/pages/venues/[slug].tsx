@@ -351,7 +351,7 @@ const VenueDetails = (props: _Object) => {
 											<h2>
 												{props?.data?.title}
 											</h2>
-											<Accordion >
+											<Accordion className="shareBtn">
 												<Accordion.Item eventKey="0">
 													<Accordion.Header className="custom-accordion-header" style={{ backgroundImage: 'none' }}>
 														<IoShareOutline color="#fc6f33" size={20} />

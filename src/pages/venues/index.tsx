@@ -96,6 +96,7 @@ const Listing = (props: _Object) => {
   const [activeAccordion, setActiveAccordion] = useState('price');
 
   const handleFilterClick = (id: string) => {
+    setSearchQuery('');
     setActiveAccordion(prevState => (prevState === id ? '' : id));
   };
 
@@ -1088,32 +1089,7 @@ const Listing = (props: _Object) => {
                 </div>
               </div>
 
-              <div className="accordion d-none d-lg-inline-none" id="accordionFilter">
-
-                {/* {props?.packageTypes?.filter((item: _Object) =>
-      item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-    )?.length > 0 &&
-      <div className="accordion-item">
-        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#packageType" aria-expanded="true" aria-controls="packageType">
-          PACKAGE
-        </button>
-
-        <div id="packageType" className="accordion-collapse collapse show" aria-labelledby="" data-bs-parent="#packageType">
-          <div className="accordion-body">
-            <CheckBox
-              showMoreOption={true}
-              name="package_types"
-              values={router?.query?.package_types?.split('+')}
-              options={props?.packageTypes?.filter((item: _Object) =>
-                item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-              )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'package_types')}
-            />
-          </div>
-        </div>
-      </div>
-    } */}
-
+              {/* <div className="accordion d-none d-lg-inline-none" id="accordionFilter">
                 <div className="accordion-item">
                   <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded="true" aria-controls="price">
                     BUDGET / PRICE
@@ -1347,7 +1323,7 @@ const Listing = (props: _Object) => {
                     </div>
                   </div>
                 }
-              </div>
+              </div> */}
             </div>
 
             <div className="col-12 col-lg-9">

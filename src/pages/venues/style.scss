@@ -2655,6 +2655,12 @@
   font-size: 12px !important;
 }
 
+
+.shareBtn .accordion-button::after{
+  display: none !important;
+}
+
+
 .left-drawer {
   width: 82%;
 }

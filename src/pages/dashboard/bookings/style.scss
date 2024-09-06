@@ -378,3 +378,80 @@ button.btn.btn-link {
 .booking_declined button{
   color: $danger !important;
 }
+
+.bmpLuxe.card{
+  border: 0;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 25px;
+  border-radius: 0;
+  min-height: 160px;
+
+  .image-wrapper {
+    overflow: hidden;
+    height: 169px;
+    width: 190px;
+    position: relative;
+
+    @media screen and (max-width: 1250px) {
+          width: 100%;
+          height: 100%;}
+    img {
+      transition-duration: 350ms;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+}
+
+.card-body {
+  .card-title {
+  line-height: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 2px;
+  min-height: 45px;
+
+
+@media screen and (max-width: 991px) {
+  min-height: auto;
+}
+  a {
+    color: #1a2b48;
+    text-decoration: none;
+    text-transform: none;
+    font-family: "Poppins";
+}
+}
+
+.card-text {
+  min-height: 30px;
+  font-size: 10px;
+  color: #5e6d77;
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+  img {
+    margin-right: 4px;
+}
+span {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+}
+
+.btn-primary {
+  font-size: 15px;
+  padding: 11px;
+  text-transform: capitalize;
+  font-weight: 500;
+  border-radius: 5px;
+  font-family: "Poppins";
+  background-color: #5a3483;
+  border-color: #5a3483;
+  margin-top: 20px;
+}}
+}
