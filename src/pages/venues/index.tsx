@@ -101,7 +101,7 @@ const Listing = (props: _Object) => {
 
   // Add an active css border in the active accordion button
   const getButtonClass = (id: string) => {
-    return `accordion-button customPadding ${activeAccordion === id ? 'active-button' : ''}`;
+    return `accordion-button customPadding mobFilter ${activeAccordion === id ? 'active-button' : ''}`;
   };
 
   const { userWishlist, isUserLoggedIn } = useSelector((state: RootState) => state.session);

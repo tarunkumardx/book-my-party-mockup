@@ -24,7 +24,6 @@ const PhoneNumberField = ({ args }: _Object) => {
       e.preventDefault();
     }
   };
-  console.log(phoneNumber, ' ',args.value)
   return (
     <div className={`form-group mb-3 ${args?.className}`}>
       {args.label && (

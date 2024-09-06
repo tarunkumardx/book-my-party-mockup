@@ -50,6 +50,7 @@ const Booking = () => {
   const [selectData, setSelectData] = useState<_Object>({})
   const [isActive, setIsActive] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const [result, setResult] = useState<_Object>({})
   console.log('result :>> ', result);
   const [showItems, setShowItems] = useState<_Object>({ items: [] })
@@ -167,7 +168,18 @@ const Booking = () => {
       }
     }
   });
-  console.log(formik)
+
+  const handleSubmit = async (event:_Object) => {
+    event.preventDefault();
+    const errors = await formik.validateForm();
+
+    if (Object.keys(errors).length > 0) {
+      formik.handleSubmit();
+      window.alert('fill all the required fields');
+    } else {
+      formik.handleSubmit();
+    }
+  };
   useEffect(() => {
     setMainLoading(true)
     async function name() {
@@ -247,6 +259,22 @@ const Booking = () => {
     };
   }, [formGroupRef]);
 
+  useEffect(() => {
+    if (showModal) {
+      const id = setTimeout(() => {
+        setShowModal(false);
+      }, 5000);
+      // Save the timeout ID so we can clear it if needed
+      setTimeoutId(id);
+    }
+
+    // Clean up the timeout if the component unmounts or modal is closed manually
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [showModal]);
   // const inputId: _Object = {
   // 	'148': 'input_107',
   // 	'150': 'input_55',
@@ -520,7 +548,7 @@ const Booking = () => {
           <div className="row align-items-start main-row">
             {/* <div className="col-lg-1"></div> */}
             <div className="col-lg">
-              <form className="row main-inner-row" onSubmit={formik.handleSubmit}>
+              <form className="row main-inner-row" onSubmit={handleSubmit}>
                 {/* <h1>Booking</h1> */}
                 <div className="card">
                   <div className="card-body row">
