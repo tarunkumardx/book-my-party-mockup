@@ -83,6 +83,8 @@ import WhatsappIcon from '../images/whatsapp-icon.png'
 import PhoneCall from '../images/phone-call.png'
 import MassesIcon from '../images/masses-icon.png'
 import ShowPassword from '../images/show-password.svg'
+import Cake from '../images/cake.png'
+import CorporateGift from '../images/corporate-gift.png'
 
 export {
   placeholder,
@@ -168,5 +170,7 @@ export {
   FooterLogo,
   WhatsappIcon,
   PhoneCall,
-  MassesIcon
+  MassesIcon,
+  Cake,
+  CorporateGift
 };

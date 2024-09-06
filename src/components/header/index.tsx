@@ -119,13 +119,13 @@ const Header = () => {
                 </div>
 
                 {/* Buttons Section */}
-                <div className="col-4 col-md-6 text-center d-flex justify-content-center">
-                  <button className="btn btn-primary corporate-gifting-btn me-2"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/cake/">Cake Shop</a></button>
-                  <button style={{ background: '#fc6f33', border: 'none' }} className="btn btn-primary corporate-gifting-btn"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/corporate-gifting/">Corporate Giftings</a></button>
+                <div className="col-4 d-none d-md-flex col-md-6 text-center d-flex justify-content-center">
+                  <button className="btn btn-primary corporate-gifting-btn me-2"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/cake">Cake Shop</a></button>
+                  <button style={{ background: '#fc6f33', border: 'none' }} className="btn btn-primary corporate-gifting-btn"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/corporate-gifting">Corporate Giftings</a></button>
                 </div>
 
                 {/* Right Side User/Account Section */}
-                <div className="col-4 col-md-3">
+                <div className="col-8 col-md-3">
                   <ul className="list-inline float-end mb-0">
                     {isUserLoggedIn ? (
                       <>

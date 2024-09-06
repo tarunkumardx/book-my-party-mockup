@@ -28,7 +28,6 @@ import { getUserWishlist } from '@/redux/slices/session.slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import useIsSearchable from '@/components/useIsSearchable';
-import { FaLocationDot } from 'react-icons/fa6';
 import { FaRegShareFromSquare } from 'react-icons/fa6';
 
 export const getStaticProps: GetStaticProps = async () => {
