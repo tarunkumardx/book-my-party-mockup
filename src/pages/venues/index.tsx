@@ -96,6 +96,7 @@ const Listing = (props: _Object) => {
   const [activeAccordion, setActiveAccordion] = useState('price');
 
   const handleFilterClick = (id: string) => {
+    setSearchQuery('');
     setActiveAccordion(prevState => (prevState === id ? '' : id));
   };
 
