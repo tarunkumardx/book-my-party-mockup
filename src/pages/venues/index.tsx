@@ -63,7 +63,7 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const Listing = (props: _Object) => {
-  console.log(props);
+  console.log(props.venueTypes);
 
   const dispatch = useDispatch<AppDispatch>()
   const isSearchable = useIsSearchable();
@@ -717,7 +717,7 @@ const Listing = (props: _Object) => {
                             values={router?.query?.cuisines?.split('+')}
                             options={props?.cuisines?.filter((item: _Object) =>
                               item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
-                            )?.filter((item:_Object) =>
+                            )?.filter((item: _Object) =>
                               item?.name.toLowerCase().includes(searchQuery.toLowerCase())
                             )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'cuisines')}
@@ -748,7 +748,7 @@ const Listing = (props: _Object) => {
                             values={router?.query?.locations?.split('+')}
                             options={props?.locations?.filter((item: _Object) =>
                               item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
-                            )?.filter((item:_Object) =>
+                            )?.filter((item: _Object) =>
                               item?.name.toLowerCase().includes(searchQuery.toLowerCase())
                             )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
                             checked={false}
@@ -777,7 +777,7 @@ const Listing = (props: _Object) => {
                             values={router?.query?.amenities?.split('+')}
                             options={props?.amenities?.filter((item: _Object) =>
                               item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-                            )?.filter((item:_Object) =>
+                            )?.filter((item: _Object) =>
                               item?.name.toLowerCase().includes(searchQuery.toLowerCase())
                             )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
                             checked={false}
@@ -794,7 +794,7 @@ const Listing = (props: _Object) => {
                             values={router?.query?.occasions?.split('+')}
                             options={props?.occasions?.filter((item: _Object) =>
                               item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-                            )?.filter((item:_Object) =>
+                            )?.filter((item: _Object) =>
                               item?.name.toLowerCase().includes(searchQuery.toLowerCase())
                             )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
                             checked={false}
@@ -1457,11 +1457,11 @@ const Listing = (props: _Object) => {
                         <div className="col-sm-8 col-md-5">
                           <div className="details">
                             <h5 >
-                              <Link className="nameStyling" href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
+                              <Link className="" href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
                                 {item.title}
                               </Link>
                             </h5>
-                            <div className="addressStyle"><FaLocationDot size={15} />
+                            <div className="d-flex gap-2"><img alt="" loading="lazy" width="18" height="18" decoding="async" data-nimg="1" style={{ color: 'transparent', marginTop: '4px' }} src="/_next/static/media/location-icon.b4a02ae7.svg" />
                               <p >{truncateText(item?.extraOptions?.address?.address || '')}</p>
                             </div>
 
@@ -1471,8 +1471,19 @@ const Listing = (props: _Object) => {
                                 <ElfsightWidget widgetId={item?.extraOptions?.googleReviewsId} />
                               </div>
                             }
-                            <div className="restrauDesc" dangerouslySetInnerHTML={{ __html: truncateToWords(item?.content || '') }} />
+                            <div className="" dangerouslySetInnerHTML={{ __html: truncateToWords(item?.content || '') }} />
                             {/* {cuisineData?.length > 0 && <p><b>Cuisine serve:</b> {cuisineData.map((item: string) => item).join(', ')}</p>} */}
+                            <div className="d-flex gap-2">
+                              {query.types === 'restaurant' ? (
+                                <>
+                                  <strong>Cuisine Served:</strong> Indian, Chinese, Thai, Italian
+                                </>
+                              ) : query.types === 'fun-zone' ? (
+                                <>
+                                  <strong>Activities:</strong> Swimming, Rope-walk, Jumping
+                                </>
+                              ) : null}
+                            </div>
                           </div>
                         </div>
                         <div className="col-sm-4 col-md-3">

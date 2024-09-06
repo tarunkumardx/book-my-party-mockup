@@ -353,7 +353,9 @@ const VenueDetails = (props: _Object) => {
 											</h2>
 											<Accordion className="shareBtn">
 												<Accordion.Item eventKey="0">
-													<Accordion.Header><IoShareOutline color="#fc6f33" size={20} /></Accordion.Header>
+													<Accordion.Header className="custom-accordion-header" style={{ backgroundImage: 'none' }}>
+														<IoShareOutline color="#fc6f33" size={20} />
+													</Accordion.Header>
 													<Accordion.Body>
 														<div className="d-flex align-items-start gap-2">
 															<li onClick={() => fetchURL()} style={{ listStyle: 'none', cursor: 'pointer' }}>Copy Link</li>

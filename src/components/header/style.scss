@@ -1,5 +1,25 @@
 @import "../../assets/scss/color-theme.scss";
 
+
+
+@keyframes colorChange {
+  0% {
+    background-color: #fc6f33; // Original color
+  }
+  50% {
+    background-color: #5a3483; // New color
+  }
+  100% {
+    background-color: #fc6f33; // Original color again
+  }
+}
+
+button.corporate-gifting-btn {
+  background-color: #fc6f33;
+  border: none;
+  animation: colorChange 2s infinite;
+}
+
 header {
 
   position: relative;
