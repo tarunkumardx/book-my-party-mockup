@@ -171,6 +171,10 @@ const Listing = (props: _Object) => {
     // }
   }, [router.query, router?.query?.types, cursor.endCursor])
 
+  const shouldApplyMarginTop = activeAccordion !== 'locations' &&
+                             activeAccordion !== 'occasions' &&
+                             activeAccordion !== 'cuisine' &&
+                             activeAccordion !== 'amenities';
   const formik: _Object = useFormik({
     initialValues: {
       type: '',
@@ -1358,6 +1362,65 @@ const Listing = (props: _Object) => {
                     </div>
 
                     <div className="filter-content">
+                      {/* Conditional rendering the search bar */}
+                      {activeAccordion === 'locations' && (
+                        <div className="form-group searchInput">
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="exampleInputEmail1"
+                            aria-describedby="emailHelp"
+                            placeholder="Search Location"
+                            onChange={handleSearchChange}
+                          />
+                        </div>
+                      )}
+                      {/* Conditional rendering the cuisine */}
+                      {
+                        activeAccordion === 'cuisine' && (
+                          <div className="form-group searchInput">
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="exampleInputEmail1"
+                              aria-describedby="emailHelp"
+                              placeholder="Search Cuisine"
+                              onChange={handleSearchChange}
+                            />
+                          </div>
+                        )
+                      }
+                      {/* Conditional rendering the cuisine */}
+                      {
+                        activeAccordion === 'amenities' && (
+                          <div className="form-group searchInput">
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="exampleInputEmail1"
+                              aria-describedby="emailHelp"
+                              placeholder="Search amenities"
+                              onChange={handleSearchChange}
+                            />
+                          </div>
+                        )
+                      }
+                      {/* Conditonal rendering search bar for occasions */}
+                      {
+                        activeAccordion === 'occasions' && (
+                          <div className="form-group searchInput">
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="exampleInputEmail1"
+                              aria-describedby="emailHelp"
+                              placeholder="Search Occasions"
+                              onChange={handleSearchChange}
+                            />
+                          </div>
+                        )
+                      }
+                    <div className="filterCheckouts" style={shouldApplyMarginTop ? {marginTop: '0'} : {}}>
                       <div id="price" className={`accordion-collapse collapse ${activeAccordion === 'price' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#price">
                         <div className="accordion-body">
                           <CheckBox
@@ -1398,16 +1461,6 @@ const Listing = (props: _Object) => {
                       </div>
 
                       <div id="cuisine" className={`accordion-collapse collapse ${activeAccordion === 'cuisine' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#cuisines">
-                      <div className="form-group searchInput">
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="exampleInputEmail1"
-                              aria-describedby="emailHelp"
-                              placeholder="Search Cuisine"
-                              onChange={handleSearchChange}
-                            />
-                          </div>
                         <div className="accordion-body">
                           <CheckBox
                             showMoreOption={true}
@@ -1439,16 +1492,6 @@ const Listing = (props: _Object) => {
                       </div>
 
                       <div id="locations" className={`accordion-collapse collapse ${activeAccordion === 'locations' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#locations">
-                      <div className="form-group searchInput">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
-                            placeholder="Search Location"
-                            onChange={handleSearchChange}
-                          />
-                        </div>
                         <div className="accordion-body">
                           <CheckBox
                             showMoreOption={true}
@@ -1478,16 +1521,6 @@ const Listing = (props: _Object) => {
                       </div>
 
                       <div id="amenities" className={`accordion-collapse collapse ${activeAccordion === 'amenities' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#amenities">
-                      <div className="form-group searchInput">
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="exampleInputEmail1"
-                              aria-describedby="emailHelp"
-                              placeholder="Search amenities"
-                              onChange={handleSearchChange}
-                            />
-                          </div>
                         <div className="accordion-body">
                           <CheckBox
                             showMoreOption={true}
@@ -1505,16 +1538,6 @@ const Listing = (props: _Object) => {
                       </div>
 
                       <div id="occasions" className={`accordion-collapse collapse ${activeAccordion === 'occasions' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#occasions">
-                      <div className="form-group searchInput">
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="exampleInputEmail1"
-                              aria-describedby="emailHelp"
-                              placeholder="Search Occasions"
-                              onChange={handleSearchChange}
-                            />
-                          </div>
                         <div className="accordion-body">
                           <CheckBox
                             showMoreOption={true}
@@ -1530,7 +1553,7 @@ const Listing = (props: _Object) => {
                           />
                         </div>
                       </div>
-
+                    </div>
                     </div>
                   </div>
                   <div className="bottomResults">
