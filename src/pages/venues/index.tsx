@@ -62,7 +62,7 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const Listing = (props: _Object) => {
-  console.log(props.venueTypes);
+  // console.log(props.venueTypes);
 
   const dispatch = useDispatch<AppDispatch>()
   const isSearchable = useIsSearchable();
@@ -96,7 +96,7 @@ const Listing = (props: _Object) => {
 
   const handleFilterClick = (id: string) => {
     setSearchQuery('');
-    setActiveAccordion(prevState => (prevState === id ? '' : id));
+    setActiveAccordion(id);
   };
 
   // Add an active css border in the active accordion button
@@ -526,7 +526,7 @@ const Listing = (props: _Object) => {
 
                     <div className="filter-buttons">
                       <div className="accordion-item">
-                        <button className={getButtonClass('price')} onClick={() => handleFilterClick('price')} type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded={activeAccordion === 'price'} aria-controls="price">
+                        <button className={getButtonClass('price')} onClick={() => handleFilterClick('price')} type="button" data-bs-target="#price" aria-expanded={activeAccordion === 'price'} aria-controls="price">
                           BUDGET / PRICE
                         </button>
                       </div>
@@ -535,27 +535,27 @@ const Listing = (props: _Object) => {
                         item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
                       )?.length > 0 && (
                           <div className="accordion-item">
-                            <button className="accordion-button customPadding" type="button" data-bs-toggle="collapse" data-bs-target="#activity" aria-expanded="true" aria-controls="activity">
+                            <button className="accordion-button customPadding" type="button" data-bs-target="#activity" aria-expanded="true" aria-controls="activity">
                               ACTIVITIES
                             </button>
                           </div>
                         )}
 
-                      {props?.venueTypes?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('category')} className={getButtonClass('category')} type="button" data-bs-toggle="collapse" data-bs-target="#category" aria-expanded={activeAccordion === 'category'} aria-controls="category">
+                      {props?.venueTypes?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('category')} className={getButtonClass('category')} type="button" data-bs-target="#category" aria-expanded={activeAccordion === 'category'} aria-controls="category">
                         RESTAURANT TYPE
                       </button>
                       }
 
                       {props?.cuisines?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 &&
                         <div className="accordion-item">
-                          <button onClick={() => handleFilterClick('cuisine')} className={getButtonClass('cuisine')} type="button" data-bs-toggle="collapse" data-bs-target="#cuisine" aria-expanded={activeAccordion === 'cuisine'} aria-controls="cuisine">
+                          <button onClick={() => handleFilterClick('cuisine')} className={getButtonClass('cuisine')} type="button" data-bs-target="#cuisine" aria-expanded={activeAccordion === 'cuisine'} aria-controls="cuisine">
                             CUISINES
                           </button>
                         </div>
                       }
                       {
                         props?.franchiseChain?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types))?.length > 0 &&
-                        <button onClick={() => handleFilterClick('restaurantChain')} className={getButtonClass('restaurantChain')} type="button" data-bs-toggle="collapse" data-bs-target="#restaurantChain" aria-expanded={activeAccordion === 'restaurantChain'} aria-controls="restaurantChain">
+                        <button onClick={() => handleFilterClick('restaurantChain')} className={getButtonClass('restaurantChain')} type="button" data-bs-target="#restaurantChain" aria-expanded={activeAccordion === 'restaurantChain'} aria-controls="restaurantChain">
                           RESTRAUNT CHAIN
                         </button>
                       }
@@ -576,7 +576,6 @@ const Listing = (props: _Object) => {
                             onClick={() => handleFilterClick('locations')}
                             className={getButtonClass('locations')}
                             type="button"
-                            data-bs-toggle="collapse"
                             data-bs-target="#locations"
                             aria-expanded={activeAccordion === 'locations'}
                             aria-controls="locations"
@@ -586,19 +585,19 @@ const Listing = (props: _Object) => {
                         )
                       }
                       {
-                        (query?.types === 'restaurant' || query?.types === 'fun-zone') && <button onClick={() => handleFilterClick('capacity')} className={getButtonClass('capacity')} type="button" data-bs-toggle="collapse" data-bs-target="#capacity" aria-expanded={activeAccordion === 'capacity'} aria-controls="capacity">
+                        (query?.types === 'restaurant' || query?.types === 'fun-zone') && <button onClick={() => handleFilterClick('capacity')} className={getButtonClass('capacity')} type="button" data-bs-target="#capacity" aria-expanded={activeAccordion === 'capacity'} aria-controls="capacity">
                           CAPACITY
                         </button>
                       }
                       {
-                        props?.amenities?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('amenities')} className={getButtonClass('amenities')} type="button" data-bs-toggle="collapse" data-bs-target="#amenities" aria-expanded={activeAccordion === 'amenities'} aria-controls="amenities">
+                        props?.amenities?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('amenities')} className={getButtonClass('amenities')} type="button" data-bs-target="#amenities" aria-expanded={activeAccordion === 'amenities'} aria-controls="amenities">
                           AMENITIES
                         </button>
                       }
                       {
                         query?.types === 'restaurant' &&
                         <div className="accordion-item">
-                          <button onClick={() => handleFilterClick('occasions')} className={getButtonClass('occasions')} type="button" data-bs-toggle="collapse" data-bs-target="#occasions" aria-expanded={activeAccordion === 'occasions'} aria-controls="occasions">
+                          <button onClick={() => handleFilterClick('occasions')} className={getButtonClass('occasions')} type="button" data-bs-target="#occasions" aria-expanded={activeAccordion === 'occasions'} aria-controls="occasions">
                             OCCASIONS
                           </button>
                         </div>
