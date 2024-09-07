@@ -17,7 +17,7 @@ import BackToTopButton from '../back-to-top'
 import { Button, CheckBox, InputField } from '@/stories/form-inputs'
 import { toast } from 'react-toastify';
 import { menuService } from '@/services/menu.service';
-import { FooterLogo, MassesIcon, WhatsappIcon } from '@/assets/images'
+import { CakeColored, CorporateGiftColored, FooterLogo, MassesIcon, WhatsappIcon } from '@/assets/images'
 import ComingSoon from '../modals/coming-soon';
 
 const Footer = () => {
@@ -428,13 +428,13 @@ const Footer = () => {
 											<div className="tel">09911412626</div> */}
 										</div>
 									</div>
-									<div className="whatsapp">
+									<div className="d-none d-md-block whatsapp">
 										<Link href="https://api.whatsapp.com/send/?phone=%2B919911412626&text&type=phone_number&app_absent=0" target="_self">
 											<Image src={WhatsappIcon} width="40" height="40" alt="Phone" />
 										</Link>
 									</div>
 
-									<button type="button" className="btn phone border-0 p-0" data-bs-toggle="modal" data-bs-target="#EnquiryNowModal">
+									<button type="button" className="d-none d-md-block btn phone border-0 p-0" data-bs-toggle="modal" data-bs-target="#EnquiryNowModal">
 										<Image src={MassesIcon} width="40" height="40" alt="Masses Icon" />
 									</button>
 								</div>
@@ -450,6 +450,14 @@ const Footer = () => {
 								</p>
 							</div>
 						</div>
+					</div>
+					<div className="d-md-none w-full mobFooter text-center">
+						<ul className="d-flex">
+							<li><Link href="https://mockup4clients.com/cake"><Image src={CakeColored} width="40" height="40" alt="Phone" className="shake-icon"/></Link><Link href="https://mockup4clients.com/cake">Cake</Link></li>
+							<li><Link href="https://mockup4clients.com/corporate-gifting"><Image src={CorporateGiftColored} width="40" height="40" alt="Phone" className="shake-icon"/></Link><Link href="https://mockup4clients.com/corporate-gifting">Corporate Gifting</Link></li>
+							<li><Link href="https://api.whatsapp.com/send/?phone=%2B919911412626&text&type=phone_number&app_absent=0" target="_self"><Image src={WhatsappIcon} width="40" height="40" alt="Phone" /></Link><Link href="https://api.whatsapp.com/send/?phone=%2B919911412626&text&type=phone_number&app_absent=0" target="_self">WhatsApp</Link></li>
+							<li><button type="button" data-bs-toggle="modal" data-bs-target="#EnquiryNowModal" style={{height: '20px', marginBottom:'3px'}}><Image src={MassesIcon} width="40" height="40" alt="Masses Icon" /></button><button type="button" data-bs-toggle="modal" data-bs-target="#EnquiryNowModal">Chat</button></li>
+						</ul>
 					</div>
 					<BackToTopButton />
 

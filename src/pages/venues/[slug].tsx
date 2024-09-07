@@ -808,6 +808,7 @@ const VenueDetails = (props: _Object) => {
 																						<a onClick={() => { setImages(item?.gallery?.length > 0 ? item?.gallery : [{ image: { node: { mediaItemUrl: placeholder } } }]) }} href="#" data-bs-toggle="modal" data-bs-target="#AlaCarteMenuModel">
 																							<Image src={item?.gallery?.length > 0 && item.gallery[0]?.image?.node?.mediaItemUrl || placeholder} width={380} height={540} alt="Menu Images" />
 																						</a>
+																						<div className="menu-name">{item.title}</div>
 																					</SwiperSlide>
 																				)
 																			})

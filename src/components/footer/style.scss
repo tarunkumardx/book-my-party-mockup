@@ -420,3 +420,72 @@ footer {
     }
   }
 }
+
+.mobFooter{
+  background: #27123e;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+  ul{
+    color: white;
+    list-style: none;
+    justify-content: space-around;
+    padding-left: 0 !important;
+    margin: 10px 0 !important;
+    li{
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    align-items: center;
+
+    button{
+      background: transparent !important;
+    }
+    a{
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    img{
+      width: 24px;
+      height: 24px;
+    }
+    }
+  }
+
+  .shake-icon {
+    display: inline-block;
+    -webkit-animation: wobble-hor-bottom 0.8s both;
+    animation: wobble-hor-bottom 0.8s both;
+    animation-iteration-count: infinite;
+  }
+  @keyframes wobble-hor-bottom {
+    0%,
+    100% {
+      -webkit-transform-origin: 50% 50%;
+              transform-origin: 50% 50%;
+    }
+    15% {
+      -webkit-transform: scale(1.2) rotate(-6deg);
+              transform: scale(1.2) rotate(-6deg);
+    }
+    30% {
+      -webkit-transform: rotate(6deg);
+              transform: rotate(6deg);
+    }
+    45% {
+      -webkit-transform: rotate(-9deg);
+              transform: rotate(-9deg);
+    }
+    60% {
+      -webkit-transform: rotate(9deg);
+              transform: rotate(9deg);
+    }
+    75% {
+      -webkit-transform: rotate(-6deg);
+              transform: rotate(-6deg);
+    }
+  }
+  
+}
