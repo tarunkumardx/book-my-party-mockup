@@ -114,9 +114,10 @@ const Listing = (props: _Object) => {
 
   const indexToMove = locationsOptions.findIndex((item: _Object) => item.slug === slugToMove);
 
-  const removedElement = locationsOptions.splice(indexToMove, 1)[0];
-
-  locationsOptions.splice(newIndex, 0, removedElement);
+  if(indexToMove > -1){
+    const removedElement = locationsOptions.splice(indexToMove, 1)[0];
+    locationsOptions.splice(newIndex, 0, removedElement);
+  }
 
   useEffect(() => {
     async function fetchData() {
