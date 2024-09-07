@@ -11,6 +11,49 @@
 		z-index: 2;
 	}
 
+
+	.modal-body {
+		position: relative;
+		/* Ensures positioning context for child elements */
+	}
+
+	.swiper-navigation-buttons {
+		position: absolute;
+		top: 50%;
+		/* Adjust to your preference */
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		transform: translateY(-50%);
+		/* Center vertically */
+		z-index: 10;
+		/* Ensures the buttons appear above the slider */
+	}
+
+	.swiper-button-prev-custom,
+	.swiper-button-next-custom {
+		background: transparent;
+		/* Semi-transparent background for better visibility */
+		color: #fff;
+		border: none;
+		padding: 10px 15px;
+		cursor: pointer;
+		border-radius: 5px;
+	}
+
+	.swiper-button-prev-custom {
+		margin-left: -290px;
+		/* Adjust as needed */
+		.right-side-wala{
+			transform: rotate(180deg);
+		}
+	}
+
+	.swiper-button-next-custom {
+		margin-right: -290px;
+		/* Adjust as needed */
+	}
+
 	.modal-content {
 		border-radius: 12px;
 		border: 0px;
@@ -68,9 +111,10 @@
 	}
 }
 
-#VenueImageSliderModal{
+#VenueImageSliderModal {
 	background: #000000e6;
 }
+
 .menus-details-list {
 	.modal-content {
 		max-height: calc(100vh - 257px);
@@ -183,19 +227,20 @@
 	}
 }
 
-.comingSoonModal.btn{
+.comingSoonModal.btn {
 	justify-content: right;
 }
 
-.modal-body.comingSoonModal{
+.modal-body.comingSoonModal {
 	display: flex;
 	justify-content: center;
 }
 
-.modal-body.comingSoonModal h3{
+.modal-body.comingSoonModal h3 {
 	padding-bottom: 20px;
 	border-bottom: 2px solid #fd532a;
 }
-.modal-dialog.comingSoonModal{
+
+.modal-dialog.comingSoonModal {
 	top: 30%;
 }
