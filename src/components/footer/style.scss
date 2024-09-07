@@ -422,7 +422,7 @@ footer {
 }
 
 .mobFooter{
-  background: black;
+  background: #27123e;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -453,4 +453,39 @@ footer {
     }
     }
   }
+
+  .shake-icon {
+    display: inline-block;
+    -webkit-animation: wobble-hor-bottom 0.8s both;
+    animation: wobble-hor-bottom 0.8s both;
+    animation-iteration-count: infinite;
+  }
+  @keyframes wobble-hor-bottom {
+    0%,
+    100% {
+      -webkit-transform-origin: 50% 50%;
+              transform-origin: 50% 50%;
+    }
+    15% {
+      -webkit-transform: scale(1.2) rotate(-6deg);
+              transform: scale(1.2) rotate(-6deg);
+    }
+    30% {
+      -webkit-transform: rotate(6deg);
+              transform: rotate(6deg);
+    }
+    45% {
+      -webkit-transform: rotate(-9deg);
+              transform: rotate(-9deg);
+    }
+    60% {
+      -webkit-transform: rotate(9deg);
+              transform: rotate(9deg);
+    }
+    75% {
+      -webkit-transform: rotate(-6deg);
+              transform: rotate(-6deg);
+    }
+  }
+  
 }
