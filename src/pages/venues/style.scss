@@ -2217,17 +2217,17 @@
       width: 100%;
       margin-top: 0;
 
-      @media screen and (max-width: 1440px) {
-        top: 80px;
-      }
+      // @media screen and (max-width: 1440px) {
+      //   top: 80px;
+      // }
 
       @media screen and (max-width: 1349px) {
-        top: 75px;
+        top: 70px;
       }
 
-      @media screen and (max-width: 1024px) {
-        top: 71px;
-      }
+      // @media screen and (max-width: 1024px) {
+      //   top: 71px;
+      // }
 
       @media screen and (max-width: 767px) {
         padding: 5px 0;
