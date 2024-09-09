@@ -347,7 +347,9 @@
   }
 }
 
-.filterBoxHeader {}
+.filterBoxHeader {
+  border-bottom: 1px solid #e9e9e9;
+}
 
 .search-form-content {
   position: relative;
@@ -2621,17 +2623,13 @@
 // Additional css for fixing 
 
 .topCloseBtn {
-  position: absolute;
-  left: 18px;
-  top: 120px;
+  position: relative;
   background: transparent;
   font-size: 17px;
 }
 
 .topClearBtn {
-  position: absolute;
-  right: 18px;
-  top: 120px;
+  position: relative;
   background-color: white;
   border: none;
   font-size: 14px;
@@ -2682,22 +2680,20 @@
 // Testing chat gpt code with css
 .filter-container {
   display: flex;
-  margin-top: -24px;
   overflow: scroll;
   height: 100%;
-  padding: 16px 4px;
+  padding: 0px 4px;
 }
 
 .customPadding {
-  padding: 20px 0;
+  padding: 20px 8px;
 
 }
 
 .filter-buttons {
   // flex: 1;
   // max-width: 200px; 
-  width: 50%;
-  margin-top: 120px;
+  width: 45%;
   border-right: 1px solid #e9e9e9;
   /* Adjust this value based on your design */
 }
@@ -2706,16 +2702,24 @@
   flex: 3;
   font-size: 17px;
   overflow: scroll;
-  margin-top: 120px;
   // margin-left: 20px;
-  padding: 12px 12px;
   /* Space between the buttons and content */
 }
 
 .form-check {
-  padding: 8px 20px;
+  padding: 8px 30px;
 }
-
+.searchInput {
+  position: fixed;
+  background: white;
+  z-index: 10;
+  width: 50% !important;
+  padding: 10px 0px 10px 10px;
+}
+.filterCheckouts{
+  padding: 12px 12px;
+  margin-top: 35px;
+}
 .form-group .form-control {
   padding: 5px;
   font-size: 12px;
@@ -2736,12 +2740,10 @@
 }
 
 .bottomResults {
-  position: absolute;
-  bottom: 0;
   height: 50px;
   width: 100%;
   background-color: #fc6f33;
-  z-index: 1;
+  z-index: 100;
 }
 
 .bottomBtn {

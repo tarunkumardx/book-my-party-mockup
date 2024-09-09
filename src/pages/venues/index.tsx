@@ -114,9 +114,10 @@ const Listing = (props: _Object) => {
 
   const indexToMove = locationsOptions.findIndex((item: _Object) => item.slug === slugToMove);
 
-  const removedElement = locationsOptions.splice(indexToMove, 1)[0];
-
-  locationsOptions.splice(newIndex, 0, removedElement);
+  if(indexToMove > -1){
+    const removedElement = locationsOptions.splice(indexToMove, 1)[0];
+    locationsOptions.splice(newIndex, 0, removedElement);
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -171,6 +172,10 @@ const Listing = (props: _Object) => {
     // }
   }, [router.query, router?.query?.types, cursor.endCursor])
 
+  const shouldApplyMarginTop = activeAccordion !== 'locations' &&
+                             activeAccordion !== 'occasions' &&
+                             activeAccordion !== 'cuisine' &&
+                             activeAccordion !== 'amenities';
   const formik: _Object = useFormik({
     initialValues: {
       type: '',
@@ -511,302 +516,7 @@ const Listing = (props: _Object) => {
 										getOptionValue={(option: { [key: string]: string }) => option?.label}
 									/> */}
                 </div>
-
-                <div className="offcanvas offcanvas-start filter-offcanvas" tabIndex={-1} id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
-                  <div className="offcanvas-header filterBoxHeader">
-                    <button onClick={() => clearFilter()} type="button" className="ms-auto topClearBtn">Clear Filter</button>
-                    <button type="button" className=" ms-auto topCloseBtn" data-bs-dismiss="offcanvas" aria-label="">Back</button>
-
-                  </div>
-                  <div className="bottomResults">
-                    <button aria-label="close" data-bs-dismiss="offcanvas" className="bottomBtn">SHOW {list?.pageInfo?.total} RESULTS</button>
-                  </div>
-                  {/* Testing chat gpt code */}
-                  <div className="filter-container">
-
-                    <div className="filter-buttons">
-                      <div className="accordion-item">
-                        <button className={getButtonClass('price')} onClick={() => handleFilterClick('price')} type="button" data-bs-target="#price" aria-expanded={activeAccordion === 'price'} aria-controls="price">
-                          BUDGET / PRICE
-                        </button>
-                      </div>
-
-                      {props?.activities?.filter((item: _Object) =>
-                        item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
-                      )?.length > 0 && (
-                          <div className="accordion-item">
-                            <button className="accordion-button customPadding" type="button" data-bs-target="#activity" aria-expanded="true" aria-controls="activity">
-                              ACTIVITIES
-                            </button>
-                          </div>
-                        )}
-
-                      {props?.venueTypes?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('category')} className={getButtonClass('category')} type="button" data-bs-target="#category" aria-expanded={activeAccordion === 'category'} aria-controls="category">
-                        RESTAURANT TYPE
-                      </button>
-                      }
-
-                      {props?.cuisines?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 &&
-                        <div className="accordion-item">
-                          <button onClick={() => handleFilterClick('cuisine')} className={getButtonClass('cuisine')} type="button" data-bs-target="#cuisine" aria-expanded={activeAccordion === 'cuisine'} aria-controls="cuisine">
-                            CUISINES
-                          </button>
-                        </div>
-                      }
-                      {
-                        props?.franchiseChain?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types))?.length > 0 &&
-                        <button onClick={() => handleFilterClick('restaurantChain')} className={getButtonClass('restaurantChain')} type="button" data-bs-target="#restaurantChain" aria-expanded={activeAccordion === 'restaurantChain'} aria-controls="restaurantChain">
-                          RESTRAUNT CHAIN
-                        </button>
-                      }
-                      {
-                        props?.locations
-                          ?.filter((item: _Object) =>
-                            item?.filtersOptions?.displayAt?.nodes?.some(
-                              (node: _Object) => node?.slug === router?.query?.types
-                            )
-                          )
-                          .sort((a: _Object, b: _Object) => {
-                            const nameA = a?.filtersOptions?.displayAt?.nodes[0]?.name?.toLowerCase() || '';
-                            const nameB = b?.filtersOptions?.displayAt?.nodes[0]?.name?.toLowerCase() || '';
-                            return nameA.localeCompare(nameB);
-                          })
-                          ?.length > 0 && (
-                          <button
-                            onClick={() => handleFilterClick('locations')}
-                            className={getButtonClass('locations')}
-                            type="button"
-                            data-bs-target="#locations"
-                            aria-expanded={activeAccordion === 'locations'}
-                            aria-controls="locations"
-                          >
-                            LOCATIONS
-                          </button>
-                        )
-                      }
-                      {
-                        (query?.types === 'restaurant' || query?.types === 'fun-zone') && <button onClick={() => handleFilterClick('capacity')} className={getButtonClass('capacity')} type="button" data-bs-target="#capacity" aria-expanded={activeAccordion === 'capacity'} aria-controls="capacity">
-                          CAPACITY
-                        </button>
-                      }
-                      {
-                        props?.amenities?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('amenities')} className={getButtonClass('amenities')} type="button" data-bs-target="#amenities" aria-expanded={activeAccordion === 'amenities'} aria-controls="amenities">
-                          AMENITIES
-                        </button>
-                      }
-                      {
-                        query?.types === 'restaurant' &&
-                        <div className="accordion-item">
-                          <button onClick={() => handleFilterClick('occasions')} className={getButtonClass('occasions')} type="button" data-bs-target="#occasions" aria-expanded={activeAccordion === 'occasions'} aria-controls="occasions">
-                            OCCASIONS
-                          </button>
-                        </div>
-                      }
-
-                    </div>
-
-                    <div className="filter-content">
-                      {/* Conditional rendering the search bar */}
-                      {activeAccordion === 'locations' && (
-                        <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
-                          <input
-                            style={{ width: '80% !important' }}
-                            type="text"
-                            className="form-control"
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
-                            placeholder="Search Location"
-                            onChange={handleSearchChange}
-                          />
-                        </div>
-                      )}
-                      {/* Conditional rendering the cuisine */}
-                      {
-                        activeAccordion === 'cuisine' && (
-                          <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
-                            <input
-                              style={{ width: '80% !important' }}
-                              type="text"
-                              className="form-control"
-                              id="exampleInputEmail1"
-                              aria-describedby="emailHelp"
-                              placeholder="Search Cuisine"
-                              onChange={handleSearchChange}
-                            />
-                          </div>
-                        )
-                      }
-                      {/* Conditional rendering the cuisine */}
-                      {
-                        activeAccordion === 'amenities' && (
-                          <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
-                            <input
-                              style={{ width: '80% !important' }}
-                              type="text"
-                              className="form-control"
-                              id="exampleInputEmail1"
-                              aria-describedby="emailHelp"
-                              placeholder="Search amenities"
-                              onChange={handleSearchChange}
-                            />
-                          </div>
-                        )
-                      }
-                      {/* Conditonal rendering search bar for occasions */}
-                      {
-                        activeAccordion === 'occasions' && (
-                          <div style={{ marginTop: '0px', width: '80% !important' }} className="form-group">
-                            <input
-                              style={{ width: '80% !important' }}
-                              type="text"
-                              className="form-control"
-                              id="exampleInputEmail1"
-                              aria-describedby="emailHelp"
-                              placeholder="Search Occasions"
-                              onChange={handleSearchChange}
-                            />
-                          </div>
-                        )
-                      }
-                      <div id="price" className={`accordion-collapse collapse ${activeAccordion === 'price' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#price">
-                        <div className="accordion-body">
-                          <CheckBox
-                            showMoreOption={true}
-                            name="price_range"
-                            values={router?.query?.price_range?.split('+')}
-                            options={priceRange?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'price_range')}
-                          />
-                        </div>
-                      </div>
-                      <div id="activity" className={`accordion-collapse collapse ${activeAccordion === 'price' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#activity">
-                        <div className="accordion-body">
-                          <CheckBox
-                            showMoreOption={true}
-                            name="activities"
-                            values={router?.query?.activities?.split('+')}
-                            options={props?.activities?.filter((item: _Object) =>
-                              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
-                            )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'activities')}
-                          />
-                        </div>
-                      </div>
-
-                      <div id="category" className={`accordion-collapse collapse ${activeAccordion === 'category' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#category">
-                        <div className="accordion-body">
-                          <CheckBox
-                            showMoreOption={true}
-                            name="venueTypes"
-                            values={router?.query?.venueTypes?.split('+')}
-                            options={props?.venueTypes?.filter((item: _Object) =>
-                              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-                            )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'venueTypes')}
-                          />
-                        </div>
-                      </div>
-
-                      <div id="cuisine" className={`accordion-collapse collapse ${activeAccordion === 'cuisine' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#cuisines">
-                        <div className="accordion-body">
-                          <CheckBox
-                            showMoreOption={true}
-                            name="cuisines"
-                            values={router?.query?.cuisines?.split('+')}
-                            options={props?.cuisines?.filter((item: _Object) =>
-                              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
-                            )?.filter((item: _Object) =>
-                              item?.name.toLowerCase().includes(searchQuery.toLowerCase())
-                            )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'cuisines')}
-                          />
-                        </div>
-                      </div>
-
-                      <div id="restaurantChain" className={`accordion-collapse collapse ${activeAccordion === 'restaurantChain' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#restaurantChains">
-                        <div className="accordion-body">
-                          <CheckBox
-                            showMoreOption={true}
-                            name="franchises"
-                            values={router?.query?.franchises?.split('+')}
-                            options={props?.franchiseChain?.filter((item: _Object) =>
-                              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
-                            )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
-                            checked={false}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'franchises')}
-                          />
-                        </div>
-                      </div>
-
-                      <div id="locations" className={`accordion-collapse collapse ${activeAccordion === 'locations' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#locations">
-                        <div className="accordion-body">
-                          <CheckBox
-                            showMoreOption={true}
-                            name="locations"
-                            values={router?.query?.locations?.split('+')}
-                            options={props?.locations?.filter((item: _Object) =>
-                              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
-                            )?.filter((item: _Object) =>
-                              item?.name.toLowerCase().includes(searchQuery.toLowerCase())
-                            )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
-                            checked={false}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'locations')}
-                          />
-                        </div>
-                      </div>
-
-                      <div id="capacity" className={`accordion-collapse collapse ${activeAccordion === 'capacity' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#capacity">
-                        <div className="accordion-body">
-                          <CheckBox
-                            showMoreOption={true}
-                            name="capacity"
-                            values={router?.query?.capacity?.split('+')}
-                            options={capacity}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'capacity')}
-                          />
-                        </div>
-                      </div>
-
-                      <div id="amenities" className={`accordion-collapse collapse ${activeAccordion === 'amenities' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#amenities">
-                        <div className="accordion-body">
-                          <CheckBox
-                            showMoreOption={true}
-                            name="amenities"
-                            values={router?.query?.amenities?.split('+')}
-                            options={props?.amenities?.filter((item: _Object) =>
-                              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-                            )?.filter((item: _Object) =>
-                              item?.name.toLowerCase().includes(searchQuery.toLowerCase())
-                            )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
-                            checked={false}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'amenities')}
-                          />
-                        </div>
-                      </div>
-
-                      <div id="occasions" className={`accordion-collapse collapse ${activeAccordion === 'occasions' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#occasions">
-                        <div className="accordion-body">
-                          <CheckBox
-                            showMoreOption={true}
-                            name="occasions"
-                            values={router?.query?.occasions?.split('+')}
-                            options={props?.occasions?.filter((item: _Object) =>
-                              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
-                            )?.filter((item: _Object) =>
-                              item?.name.toLowerCase().includes(searchQuery.toLowerCase())
-                            )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-                            checked={false}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'occasions')}
-                          />
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                  {/* Testing chat gpt code ends here */}
-
-                </div>
-              </div>
+            </div>
               {/* Testing chat gpt code ends here */}
 
               {/* side drawer body for filter */}
@@ -1005,7 +715,13 @@ const Listing = (props: _Object) => {
                             values={router?.query?.locations?.split('+')}
                             options={props?.locations?.filter((item: _Object) =>
                               item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
-                            )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
+                            ).sort((a:_Object, b:_Object) => {
+                              const nameA = a.name.toLowerCase();
+                              const nameB = b.name.toLowerCase();
+                              if (nameA < nameB) return -1;
+                              if (nameA > nameB) return 1;
+                              return 0;
+                            })?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
                             checked={false}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'locations')}
                           />
@@ -1563,6 +1279,301 @@ const Listing = (props: _Object) => {
           </div>
         </div>
       </section>
+
+      <div className="offcanvas offcanvas-start filter-offcanvas" tabIndex={-1} id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
+                  <div className="offcanvas-header filterBoxHeader">
+                    <button type="button" className="topCloseBtn" data-bs-dismiss="offcanvas" aria-label="">Back</button>
+                    <button onClick={() => clearFilter()} type="button" className="ms-auto topClearBtn">Clear Filter</button>
+                  </div>
+                  <div className="filter-container">
+
+                    <div className="filter-buttons">
+                      <div className="accordion-item">
+                        <button className={getButtonClass('price')} onClick={() => handleFilterClick('price')} type="button" data-bs-target="#price" aria-expanded={activeAccordion === 'price'} aria-controls="price">
+                          BUDGET / PRICE
+                        </button>
+                      </div>
+
+                      {props?.activities?.filter((item: _Object) =>
+                        item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
+                      )?.length > 0 && (
+                          <div className="accordion-item">
+                            <button className="accordion-button customPadding" type="button" data-bs-target="#activity" aria-expanded="true" aria-controls="activity">
+                              ACTIVITIES
+                            </button>
+                          </div>
+                        )}
+
+                      {props?.venueTypes?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('category')} className={getButtonClass('category')} type="button" data-bs-target="#category" aria-expanded={activeAccordion === 'category'} aria-controls="category">
+                        RESTAURANT TYPE
+                      </button>
+                      }
+
+                      {props?.cuisines?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types))?.length > 0 &&
+                        <div className="accordion-item">
+                          <button onClick={() => handleFilterClick('cuisine')} className={getButtonClass('cuisine')} type="button" data-bs-target="#cuisine" aria-expanded={activeAccordion === 'cuisine'} aria-controls="cuisine">
+                            CUISINES
+                          </button>
+                        </div>
+                      }
+                      {
+                        props?.franchiseChain?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types))?.length > 0 &&
+                        <button onClick={() => handleFilterClick('restaurantChain')} className={getButtonClass('restaurantChain')} type="button" data-bs-target="#restaurantChain" aria-expanded={activeAccordion === 'restaurantChain'} aria-controls="restaurantChain">
+                          RESTRAUNT CHAIN
+                        </button>
+                      }
+                      {
+                        props?.locations
+                          ?.filter((item: _Object) =>
+                            item?.filtersOptions?.displayAt?.nodes?.some(
+                              (node: _Object) => node?.slug === router?.query?.types
+                            )
+                          ).sort((a:_Object, b:_Object) => {
+                            const nameA = a.name.toLowerCase();
+                            const nameB = b.name.toLowerCase();
+                            if (nameA < nameB) return -1;
+                            if (nameA > nameB) return 1;
+                            return 0;
+                          })
+                          ?.length > 0 && (
+                          <button
+                            onClick={() => handleFilterClick('locations')}
+                            className={getButtonClass('locations')}
+                            type="button"
+                            data-bs-target="#locations"
+                            aria-expanded={activeAccordion === 'locations'}
+                            aria-controls="locations"
+                          >
+                            LOCATIONS
+                          </button>
+                        )
+                      }
+                      {
+                        (query?.types === 'restaurant' || query?.types === 'fun-zone') && <button onClick={() => handleFilterClick('capacity')} className={getButtonClass('capacity')} type="button" data-bs-target="#capacity" aria-expanded={activeAccordion === 'capacity'} aria-controls="capacity">
+                          CAPACITY
+                        </button>
+                      }
+                      {
+                        props?.amenities?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('amenities')} className={getButtonClass('amenities')} type="button" data-bs-target="#amenities" aria-expanded={activeAccordion === 'amenities'} aria-controls="amenities">
+                          AMENITIES
+                        </button>
+                      }
+                      {
+                        query?.types === 'restaurant' &&
+                        <div className="accordion-item">
+                          <button onClick={() => handleFilterClick('occasions')} className={getButtonClass('occasions')} type="button" data-bs-target="#occasions" aria-expanded={activeAccordion === 'occasions'} aria-controls="occasions">
+                            OCCASIONS
+                          </button>
+                        </div>
+                      }
+
+                    </div>
+
+                    <div className="filter-content">
+                      {/* Conditional rendering the search bar */}
+                      {activeAccordion === 'locations' && (
+                        <div className="form-group searchInput">
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="exampleInputEmail1"
+                            aria-describedby="emailHelp"
+                            placeholder="Search Location"
+                            onChange={handleSearchChange}
+                          />
+                        </div>
+                      )}
+                      {/* Conditional rendering the cuisine */}
+                      {
+                        activeAccordion === 'cuisine' && (
+                          <div className="form-group searchInput">
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="exampleInputEmail1"
+                              aria-describedby="emailHelp"
+                              placeholder="Search Cuisine"
+                              onChange={handleSearchChange}
+                            />
+                          </div>
+                        )
+                      }
+                      {/* Conditional rendering the cuisine */}
+                      {
+                        activeAccordion === 'amenities' && (
+                          <div className="form-group searchInput">
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="exampleInputEmail1"
+                              aria-describedby="emailHelp"
+                              placeholder="Search amenities"
+                              onChange={handleSearchChange}
+                            />
+                          </div>
+                        )
+                      }
+                      {/* Conditonal rendering search bar for occasions */}
+                      {
+                        activeAccordion === 'occasions' && (
+                          <div className="form-group searchInput">
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="exampleInputEmail1"
+                              aria-describedby="emailHelp"
+                              placeholder="Search Occasions"
+                              onChange={handleSearchChange}
+                            />
+                          </div>
+                        )
+                      }
+                    <div className="filterCheckouts" style={shouldApplyMarginTop ? {marginTop: '0'} : {}}>
+                      <div id="price" className={`accordion-collapse collapse ${activeAccordion === 'price' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#price">
+                        <div className="accordion-body">
+                          <CheckBox
+                            showMoreOption={true}
+                            name="price_range"
+                            values={router?.query?.price_range?.split('+')}
+                            options={priceRange?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'price_range')}
+                          />
+                        </div>
+                      </div>
+                      <div id="activity" className={`accordion-collapse collapse ${activeAccordion === 'price' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#activity">
+                        <div className="accordion-body">
+                          <CheckBox
+                            showMoreOption={true}
+                            name="activities"
+                            values={router?.query?.activities?.split('+')}
+                            options={props?.activities?.filter((item: _Object) =>
+                              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
+                            )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'activities')}
+                          />
+                        </div>
+                      </div>
+
+                      <div id="category" className={`accordion-collapse collapse ${activeAccordion === 'category' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#category">
+                        <div className="accordion-body">
+                          <CheckBox
+                            showMoreOption={true}
+                            name="venueTypes"
+                            values={router?.query?.venueTypes?.split('+')}
+                            options={props?.venueTypes?.filter((item: _Object) =>
+                              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+                            )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'venueTypes')}
+                          />
+                        </div>
+                      </div>
+
+                      <div id="cuisine" className={`accordion-collapse collapse ${activeAccordion === 'cuisine' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#cuisines">
+                        <div className="accordion-body">
+                          <CheckBox
+                            showMoreOption={true}
+                            name="cuisines"
+                            values={router?.query?.cuisines?.split('+')}
+                            options={props?.cuisines?.filter((item: _Object) =>
+                              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
+                            )?.filter((item: _Object) =>
+                              item?.name.toLowerCase().includes(searchQuery.toLowerCase())
+                            )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'cuisines')}
+                          />
+                        </div>
+                      </div>
+
+                      <div id="restaurantChain" className={`accordion-collapse collapse ${activeAccordion === 'restaurantChain' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#restaurantChains">
+                        <div className="accordion-body">
+                          <CheckBox
+                            showMoreOption={true}
+                            name="franchises"
+                            values={router?.query?.franchises?.split('+')}
+                            options={props?.franchiseChain?.filter((item: _Object) =>
+                              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
+                            )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
+                            checked={false}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'franchises')}
+                          />
+                        </div>
+                      </div>
+
+                      <div id="locations" className={`accordion-collapse collapse ${activeAccordion === 'locations' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#locations">
+                        <div className="accordion-body">
+                          <CheckBox
+                            showMoreOption={true}
+                            name="locations"
+                            values={router?.query?.locations?.split('+')}
+                            options={props?.locations?.filter((item: _Object) =>
+                              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
+                            )?.filter((item: _Object) =>
+                              item?.name.toLowerCase().includes(searchQuery.toLowerCase())
+                            ).sort((a:_Object, b:_Object) => {
+                              const nameA = a.name.toLowerCase();
+                              const nameB = b.name.toLowerCase();
+                              if (nameA < nameB) return -1;
+                              if (nameA > nameB) return 1;
+                              return 0;
+                            })?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
+                            checked={false}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'locations')}
+                          />
+                        </div>
+                      </div>
+
+                      <div id="capacity" className={`accordion-collapse collapse ${activeAccordion === 'capacity' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#capacity">
+                        <div className="accordion-body">
+                          <CheckBox
+                            showMoreOption={true}
+                            name="capacity"
+                            values={router?.query?.capacity?.split('+')}
+                            options={capacity}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'capacity')}
+                          />
+                        </div>
+                      </div>
+
+                      <div id="amenities" className={`accordion-collapse collapse ${activeAccordion === 'amenities' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#amenities">
+                        <div className="accordion-body">
+                          <CheckBox
+                            showMoreOption={true}
+                            name="amenities"
+                            values={router?.query?.amenities?.split('+')}
+                            options={props?.amenities?.filter((item: _Object) =>
+                              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+                            )?.filter((item: _Object) =>
+                              item?.name.toLowerCase().includes(searchQuery.toLowerCase())
+                            )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
+                            checked={false}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'amenities')}
+                          />
+                        </div>
+                      </div>
+
+                      <div id="occasions" className={`accordion-collapse collapse ${activeAccordion === 'occasions' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#occasions">
+                        <div className="accordion-body">
+                          <CheckBox
+                            showMoreOption={true}
+                            name="occasions"
+                            values={router?.query?.occasions?.split('+')}
+                            options={props?.occasions?.filter((item: _Object) =>
+                              item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
+                            )?.filter((item: _Object) =>
+                              item?.name.toLowerCase().includes(searchQuery.toLowerCase())
+                            )?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
+                            checked={false}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'occasions')}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                  <div className="bottomResults">
+                    <button aria-label="close" data-bs-dismiss="offcanvas" className="bottomBtn">SHOW {list?.pageInfo?.total} RESULTS</button>
+                  </div>
+                </div>
     </Layout>
   )
 }

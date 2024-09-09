@@ -120,8 +120,8 @@ const Header = () => {
 
                 {/* Buttons Section */}
                 <div className="col-4 d-none d-md-flex col-md-6 text-center d-flex justify-content-center">
-                  <button className="btn btn-primary corporate-gifting-btn me-2"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/cake">Cake Shop</a></button>
-                  <button style={{ background: '#fc6f33', border: 'none' }} className="btn btn-primary corporate-gifting-btn"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/corporate-gifting">Corporate Giftings</a></button>
+                  <button className="btn btn-primary corporate-gifting-btn me-2"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/cake" target="_blank" rel="noreferrer">Cake Shop</a></button>
+                  <button style={{ background: '#fc6f33', border: 'none' }} className="btn btn-primary corporate-gifting-btn"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/corporate-gifting" target="_blank" rel="noreferrer">Corporate Giftings</a></button>
                 </div>
 
                 {/* Right Side User/Account Section */}
