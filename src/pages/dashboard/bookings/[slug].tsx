@@ -9,10 +9,10 @@ import { useRouter } from 'next/router';
 import { listService } from '@/services/venue.service';
 import SelectField from '@/stories/form-inputs/select-field';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
+import { toast } from 'react-toastify';
 
 // export const getStaticPaths: GetStaticPaths = async () => {
 // 	const data: _Object = await bookingService.getAll(6)
@@ -48,9 +48,15 @@ const BookingDetails = () => {
   const [venueDetails, setVenueDetails] = useState<_Object>({})
   const [modalShow, setModalShow] = useState({
     show: false,
-    status: data['134']
+    status: data['134'],
+    statusLabeltoShow: '',
+    statusLabelButtonColor: ''
   });
   console.log(venueDetails)
+
+  const handleSelect = (itemId:number, status:string) => {
+    bookingService.updateDetails(itemId,'134',status).then(()=>toast.success('Updated successfully'))
+  };
   // const breakfastArray = [
   // 	'48', '105', '106', '107', '108', '49', '104', '52'
   // ];
@@ -63,6 +69,23 @@ const BookingDetails = () => {
   // 	'83', '84', '85', '86', '87', '88', '89', '90', '91', '92',
   // 	'93', '94', '95', '96', '97', '98', '99', '100', '101', '102', '103'
   // ];
+
+  useEffect(()=>{
+    if(modalShow.status == 'Confirmed'){
+      setModalShow((prev)=>({...prev, statusLabeltoShow: 'Confirm', statusLabelButtonColor: 'green'}))
+    }else if(modalShow.status == 'Declined'){
+      setModalShow((prev)=>({...prev, statusLabeltoShow: 'Decline', statusLabelButtonColor: 'red'}))
+    }
+    else if(modalShow.status == 'Completed'){
+      setModalShow((prev)=>({...prev, statusLabeltoShow: 'Complete', statusLabelButtonColor: 'green'}))
+    }
+    else if(modalShow.status == 'Cancelled'){
+      setModalShow((prev)=>({...prev, statusLabeltoShow: 'Cancel', statusLabelButtonColor: 'red'}))
+    }
+    else if(modalShow.status == 'Request Received'){
+      setModalShow((prev)=>({...prev, statusLabelButtonColor: 'yellow'}))
+    }
+  },[modalShow.status])
 
   useEffect(() => {
     setLoadingMain(true)
@@ -123,7 +146,7 @@ const BookingDetails = () => {
                 <div>
                   <h6 className="mb-1">Booking ID: {data.id}</h6>
                   <p className="mb-1"><span>{data['110'] ? formatDate(data['110']) : '-'}</span></p>
-                  <span className="approved">Approved</span>
+                  <span className={modalShow.statusLabelButtonColor === 'green' ? 'approved' : (modalShow.statusLabelButtonColor === 'red' ? 'declined' : 'waitlisted')}>{data['134']}</span>
                 </div>
                 <SelectField
                   className="col-6 col-md-3"
@@ -362,30 +385,13 @@ const BookingDetails = () => {
           <Modal.Body className="grid-example">
             <Container>
               <Row>
-                <Col xs={12} md={8}>
-              .col-xs-12 .col-md-8
-                </Col>
-                <Col xs={6} md={4}>
-              .col-xs-6 .col-md-4
-                </Col>
-              </Row>
-
-              <Row>
-                <Col xs={6} md={4}>
-              .col-xs-6 .col-md-4
-                </Col>
-                <Col xs={6} md={4}>
-              .col-xs-6 .col-md-4
-                </Col>
-                <Col xs={6} md={4}>
-              .col-xs-6 .col-md-4
-                </Col>
+                Are you sure you want to {modalShow.statusLabeltoShow} the booking?
               </Row>
             </Container>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="outline-secondary" onClick={() => setModalShow((prev)=>({...prev, show: false}))}>Cancel</Button>
-            <Button onClick={() => setModalShow((prev)=>({...prev, show: false}))}>{modalShow.status}</Button>
+            <Button onClick={() => {setModalShow((prev)=>({...prev, show: false})), handleSelect(data.id, modalShow.status)}} style={{backgroundColor: modalShow.statusLabelButtonColor, border: 'none'}}>{modalShow.statusLabeltoShow}</Button>
           </Modal.Footer>
         </Modal>
       </div>
