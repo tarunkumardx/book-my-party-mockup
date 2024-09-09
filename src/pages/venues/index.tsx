@@ -715,7 +715,13 @@ const Listing = (props: _Object) => {
                             values={router?.query?.locations?.split('+')}
                             options={props?.locations?.filter((item: _Object) =>
                               item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
-                            )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
+                            ).sort((a:_Object, b:_Object) => {
+                              const nameA = a.name.toLowerCase();
+                              const nameB = b.name.toLowerCase();
+                              if (nameA < nameB) return -1;
+                              if (nameA > nameB) return 1;
+                              return 0;
+                            })?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
                             checked={false}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'locations')}
                           />
@@ -1322,11 +1328,12 @@ const Listing = (props: _Object) => {
                             item?.filtersOptions?.displayAt?.nodes?.some(
                               (node: _Object) => node?.slug === router?.query?.types
                             )
-                          )
-                          .sort((a: _Object, b: _Object) => {
-                            const nameA = a?.filtersOptions?.displayAt?.nodes[0]?.name?.toLowerCase() || '';
-                            const nameB = b?.filtersOptions?.displayAt?.nodes[0]?.name?.toLowerCase() || '';
-                            return nameA.localeCompare(nameB);
+                          ).sort((a:_Object, b:_Object) => {
+                            const nameA = a.name.toLowerCase();
+                            const nameB = b.name.toLowerCase();
+                            if (nameA < nameB) return -1;
+                            if (nameA > nameB) return 1;
+                            return 0;
                           })
                           ?.length > 0 && (
                           <button
@@ -1502,7 +1509,13 @@ const Listing = (props: _Object) => {
                               item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
                             )?.filter((item: _Object) =>
                               item?.name.toLowerCase().includes(searchQuery.toLowerCase())
-                            )?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
+                            ).sort((a:_Object, b:_Object) => {
+                              const nameA = a.name.toLowerCase();
+                              const nameB = b.name.toLowerCase();
+                              if (nameA < nameB) return -1;
+                              if (nameA > nameB) return 1;
+                              return 0;
+                            })?.map((item: _Object) => { return { label: item?.name, value: item?.slug } })}
                             checked={false}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilters(e, 'locations')}
                           />
