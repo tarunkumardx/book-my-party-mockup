@@ -188,7 +188,7 @@ const BookingHistory = () => {
                             {formatDate(item['110'])}
                           </td>
                           <td className="status">
-                            <span className={getClass(item['134'])}>{item['134'] ==='Request Received' && userRole === 'user' ? 'Waitlisted': item['134']}</span>
+                            <span className={getClass(item['134'])}>{item['134'] ==='Request Received' && userRole != 'author' ? 'Waitlisted': item['134']}</span>
                           </td>
                           <td className="d-flex gap-2">
                             <button onClick={() => getVenueSlug(item['112'], i)} className="btn btn-link">{item['113']}</button>

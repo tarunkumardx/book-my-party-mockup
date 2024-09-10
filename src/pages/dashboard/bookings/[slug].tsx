@@ -13,6 +13,7 @@ import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 // export const getStaticPaths: GetStaticPaths = async () => {
 // 	const data: _Object = await bookingService.getAll(6)
@@ -35,6 +36,12 @@ import { toast } from 'react-toastify';
 // 	}
 // }
 
+type RootState = {
+	session: {
+		loggedInUser: _Object;
+	};
+};
+
 const BookingDetails = () => {
   const router: _Object = useRouter();
 
@@ -46,6 +53,17 @@ const BookingDetails = () => {
   const [loadingMain, setLoadingMain] = useState(false)
   const [data, setData] = useState<_Object>({})
   const [venueDetails, setVenueDetails] = useState<_Object>({})
+  const [userRole, setUserRole] = useState('');
+  const { loggedInUser } = useSelector((state: RootState) => state.session);
+
+  useEffect (()=>{
+    const role = loggedInUser?.roles?.nodes?.some((item: { name: string }) => item.name === 'administrator')
+      ? 'administrator'
+      : loggedInUser?.roles?.nodes?.some((item: { name: string }) => item.name === 'author')
+        ? 'author'
+        : loggedInUser?.roles?.nodes?.some((item: { name: string }) => item.name === 'user') ? 'user': '';
+    setUserRole(role)
+  },[loggedInUser,userRole])
   const [modalShow, setModalShow] = useState({
     show: false,
     status: data['134'],
@@ -148,19 +166,18 @@ const BookingDetails = () => {
                 <div>
                   <h6 className="mb-1">Booking ID: {data.id}</h6>
                   <p className="mb-1"><span>{data['110'] ? formatDate(data['110']) : '-'}</span></p>
-                  <span className={modalShow.finalStatus === 'Completed' || modalShow.finalStatus === 'Confirmed' ? 'approved' : (modalShow.finalStatus === 'Declined' || modalShow.finalStatus === 'Cancelled' ? 'declined' : 'waitlisted')}>{modalShow.finalStatus}</span>
+                  <span className={modalShow.finalStatus === 'Completed' || modalShow.finalStatus === 'Confirmed' ? 'approved' : (modalShow.finalStatus === 'Declined' || modalShow.finalStatus === 'Cancelled' ? 'declined' : 'waitlisted')}>{modalShow.finalStatus==='Request Received' && userRole !='author' ? 'Waitlisted' : modalShow.finalStatus}</span>
                 </div>
                 <SelectField
                   className="col-6 col-md-3"
-                  placeholder={data['134']}
+                  placeholder={modalShow.finalStatus==='Request Received' && userRole !='author' ? 'Waitlisted' : modalShow.finalStatus}
                   options={(() => {
-                    const options=[
-                      { label: 'Request Received'},
+                    const options = userRole ==='author' || userRole==='administrator' ? [
+                      // { label: 'Request Received'},
                       { label: 'Confirmed'},
                       { label: 'Declined'},
-                      { label: 'Completed'},
-                      { label: 'Cancelled'}
-                    ]
+                      { label: 'Completed'}
+                    ] : userRole === 'user' ? [{ label: 'Cancelled'}] : [];
                     return [...options];
                   })()}
                   onChange={(val: _Object) => {setModalShow((prev)=>({...prev, show: true, status: val.label}))
