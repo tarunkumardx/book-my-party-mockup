@@ -268,7 +268,7 @@
         line-height: 23px;
         font-weight: 600;
         text-transform: uppercase;
-        background: #e3e3e3;
+        background: #f2f2f2;
         padding: 9px 6px;
         border-left: 4px solid #fc6f33;
 
@@ -287,6 +287,8 @@
 
         .form-group {
           .form-check {
+            display: flex;
+            align-items: center;
             &:not(:last-child) {
               margin-bottom: 10px;
             }
@@ -303,7 +305,10 @@
             input {
               margin-top: 0px;
               cursor: pointer;
-
+              &[type="checkbox"]{
+                height: 14px;
+                width: 14px;
+              }
               &:checked[type="checkbox"] {
                 background-color: transparent;
                 border-color: #a0a9b2;
@@ -314,8 +319,8 @@
                   -webkit-border-radius: 0;
                   -moz-border-radius: 0;
                   border-radius: 0;
-                  left: 5px;
-                  top: 2px;
+                  left: 4px;
+                  top: 1px;
                   width: 5px;
                   height: 8px;
                   border: solid var(--link-color, #5191fa);
@@ -2839,7 +2844,7 @@
 
 .result-list .accordion .accordion-item .accordion-body .form-group .form-check:not(:last-child) {
   margin-bottom: 10px;
-  border-bottom: 1px solid #9d9d9d;
+  // border-bottom: 1px solid #9d9d9d;
 }
 
 
