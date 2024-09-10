@@ -1,7 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Dotsbutton, EditUser, WishList, bookingHistory, dashboard, logo, setting, user, userAvtar, venue} from '@/assets/images';
+import { Dotsbutton, EditUser, WishList, bookingHistory, dashboard, FooterLogo, setting, user, userAvtar, venue} from '@/assets/images';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { _Object } from '@/utils/types';
@@ -78,7 +78,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
             <div className="offcanvas-header">
               <div className="main-logo">
                 <Link href="/">
-                  <Image src={logo} alt="logo" width={130} height={36} />
+                  <Image src={FooterLogo} alt="logo" width={130} height={36} />
                 </Link>
               </div>
 

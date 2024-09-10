@@ -14,8 +14,6 @@ import { useRouter } from 'next/router';
 import { changeDateFormat, formatDate } from '@/utils/helpers';
 import Image from 'next/image';
 import { CalendarView, ListView } from '@/assets/images';
-import { Dropdown } from 'rsuite';
-import { toast } from 'react-toastify';
 
 type RootState = {
 	session: {
@@ -32,9 +30,6 @@ interface List {
   total_count: number;
 }
 
-interface DropdownStates {
-  [key: string | number]: string | number;
-}
 const BookingHistory = () => {
   const router: _Object = useRouter();
   const dispatch = useDispatch<AppDispatch>()
@@ -42,28 +37,16 @@ const BookingHistory = () => {
   const { loggedInUser } = useSelector((state: RootState) => state.session);
 
   const [list, setList] = useState<List>({ entries: [], total_count: 0 });
-  const [dropdownStates, setDropdownStates] = useState<DropdownStates>({});
-  const [isVendor, setIsVendor] = useState(false);
-  console.log(list)
-  useEffect(() => {
-    setDropdownStates(
-      list.entries.reduce<DropdownStates>((acc, item) => {
-        acc[item.id] = item['134'] || 'Request Received';
-        return acc;
-      }, {})
-    );
-  }, [list.entries]);
+  const [userRole, setUserRole] = useState('');
   useEffect (()=>{
-    const name = loggedInUser?.roles?.nodes?.some((item: _Object) => (item.name == 'author' || item.name == 'administrator'));
-    name ? setIsVendor(true) : setIsVendor(false);
-  },[loggedInUser])
-  const handleSelect = (itemId:number, status:string) => {
-    bookingService.updateDetails(itemId,'134',status).then(()=>toast.success('Updated successfully'))
-    setDropdownStates((prevStates:object)=> ({
-      ...prevStates,
-      [itemId]: status
-    }));
-  };
+    const role = loggedInUser?.roles?.nodes?.some((item: { name: string }) => item.name === 'administrator')
+      ? 'administrator'
+      : loggedInUser?.roles?.nodes?.some((item: { name: string }) => item.name === 'author')
+        ? 'author'
+        : loggedInUser?.roles?.nodes?.some((item: { name: string }) => item.name === 'user') ? 'user': '';
+    setUserRole(role)
+  },[loggedInUser,userRole])
+
   const [filterData, setFilterData] = useState<_Object>({
     page: 1,
     per_page: 10,
@@ -74,38 +57,40 @@ const BookingHistory = () => {
     loading: false,
     index: 0
   })
-  const getDropdownClass = (status:string | number) => {
+  function getClass(status: string): string {
     switch (status) {
-    case 'Request Received':
-      return 'request_received';
-    case 'Confirmed':
-      return 'booking_confirmed';
     case 'Completed':
-      return 'booking_confirmed';
-    case 'Declined':
-      return 'booking_declined';
+      return 'approved';
+    case 'Confirmed':
+      return 'approved';
+    case 'Request Received':
+      return 'waitlisted';
+    case 'Request Waitlisted':
+      return 'waitlisted';
     case 'Cancelled':
-      return 'booking_declined';
+      return 'declined';
+    case 'Declined':
+      return 'declined';
     default:
-      return '';
+      return 'black';
     }
-  };
+  }
   useEffect(() => {
     dispatch(setLoggedInUser())
     async function name() {
       setLoading(true)
       if (loggedInUser?.databaseId) {
         const venues = await listService.getVenuesIds(loggedInUser.databaseId)
-
         const venuesIds = venues.edges.map((item: _Object) => item.node.databaseId).join(',')
-        const data = loggedInUser?.roles?.nodes && await bookingService.getAll(14, { ...filterData, user_id: isVendor ? loggedInUser.email : loggedInUser.databaseId, venuesIds: venuesIds, vendorEmail:loggedInUser.email }, !isVendor ? 'user' : 'vendor')
+        console.log(userRole)
+        const data = userRole!='' && await bookingService.getAll(14, { ...filterData, user_id: userRole != 'user' ? loggedInUser.email : loggedInUser.databaseId, venuesIds: venuesIds, userRoleEmail:loggedInUser.email }, userRole)
         if (data?.entries) {
           setList(data)
           console.log(data)
         } else {
           setList({ entries: [], total_count: 0 })
         }
-        setLoading(false)
+        userRole!='' && setLoading(false)
       }
     }
 
@@ -115,7 +100,7 @@ const BookingHistory = () => {
     }))
 
     name()
-  }, [filterData.page, loggedInUser?.databaseId, isVendor])
+  }, [filterData.page, loggedInUser?.databaseId, userRole])
 
   const getVenueSlug = async (venueId: number, index: number) => {
     setSlugLoading({
@@ -155,11 +140,12 @@ const BookingHistory = () => {
                 <table className="table table-bordered table-striped ">
                   <thead>
                     <tr>
-                      <th>{isVendor ? 'Customer Name' : 'Booking Id'}</th>
+                      <th>{userRole != 'user' ? 'Customer Name' : 'Booking Id'}</th>
                       <th>Booking Date</th>
                       <th>Party Date</th>
                       <th>Booking Status</th>
-                      {!isVendor && <th>Outlet Name</th>}
+                      <th>Venue Name</th>
+                      <th>Venue Location</th>
                       <th>Package</th>
                       <th>Pax</th>
                       <th>Action</th>
@@ -168,7 +154,7 @@ const BookingHistory = () => {
                   <tbody>
                     {loading && (
                       <tr>
-                        <td colSpan={8}>
+                        <td colSpan={9}>
                           <div className="d-flex justify-content-center align-items-center">
                             <div className="spinner-border" role="status">
                               <span className="visually-hidden">Loading...</span>
@@ -180,7 +166,7 @@ const BookingHistory = () => {
 
                     {!loading && list?.entries?.length == 0 && (
                       <tr>
-                        <td colSpan={8}>
+                        <td colSpan={9}>
                           <div className="d-flex justify-content-center align-items-center">
                             <div>
                               <h6 className="mb-0">Booking not found</h6>
@@ -193,7 +179,7 @@ const BookingHistory = () => {
                       return (
                         <tr key={i}>
                           <td>
-                            {isVendor ? `${item['28.3']}` + ' ' + `${item['28.6']}`: item.id}
+                            {userRole != 'user' ? `${item['28.3']}` + ' ' + `${item['28.6']}`: item.id}
                           </td>
                           <td>
                             {changeDateFormat(item['date_created'].split(' ')[0],'dashboard')}
@@ -201,48 +187,10 @@ const BookingHistory = () => {
                           <td>
                             {formatDate(item['110'])}
                           </td>
-                          {isVendor ?
-                            (<td className="status">
-                              <Dropdown title={dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
-                                <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Request Received')}
-                                >
-                      Request Received
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Confirmed')}
-                                >
-                      Booking Confirmed
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Declined')}
-                                >
-                      Booking Declined
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Completed')}
-                                >
-                      Booking Completed
-                                </Dropdown.Item>
-                              </Dropdown>
-                            </td>
-                            )
-                            :
-                            (<td className="status">
-                              {/* {item['134'] && item['134'] === 'Completed' ? (
-																<span className="complete">{item['134']}</span>
-															) : (
-																<span className="pending">Pending</span>
-															)} */}
-                              <Dropdown title={dropdownStates[item.id]==='Request Received' ? 'Waitlisted': dropdownStates[item.id]} className={getDropdownClass(dropdownStates[item.id])}>
-                                <Dropdown.Item
-                                  onClick={() => handleSelect(item.id, 'Cancelled')}
-                                >
-                      Booking Cancelled
-                                </Dropdown.Item>
-                              </Dropdown>
-                            </td>)}
-                          {!isVendor && <td className="d-flex gap-2">
+                          <td className="status">
+                            <span className={getClass(item['134'])}>{item['134'] ==='Request Received' && userRole === 'user' ? 'Waitlisted': item['134']}</span>
+                          </td>
+                          <td className="d-flex gap-2">
                             <button onClick={() => getVenueSlug(item['112'], i)} className="btn btn-link">{item['113']}</button>
                             {(slugLoading.loading && slugLoading.index === i) &&
 															<div className="d-flex justify-content-center align-items-center">
@@ -251,7 +199,8 @@ const BookingHistory = () => {
 															  </div>
 															</div>
                             }
-                          </td>}
+                          </td>
+                          <td>{item['124']}</td>
                           <td>{item['31']}</td>
                           <td>{item['33']}</td>
                           <td>

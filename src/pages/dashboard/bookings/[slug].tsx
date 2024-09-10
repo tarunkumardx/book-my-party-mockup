@@ -49,13 +49,14 @@ const BookingDetails = () => {
   const [modalShow, setModalShow] = useState({
     show: false,
     status: data['134'],
+    finalStatus: data['134'],
     statusLabeltoShow: '',
     statusLabelButtonColor: ''
   });
-  console.log(venueDetails)
+  console.log(modalShow)
 
   const handleSelect = (itemId:number, status:string) => {
-    bookingService.updateDetails(itemId,'134',status).then(()=>toast.success('Updated successfully'))
+    bookingService.updateDetails(itemId,'134',status).then((data:_Object)=>setModalShow((prev)=>({...prev, finalStatus: data['134'], status:data['134']}))).then(()=>toast.success('Updated successfully'))
   };
   // const breakfastArray = [
   // 	'48', '105', '106', '107', '108', '49', '104', '52'
@@ -83,7 +84,7 @@ const BookingDetails = () => {
       setModalShow((prev)=>({...prev, statusLabeltoShow: 'Cancel', statusLabelButtonColor: 'red'}))
     }
     else if(modalShow.status == 'Request Received'){
-      setModalShow((prev)=>({...prev, statusLabelButtonColor: 'yellow'}))
+      setModalShow((prev)=>({...prev, statusLabeltoShow: 'Waitlist', statusLabelButtonColor: '#cd9b10'}))
     }
   },[modalShow.status])
 
@@ -91,6 +92,7 @@ const BookingDetails = () => {
     setLoadingMain(true)
     bookingService.getDetials(router.query.slug).then((data: _Object) => {
       setData(data)
+      setModalShow((prev)=>({...prev, status: data['134'], finalStatus: data['134']}))
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // Object.entries(data).forEach(([key, value]: [string, any]) => {
       // 	if (breakfastArray.includes(key) && value?.length > 0) {
@@ -146,7 +148,7 @@ const BookingDetails = () => {
                 <div>
                   <h6 className="mb-1">Booking ID: {data.id}</h6>
                   <p className="mb-1"><span>{data['110'] ? formatDate(data['110']) : '-'}</span></p>
-                  <span className={modalShow.statusLabelButtonColor === 'green' ? 'approved' : (modalShow.statusLabelButtonColor === 'red' ? 'declined' : 'waitlisted')}>{data['134']}</span>
+                  <span className={modalShow.finalStatus === 'Completed' || modalShow.finalStatus === 'Confirmed' ? 'approved' : (modalShow.finalStatus === 'Declined' || modalShow.finalStatus === 'Cancelled' ? 'declined' : 'waitlisted')}>{modalShow.finalStatus}</span>
                 </div>
                 <SelectField
                   className="col-6 col-md-3"
@@ -382,9 +384,9 @@ const BookingDetails = () => {
           Update Booking Status
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body className="grid-example">
+          <Modal.Body>
             <Container>
-              <Row>
+              <Row style={{padding: '0 10px'}}>
                 Are you sure you want to {modalShow.statusLabeltoShow} the booking?
               </Row>
             </Container>
