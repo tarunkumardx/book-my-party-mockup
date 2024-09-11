@@ -422,7 +422,7 @@ footer {
     }
   }
 
-  .modal#venueModal {
+  .modal#venueModal, .modal#eventModal {
     .modal-dialog {
       max-width: 40%;
       margin: 0 auto;
@@ -531,6 +531,19 @@ footer {
                       font-weight: 400;
                       white-space: pre;
                     }
+                  }
+                }
+                .react-select__menu{
+                  background: #ffefe9;
+
+                  .react-select__option:hover{
+                    background-color: #fe8965;
+                    color: white;
+                  }
+
+                  .css-d7l1ni-option, .css-tr4s17-option{
+                    background: transparent;
+                    color: black;
                   }
                 }
               }

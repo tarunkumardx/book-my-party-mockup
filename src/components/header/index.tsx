@@ -182,9 +182,10 @@ const Header = () => {
                     )}
 
                     <li className="list-inline-item me-0 me-md-3">
-                      <Link href="/event" className="btn btn-primary">
+                    <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventModal">
+                      {/* <Link href="/event" className="btn btn-primary"> */} {/* </Link> */}
                         Plan your event
-                      </Link>
+                        </button>
                     </li>
                   </ul>
                 </div>

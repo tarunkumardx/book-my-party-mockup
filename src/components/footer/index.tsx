@@ -20,6 +20,7 @@ import { menuService } from '@/services/menu.service';
 import { CakeColored, CorporateGiftColored, FooterLogo, WhatsappIcon } from '@/assets/images'
 import ComingSoon from '../modals/coming-soon';
 import VenueModal from '../modals/venue-modal';
+import EventModal from '../modals/event-modal';
 
 const Footer = () => {
 	const [loading, setLoading] = useState<boolean>(false)
@@ -462,6 +463,7 @@ const Footer = () => {
 					</div>
 					<BackToTopButton />
 					<VenueModal />
+					<EventModal/>
 
 				</footer>
 			}
