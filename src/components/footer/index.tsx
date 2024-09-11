@@ -19,6 +19,7 @@ import { toast } from 'react-toastify';
 import { menuService } from '@/services/menu.service';
 import { CakeColored, CorporateGiftColored, FooterLogo, WhatsappIcon } from '@/assets/images'
 import ComingSoon from '../modals/coming-soon';
+import VenueModal from '../modals/venue-modal';
 
 const Footer = () => {
 	const [loading, setLoading] = useState<boolean>(false)
@@ -460,6 +461,7 @@ const Footer = () => {
 						</ul>
 					</div>
 					<BackToTopButton />
+					<VenueModal />
 
 				</footer>
 			}

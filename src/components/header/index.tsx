@@ -13,7 +13,7 @@ import { destroyAuthSession, getUserWishlist, setLoggedInUser } from '@/redux/sl
 import Avatar from '../avatar'
 import Image from 'next/image';
 import { facebook, indiaFalg, instagram, youtube } from '@/assets/images';
-import { LoginModal, SignUp, VenueModal } from '..';
+import { LoginModal, SignUp } from '..';
 import { useRouter } from 'next/router'
 
 type RootState = {
@@ -97,8 +97,6 @@ const Header = () => {
                         <button type="button" className="btn btn-head" data-bs-toggle="modal" data-bs-target="#venueModal">
                           List Your Venue
                         </button>
-
-                        <VenueModal />
                       </li>
                       <li className="list-inline-item d-md-inline-block img-flag">
                         <Image src={indiaFalg} alt="Flag" height={25} />
