@@ -43,7 +43,7 @@ const BookingHistory = () => {
       ? 'administrator'
       : loggedInUser?.roles?.nodes?.some((item: { name: string }) => item.name === 'author')
         ? 'author'
-        : loggedInUser?.roles?.nodes?.some((item: { name: string }) => item.name === 'user') ? 'user': '';
+        : loggedInUser?.roles?.nodes?.some((item: { name: string }) => item.name === 'subscriber' || item.name === 'customer') ? 'user': '';
     setUserRole(role)
   },[loggedInUser,userRole])
 

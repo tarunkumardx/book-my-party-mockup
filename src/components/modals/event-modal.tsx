@@ -202,10 +202,12 @@ const EventModal = () => {
                   {formik.touched.input_10 && formik.errors.input_10}
                 </p>
               </div>
-              <div className="text-center mt-lg-3 mt-md-2 mt-2 ps-lg-2 ps-md-0 ps-0">
-                <Button type="submit" loading={loading} label="Submit"
-                />
-              </div>
+              <center style={{display: 'flex', justifyContent:'center'}}>
+                <div className="text-center mt-lg-3 mt-md-2 mt-2 ps-lg-2 ps-md-0 ps-0">
+                  <Button type="submit" loading={loading} label="Submit"
+                  />
+                </div>
+              </center>
             </form>
           </div>
         </div>
