@@ -11,7 +11,7 @@ const HowItWorks = ({ props }: _Object) => {
           {props?.workBoxes?.map((item: _Object, i: number) => {
             return (
               <div key={i} className="col">
-                <div style={{height:'450px'}} className="card">
+                <div style={{height:'420px'}} className="card">
                   <Image src={item?.icon?.node?.mediaItemUrl} height="95" width="95" alt="" />
                   <div className="card-body">
                     <h3>

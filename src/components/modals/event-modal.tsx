@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import { amountFormat, closeModal, formatPhoneNumber } from '@/utils/helpers';
 import { PhoneNumberField } from '..';
 import { listService } from '@/services/venue.service';
-import useIsSearchable from '../useIsSearchable';
 import ReactDatePicker from 'react-datepicker';
 import { _Object } from '@/utils/types';
 import SelectField from '@/stories/form-inputs/select-field';
@@ -25,7 +24,6 @@ const EventModal = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  const isSearchable = useIsSearchable();
   const [loading, setLoading] = useState<boolean>(false)
 
   const formik = useFormik({
@@ -144,7 +142,6 @@ const EventModal = () => {
                 getOptionLabel={(option: { [key: string]: string }) => option?.label}
                 getOptionValue={(option: { [key: string]: string }) => option?.label}
                 error={formik.touched.input_6 && formik.errors.input_6}
-                isSearchable={isSearchable}
               />
 
               <SelectField
@@ -161,7 +158,6 @@ const EventModal = () => {
                 getOptionLabel={(option: { [key: string]: string }) => option?.label}
                 getOptionValue={(option: { [key: string]: string }) => option?.label}
                 error={formik.touched.input_7 && formik.errors.input_7}
-                isSearchable={isSearchable}
               />
 
               <InputField
@@ -191,7 +187,6 @@ const EventModal = () => {
                 getOptionLabel={(option: { [key: string]: string }) => option && option.label}
                 getOptionValue={(option: { [key: string]: string }) => option && option.label}
                 error={formik.touched.input_9 && formik.errors.input_9}
-                isSearchable={isSearchable}
               />
 
               <div className="form-group mb-3 col-12 col-md-6 plan-your-date">

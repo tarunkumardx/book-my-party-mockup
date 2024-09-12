@@ -18,7 +18,8 @@ const VenueModal = () => {
       input_6: '',
       input_12: '',
       input_8: '',
-      input_9: ''
+      input_9: '',
+      input_13: ''
     },
 
     enableReinitialize: true,
@@ -30,11 +31,13 @@ const VenueModal = () => {
       input_5: yup.string().label('Name').required('Name is required'),
       input_6: yup.string().label('Email').required('Email is required').email(),
       input_12: yup.string().label('Phone number').required('Phone number is required'),
+      input_13: yup.string().label('Venue Contact Number').required('Venue Contact Details required'),
       input_8: yup.string().label('Designation').required('Designation is required')
     }),
 
     onSubmit: async (values) => {
       values.input_12 = formatPhoneNumber(formik?.values.input_12)
+      values.input_13 = formatPhoneNumber(formik?.values.input_13)
       console.log('values', values);
       setLoading(true)
       const domain = new URL(`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}`).hostname;
@@ -98,6 +101,17 @@ const VenueModal = () => {
                 value={formik.values.input_4}
                 onChange={formik.handleChange}
                 error={formik.touched.input_4 && formik.errors.input_4}
+              />
+
+              <PhoneNumberField
+                args={{
+                  placeholder: 'Enter Venue Contact Number',
+                  className: 'col',
+                  country: 'in',
+                  value: formik.values.input_13 || '',
+                  onChange: (phone: string) => formik.setFieldValue('input_13', phone),
+                  error: formik.touched.input_13 && formik.errors.input_13
+                }}
               />
 
               <InputField

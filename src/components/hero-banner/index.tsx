@@ -13,6 +13,7 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 
 const HeroBanner = ({ props }: _Object) => {
+  console.log(props.locations)
   const router: _Object = useRouter();
 
   const [locationData, setLocationData] = useState<_Object>({});
@@ -58,7 +59,6 @@ const HeroBanner = ({ props }: _Object) => {
   ]
 
   const filteredLocations = locations.filter(data => !props?.locations?.some((item: _Object) => item.slug === data.slug));
-
   const newLocationsArray = [...filteredLocations, ...props.locations];
 
   const slugToMove = 'india';

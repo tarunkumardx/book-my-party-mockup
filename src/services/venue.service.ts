@@ -877,6 +877,18 @@ class ListService extends CommonService {
                   }
                 }
               }
+              ancestors {
+                nodes {
+                  name
+                  slug
+                  ancestors {
+                    nodes {
+                      name
+                      slug
+                    }
+                  }
+                }
+              }
             }
           }
         }
