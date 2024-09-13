@@ -13,7 +13,7 @@ import { destroyAuthSession, getUserWishlist, setLoggedInUser } from '@/redux/sl
 import Avatar from '../avatar'
 import Image from 'next/image';
 import { facebook, indiaFalg, instagram, youtube } from '@/assets/images';
-import { LoginModal, SignUp, VenueModal } from '..';
+import { LoginModal, SignUp } from '..';
 import { useRouter } from 'next/router'
 import { CakeColored } from '@/assets/images'
 import { CorporateGiftColored } from '@/assets/images'
@@ -99,8 +99,6 @@ const Header = () => {
                         <button type="button" className="btn btn-head" data-bs-toggle="modal" data-bs-target="#venueModal">
                           List Your Venue
                         </button>
-
-                        <VenueModal />
                       </li>
                       <li className="list-inline-item d-md-inline-block img-flag">
                         <Image src={indiaFalg} alt="Flag" height={25} />
@@ -199,9 +197,10 @@ const Header = () => {
                     )}
 
                     <li className="list-inline-item me-0 me-md-3">
-                      <Link href="/event" className="btn btn-primary">
+                    <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventModal">
+                      {/* <Link href="/event" className="btn btn-primary"> */} {/* </Link> */}
                         Plan your event
-                      </Link>
+                        </button>
                     </li>
                   </ul>
                 </div>

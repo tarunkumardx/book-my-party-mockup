@@ -62,7 +62,7 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const Listing = (props: _Object) => {
-  // console.log(props.venueTypes);
+  console.log(props);
 
   const dispatch = useDispatch<AppDispatch>()
   const isSearchable = useIsSearchable();
@@ -277,20 +277,33 @@ const Listing = (props: _Object) => {
     { name: '1500-1999', slug: '1500-1999' },
     { name: '2000 +', slug: '2000-2000' }
   ] :
-    [
-      { name: 'Under  400 per plate', slug: '0-400' },
-      { name: '401 to  600 per plate', slug: '401-600' },
-      { name: '601 to  800 per plate', slug: '601-800' },
-      { name: '801 to  1000 per plate', slug: '801-1000' },
-      { name: '1001 to  1200 per plate', slug: '1001-1200' },
-      { name: '1201 to  1400 per plate', slug: '1201-1400' },
-      { name: '1401 to  1600 per plate', slug: '1401-1600' },
-      { name: '1601 to  1800 per plate', slug: '1601-1800' },
-      { name: '1801 to  2000 per plate', slug: '1801-2000' },
-      { name: '2001 to  2500 per plate', slug: '2001-2500' },
-      { name: '2501 to  3000 per plate', slug: '2501-3000' },
-      { name: '3000+ per plate', slug: '3000-3000' }
-    ]
+    ((query.types === 'banquet')?[
+      { name: '< 400', slug: '0-400' },
+      { name: '401-600', slug: '401-600' },
+      { name: '601-800', slug: '601-800' },
+      { name: '801-1000', slug: '801-1000' },
+      { name: '1001-1200', slug: '1001-1200' },
+      { name: '1201-1400', slug: '1201-1400' },
+      { name: '1401-1600', slug: '1401-1600' },
+      { name: '1601-1800', slug: '1601-1800' },
+      { name: '1801-2000', slug: '1801-2000' },
+      { name: '2001-2500', slug: '2001-2500' },
+      { name: '2501-3000', slug: '2501-3000' },
+      { name: '3000+', slug: '3000-3000' }
+    ]:[
+      { name: 'Under 400', slug: '0-400' },
+      { name: '401 to  600', slug: '401-600' },
+      { name: '601 to  800', slug: '601-800' },
+      { name: '801 to  1000', slug: '801-1000' },
+      { name: '1001 to  1200', slug: '1001-1200' },
+      { name: '1201 to  1400', slug: '1201-1400' },
+      { name: '1401 to  1600', slug: '1401-1600' },
+      { name: '1601 to  1800', slug: '1601-1800' },
+      { name: '1801 to  2000', slug: '1801-2000' },
+      { name: '2001 to  2500', slug: '2001-2500' },
+      { name: '2501 to  3000', slug: '2501-3000' },
+      { name: '3000+', slug: '3000-3000' }
+    ])
 
   const capacity = [
     { label: 'upto 50', value: '0-50' },
@@ -562,7 +575,7 @@ const Listing = (props: _Object) => {
 											} */}
                   <div className="accordion-item">
                     <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#price" aria-expanded="true" aria-controls="price">
-                      BUDGET / PRICE
+                    Budget {(query.types === 'banquet') ? '(PER PAX)': ((query.types != 'restaurant' && query.types != 'fun-zone') ? '(PER PLATE)':'')}
                     </button>
 
                     <div id="price" className="accordion-collapse collapse show customAccD" aria-labelledby="" data-bs-parent="#price">
@@ -1290,7 +1303,7 @@ const Listing = (props: _Object) => {
                     <div className="filter-buttons">
                       <div className="accordion-item">
                         <button className={getButtonClass('price')} onClick={() => handleFilterClick('price')} type="button" data-bs-target="#price" aria-expanded={activeAccordion === 'price'} aria-controls="price">
-                          BUDGET / PRICE
+                        BUDGET {(query.types === 'banquet') ? '(PER PAX)': ((query.types != 'restaurant' && query.types != 'fun-zone') ? '(PER PLATE)':'')}
                         </button>
                       </div>
 
@@ -1298,7 +1311,7 @@ const Listing = (props: _Object) => {
                         item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node?.slug === router?.query?.types)
                       )?.length > 0 && (
                           <div className="accordion-item">
-                            <button className="accordion-button customPadding" type="button" data-bs-target="#activity" aria-expanded="true" aria-controls="activity">
+                            <button className={getButtonClass('activity')} onClick={() => handleFilterClick('activity')} type="button" data-bs-target="#activity" aria-expanded={activeAccordion === 'activity'} aria-controls="activity">
                               ACTIVITIES
                             </button>
                           </div>
@@ -1440,7 +1453,7 @@ const Listing = (props: _Object) => {
                           />
                         </div>
                       </div>
-                      <div id="activity" className={`accordion-collapse collapse ${activeAccordion === 'price' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#activity">
+                      <div id="activity" className={`accordion-collapse collapse ${activeAccordion === 'activity' ? 'show' : ''}`} aria-labelledby="" data-bs-parent="#activity">
                         <div className="accordion-body">
                           <CheckBox
                             showMoreOption={true}

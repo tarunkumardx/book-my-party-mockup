@@ -66,6 +66,7 @@ export const getStaticProps: GetStaticProps = async ({ params }: _Object) => {
 }
 
 const VenueDetails = (props: _Object) => {
+	console.log(props)
 	// const dispatch = useDispatch<AppDispatch>()
 	// const isSearchable = useIsSearchable();
 
@@ -553,6 +554,28 @@ const VenueDetails = (props: _Object) => {
 																		<ul className="list-inline mb-0">
 																			{
 																				props?.data?.allCuisine?.nodes?.map((item: _Object, i: number) => {
+																					return (
+																						<>
+																							{
+																								i <= 6 &&
+																								<li className="list-inline-item" key={i}><span>{item?.name}</span></li>
+																							}
+																						</>
+																					)
+																				})
+																			}
+																		</ul>
+																	</li>
+																}
+																{
+																	props?.data?.activities?.nodes?.length > 0 &&
+																	<li className="cuisines-served-list border-bottom-0 pb-0">
+																		<div className="cusisines-served-heading">
+																			<h6>Activites</h6>
+																		</div>
+																		<ul className="list-inline mb-0">
+																			{
+																				props?.data?.activities?.nodes?.map((item: _Object, i: number) => {
 																					return (
 																						<>
 																							{

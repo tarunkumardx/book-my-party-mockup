@@ -9,10 +9,11 @@ import { useRouter } from 'next/router';
 import { listService } from '@/services/venue.service';
 import SelectField from '@/stories/form-inputs/select-field';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
+import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 // export const getStaticPaths: GetStaticPaths = async () => {
 // 	const data: _Object = await bookingService.getAll(6)
@@ -35,6 +36,12 @@ import Row from 'react-bootstrap/Row';
 // 	}
 // }
 
+type RootState = {
+	session: {
+		loggedInUser: _Object;
+	};
+};
+
 const BookingDetails = () => {
   const router: _Object = useRouter();
 
@@ -46,11 +53,29 @@ const BookingDetails = () => {
   const [loadingMain, setLoadingMain] = useState(false)
   const [data, setData] = useState<_Object>({})
   const [venueDetails, setVenueDetails] = useState<_Object>({})
+  const [userRole, setUserRole] = useState('');
+  const { loggedInUser } = useSelector((state: RootState) => state.session);
+
+  useEffect (()=>{
+    const role = loggedInUser?.roles?.nodes?.some((item: { name: string }) => item.name === 'administrator')
+      ? 'administrator'
+      : loggedInUser?.roles?.nodes?.some((item: { name: string }) => item.name === 'author')
+        ? 'author'
+        : loggedInUser?.roles?.nodes?.some((item: { name: string }) => item.name === 'user' || item.name==='subscriber') ? 'user': '';
+    setUserRole(role)
+  },[loggedInUser,userRole])
   const [modalShow, setModalShow] = useState({
     show: false,
-    status: data['134']
+    status: data['134'],
+    finalStatus: data['134'],
+    statusLabeltoShow: '',
+    statusLabelButtonColor: ''
   });
-  console.log(venueDetails)
+  console.log(modalShow)
+
+  const handleSelect = (itemId:number, status:string) => {
+    bookingService.updateDetails(itemId,'134',status).then((data:_Object)=>setModalShow((prev)=>({...prev, finalStatus: data['134'], status:data['134']}))).then(()=>toast.success('Updated successfully'))
+  };
   // const breakfastArray = [
   // 	'48', '105', '106', '107', '108', '49', '104', '52'
   // ];
@@ -64,10 +89,28 @@ const BookingDetails = () => {
   // 	'93', '94', '95', '96', '97', '98', '99', '100', '101', '102', '103'
   // ];
 
+  useEffect(()=>{
+    if(modalShow.status == 'Confirmed'){
+      setModalShow((prev)=>({...prev, statusLabeltoShow: 'Confirm', statusLabelButtonColor: 'green'}))
+    }else if(modalShow.status == 'Declined'){
+      setModalShow((prev)=>({...prev, statusLabeltoShow: 'Decline', statusLabelButtonColor: 'red'}))
+    }
+    else if(modalShow.status == 'Completed'){
+      setModalShow((prev)=>({...prev, statusLabeltoShow: 'Complete', statusLabelButtonColor: 'green'}))
+    }
+    else if(modalShow.status == 'Cancelled'){
+      setModalShow((prev)=>({...prev, statusLabeltoShow: 'Cancel', statusLabelButtonColor: 'red'}))
+    }
+    else if(modalShow.status == 'Request Received'){
+      setModalShow((prev)=>({...prev, statusLabeltoShow: 'Waitlist', statusLabelButtonColor: '#cd9b10'}))
+    }
+  },[modalShow.status])
+
   useEffect(() => {
     setLoadingMain(true)
     bookingService.getDetials(router.query.slug).then((data: _Object) => {
       setData(data)
+      setModalShow((prev)=>({...prev, status: data['134'], finalStatus: data['134']}))
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // Object.entries(data).forEach(([key, value]: [string, any]) => {
       // 	if (breakfastArray.includes(key) && value?.length > 0) {
@@ -123,19 +166,18 @@ const BookingDetails = () => {
                 <div>
                   <h6 className="mb-1">Booking ID: {data.id}</h6>
                   <p className="mb-1"><span>{data['110'] ? formatDate(data['110']) : '-'}</span></p>
-                  <span className="approved">Approved</span>
+                  <span className={modalShow.finalStatus === 'Completed' || modalShow.finalStatus === 'Confirmed' ? 'approved' : (modalShow.finalStatus === 'Declined' || modalShow.finalStatus === 'Cancelled' ? 'declined' : 'waitlisted')}>{modalShow.finalStatus==='Request Received' && userRole !='author' ? 'Waitlisted' : modalShow.finalStatus}</span>
                 </div>
                 <SelectField
                   className="col-6 col-md-3"
-                  placeholder={data['134']}
+                  placeholder={modalShow.finalStatus==='Request Received' && userRole !='author' ? 'Waitlisted' : modalShow.finalStatus}
                   options={(() => {
-                    const options=[
-                      { label: 'Request Received'},
+                    const options = userRole ==='author' ? [
+                      // { label: 'Request Received'},
                       { label: 'Confirmed'},
                       { label: 'Declined'},
-                      { label: 'Completed'},
-                      { label: 'Cancelled'}
-                    ]
+                      { label: 'Completed'}
+                    ] : userRole === 'user' ? [{ label: 'Cancelled'}] : [];
                     return [...options];
                   })()}
                   onChange={(val: _Object) => {setModalShow((prev)=>({...prev, show: true, status: val.label}))
@@ -359,33 +401,16 @@ const BookingDetails = () => {
           Update Booking Status
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body className="grid-example">
+          <Modal.Body>
             <Container>
-              <Row>
-                <Col xs={12} md={8}>
-              .col-xs-12 .col-md-8
-                </Col>
-                <Col xs={6} md={4}>
-              .col-xs-6 .col-md-4
-                </Col>
-              </Row>
-
-              <Row>
-                <Col xs={6} md={4}>
-              .col-xs-6 .col-md-4
-                </Col>
-                <Col xs={6} md={4}>
-              .col-xs-6 .col-md-4
-                </Col>
-                <Col xs={6} md={4}>
-              .col-xs-6 .col-md-4
-                </Col>
+              <Row style={{padding: '0 10px'}}>
+                Are you sure you want to {modalShow.statusLabeltoShow} the booking?
               </Row>
             </Container>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="outline-secondary" onClick={() => setModalShow((prev)=>({...prev, show: false}))}>Cancel</Button>
-            <Button onClick={() => setModalShow((prev)=>({...prev, show: false}))}>{modalShow.status}</Button>
+            <Button onClick={() => {setModalShow((prev)=>({...prev, show: false})), handleSelect(data.id, modalShow.status)}} style={{backgroundColor: modalShow.statusLabelButtonColor, border: 'none'}}>{modalShow.statusLabeltoShow}</Button>
           </Modal.Footer>
         </Modal>
       </div>

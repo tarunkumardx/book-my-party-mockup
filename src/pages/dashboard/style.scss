@@ -294,3 +294,25 @@ select {
   overflow: visible;
 }
 }
+
+.approved {
+  background-color: #10cd7830;
+  color: #10cd78;
+  padding: 1px 10px;
+  border-radius: 80px;
+  margin-top: 15px;
+}
+.declined {
+  background-color: rgb(255 135 135 / 19%);
+  color: #cd1310;
+  padding: 1px 10px;
+  border-radius: 80px;
+  margin-top: 15px;
+}
+.waitlisted {
+  background-color: #cdc71030;
+  color: #cd9b10;
+  padding: 1px 10px;
+  border-radius: 80px;
+  margin-top: 15px;
+}

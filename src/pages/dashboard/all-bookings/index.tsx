@@ -30,20 +30,20 @@ interface List {
   entries: ListEntry[];
   total_count: number;
 }
-function getColor(status: string): string {
+function getClass(status: string): string {
   switch (status) {
   case 'Completed':
-    return 'green';
+    return 'approved';
   case 'Confirmed':
-    return 'green';
+    return 'approved';
   case 'Request Received':
-    return '#f1c40f';
+    return 'waitlisted';
   case 'Request Waitlisted':
-    return '#f1c40f';
+    return 'waitlisted';
   case 'Cancelled':
-    return 'red';
+    return 'declined';
   case 'Declined':
-    return 'red';
+    return 'declined';
   default:
     return 'black';
   }
@@ -286,7 +286,7 @@ const BookingHistory = () => {
                             {formatDate(item['110'])}
                           </td>
                           <td className="status">
-                            <span style={{ color: getColor(item['134']) }}>{item['134']}</span>
+                            <span className={getClass(item['134'])}>{item['134']}</span>
                           </td>
                           {!isVendor && <td className="d-flex gap-2">
                             <button onClick={() => getVenueSlug(item['112'], i)} className="btn btn-link">{item['113']}</button>
