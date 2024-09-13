@@ -133,8 +133,8 @@ const Dashboard = () => {
               <div className="card">
                 <div className="card-body">
                   <p>TOTAL REVENUE GENERATED</p>
-                  {/* <h2>{loggedInUser?.venuesStatistics ? amountFormat(JSON.parse(loggedInUser.venuesStatistics)?.total_income) : '0'}</h2> */}
-                  <h2>{amountFormat(totalIncome?.toString())}</h2>
+                  <h2>{loggedInUser?.venuesStatistics ? amountFormat(JSON.parse(loggedInUser.venuesStatistics)?.total_income) : '0'}</h2>
+                  {/* <h2>{amountFormat(totalIncome?.toString())}</h2> */}
                 </div>
               </div>
             </div>
@@ -143,8 +143,8 @@ const Dashboard = () => {
               <div className="card">
                 <div className="card-body">
                   <p>Number of bookings</p>
-                  {/* <h2>{loggedInUser?.venuesStatistics ? JSON.parse(loggedInUser.venuesStatistics)?.number_of_bookings : '0'}</h2> */}
-                  <h2>{totalBookings?.toString() || '0'}</h2>
+                  <h2>{loggedInUser?.venuesStatistics ? JSON.parse(loggedInUser.venuesStatistics)?.number_of_bookings : '0'}</h2>
+                  {/* <h2>{totalBookings?.toString() || '0'}</h2> */}
                 </div>
               </div>
             </div>
@@ -229,7 +229,7 @@ const Dashboard = () => {
                             {formatDate(item['110'])}
                           </td>
                           <td className="status">
-                            <span className={getClass(item['134'])}>{item['134'] ==='Request Received' && userRole != 'author' ? 'Waitlisted': item['134']}</span>
+                            <span className={getClass(item['134'])}>{item['134'] ==='Request Received' && userRole != 'author' && userRole != 'administrator' ? 'Waitlisted': item['134']}</span>
                           </td>
                           <td className="d-flex gap-2">
                             <button onClick={() => getVenueSlug(item['112'], i)} className="btn btn-link">{item['113']}</button>
