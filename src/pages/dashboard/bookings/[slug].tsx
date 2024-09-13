@@ -61,7 +61,7 @@ const BookingDetails = () => {
       ? 'administrator'
       : loggedInUser?.roles?.nodes?.some((item: { name: string }) => item.name === 'author')
         ? 'author'
-        : loggedInUser?.roles?.nodes?.some((item: { name: string }) => item.name === 'user') ? 'user': '';
+        : loggedInUser?.roles?.nodes?.some((item: { name: string }) => item.name === 'user' || item.name==='subscriber') ? 'user': '';
     setUserRole(role)
   },[loggedInUser,userRole])
   const [modalShow, setModalShow] = useState({
@@ -172,7 +172,7 @@ const BookingDetails = () => {
                   className="col-6 col-md-3"
                   placeholder={modalShow.finalStatus==='Request Received' && userRole !='author' ? 'Waitlisted' : modalShow.finalStatus}
                   options={(() => {
-                    const options = userRole ==='author' || userRole==='administrator' ? [
+                    const options = userRole ==='author' ? [
                       // { label: 'Request Received'},
                       { label: 'Confirmed'},
                       { label: 'Declined'},
