@@ -298,6 +298,54 @@ a {
   //   bottom: 25px;
   // }
 }
+.hello{
+  text-align: center;
+  // line-height: 50px;
+  // border-radius: 100px;
+  position: fixed;
+  bottom: 100px;
+  z-index: 1;
+  right: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hello2{
+  text-align: center;
+  // line-height: 50px;
+  // border-radius: 100px;
+  position: fixed;
+  bottom: 100px;
+  z-index: 1;
+  left: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hello3{
+  text-align: center;
+  // line-height: 50px;
+  // border-radius: 100px;
+  position: fixed;
+  bottom: 200px;
+  z-index: 1;
+  right: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hello4{
+  text-align: center;
+  // line-height: 50px;
+  // border-radius: 100px;
+  position: fixed;
+  bottom: 200px;
+  z-index: 1;
+  left: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .whatsapp {
   // background: #47e46e;

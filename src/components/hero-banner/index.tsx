@@ -11,6 +11,8 @@ import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import { useRouter } from 'next/router'
 import Image from 'next/image'
+import { CakeColored } from '@/assets/images'
+import { CorporateGiftColored } from '@/assets/images'
 
 const HeroBanner = ({ props }: _Object) => {
   console.log(props.locations)
@@ -87,8 +89,8 @@ const HeroBanner = ({ props }: _Object) => {
     const today = new Date();
     return (
       date.getDate() === today.getDate() &&
-			date.getMonth() === today.getMonth() &&
-			date.getFullYear() === today.getFullYear()
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
     );
   };
 
@@ -265,8 +267,18 @@ const HeroBanner = ({ props }: _Object) => {
                           </div>
                         </div>
                       </div>
-                      <div className="search-btn">
+                      <div style={{ gap: '10%' }} className="search-btn d-flex justify-content-center align-items-center">
+                        {/* <div className="d-flex justify-content-center align-items-center gap-2">
+                          <Image className="" style={{ height: '30px', width: '30px' }} src={CakeColored} />
+                          <span>Cake Shop</span>
+                        </div> */}
+
                         <Button label="Search" type="submit" className="primary text-center" />
+
+                        {/* <div className="d-flex justify-content-center align-items-center gap-2">
+                          <Image className="" style={{ height: '30px', width: '30px' }} src={CorporateGiftColored} />
+                          <span>Corporate Gifting</span>
+                        </div> */}
                       </div>
                     </div>
                   }

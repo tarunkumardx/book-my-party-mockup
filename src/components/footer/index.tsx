@@ -327,7 +327,7 @@ const Footer = () => {
 															</ul>
 															{/* View More/ Less Button */}
 															{item?.childItems?.nodes?.length > 4 && (
-																<span style={{ color: '#ffffff', textDecoration: 'underline', cursor:'pointer', fontWeight: '600', fontFamily: 'Outfit' }} onClick={() => toggleShowAll(item.label)} className="unclickable-nav-link">
+																<span style={{ color: '#ffffff', textDecoration: 'underline', cursor: 'pointer', fontWeight: '600', fontFamily: 'Outfit' }} onClick={() => toggleShowAll(item.label)} className="unclickable-nav-link">
 																	{isExpanded ? 'View Less' : 'View More'}
 																</span>
 															)}
@@ -440,6 +440,20 @@ const Footer = () => {
 										<Image src={MassesIcon} width="40" height="40" alt="Masses Icon" />
 									</button> */}
 								</div>
+
+								<button type="button" className="d-none d-md-block btn  border-0 p-0 hello shake-icon" data-bs-toggle="modal" data-bs-target="#EnquiryNowModal">
+									<Image src={CakeColored} width="40" height="40" alt="Masses Icon" />
+								</button>
+
+								<button type="button" className="d-none d-md-block btn  border-0 p-0 hello2 shake-icon" data-bs-toggle="modal" data-bs-target="#EnquiryNowModal">
+									<Image src={CorporateGiftColored} width="40" height="40" alt="Masses Icon" />
+								</button>
+								<button type="button" className="d-none d-md-block btn  border-0 p-0 hello3" data-bs-toggle="modal" data-bs-target="#EnquiryNowModal">
+									<Image src={CakeColored} width="40" height="40" alt="Masses Icon" />
+								</button>
+								<button type="button" className="d-none d-md-block btn  border-0 p-0 hello4" data-bs-toggle="modal" data-bs-target="#EnquiryNowModal">
+									<Image src={CorporateGiftColored} width="40" height="40" alt="Masses Icon" />
+								</button>
 							</div>
 
 					}
@@ -455,10 +469,12 @@ const Footer = () => {
 					</div>
 					<div className="d-md-none w-full mobFooter text-center">
 						<ul className="d-flex">
-							<li><Link href="https://mockup4clients.com/cake"><Image src={CakeColored} width="40" height="40" alt="Phone" className="shake-icon"/></Link><Link href="https://mockup4clients.com/cake">Cake</Link></li>
-							<li><Link href="https://mockup4clients.com/corporate-gifting"><Image src={CorporateGiftColored} width="40" height="40" alt="Phone" className="shake-icon"/></Link><Link href="https://mockup4clients.com/corporate-gifting">Corporate Gifting</Link></li>
+							<li><Link href="https://mockup4clients.com/cake"><Image src={CakeColored} width="40" height="40" alt="Phone" className="shake-icon" /></Link><Link href="https://mockup4clients.com/cake">Cake</Link></li>
+							<li><Link href="https://mockup4clients.com/corporate-gifting"><Image src={CorporateGiftColored} width="40" height="40" alt="Phone" className="shake-icon" /></Link><Link href="https://mockup4clients.com/corporate-gifting">Corporate Gifting</Link></li>
 							<li><Link href="https://api.whatsapp.com/send/?phone=%2B919911412626&text&type=phone_number&app_absent=0" target="_self"><Image src={WhatsappIcon} width="40" height="40" alt="Phone" /></Link><Link href="https://api.whatsapp.com/send/?phone=%2B919911412626&text&type=phone_number&app_absent=0" target="_self">WhatsApp</Link></li>
+
 							{/* <li><button type="button" data-bs-toggle="modal" data-bs-target="#EnquiryNowModal" style={{height: '20px', marginBottom:'3px'}}><Image src={MassesIcon} width="40" height="40" alt="Masses Icon" /></button><button type="button" data-bs-toggle="modal" data-bs-target="#EnquiryNowModal">Chat</button></li> */}
+
 						</ul>
 					</div>
 					<BackToTopButton />
