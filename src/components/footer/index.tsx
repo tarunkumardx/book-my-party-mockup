@@ -141,7 +141,7 @@ const Footer = () => {
 			{isClient &&
 				<footer>
 					<div className="keep-in-touch">
-						<div className="page-container">
+						<div className="container">
 							<div className="row align-items-center">
 								<div className="col-lg-4 col-md-12">
 									<div className="keep-in-touch-content">

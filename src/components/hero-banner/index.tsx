@@ -11,6 +11,7 @@ import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import { useRouter } from 'next/router'
 import Image from 'next/image'
+
 import { CakeColored } from '@/assets/images'
 import { CorporateGiftColored } from '@/assets/images'
 
@@ -268,17 +269,11 @@ const HeroBanner = ({ props }: _Object) => {
                         </div>
                       </div>
                       <div style={{ gap: '10%' }} className="search-btn d-flex justify-content-center align-items-center">
-                        {/* <div className="d-flex justify-content-center align-items-center gap-2">
-                          <Image className="" style={{ height: '30px', width: '30px' }} src={CakeColored} />
-                          <span>Cake Shop</span>
-                        </div> */}
+                        <button className="btn btn-primary me-2"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/cake" target="_blank" rel="noreferrer">Cake Shop </a><Image className="" style={{ height: '30px', width: '30px', marginLeft: '6px' }} src={CakeColored} /></button>
 
                         <Button label="Search" type="submit" className="primary text-center" />
 
-                        {/* <div className="d-flex justify-content-center align-items-center gap-2">
-                          <Image className="" style={{ height: '30px', width: '30px' }} src={CorporateGiftColored} />
-                          <span>Corporate Gifting</span>
-                        </div> */}
+                        <button style={{ background: '', border: 'none' }} className="btn btn-primary"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/corporate-gifting" target="_blank" rel="noreferrer">Corporate Giftings</a><Image className="" style={{ height: '30px', width: '30px', marginLeft: '6px' }} src={CorporateGiftColored} /></button>
                       </div>
                     </div>
                   }
