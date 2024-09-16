@@ -148,7 +148,7 @@
         td {
           padding: 8px !important;
           line-height: 1.42857143;
-          vertical-align: top;
+          // vertical-align: top;
           color: #333;
         }
       }
@@ -197,6 +197,7 @@
           }
 
           &.status {
+            min-width: 11rem;
             .complete {
               margin-right: 4px;
               color: #10cd78;

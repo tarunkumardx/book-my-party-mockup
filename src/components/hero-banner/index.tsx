@@ -269,11 +269,11 @@ const HeroBanner = ({ props }: _Object) => {
                         </div>
                       </div>
                       <div style={{ gap: '10%' }} className="search-btn d-flex justify-content-center align-items-center">
-                        <button className="btn btn-primary me-2"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/cake" target="_blank" rel="noreferrer">Cake Shop </a><Image className="" style={{ height: '30px', width: '30px', marginLeft: '6px' }} src={CakeColored} /></button>
+                        <button className="btn btn-primary me-2"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/cake" target="_blank" rel="noreferrer">Cake Shop </a><Image className="" style={{ height: '30px', width: '30px', marginLeft: '6px' }} src={CakeColored} alt={''} /></button>
 
                         <Button label="Search" type="submit" className="primary text-center" />
 
-                        <button style={{ background: '', border: 'none' }} className="btn btn-primary"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/corporate-gifting" target="_blank" rel="noreferrer">Corporate Giftings</a><Image className="" style={{ height: '30px', width: '30px', marginLeft: '6px' }} src={CorporateGiftColored} /></button>
+                        <button style={{ background: '', border: 'none' }} className="btn btn-primary"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/corporate-gifting" target="_blank" rel="noreferrer">Corporate Giftings</a><Image className="" style={{ height: '30px', width: '30px', marginLeft: '6px' }} src={CorporateGiftColored} alt={''} /></button>
                       </div>
                     </div>
                   }

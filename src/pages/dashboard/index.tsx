@@ -24,8 +24,6 @@ const Dashboard = () => {
   const router: _Object = useRouter();
 
   const { loggedInUser } = useSelector((state: RootState) => state.session);
-  const [totalIncome, setTotalIncome] = useState(0);
-  const [totalBookings, setTotalBookings] = useState(0);
   const [list, setList] = useState<_Object>({})
   const [filterData, setFilterData] = useState<_Object>({
     page: 1,
@@ -66,12 +64,6 @@ const Dashboard = () => {
       return 'black';
     }
   }
-  useEffect(()=>{
-    if(list?.entries?.length){
-      setTotalBookings(list?.entries?.length);
-      list?.entries?.map((item: _Object) => {
-        setTotalIncome(prevTotalIncome => prevTotalIncome + parseFloat(item['32']))})}
-  },[list]);
 
   useEffect(() => {
     dispatch(setLoggedInUser())
@@ -133,8 +125,8 @@ const Dashboard = () => {
               <div className="card">
                 <div className="card-body">
                   <p>TOTAL REVENUE GENERATED</p>
-                  {/* <h2>{loggedInUser?.venuesStatistics ? amountFormat(JSON.parse(loggedInUser.venuesStatistics)?.total_income) : '0'}</h2> */}
-                  <h2>{amountFormat(totalIncome?.toString())}</h2>
+                  <h2>{loggedInUser?.venuesStatistics ? amountFormat(JSON.parse(loggedInUser.venuesStatistics)?.total_income) : '0'}</h2>
+                  {/* <h2>{amountFormat(totalIncome?.toString())}</h2> */}
                 </div>
               </div>
             </div>
@@ -143,8 +135,8 @@ const Dashboard = () => {
               <div className="card">
                 <div className="card-body">
                   <p>Number of bookings</p>
-                  {/* <h2>{loggedInUser?.venuesStatistics ? JSON.parse(loggedInUser.venuesStatistics)?.number_of_bookings : '0'}</h2> */}
-                  <h2>{totalBookings?.toString() || '0'}</h2>
+                  <h2>{loggedInUser?.venuesStatistics ? JSON.parse(loggedInUser.venuesStatistics)?.number_of_bookings : '0'}</h2>
+                  {/* <h2>{totalBookings?.toString() || '0'}</h2> */}
                 </div>
               </div>
             </div>
@@ -162,7 +154,7 @@ const Dashboard = () => {
               <div className="card">
                 <div className="card-body">
                   <p>BMP Shares</p>
-                  <h2>{amountFormat((totalIncome*0.1)?.toString())}</h2>
+                  <h2>{amountFormat((loggedInUser?.venuesStatistics ? JSON?.parse(loggedInUser.venuesStatistics)?.total_income*0.1 : 0*0.1)?.toString())}</h2>
                 </div>
               </div>
             </div>
@@ -229,7 +221,7 @@ const Dashboard = () => {
                             {formatDate(item['110'])}
                           </td>
                           <td className="status">
-                            <span className={getClass(item['134'])}>{item['134'] ==='Request Received' && userRole != 'author' ? 'Waitlisted': item['134']}</span>
+                            <span className={getClass(item['134'])}>{item['134'] ==='Request Received' && userRole != 'author' && userRole != 'administrator' ? 'Waitlisted': item['134']}</span>
                           </td>
                           <td className="d-flex gap-2">
                             <button onClick={() => getVenueSlug(item['112'], i)} className="btn btn-link">{item['113']}</button>
