@@ -24,8 +24,6 @@ const Dashboard = () => {
   const router: _Object = useRouter();
 
   const { loggedInUser } = useSelector((state: RootState) => state.session);
-  const [totalIncome, setTotalIncome] = useState(0);
-  const [totalBookings, setTotalBookings] = useState(0);
   const [list, setList] = useState<_Object>({})
   const [filterData, setFilterData] = useState<_Object>({
     page: 1,
@@ -66,12 +64,6 @@ const Dashboard = () => {
       return 'black';
     }
   }
-  useEffect(()=>{
-    if(list?.entries?.length){
-      setTotalBookings(list?.entries?.length);
-      list?.entries?.map((item: _Object) => {
-        setTotalIncome(prevTotalIncome => prevTotalIncome + parseFloat(item['32']))})}
-  },[list]);
 
   useEffect(() => {
     dispatch(setLoggedInUser())
@@ -162,7 +154,7 @@ const Dashboard = () => {
               <div className="card">
                 <div className="card-body">
                   <p>BMP Shares</p>
-                  <h2>{amountFormat((totalIncome*0.1)?.toString())}</h2>
+                  <h2>{amountFormat((loggedInUser?.venuesStatistics ? JSON?.parse(loggedInUser.venuesStatistics)?.total_income*0.1 : 0*0.1)?.toString())}</h2>
                 </div>
               </div>
             </div>

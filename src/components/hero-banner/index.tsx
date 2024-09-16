@@ -11,8 +11,6 @@ import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import { CakeColored } from '@/assets/images'
-import { CorporateGiftColored } from '@/assets/images'
 
 const HeroBanner = ({ props }: _Object) => {
   console.log(props.locations)
