@@ -15,9 +15,6 @@ import Image from 'next/image';
 import { facebook, indiaFalg, instagram, youtube } from '@/assets/images';
 import { LoginModal, SignUp } from '..';
 import { useRouter } from 'next/router'
-import { CakeColored } from '@/assets/images'
-import { CorporateGiftColored } from '@/assets/images'
-
 type RootState = {
   session: {
     isUserLoggedIn: boolean;
@@ -112,29 +109,10 @@ const Header = () => {
           </header>
           <div className="main-header">
             <div className="page-container">
-              <div className="row align-items-center">
+              <div className="row align-items-center justify-between">
                 {/* Logo Section */}
                 <div className="col-4 col-md-3">
                   <Logo />
-                </div>
-                {/* Option -1  */}
-                {/* Buttons Section */}
-                {/* <div className="col-4 d-none d-md-flex col-md-6 text-center d-flex justify-content-center">
-                  <button className="btn btn-primary corporate-gifting-btn me-2"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/cake" target="_blank" rel="noreferrer">Cake Shop</a></button>
-                  <button style={{ background: '#fc6f33', border: 'none' }} className="btn btn-primary corporate-gifting-btn"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/corporate-gifting" target="_blank" rel="noreferrer">Corporate Giftings</a></button>
-                </div> */}
-
-                {/* Option - 2 */}
-                <div className="col-4 d-none d-md-flex col-md-6 text-center d-flex justify-content-center align-items-center gap-5">
-                  <div className="d-flex justify-content-center align-items-center gap-2">
-                    <Image className="shake-icon" style={{ height: '30px', width: '30px' }} src={CakeColored} />
-                    <span>Cake Shop</span>
-                  </div>
-                  <div className="d-flex justify-content-center align-items-center gap-2">
-                    <Image className="shake-icon" style={{ height: '30px', width: '30px' }} src={CorporateGiftColored} />
-                    <span>Corporate Gifting</span>
-                  </div>
-
                 </div>
 
                 {/* Right Side User/Account Section */}

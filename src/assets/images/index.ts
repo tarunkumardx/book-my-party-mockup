@@ -88,6 +88,8 @@ import CakeColored from '../images/cake-colored.png'
 import CorporateGift from '../images/corporate-gift.png'
 import CorporateGiftColored from '../images/coporate-gift-colored.png'
 import rightArrow from '../images/icons8-right-arrow-50.png'
+import offers from '../images/offers.svg'
+import partyImgs from '../images/party-img.png'
 
 export {
   placeholder,
@@ -178,5 +180,7 @@ export {
   CakeColored,
   CorporateGift,
   CorporateGiftColored,
-  rightArrow
+  rightArrow,
+  offers,
+  partyImgs
 };
