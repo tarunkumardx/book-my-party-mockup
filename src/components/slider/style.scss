@@ -18,8 +18,15 @@
     margin-bottom: 20px;
   }
 
-  .nav {
+  .offers-head{
     padding-bottom: 60px;
+
+    @media screen and (max-width: 767px){
+      padding-bottom: 0;
+    }
+  }
+
+  .nav {
     padding-left: 38px;
 
     @media screen and (max-width: 767px) {

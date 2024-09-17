@@ -11,6 +11,7 @@ import 'swiper/swiper-bundle.css';
 
 import { _Object } from '@/utils/types';
 import Link from 'next/link';
+import { CorporateGiftColored } from '@/assets/images';
 
 const Slider = ({ props }: _Object) => {
   const [index, setIndex] = useState(0)
@@ -23,23 +24,28 @@ const Slider = ({ props }: _Object) => {
       <div className="container">
         <div className="row">
           <div className="col">
-            <h2 className="main-head d-md-none">
-              {props?.title}
-
-            </h2>
-            <ul className="nav nav-pills align-items-center" id="pills-tab" role="tablist">
-              <li className="nav-item custom-head d-none d-md-inline-block">
+            <div className="offers-head nav d-md-none pb-0">
+              <h2 className="main-head nav-item d-flex d-md-none">
                 {props?.title}
-              </li>
-              {props?.offers?.map((item: _Object, i: number) => {
-                return (
-                  <li key={i} className="nav-item" role="presentation">
-                    <button className={`nav-link ${i === index ? 'active' : ''}`} id="pills-allOffers-tab" data-bs-toggle="pill" data-bs-target="#pills-allOffers" type="button" role="tab" aria-controls="pills-allOffers" aria-selected="true" onClick={() => handleClick(i)}>{item?.tabTitle}</button>
-                  </li>
-                )
-              })}
+                <Link href={'https://mockup4clients.com/corporate-gifting'} className="nav-link active" style={{marginLeft: '20px', borderRadius: '10px', backgroundColor: '#fd8f1e'}} target="_blank"><Image src={CorporateGiftColored} alt="Corporate Gifting" height={25} width={25}></Image>&nbsp; Corporate Gifting</Link>
+              </h2>
+            </div>
+            <div className="offers-head d-flex justify-content-between">
+              <ul className="nav nav-pills align-items-center" id="pills-tab" role="tablist">
+                <li className="nav-item custom-head d-none d-md-inline-block">
+                  {props?.title}
+                </li>
+                {props?.offers?.map((item: _Object, i: number) => {
+                  return (
+                    <li key={i} className="nav-item" role="presentation">
+                      <button className={`nav-link ${i === index ? 'active' : ''}`} id="pills-allOffers-tab" data-bs-toggle="pill" data-bs-target="#pills-allOffers" type="button" role="tab" aria-controls="pills-allOffers" aria-selected="true" onClick={() => handleClick(i)}>{item?.tabTitle}</button>
+                    </li>
+                  )
+                })}
 
-            </ul>
+              </ul>
+              <Link href={'https://mockup4clients.com/corporate-gifting'} className="btn btn-primary d-none d-md-flex" style={{marginRight: '38px'}} target="_blank"><Image src={CorporateGiftColored} alt="Corporate Gifting" height={25} width={25}></Image>&nbsp; Corporate Giftinsg</Link>
+            </div>
             <div className="tab-content" id="pills-tabContent">
               <div className="tab-pane fade show active" id="pills-allOffers" role="tabpanel" aria-labelledby="pills-allOffers-tab" tabIndex={0}>
                 <Swiper
