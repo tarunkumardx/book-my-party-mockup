@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RootState, _Object } from '@/utils/types'
 import Image from 'next/image'
 import { RedHeart, location, placeholder, wishlistWhite } from '@/assets/images'
@@ -7,10 +7,20 @@ import { AppDispatch } from '@/redux/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { listService } from '@/services/venue.service'
 import { getUserWishlist } from '@/redux/slices/session.slice'
+import { useRouter } from 'next/router';
 
 const TopPartyPlaces = ({ props }: _Object) => {
   const dispatch = useDispatch<AppDispatch>()
-
+  const router = useRouter();
+  useEffect(() => {
+    if (router.asPath.includes('#')) {
+      const id = router.asPath.split('#')[1];
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [router.asPath]);
   const [index, setIndex] = useState(0)
   const [like, setLike] = useState({
     loading: false,
@@ -49,7 +59,7 @@ const TopPartyPlaces = ({ props }: _Object) => {
   }
 
   return (
-    <section className="party-places bg-light">
+    <section className="party-places bg-light" id="party-places">
       <div className="container">
         <div className="row">
           <div className="col">
