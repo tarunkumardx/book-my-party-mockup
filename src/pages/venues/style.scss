@@ -1178,7 +1178,7 @@
 
     .over-view-hightlight {
       p {
-        font-size: 16px;
+        font-size: 16px !important;
         color: #212529;
         font-weight: 400;
         font-family: "Outfit";
@@ -1734,6 +1734,15 @@
     .la-carte-menu-list {
       padding-top: 73px;
 
+      .venueDetailsMenu{
+        a{
+          // text-decoration: none;
+          img{
+            height: 280px !important;
+            border: 1px solid #ea5329;
+          }
+        }
+      }
       @media screen and (max-width: 1440px) {
         padding-top: 50px;
       }

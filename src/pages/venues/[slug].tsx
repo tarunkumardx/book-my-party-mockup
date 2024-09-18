@@ -827,9 +827,9 @@ const VenueDetails = (props: _Object) => {
 																		{
 																			props?.data?.extraOptions?.alaCarteMenu.map((item: _Object, i: number) => {
 																				return (
-																					<SwiperSlide key={i}>
+																					<SwiperSlide key={i} className="venueDetailsMenu">
 																						<a onClick={() => { setImages(item?.gallery?.length > 0 ? item?.gallery : [{ image: { node: { mediaItemUrl: placeholder } } }]) }} href="#" data-bs-toggle="modal" data-bs-target="#AlaCarteMenuModel">
-																							<Image src={item?.gallery?.length > 0 && item.gallery[0]?.image?.node?.mediaItemUrl || placeholder} width={380} height={540} alt="Menu Images" />
+																							<Image src={item?.gallery?.length > 0 && item.gallery[0]?.image?.node?.mediaItemUrl || placeholder} width={380} height={280} alt="Menu Images" />
 																						</a>
 																						<div className="menu-name">{item.title}</div>
 																					</SwiperSlide>

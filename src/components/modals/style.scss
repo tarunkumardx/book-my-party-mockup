@@ -111,7 +111,45 @@
 	}
 }
 
-#VenueImageSliderModal {
+.ala-carte-menu-list{
+	.swiper-navigation-buttons {
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		transform: translateY(-50%);
+		z-index: 10;
+	}
+
+	.swiper-button-disabled{
+		background: #0e0e0e7d !important;
+	}
+
+	.swiper-button-prev-custom,
+	.swiper-button-next-custom {
+		background: black;
+		color: #fff;
+		border: none;
+		padding: 10px 15px;
+		cursor: pointer;
+		border-radius: 50px;
+		height: 50px;
+	}
+
+	.swiper-button-prev-custom {
+		// margin-left: -290px;
+		.right-side-wala{
+			transform: rotate(180deg);
+		}
+	}
+
+	// .swiper-button-next-custom {
+	// 	margin-right: -290px;
+	// 	/* Adjust as needed */
+	// }
+}
+#VenueImageSliderModal, #AlaCarteMenuModel {
 	background: #000000e6;
 }
 
@@ -158,7 +196,7 @@
 
 .ala-carte-menu-list {
 	.modal-content {
-		height: 600px;
+		height: 850px;
 	}
 
 	.modal-close-button {
