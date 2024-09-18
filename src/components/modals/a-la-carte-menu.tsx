@@ -63,7 +63,7 @@ const AlaCarteMenu = ({ data }: _Object) => {
                   width={500}
                   height={350}
                   sizes="100vw"
-                  style={{ width: '100%', height: 'auto' }}
+                  style={{ width: '100%', height: '700px' }}
                   alt=""
                   className="w-100"
                 />
