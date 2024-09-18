@@ -8,7 +8,7 @@ const Gallery = ({ props }: _Object) => {
     <section className="moments">
       <div className="container">
         <h6 className="sub-head">{props?.title}</h6>
-        <h2 className="main-head">
+        <h2 style={{ fontWeight: '500' }} className="main-head">
           {props?.subTitle}
         </h2>
         <div className="row">

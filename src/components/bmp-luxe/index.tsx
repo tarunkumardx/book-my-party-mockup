@@ -23,7 +23,7 @@ const BMPLuxe = ({ props }: _Object) => {
       <div className="container">
         <div className="row align-items-center">
           <div className="col-lg-4 col-xl-3">
-            <h2 className="main-head">
+            <h2 style={{ fontWeight: '500' }} className="main-head">
               {props?.title}
             </h2>
             <div className="main-description" dangerouslySetInnerHTML={{ __html: props?.description }} />

@@ -23,7 +23,7 @@ const Testimonials = ({ props }: _Object) => {
               className="quotes-img img-fluid"
             />
             <h6 className="sub-head">{props?.subtitle}</h6>
-            <h2 className="main-head mb-0">
+            <h2 style={{fontWeight:'500'}} className="main-head mb-0">
               {props?.title}
             </h2>
           </div>

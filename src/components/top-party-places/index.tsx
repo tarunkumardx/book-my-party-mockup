@@ -63,7 +63,7 @@ const TopPartyPlaces = ({ props }: _Object) => {
       <div className="container">
         <div className="row">
           <div className="col">
-            <h2 className="main-head">
+            <h2 style={{fontWeight:'500'}} className="main-head">
 							Top Party Places
             </h2>
             <ul className="nav nav-pills" id="pills-tab" role="tablist">
