@@ -1,5 +1,5 @@
 import React from 'react';
-import { modalClose, placeholder } from '@/assets/images';
+import { modalClose, placeholder, rightArrow } from '@/assets/images';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
@@ -19,14 +19,22 @@ const AlaCarteMenu = ({ data }: _Object) => {
               <Image src={modalClose} width="10" height="10" alt="tourDetailImg" />
 
             </button>
+
             <div className="modal-body">
+              <div className="swiper-navigation-buttons">
+                <button className="swiper-button-prev-custom"><Image style={{ width: '20px', height: '20px' }} className="right-side-wala" src={rightArrow} alt="right-arrow-button" /></button>
+                <button className="swiper-button-next-custom"><Image style={{ width: '20px', height: '20px' }} src={rightArrow} alt="right-arrow-button" /></button>
+              </div>
               {data.length > 0
                 ?
                 <Swiper
                   spaceBetween={33}
                   slidesPerView={1}
                   slidesPerGroup={1}
-                  navigation={true}
+                  navigation={{
+                    nextEl: '.swiper-button-next-custom',
+                    prevEl: '.swiper-button-prev-custom'
+                  }}
                   modules={[Navigation]}
                   pagination={{ clickable: true }}
                   // autoplay={true}
@@ -41,7 +49,7 @@ const AlaCarteMenu = ({ data }: _Object) => {
                           width={gallery?.image?.node?.mediaDetails?.width}
                           height={gallery?.image?.node?.mediaDetails?.height}
                           sizes="100vw"
-                          style={{ width: '100%', height: 'auto' }}
+                          style={{ width: '100%', height: '700px'}}
                           alt=""
                           className="w-100"
                         />
