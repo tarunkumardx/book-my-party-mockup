@@ -44,7 +44,7 @@ const Slider = ({ props }: _Object) => {
                 })}
 
               </ul>
-              <Link href={'https://mockup4clients.com/corporate-gifting'} className="btn btn-primary d-none d-md-flex" style={{marginRight: '38px'}} target="_blank"><Image src={CorporateGiftColored} alt="Corporate Gifting" height={25} width={25}></Image>&nbsp; Corporate Gifting</Link>
+              <Link href={'https://mockup4clients.com/corporate-gifting'} className="btn btn-primary d-none d-md-flex corporateGifting" style={{marginRight: '38px'}} target="_blank"><Image src={CorporateGiftColored} alt="Corporate Gifting" height={25} width={25}></Image>&nbsp; Corporate Gifting</Link>
             </div>
             <div className="tab-content" id="pills-tabContent">
               <div className="tab-pane fade show active" id="pills-allOffers" role="tabpanel" aria-labelledby="pills-allOffers-tab" tabIndex={0}>

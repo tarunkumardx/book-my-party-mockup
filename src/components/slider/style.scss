@@ -21,6 +21,17 @@
   .offers-head{
     padding-bottom: 60px;
 
+      a{
+        background-color: transparent;
+        border: 2px solid;
+        color: #482370;
+        animation: mymove 1s infinite ease-in-out;
+      }
+      @keyframes mymove {
+        25% {border-color: rgb(255, 187, 0);}
+        50% {border-color: orangered;}
+        75% {border-color: rgb(255, 0, 157);}
+      }
     @media screen and (max-width: 767px){
       padding-bottom: 0;
     }
