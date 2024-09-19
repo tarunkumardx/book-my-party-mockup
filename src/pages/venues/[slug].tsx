@@ -546,7 +546,7 @@ const VenueDetails = (props: _Object) => {
 																	</div>
 																</li>
 																{
-																	props?.data?.allCuisine?.nodes?.length > 0 &&
+																	props?.data?.allCuisine?.nodes?.length > 0 && router?.query?.types!=='fun-zone' &&
 																	<li className="cuisines-served-list border-bottom-0 pb-0">
 																		<div className="cusisines-served-heading">
 																			<h6>Cuisines Served</h6>
@@ -568,7 +568,7 @@ const VenueDetails = (props: _Object) => {
 																	</li>
 																}
 																{
-																	props?.data?.activities?.nodes?.length > 0 &&
+																	props?.data?.activities?.nodes?.length > 0 && router?.query?.types ==='fun-zone' &&
 																	<li className="cuisines-served-list border-bottom-0 pb-0">
 																		<div className="cusisines-served-heading">
 																			<h6>Activites</h6>

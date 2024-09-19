@@ -320,6 +320,18 @@ class ListService extends CommonService {
               slug
               content
               databaseId
+              allCuisine {
+                nodes {
+                  name
+                  slug
+                }
+              }
+              activities {
+                nodes {
+                  name
+                  slug
+                }
+              }
               seo {
                 title
                 metaDesc

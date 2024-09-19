@@ -117,7 +117,7 @@ const Header = () => {
 
                 {/* Right Side User/Account Section */}
                 <div className="col-8 col-md-3">
-                  <ul className="list-inline float-end mb-0">
+                  <ul className="list-inline float-end mb-0 d-flex align-items-center">
                     {isUserLoggedIn ? (
                       <>
                         <li className="list-inline-item dropdown">

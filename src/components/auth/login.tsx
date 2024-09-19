@@ -48,17 +48,18 @@ const LoginModal = () => {
       setLoading(true)
       authService.customerLogin(values.password, values.userName).then((result: _Object) => {
         if (result?.authToken?.length > 0) {
+          console.log(result)
           toast.success('Login successfully')
           dispatch(setAuthToken(result))
           dispatch(setLoggedInUser())
           formik.resetForm();
           setLoading(false)
           closeModal('LoginModal')
-          if (router.pathname != '/booking/[slug]') {
-            setTimeout(() => {
-              reloadPage()
-            }, 4000);
-          }
+          // if (router.pathname != '/booking/[slug]') {
+          //   setTimeout(() => {
+          //     reloadPage()
+          //   }, 4000);
+          // }
         } else {
           setLoading(false)
         }
