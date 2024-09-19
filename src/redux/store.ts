@@ -8,6 +8,7 @@ const store = configureStore({
     venueDetails: venueSlice
   }
 })
+console.log(store)
 
 export default store
 
