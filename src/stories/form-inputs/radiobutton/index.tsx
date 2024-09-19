@@ -43,7 +43,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
       {options &&
 				options?.map((option: _Object, i: number) => (
 				  <div className={`form-check ${displayInline ? 'form-check-inline' : ''} ${value?.includes(option.value) == true ? 'active' : ''}`} key={i}>
-				    {option.image && <div> <Image src={option.image} width="50" height="50" alt="" /> </div>}
+				    {option.image && <div> <Image src={value?.includes(option.value) ? option.imagec : option.image} width="50" height="50" alt="" /> </div>}
 				    <input
 				      type="radio"
 				      name={name}

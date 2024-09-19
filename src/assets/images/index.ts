@@ -20,9 +20,16 @@ import redDot from '../images/red-dot.jpg';
 import greenDot from '../images/green-dot.jpg';
 import Restaurant from '../images/Restaurant.svg';
 import Banquet from '../images/banquet.svg';
-import FarmHouse from '../images/Farmhouse.jpg';
+import FarmHouse from '../images/Farmhouse.svg';
 import Caterers from '../images/Caterers.svg';
 import FunZone from '../images/Funzone.svg';
+
+import Restaurantc from '../images/Restaurantc.svg';
+import Banquetc from '../images/banquetc.svg';
+import FarmHousec from '../images/Farmhousec.svg';
+import Caterersc from '../images/Caterersc.svg';
+import FunZonec from '../images/Funzonec.svg';
+
 import name from '../images/name.svg';
 import password from '../images/password.svg';
 import user from '../images/user.svg';
@@ -128,6 +135,11 @@ export {
   FarmHouse,
   Caterers,
   FunZone,
+  Restaurantc,
+  Banquetc,
+  FarmHousec,
+  Caterersc,
+  FunZonec,
   name,
   password,
   user,

@@ -1738,7 +1738,7 @@
         a{
           // text-decoration: none;
           img{
-            height: 320px !important;
+            height: 380px !important;
             border: 1px solid #ea5329;
           }
         }
@@ -1782,6 +1782,10 @@
           @media screen and (max-width: 991px) {
             padding-bottom: 40px;
 
+          }
+
+          .swiper-wrapper{
+            height: 450px !important;
           }
 
           .swiper-slide {

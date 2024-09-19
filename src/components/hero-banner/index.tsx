@@ -6,7 +6,7 @@ import { useFormik } from 'formik'
 import * as yup from 'yup'
 
 import { _Object } from '@/utils/types'
-import { Banquet, Caterers, FarmHouse, FunZone, Restaurant, downArrow, location } from '@/assets/images'
+import { Banquet, Caterers, FarmHouse, FunZone, Restaurant, Banquetc, Caterersc, FarmHousec, FunZonec, Restaurantc, downArrow, location } from '@/assets/images'
 import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import { useRouter } from 'next/router'
@@ -161,11 +161,11 @@ const HeroBanner = ({ props }: _Object) => {
                     <RadioButton
                       value={[formik.values.type]}
                       options={[
-                        { label: 'Restaurant', value: 'restaurant', image: Restaurant },
-                        { label: 'Banquet', value: 'banquet', image: Banquet },
-                        { label: 'Farm House', value: 'farm-house', image: FarmHouse },
-                        { label: 'Fun Zone', value: 'fun-zone', image: FunZone },
-                        { label: 'Caterers', value: 'caterers', image: Caterers }
+                        { label: 'Restaurant', value: 'restaurant', image: Restaurant, imagec: Restaurantc },
+                        { label: 'Banquet', value: 'banquet', image: Banquet , imagec: Banquetc},
+                        { label: 'Farm House', value: 'farm-house', image: FarmHouse, imagec: FarmHousec },
+                        { label: 'Fun Zone', value: 'fun-zone', image: FunZone, imagec: FunZonec },
+                        { label: 'Caterers', value: 'caterers', image: Caterers, imagec: Caterersc }
                       ]}
                       displayInline={true}
                       onChange={(e: _Object) => {
