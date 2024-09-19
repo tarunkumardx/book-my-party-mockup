@@ -1538,6 +1538,7 @@
               color: #000000;
               font-weight: 600;
               font-family: "Outfit";
+              margin-bottom: 0.5rem;
 
               @media screen and (max-width: 1440px) {
                 font-size: 20px;
@@ -1552,6 +1553,7 @@
               min-height: 45px;
               -webkit-box-orient: vertical;
               -webkit-line-clamp: 2;
+              margin-bottom: 1rem;
               word-wrap: break-word;
               display: flex;
               overflow: hidden;
