@@ -1159,10 +1159,10 @@
       }
 
       p {
-        font-size: 16px;
-        color: #212529;
+        font-size: 23px;
+        color: #5f5f5f;
         font-weight: 400;
-        font-family: "Outfit";
+        font-family: Outfit;
         margin-bottom: 20px;
 
         @media screen and (max-width: 1440px) {
@@ -1178,10 +1178,10 @@
 
     .over-view-hightlight {
       p {
-        font-size: 16px !important;
-        color: #212529;
-        font-weight: 400;
-        font-family: "Outfit";
+        font-size: 27px;
+        color: #5f5f5f;
+        font-weight: 600;
+        font-family: Outfit;
         text-transform: capitalize;
 
         @media screen and (max-width: 1440px) {

@@ -290,6 +290,7 @@ footer {
             transition: color 0.3s;
           }
         }
+
         .unclickable-nav-link {
           padding: 0;
           padding-bottom: 9px;
@@ -423,7 +424,8 @@ footer {
     }
   }
 
-  .modal#venueModal, .modal#eventModal {
+  .modal#venueModal,
+  .modal#eventModal {
     .modal-dialog {
       max-width: 40%;
       margin: 0 auto;
@@ -534,15 +536,17 @@ footer {
                     }
                   }
                 }
-                .react-select__menu{
+
+                .react-select__menu {
                   background: #ffefe9;
 
-                  .react-select__option:hover{
+                  .react-select__option:hover {
                     background-color: #fe8965;
                     color: white;
                   }
 
-                  .css-d7l1ni-option, .css-tr4s17-option{
+                  .css-d7l1ni-option,
+                  .css-tr4s17-option {
                     background: transparent;
                     color: black;
                   }
@@ -683,36 +687,65 @@ footer {
   }
 }
 
-.mobFooter{
+.mobFooter {
   background: #27123e;
   position: fixed;
   bottom: 0;
   width: 100%;
   z-index: 100;
-  ul{
+
+  ul {
     color: white;
     list-style: none;
     justify-content: space-around;
     padding-left: 0 !important;
     margin: 10px 0 !important;
-    li{
+
+    li {
       display: flex;
       flex-direction: column;
       text-align: center;
-    align-items: center;
+      align-items: center;
 
-    button{
-      background: transparent !important;
+      button {
+        background: transparent !important;
+      }
+
+      a {
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      img {
+        width: 24px;
+        height: 24px;
+      }
     }
-    a{
-      color: white;
-      text-decoration: none;
-      cursor: pointer;
+  }
+
+  .bounce-icon {
+    animation: bounce 2s infinite;
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  @keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translateY(0);
     }
-    img{
-      width: 24px;
-      height: 24px;
+
+    40% {
+      transform: translateY(-15px);
     }
+
+    60% {
+      transform: translateY(-8px);
     }
   }
 
@@ -722,32 +755,39 @@ footer {
     animation: wobble-hor-bottom 0.8s both;
     animation-iteration-count: infinite;
   }
+
   @keyframes wobble-hor-bottom {
+
     0%,
     100% {
       -webkit-transform-origin: 50% 50%;
-              transform-origin: 50% 50%;
+      transform-origin: 50% 50%;
     }
+
     15% {
       -webkit-transform: scale(1.2) rotate(-6deg);
-              transform: scale(1.2) rotate(-6deg);
+      transform: scale(1.2) rotate(-6deg);
     }
+
     30% {
       -webkit-transform: rotate(6deg);
-              transform: rotate(6deg);
+      transform: rotate(6deg);
     }
+
     45% {
       -webkit-transform: rotate(-9deg);
-              transform: rotate(-9deg);
+      transform: rotate(-9deg);
     }
+
     60% {
       -webkit-transform: rotate(9deg);
-              transform: rotate(9deg);
+      transform: rotate(9deg);
     }
+
     75% {
       -webkit-transform: rotate(-6deg);
-              transform: rotate(-6deg);
+      transform: rotate(-6deg);
     }
   }
-  
+
 }

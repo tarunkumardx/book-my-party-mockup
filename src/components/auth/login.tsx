@@ -73,34 +73,39 @@ const LoginModal = () => {
           <div className="modal-content">
             <div className="modal-body">
               <h4 className="d-flex align-items-center justify-content-center">
-								Log In
+                Log In
                 <button type="button" onClick={() => formik.resetForm()} className="btn border-0 p-0 px-2 modal-close" data-bs-dismiss="modal" aria-label="Close">
-                  <Image src={modalClose} alt="" />
+                  <Image style={{ position: 'absolute', right: '20px' }} src={modalClose} alt="" />
                 </button>
               </h4>
 
-              <form onSubmit={formik.handleSubmit}>
-                <InputField
-                  type="text"
-                  name="userName"
-                  placeholder="Email or Username"
-                  required={true}
-                  value={formik.values.userName}
-                  onChange={formik.handleChange}
-                  error={formik.touched.userName && formik.errors.userName}
-                  image={mail}
-                />
+              <form className="mt-3" onSubmit={formik.handleSubmit}>
+                <div className="input-container">
+                  <InputField
+                    type="text"
+                    name="userName"
+                    placeholder="Email or Username"
+                    required={true}
+                    value={formik.values.userName}
+                    onChange={formik.handleChange}
+                    error={formik.touched.userName && formik.errors.userName}
+                  />
+                  <Image src={mail} alt="password-icon" className="password-icon" />
+                </div>
 
-                <InputField
-                  name="password"
-                  placeholder="Password"
-                  type="password"
-                  required={true}
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  error={formik.touched.password && formik.errors.password}
-                  image={password}
-                />
+                <div className="input-container">
+                  <InputField
+                    name="password"
+                    placeholder="Password"
+                    type="password"
+                    required={true}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    error={formik.touched.password && formik.errors.password}
+                  />
+                  <Image src={password} alt="password-icon" className="password-icon" />
+                </div>
+
                 <div className="btn-login">
                   <Button
                     className="primary w-100"
@@ -122,7 +127,7 @@ const LoginModal = () => {
                     </li>
                     <li>
                       <Link onClick={() => formik.resetForm()} href="" data-bs-toggle="modal" data-bs-target="#ResetPasswordModal" className="text-decoration-none">
-												Forgot Password?
+                        Forgot Password?
                       </Link>
                     </li>
                   </ul>
@@ -219,9 +224,9 @@ const LoginModal = () => {
                 <hr />
 
                 <p className="mb-0 mt-3 pt-1 text-center fw-medium">
-									Do not have an account?&nbsp;
+                  Do not have an account?&nbsp;
                   <Link onClick={() => formik.resetForm()} href="#" className="text-decoration-none" data-bs-toggle="modal" data-bs-target="#SignUpModal">
-										Sign Up
+                    Sign Up
                   </Link>
                 </p>
               </form>

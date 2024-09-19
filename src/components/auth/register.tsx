@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -17,6 +18,7 @@ import { Button, CheckBox, InputField, RadioButton } from '@/stories/form-inputs
 import { _Object } from '@/utils/types';
 import { closeModal } from '@/utils/helpers';
 import { mail, name, password, user } from '@/assets/images';
+import Image from 'next/image';
 
 const SignUp = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -92,7 +94,7 @@ const SignUp = () => {
           <div className="modal-body">
             <form onSubmit={formik.handleSubmit}>
               <h4 className="justify-between sign-up">
-								Sign Up
+                Sign Up
                 <button type="button" onClick={() => formik.resetForm()} className="btn border-0 p-0 modal-close" data-bs-dismiss="modal" aria-label="Close">
                   <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
 
@@ -109,7 +111,63 @@ const SignUp = () => {
                 </button>
               </h4>
 
-              <InputField
+              <div className="input-container mt-3">
+                <InputField
+                  type="text"
+                  name="username"
+                  placeholder="Username *"
+                  required={true}
+                  value={formik.values.username}
+                  onChange={formik.handleChange}
+                  error={formik.touched.username && formik.errors.username}
+
+                />
+                <Image src={user} alt="password-icon" className="password-icon" />
+              </div>
+
+              <div className="input-container">
+                <InputField
+                  type="text"
+                  name="firstName"
+                  placeholder="Full Name"
+                  required={true}
+                  value={formik.values.firstName}
+                  onChange={formik.handleChange}
+                  error={formik.touched.firstName && formik.errors.firstName}
+
+                />
+                <Image src={name} alt="password-icon" className="password-icon" />
+              </div>
+
+              <div className="input-container">
+                <InputField
+                  name="email"
+                  placeholder="Email *"
+                  type="email"
+                  required={true}
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.email && formik.errors.email}
+
+                />
+                <Image src={mail} alt="password-icon" className="password-icon" />
+              </div>
+              <div className="input-container">
+                <InputField
+                  name="password"
+                  placeholder="Password *"
+                  type="password"
+                  required={true}
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  error={formik.touched.password && formik.errors.password}
+
+                />
+                <Image src={password} alt="password-icon" className="password-icon" />
+              </div>
+
+              {/* <InputField
                 type="text"
                 name="username"
                 placeholder="Username *"
@@ -152,7 +210,7 @@ const SignUp = () => {
                 onChange={formik.handleChange}
                 error={formik.touched.password && formik.errors.password}
                 image={password}
-              />
+              /> */}
 
               <RadioButton
                 label="Select User Type"
@@ -273,9 +331,9 @@ const SignUp = () => {
               <hr />
 
               <p className="mb-0 mt-3 pt-1 text-center">
-								Already have an account?&nbsp;
+                Already have an account?&nbsp;
                 <Link onClick={() => formik.resetForm()} href="#" className="text-decoration-none" data-bs-toggle="modal" data-bs-target="#LoginModal">
-									Log In
+                  Log In
                 </Link>
               </p>
             </form>

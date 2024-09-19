@@ -36,10 +36,10 @@ const Footer = () => {
 		}
 	});
 
-	const handleNavigation = (id:string) => {
-    // Navigate to home page with the section id hash
-    router.push(`/#${id}`);
-  };
+	const handleNavigation = (id: string) => {
+		// Navigate to home page with the section id hash
+		router.push(`/#${id}`);
+	};
 
 	// Initialize an array of false values, one for each menu item.
 	const [showAll, setShowAll] = useState<{ [key: string]: boolean }>({});
@@ -463,10 +463,20 @@ const Footer = () => {
 					<div className="d-md-none w-full mobFooter text-center">
 						<ul className="d-flex">
 							{/* <li><Link href="https://mockup4clients.com/cake"><Image src={CakeColored} width="40" height="40" alt="Phone" className="shake-icon" /></Link><Link href="https://mockup4clients.com/cake">Cake</Link></li> */}
-							<li style={{fontSize:'12px'}} onClick={()=>handleNavigation('partners-offers')}><Image src={offers} width="45" 	height="45" alt="Phone"/>Offers</li>
-							<li style={{fontSize:'12px'}} onClick={()=>handleNavigation('party-places')}><Image src={partyImgs} width="40" height="40" alt="Phone"/>Top Party Places</li>
-							<li style={{fontSize:'12px'}}><Link href="https://mockup4clients.com/corporate-gifting"><Image src={CorporateGiftColored} width="40" height="40" alt="Phone" className="shake-icon" /></Link><Link href="https://mockup4clients.com/corporate-gifting">Corporate Gifting</Link></li>
-							<li style={{fontSize:'12px'}}><Link href="https://api.whatsapp.com/send/?phone=%2B919911412626&text&type=phone_number&app_absent=0" target="_self"><Image src={WhatsappIcon} width="40" height="40" alt="Phone" /></Link><Link href="https://api.whatsapp.com/send/?phone=%2B919911412626&text&type=phone_number&app_absent=0" target="_self">WhatsApp</Link></li>
+
+							<li style={{ fontSize: '12px' }} onClick={() => handleNavigation('party-places')}><Image src={partyImgs} width="40" height="40" alt="Phone" />Top Party Places</li>
+							<li style={{ fontSize: '12px' }} onClick={() => handleNavigation('partners-offers')}>
+								<Image
+									className="bounce-icon"
+									src={offers}
+									width="80"
+									height="80"
+									alt="Phone"
+								/>
+								Offers
+							</li>
+							<li style={{ fontSize: '12px' }}><Link href="https://mockup4clients.com/corporate-gifting"><Image src={CorporateGiftColored} width="40" height="40" alt="Phone" className="" /></Link><Link href="https://mockup4clients.com/corporate-gifting">Corporate Gifting</Link></li>
+							<li style={{ fontSize: '12px' }}><Link href="https://api.whatsapp.com/send/?phone=%2B919911412626&text&type=phone_number&app_absent=0" target="_self"><Image src={WhatsappIcon} width="40" height="40" alt="Phone" /></Link><Link href="https://api.whatsapp.com/send/?phone=%2B919911412626&text&type=phone_number&app_absent=0" target="_self">WhatsApp</Link></li>
 
 							{/* <li><button type="button" data-bs-toggle="modal" data-bs-target="#EnquiryNowModal" style={{height: '20px', marginBottom:'3px'}}><Image src={MassesIcon} width="40" height="40" alt="Masses Icon" /></button><button type="button" data-bs-toggle="modal" data-bs-target="#EnquiryNowModal">Chat</button></li> */}
 
@@ -474,7 +484,7 @@ const Footer = () => {
 					</div>
 					<BackToTopButton />
 					<VenueModal />
-					<EventModal/>
+					<EventModal />
 
 				</footer>
 			}

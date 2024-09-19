@@ -1,0 +1,18 @@
+.input-container {
+  position: relative;
+  width: 100%; /* Ensure the container is the same width as the input */
+}
+
+.input-container input {
+  padding-right: 40px; /* Add padding to make space for the icon */
+}
+
+.password-icon {
+  position: absolute;
+  right: 10px; /* Adjust this value to place the icon correctly */
+  top: 50%;
+  transform: translateY(-50%); /* Vertically center the icon */
+  height: 20px; /* Adjust size of the icon */
+  width: 20px;
+  pointer-events: none; /* So that the image doesn't block input interaction */
+}
