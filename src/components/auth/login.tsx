@@ -19,17 +19,17 @@ import { closeModal } from '@/utils/helpers';
 import ResetPasswordModal from './reset-password';
 import { mail, modalClose, password } from '@/assets/images';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
 const LoginModal = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const dispatch = useDispatch<AppDispatch>()
 
   const [loading, setLoading] = useState<boolean>(false)
 
-  const reloadPage = () => {
-    router.reload(); // Reload the page
-  };
+  // const reloadPage = () => {
+  //   router.reload(); // Reload the page
+  // };
 
   const formik = useFormik({
     initialValues: {
@@ -48,17 +48,18 @@ const LoginModal = () => {
       setLoading(true)
       authService.customerLogin(values.password, values.userName).then((result: _Object) => {
         if (result?.authToken?.length > 0) {
+          console.log(result)
           toast.success('Login successfully')
           dispatch(setAuthToken(result))
           dispatch(setLoggedInUser())
           formik.resetForm();
           setLoading(false)
           closeModal('LoginModal')
-          if (router.pathname != '/booking/[slug]') {
-            setTimeout(() => {
-              reloadPage()
-            }, 4000);
-          }
+          // if (router.pathname != '/booking/[slug]') {
+          //   setTimeout(() => {
+          //     reloadPage()
+          //   }, 4000);
+          // }
         } else {
           setLoading(false)
         }

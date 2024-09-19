@@ -118,7 +118,7 @@ const Listing = (props: _Object) => {
     const removedElement = locationsOptions.splice(indexToMove, 1)[0];
     locationsOptions.splice(newIndex, 0, removedElement);
   }
-
+console.log(list)
   useEffect(() => {
     async function fetchData() {
       const newData = await listService.getVenues(20, cursor.endCursor, null,
@@ -1159,6 +1159,7 @@ const Listing = (props: _Object) => {
               }
 
               {!loading.main && !loading.firstLoading && list?.nodes?.length > 0 && list?.nodes?.map((item: _Object, i: number) => {
+                console.log(item)
                 return (
                   <div className="card" key={i}>
                     <div className="card-body p-0">
@@ -1200,16 +1201,33 @@ const Listing = (props: _Object) => {
                             }
                             <div className="" dangerouslySetInnerHTML={{ __html: truncateToWords(item?.content || '') }} />
                             {/* {cuisineData?.length > 0 && <p><b>Cuisine serve:</b> {cuisineData.map((item: string) => item).join(', ')}</p>} */}
-                            <div className="d-flex gap-2">
-                              {query.types === 'restaurant' ? (
-                                <>
-                                  <strong>Cuisine Served:</strong> Indian, Chinese, Thai, Italian
-                                </>
-                              ) : query.types === 'fun-zone' ? (
-                                <>
-                                  <strong>Activities:</strong> Swimming, Rope-walk, Jumping
-                                </>
-                              ) : null}
+                            <div className="d-flex gap-2 align-items-center">
+                            {item?.allCuisine?.nodes.length > 0 && router?.query?.types!=='fun-zone' &&
+                              <>
+                                <strong>Cuisine Served:</strong> <div>
+                                  {item.allCuisine.nodes.slice(0, 3).map((cuisine:_Object) => (
+                                    <span
+                                      key={cuisine.slug}
+                                    >
+                                      {cuisine.name + ', '}
+                                    </span>
+                                  ))}
+                                </div>
+                              </>
+                            }
+                             {item?.activities?.nodes.length > 0 && router?.query?.types==='fun-zone' &&
+                              <>
+                                <strong>Activities:</strong> <div>
+                                  {item.activities.nodes.slice(0, 3).map((activity:_Object) => (
+                                    <span
+                                      key={activity.slug}
+                                    >
+                                      {activity.name + ', '}
+                                    </span>
+                                  ))}
+                                </div>
+                              </>}
+
                             </div>
                           </div>
                         </div>
