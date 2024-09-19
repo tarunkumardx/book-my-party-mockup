@@ -19,17 +19,17 @@ import { closeModal } from '@/utils/helpers';
 import ResetPasswordModal from './reset-password';
 import { mail, modalClose, password } from '@/assets/images';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
 const LoginModal = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const dispatch = useDispatch<AppDispatch>()
 
   const [loading, setLoading] = useState<boolean>(false)
 
-  const reloadPage = () => {
-    router.reload(); // Reload the page
-  };
+  // const reloadPage = () => {
+  //   router.reload(); // Reload the page
+  // };
 
   const formik = useFormik({
     initialValues: {
