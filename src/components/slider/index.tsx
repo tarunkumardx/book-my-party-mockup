@@ -27,7 +27,7 @@ const Slider = ({ props }: _Object) => {
             <div className="offers-head nav d-md-none pb-0">
               <h2 className="main-head nav-item d-flex d-md-none">
                 {props?.title}
-                <Link href={'/Coming-soon'} className="nav-link active" style={{marginLeft: '20px', borderRadius: '10px', backgroundColor: '#fd8f1e'}} target="_blank"><Image src={CorporateGiftColored} alt="Corporate Gifting" height={25} width={25}></Image>&nbsp; Corporate Gifting</Link>
+                <Link href={'/Coming-soon'} className="nav-link active" style={{ marginLeft: '20px', borderRadius: '10px', backgroundColor: '#fd8f1e' }} target="_blank"><Image src={CorporateGiftColored} alt="Corporate Gifting" height={25} width={25}></Image>&nbsp; Corporate Gifting</Link>
               </h2>
             </div>
             <div className="offers-head d-flex justify-content-between">
@@ -44,7 +44,7 @@ const Slider = ({ props }: _Object) => {
                 })}
 
               </ul>
-              <Link href={'/Coming-soon'} className="btn btn-primary d-none d-md-flex corporateGifting" style={{marginRight: '38px'}} target="_blank"><Image src={CorporateGiftColored} alt="Corporate Gifting" height={25} width={25}></Image>&nbsp; Corporate Gifting</Link>
+              <Link href={'/Coming-soon'} className="btn btn-primary d-none d-md-flex corporateGifting" style={{ marginRight: '38px', fontWeight: 'bolder' }} target="_blank"><Image src={CorporateGiftColored} alt="Corporate Gifting" height={25} width={25}></Image>&nbsp; Corporate Gifting</Link>
             </div>
             <div className="tab-content" id="pills-tabContent">
               <div className="tab-pane fade show active" id="pills-allOffers" role="tabpanel" aria-labelledby="pills-allOffers-tab" tabIndex={0}>

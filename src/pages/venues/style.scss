@@ -289,6 +289,7 @@
           .form-check {
             display: flex;
             align-items: center;
+
             &:not(:last-child) {
               margin-bottom: 10px;
             }
@@ -305,10 +306,12 @@
             input {
               margin-top: 0px;
               cursor: pointer;
-              &[type="checkbox"]{
+
+              &[type="checkbox"] {
                 height: 14px;
                 width: 14px;
               }
+
               &:checked[type="checkbox"] {
                 background-color: transparent;
                 border-color: #a0a9b2;
@@ -1133,7 +1136,7 @@
       color: #4e2679;
       text-transform: uppercase;
       font-size: 30px;
-      font-weight: 800;
+      font-weight: 700;
 
       @media screen and (max-width: 1440px) {
         font-size: 24px;
@@ -1161,7 +1164,7 @@
       p {
         font-size: 23px;
         color: #5f5f5f;
-        font-weight: 500;
+        font-weight: 400;
         font-family: Outfit;
         margin-bottom: 20px;
 
@@ -1548,7 +1551,7 @@
             p {
               color: $black;
               font-size: 20px;
-              font-weight: 500;
+              font-weight: 400;
               line-height: 22px;
               min-height: 45px;
               -webkit-box-orient: vertical;
@@ -1581,14 +1584,14 @@
               color: #F65600;
               text-transform: capitalize;
               font-size: 21px;
-              font-weight: 600;
+              font-weight: 500;
               margin-bottom: 13px;
             }
 
             p {
               color: $black;
               font-size: 18px;
-              font-weight: 500;
+              font-weight: 400;
 
               @media screen and (max-width: 1440px) {
                 font-size: 16px;
@@ -1737,15 +1740,17 @@
     .la-carte-menu-list {
       padding-top: 73px;
 
-      .venueDetailsMenu{
-        a{
+      .venueDetailsMenu {
+        a {
+
           // text-decoration: none;
-          img{
+          img {
             height: 380px !important;
             border: 1px solid #ea5329;
           }
         }
       }
+
       @media screen and (max-width: 1440px) {
         padding-top: 50px;
       }
@@ -1787,7 +1792,7 @@
 
           }
 
-          .swiper-wrapper{
+          .swiper-wrapper {
             height: 450px !important;
           }
 
@@ -2278,7 +2283,7 @@
           border: 2px solid transparent;
           border-bottom: 0px;
           font-size: 20px;
-          font-weight: 600;
+          font-weight: 500;
           font-family: "Outfit";
 
           @media screen and (max-width: 1440px) {
@@ -2639,6 +2644,7 @@
       margin-bottom: 0px;
       font-size: 20px;
       color: #000;
+      font-weight: 400;
     }
   }
 }
@@ -2676,16 +2682,17 @@
   font-size: 12px !important;
 }
 
-.shareCard{
+.shareCard {
   position: absolute;
-    z-index: 20;
-    background: white;
-    padding: 20px;
-    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 2px, rgba(0, 0, 0, 0.05) 0px 4px 12px;
-    border: 1px solid rgb(222, 222, 222);
-    border-radius: 5px;
+  z-index: 20;
+  background: white;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 2px, rgba(0, 0, 0, 0.05) 0px 4px 12px;
+  border: 1px solid rgb(222, 222, 222);
+  border-radius: 5px;
 }
-.shareBtn .accordion-button::after{
+
+.shareBtn .accordion-button::after {
   display: none !important;
 }
 
@@ -2740,6 +2747,7 @@
 .form-check {
   padding: 8px 30px;
 }
+
 .searchInput {
   position: fixed;
   background: white;
@@ -2747,10 +2755,12 @@
   width: 50% !important;
   padding: 10px 0px 10px 10px;
 }
-.filterCheckouts{
+
+.filterCheckouts {
   padding: 12px 12px;
   margin-top: 35px;
 }
+
 .form-group .form-control {
   padding: 5px;
   font-size: 12px;
@@ -2908,7 +2918,7 @@
   }
 }
 
-.menu-name{
+.menu-name {
   text-transform: capitalize;
   font-size: 20px;
   letter-spacing: -1px;
