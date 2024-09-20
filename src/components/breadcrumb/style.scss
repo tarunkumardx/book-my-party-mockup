@@ -24,7 +24,7 @@
     .breadcrumb-item {
       position: relative;
       font-family: "Outfit";
-      font-weight: 600;
+      font-weight: 700;
       font-size: 20px;
 
       @media screen and (max-width: 1440px) {
@@ -42,11 +42,12 @@
 
       &::before {
         color: #C7C7C7;
+        font-weight: 700;
 
       }
 
       a {
-        font-weight: 600;
+        font-weight: 700;
         color: #C7C7C7;
         text-decoration: none;
         line-height: 21px;
