@@ -1068,7 +1068,7 @@ console.log(list)
                   </h5>
                   :
                   <div className="d-flex align-items-center gap-2">
-                    <h6 className="mb-0">Sort</h6>
+                    <h6 className="mb-0 d-none d-md-block">Sort</h6>
                     <SelectField
                       value={{ value: query?.order_by || 'recommended' }}
                       options={[
