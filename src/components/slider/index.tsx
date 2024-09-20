@@ -27,7 +27,6 @@ const Slider = ({ props }: _Object) => {
             <div className="offers-head nav d-md-none pb-0">
               <h2 className="main-head nav-item d-flex d-md-none">
                 {props?.title}
-                <Link href={'/Coming-soon'} className="nav-link active" style={{marginLeft: '20px', borderRadius: '10px', backgroundColor: '#fd8f1e'}} target="_blank"><Image src={CorporateGiftColored} alt="Corporate Gifting" height={25} width={25}></Image>&nbsp; Corporate Gifting</Link>
               </h2>
             </div>
             <div className="offers-head d-flex justify-content-between">
