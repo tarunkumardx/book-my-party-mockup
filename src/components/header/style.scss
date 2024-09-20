@@ -26,6 +26,31 @@ button.corporate-gifting-btn {
   animation-iteration-count: infinite;
 }
 
+.logo-container {
+  position: relative;
+  display: inline-block;
+}
+
+.transparent-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: 2px solid transparent; /* You can adjust this to match the logo's border size */
+  box-shadow: 0 0 0 10px white; /* Adjust the size and color to hide the border */
+  pointer-events: none; /* Ensures the box doesn't block interactions with the logo */
+  z-index: 1; /* Make sure it's above the logo if necessary */
+}
+
+.logo-container img, 
+.logo-container svg { 
+  position: relative;
+  z-index: 2; /* Ensure logo stays above the transparent box */
+}
+
+
 header {
 
   position: relative;
