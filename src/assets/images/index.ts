@@ -1,5 +1,6 @@
 import placeholder from '../images/placeholder-image.png';
-import logo from '../images/logo.gif';
+import logo from '../images/download.gif';
+
 // import logo from '../images/logo.png';
 import mailBox from '../images/mail-box.svg';
 import facebook from '../images/social-icons/facebook.svg';
