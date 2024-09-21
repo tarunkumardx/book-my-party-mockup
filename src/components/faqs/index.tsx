@@ -41,7 +41,7 @@ const FAQs = ({ data }: _Object) => {
                       className={`accordion-collapse collapse ${isExpanded ? 'show' : ''}`}
                       aria-labelledby={headingId} data-bs-parent="#accordionBookMyParty">
                       <div className="accordion-body">
-                        <p className="mb-0"> {item?.answer?.length > 0 && item.answer} </p>
+                        <p style={{color:'#5e6d77',fontWeight:'400'}} className="mb-0"> {item?.answer?.length > 0 && item.answer} </p>
                       </div>
                     </div>
                   </div>
