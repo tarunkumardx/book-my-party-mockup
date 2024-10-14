@@ -1,0 +1,275 @@
+import React, { useEffect, useState } from 'react';
+import * as yup from 'yup'
+import { useFormik } from 'formik';
+import { Button, InputField } from '@/stories/form-inputs';
+import { toast } from 'react-toastify';
+import { amountFormat, closeModal } from '@/utils/helpers';
+import { listService } from '@/services/venue.service';
+import ReactDatePicker from 'react-datepicker';
+import { _Object } from '@/utils/types';
+import SelectField from '@/stories/form-inputs/select-field';
+import PhoneNumberField from '../phone-number-field';
+import { useRouter } from 'next/router';
+import emailjs from 'emailjs-com';
+
+const EnquireNow = () => {
+	const [props, setProps] = useState({
+		locations: [],
+		occasions:[]
+	});
+	console.log(props)
+	const router: _Object = useRouter();
+	const fetchData = async () => {
+		const locationsData = await listService.getLocations()
+		const occasionsData = await listService.getOccasions()
+		setProps({locations: locationsData, occasions:occasionsData});
+	};
+	useEffect(() => {
+		fetchData();
+	}, []);
+	const [loading, setLoading] = useState<boolean>(false)
+
+	const formik = useFormik({
+		initialValues: {
+			input_1: router.query.types, // types
+			input_3: router.query.slug, // slug
+			input_4: '', // username
+			input_5: '', // emailId
+			input_6: '', // phoneNo
+			input_7: '', // budget
+			input_8: '', // occassion
+			input_9: '', // guests
+			input_10: '', // location
+			input_11: '', //date
+			input_12: '', // menu
+			input_13: '' // drinks
+		},
+
+		enableReinitialize: true,
+
+		validationSchema: yup.object().shape({
+			input_1: yup.string(),
+			input_4: yup.string().label('Name').required('Name is required'),
+			input_6: yup.number().label('Phone').required('Phone number is required').min(10, 'Phone number must be at least 10 digits'),
+			input_7: yup.string().label('Per Person Budget').required('Budget is required'),
+			input_8: yup.string().label('Occasions').required('Occasion is required'),
+			input_9: yup.string().label('Number of guest').required('Number of guest is required'),
+			input_10: router.query.types ==='caterers' ? yup.string().label('Locations').required('Location is required') : yup.string().notRequired(),
+			input_11: yup.string().label('Date').required('Date is required'),
+			input_12: yup.string().label('Menu').required('Menu is required'),
+			input_13: yup.string().label('Drinks').required('Drinks are required')
+		}),
+
+		onSubmit: async (values) => {
+			setLoading(true)
+			const domain = new URL(`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}`).hostname;
+			const response = await fetch(`https://${domain}/wp-json/gf/v2/forms/15/submissions`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(values)
+			});
+
+			const result = await response.json()
+
+			if (result.is_valid) {
+				emailjs
+					.send(`${process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID}`, `${process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID}`, values, `${process.env.NEXT_PUBLIC_EMAILJS_USER_ID}`)
+					.then((response) => {
+						console.log('Email sent successfully!', response.status, response.text);
+					})
+					.catch((err) => {
+						console.error('Failed to send email. Error:', err);
+					});
+				setLoading(false)
+				toast.success(React.createElement('div', { dangerouslySetInnerHTML: { __html: result.confirmation_message } })); // Use React.createElement instead
+				formik.resetForm();
+				closeModal('EnquireNow');
+			} else {
+				setLoading(false)
+			}
+		}
+	})
+
+	const budgets = [
+		{ label: `${amountFormat('600', 'number')}-${'800'}`, value: 'Rs 600-800' },
+		{ label: `${amountFormat('800', 'number')}-${'1000'}`, value: 'Rs 800-1000' },
+		{ label: `${amountFormat('1000', 'number')}-${'1200'}`, value: 'Rs 1000-1200' },
+		{ label: `${amountFormat('1200', 'number')}-${'1400'}`, value: 'Rs 1200-1400' },
+		{ label: `${amountFormat('1400', 'number')}-${'1600'}`, value: 'Rs 1400-1600' },
+		{ label: `${amountFormat('1600', 'number')}-${'1800'}`, value: 'Rs 1600-1800' },
+		{ label: `${amountFormat('1800', 'number')}-${'2000'}`, value: 'Rs 1800-2000' },
+		{ label: `${amountFormat('2000', 'number')}-${'2200'}`, value: 'Rs 2000-2200' },
+		{ label: `${amountFormat('2200', 'number')}-${'2400'}`, value: 'Rs 2200-2400' },
+		{ label: `${amountFormat('2400', 'number')}-${'2600'}`, value: 'Rs 2400-2600' },
+		{ label: `${amountFormat('2600', 'number')}-${'2800'}`, value: 'Rs 2600-2800' },
+		{ label: `${amountFormat('2800', 'number')}-${'3000'}`, value: 'Rs 2800-3000' }
+	]
+
+	const menu = [
+		{label: 'Veg', value: 'veg'},
+		{label: 'Non Veg', value: 'non-veg'}
+	]
+
+	const drinks = [
+		{label: 'Mocktail', value: 'mocktail'},
+		{label: 'Cocktail', value: 'cocktail'}
+	]
+
+	return (
+		<div className="modal fade" id="EnquireNow" tabIndex={-1} aria-labelledby="EnquireNowLabel" aria-hidden="true">
+			<div className="modal-dialog">
+				<div className="modal-content">
+					<button onClick={() => formik.resetForm()} type="button" className="btn border-0 modal-close" data-bs-dismiss="modal" aria-label="Close">
+						X
+					</button>
+					<div className="modal-body">
+						<h3 className="justify-center">
+							Enquire Now
+						</h3>
+						<form className="row" onSubmit={formik.handleSubmit}>
+							<InputField
+								type="text"
+								className="col-12"
+								placeholder="Name"
+								name="input_4"
+								required={true}
+								value={formik.values.input_4}
+								onChange={formik.handleChange}
+								error={formik.touched.input_4 && formik.errors.input_4}
+							/>
+							<InputField
+								className="col-12 col-md-6"
+								placeholder="Email"
+								type="email"
+								name="input_5"
+								required={true}
+								value={formik.values.input_5}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
+								error={formik.touched.input_5 && formik.errors.input_5}
+							/>
+
+							<PhoneNumberField
+								args={{
+									className: 'col',
+									country: 'in',
+									// label: 'Phone',
+									value: formik.values.input_6 || '',
+									onChange: (phone: string) => formik.setFieldValue('input_6', phone),
+									error: formik.touched.input_6 && formik.errors.input_6
+								}}
+							/>
+							<SelectField
+								className="col-12 col-md-6"
+								placeholder="Select Occasion"
+								// label="Occasion"
+								name="input_8"
+								// eslint-disable-next-line react/prop-types
+								options={props?.occasions?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
+								value={{ value: formik.values.input_8 }}
+								onChange={(val: _Object) => {
+									formik.setFieldValue('input_8', val.value)
+								}}
+								getOptionLabel={(option: { [key: string]: string }) => option?.label}
+								getOptionValue={(option: { [key: string]: string }) => option?.label}
+								error={formik.touched.input_8 && formik.errors.input_8}
+							/>
+
+							<div className="form-group mb-3 col-12 col-md-6 plan-your-date">
+								<ReactDatePicker
+									name="input_11"
+									placeholderText="Select Event Date"
+									selected={formik?.values?.input_11 ? new Date(formik.values.input_11) : null}
+									onChange={(date: Date) => { formik.setFieldValue('input_11', date) }}
+									minDate={new Date()}
+									dateFormat="dd/MM/YYYY"
+								/>
+								<p className="invalid-feedback text-danger d-block mt-1" style={{fontSize: '0.875em'}}>
+									{formik.touched.input_11 && formik.errors.input_11}
+								</p>
+							</div>
+
+							<InputField
+								className="col-12 col-md-6"
+								placeholder="Number of Guests"
+								// label="No. of Guest"
+								name="input_9"
+								type="number"
+								min={50}
+								max={3000}
+								required={true}
+								value={formik.values.input_9}
+								onChange={formik.handleChange}
+								error={formik.touched.input_9 && formik.errors.input_9}
+							/>
+							<SelectField
+								className="col-12 col-md-6 EnquireNowDropdown"
+								placeholder="Select Budget Range"
+								name="input_7"
+								value={{ value: formik.values.input_7 }}
+								options={budgets}
+								onChange={(val: _Object) => {
+									formik.setFieldValue('input_7', val.value)
+								}}
+								getOptionLabel={(option: { [key: string]: string }) => option?.label}
+								getOptionValue={(option: { [key: string]: string }) => option?.label}
+								error={formik.touched.input_7 && formik.errors.input_7}
+							/>
+							<SelectField
+								className="col-12 col-md-6 EnquireNowDropdown"
+								placeholder="Menu"
+								name="input_12"
+								value={{ value: formik.values.input_12 }}
+								options={menu}
+								onChange={(val: _Object) => {
+									formik.setFieldValue('input_12', val.value)
+								}}
+								getOptionLabel={(option: { [key: string]: string }) => option?.label}
+								getOptionValue={(option: { [key: string]: string }) => option?.label}
+								error={formik.touched.input_12 && formik.errors.input_12}
+							/>
+							<SelectField
+								className="col-12 col-md-6 EnquireNowDropdown"
+								placeholder="Drinks"
+								name="input_13"
+								value={{ value: formik.values.input_13 }}
+								options={drinks}
+								onChange={(val: _Object) => {
+									formik.setFieldValue('input_13', val.value)
+								}}
+								getOptionLabel={(option: { [key: string]: string }) => option?.label}
+								getOptionValue={(option: { [key: string]: string }) => option?.label}
+								error={formik.touched.input_13 && formik.errors.input_13}
+							/>
+
+							{router.query.types ==='caterers' && <>
+								<InputField
+									className="col-12"
+									placeholder="Choose location"
+									type="text"
+									name="input_10"
+									required={true}
+									value={formik.values.input_10}
+									onChange={formik.handleChange}
+									onBlur={formik.handleBlur}
+									error={formik.touched.input_10 && formik.errors.input_10}
+								/>
+							</>
+							}
+							<center style={{display: 'flex', justifyContent:'center'}}>
+								<div className="text-center mt-lg-3 mt-md-2 mt-2 ps-lg-2 ps-md-0 ps-0">
+									<Button type="submit" loading={loading} label="Submit"
+									/>
+								</div>
+							</center>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	)
+}
+
+export default EnquireNow

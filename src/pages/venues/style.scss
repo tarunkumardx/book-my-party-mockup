@@ -17,7 +17,6 @@
 
   .filter-heading {
     margin-bottom: 20px;
-    margin-top: 50px;
 
     @media screen and (max-width: 991px) {
       margin-top: 0;
@@ -200,10 +199,6 @@
           top: 50%;
           right: 0;
           transform: translateY(-50%);
-
-          @media screen and (max-width: 767px) {
-            display: none;
-          }
         }
 
 
@@ -2875,11 +2870,15 @@
 }
 
 .customAccD {
-  overflow: scroll;
+  overflow-y: scroll;
   height: 150px;
   border: 1px solid #e7e7e7;
   background: #fff;
   padding: 0 10px;
+}
+
+.customAccD::-webkit-scrollbar {
+  width: 8px; 
 }
 
 .result-list .accordion .accordion-item .accordion-body .form-group .form-check:not(:last-child) {

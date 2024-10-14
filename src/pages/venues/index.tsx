@@ -91,6 +91,9 @@ const Listing = (props: _Object) => {
     firstLoading: true
   })
 
+  let basePath = router?.query?.types === 'caterers' ? '/caterers' : '/venues';
+console.log(basePath);
+
   // Function for toggle filters
   const [activeAccordion, setActiveAccordion] = useState('price');
 
@@ -140,13 +143,13 @@ console.log(list)
           sort: query?.order_by,
           hideVenues: true
         });
-
-      if (filter) {
-        setList({ nodes: newData.nodes, pageInfo: newData.pageInfo })
-      } else {
+console.log(newData)
+      if (!filter) {
         setList({ nodes: newData.nodes?.length > 0 ? [...list.nodes, ...newData.nodes] : [], pageInfo: cursor.endCursor === null ? newData.pageInfo : { ...newData.pageInfo, total: list.pageInfo.total } })
+      } else {
+        setList({ nodes: newData.nodes, pageInfo: newData.pageInfo })
       }
-
+console.log(list)
       setLoading({
         loader: false,
         main: false,
@@ -167,11 +170,11 @@ console.log(list)
       }
     }, 100);
 
-    // if (router?.query?.types) {
+    if (router?.query?.types) {
     fetchData()
-    // }
+    }
   }, [router.query, router?.query?.types, cursor.endCursor])
-
+console.log(router)
   const shouldApplyMarginTop = activeAccordion !== 'locations' &&
                              activeAccordion !== 'occasions' &&
                              activeAccordion !== 'cuisine' &&
@@ -212,7 +215,7 @@ console.log(list)
       })
 
       router.push({
-        pathname: '/venues',
+        pathname: basePath,
         query: `locations=${values.location?.replace(/\+/g, '%2B') || ''}&types=${query?.types?.replace(/\+/g, '%2B') || ''}&date=${formattedDate || ''}&occasions=${values?.occasion?.replace(/\+/g, '%2B') || ''}&pax=${values?.pax || ''}&cuisines=${query?.cuisines?.replace(/\+/g, '%2B') || ''}&franchises=${query?.franchises?.replace(/\+/g, '%2B') || ''}&amenities=${query?.amenities?.replace(/\+/g, '%2B') || ''}&price_range=${query?.price_range?.replace(/\+/g, '%2B') || ''}&order_by=${query.order_by}`
       });
     }
@@ -256,12 +259,12 @@ console.log(list)
       }
 
       router.push({
-        pathname: '/venues',
+        pathname: basePath,
         query: { ...query, [name]: newValue }
       });
     } else {
       router.push({
-        pathname: '/venues',
+        pathname: basePath,
         query: { ...query, [name]: e.target.value }
       });
     }
@@ -328,7 +331,7 @@ console.log(list)
     setLoading({ main: true })
     setFilter(true)
     router.push({
-      pathname: '/venues',
+      pathname: basePath,
       query: `locations=${router?.query?.locations?.replace(/\+/g, '%2B') || ''}&types=${router?.query?.types}&date=${router?.query?.date}&occasions=${router?.query?.occasions?.replace(/\+/g, '%2B') || ''}&pax=${router?.query?.pax}&order_by=${router.query.order_by}`
     });
   }
@@ -394,7 +397,7 @@ console.log(list)
   }
   // Share on whatsapp
   const shareOnWhatsApp = (slug: string) => {
-    const baseUrl = `${window.location.origin}/venues/${slug}`;
+    const baseUrl = `${window.location.origin}${basePath}/${slug}`;
     const fullUrl = `${baseUrl}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${query?.types || ''}&occasions=${query?.occasions || ''}&amenities=${query?.amenities || ''}&franchises=${query?.franchises || ''}&cuisines=${query?.cuisines || ''}&price_range=${query?.price_range || ''}&pax=${query?.pax || 1}`;
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(fullUrl)}`;
@@ -764,7 +767,7 @@ console.log(list)
                     </div>
                   }
 
-                  {props?.amenities?.filter((item: _Object) =>
+                  {router?.query?.types !== 'caterers' && props?.amenities?.filter((item: _Object) =>
                     item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types)
                   )?.length > 0 &&
                     <div className="accordion-item">
@@ -790,7 +793,7 @@ console.log(list)
                   }
 
                   {
-                    query?.types === 'restaurant' &&
+                    query?.types === 'restaurant' || query?.types === 'caterers' &&
                     <div className="accordion-item">
                       <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#occasions" aria-expanded="true" aria-controls="occasions">
                         Occasions
@@ -1068,7 +1071,7 @@ console.log(list)
                   </h5>
                   :
                   <div className="d-flex align-items-center gap-2">
-                    <h6 className="mb-0 d-none d-md-block">Sort</h6>
+                    <h6 className="mb-0">Sort</h6>
                     <SelectField
                       value={{ value: query?.order_by || 'recommended' }}
                       options={[
@@ -1093,7 +1096,7 @@ console.log(list)
                         setFilter(true)
                         setLoading({ main: true })
                         router.push({
-                          pathname: '/venues',
+                          pathname: basePath,
                           query: `locations=${query.locations?.replace(/\+/g, '%2B') || ''}&types=${query?.types?.replace(/\+/g, '%2B') || ''}&date=${formattedDate}&occasions=${query?.occasions?.replace(/\+/g, '%2B') || ''}&pax=${query?.pax || ''}&cuisines=${query?.cuisines?.replace(/\+/g, '%2B') || ''}&franchises=${query?.franchises?.replace(/\+/g, '%2B') || ''}&amenities=${query?.amenities?.replace(/\+/g, '%2B') || ''}&price_range=${query?.price_range?.replace(/\+/g, '%2B') || ''}&order_by=${val.value}`
                         })
                       }}
@@ -1166,7 +1169,7 @@ console.log(list)
                       <div className="row">
                         <div className="col-sm-12 col-md-4">
                           <div className="image-wraper">
-                            <Link href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
+                            <Link href={`${basePath}/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
                               <Image src={item?.featuredImage?.node?.sourceUrl || placeholder} width="450" height="300" alt="" />
 
                             </Link>
@@ -1185,7 +1188,7 @@ console.log(list)
                         <div className="col-sm-8 col-md-5">
                           <div className="details">
                             <h5 >
-                              <Link className="" href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
+                              <Link className="" href={`${basePath}/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || 1}`} target="_blank">
                                 {item.title}
                               </Link>
                             </h5>
@@ -1234,7 +1237,7 @@ console.log(list)
                         <div className="col-sm-4 col-md-3">
                           <div className="price-details">
                             {item?.extraOptions?.paxPrice > 0 && <h4>₹{item.extraOptions.paxPrice || 0} / Pax</h4>}
-                            <Link href={`/venues/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${formik?.values?.pax || 1}`} className="btn btn-primary" target="_blank">View Venue</Link>
+                            <Link href={`${basePath}/${item.slug}?locations=${query?.locations?.replace(/\+/g, '%2B')}&date=${query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${formik?.values?.pax || 1}`} className="btn btn-primary" target="_blank">{router?.query?.types ==='caterers' ? 'View Caterer' : 'View Venue'}</Link>
                           </div>
                         </div>
                       </div>
@@ -1384,13 +1387,13 @@ console.log(list)
                           CAPACITY
                         </button>
                       }
-                      {
+                      {router?.query?.types !== 'caterers' &&
                         props?.amenities?.filter((item: _Object) => item?.filtersOptions?.displayAt?.nodes?.some((node: _Object) => node.slug === router?.query?.types))?.length > 0 && <button onClick={() => handleFilterClick('amenities')} className={getButtonClass('amenities')} type="button" data-bs-target="#amenities" aria-expanded={activeAccordion === 'amenities'} aria-controls="amenities">
                           AMENITIES
                         </button>
                       }
                       {
-                        query?.types === 'restaurant' &&
+                        query?.types === 'restaurant' || query?.types==='caterers' &&
                         <div className="accordion-item">
                           <button onClick={() => handleFilterClick('occasions')} className={getButtonClass('occasions')} type="button" data-bs-target="#occasions" aria-expanded={activeAccordion === 'occasions'} aria-controls="occasions">
                             OCCASIONS

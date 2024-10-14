@@ -15,37 +15,37 @@ import { LayoutProps } from '@/utils/types'
 config.autoAddCss = false;
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  useEffect(() => {
-    require('bootstrap/dist/js/bootstrap.bundle.min.js')
-  }, [])
+	useEffect(() => {
+		require('bootstrap/dist/js/bootstrap.bundle.min.js')
+	}, [])
 
-  return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-      <ToastContainer
-        toastStyle={{ backgroundColor: '#5A3483', color: '#ffff' }}
-        autoClose={2000}
-        pauseOnHover
-      />
-    </Provider>
-  )
+	return (
+		<Provider store={store}>
+			<Component {...pageProps} />
+			<ToastContainer
+				toastStyle={{ backgroundColor: '#5A3483', color: '#ffff' }}
+				autoClose={2000}
+				pauseOnHover
+			/>
+		</Provider>
+	)
 }
 
 MyApp.getInitialProps = async () => {
-  const pageProps: LayoutProps = {
-    footer: {
-      menus: []
-    }
+	const pageProps: LayoutProps = {
+		footer: {
+			menus: []
+		}
 
-  }
+	}
 
-  // const footer1 = await menuService.getNavigation('FOOTER1')
-  // const footer2 = await menuService.getNavigation('FOOTER2')
+	// const footer1 = await menuService.getNavigation('FOOTER1')
+	// const footer2 = await menuService.getNavigation('FOOTER2')
 
-  // if (footer1) { pageProps.footer.menus.push(footer1) }
-  // if (footer2) { pageProps.footer.menus.push(footer2) }
+	// if (footer1) { pageProps.footer.menus.push(footer1) }
+	// if (footer2) { pageProps.footer.menus.push(footer2) }
 
-  return { pageProps }
+	return { pageProps }
 }
 
 export default MyApp

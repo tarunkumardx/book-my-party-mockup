@@ -531,12 +531,12 @@ const VenueDetails = (props: _Object) => {
 
 																		<div className="view-all-button">
 																			<div className="whatsapps">
-																				<Link href="https://api.whatsapp.com/send/?phone=%2B919818000526&text&type=phone_number&app_absent=0" target="_self">
+																				<Link href="https://api.whatsapp.com/send/?phone=%2B919911412626&text&type=phone_number&app_absent=0" target="_self">
 																					<Image src={WhatsappIcon} width="40" height="40" alt="WhatSapp" />
 																				</Link>
 																			</div>
 																			<div className="phone-call">
-																				<Link href="tel:+91%2098180%2000526">
+																				<Link href="tel:+919911412626">
 																					<Image src={PhoneCall} width="32" height="32" alt="Phone Call" />
 																				</Link>
 																			</div>
@@ -641,7 +641,7 @@ const VenueDetails = (props: _Object) => {
 											}
 
 											{
-												props?.data?.amenities?.nodes?.length > 0 &&
+												router.query.types!=='caterers' && props?.data?.amenities?.nodes?.length > 0 &&
 												<li className="nav-item">
 													<a href="#amenities" className={`nav-link ${activeLink === 'amenities' ? 'active' : ''}`} onClick={(e) => handleClick(e, 'amenities')}>
 														Amenities
@@ -656,7 +656,7 @@ const VenueDetails = (props: _Object) => {
 											</li>
 
 											{
-												props?.data?.extraOptions?.propertyRules?.nodes?.length > 0 &&
+												router.query.types!=='caterers' && props?.data?.extraOptions?.propertyRules?.nodes?.length > 0 &&
 												<li className="nav-item">
 													<a href="#propertyRules" className={`nav-link ${activeLink === 'propertyRules' ? 'active' : ''}`} onClick={(e) => handleClick(e, 'propertyRules')}>
 														Property Rules
@@ -758,10 +758,16 @@ const VenueDetails = (props: _Object) => {
 																											</span>
 
 																										</li>
+																										{(router.query.types==='banquet' || router.query.types==='farm-house' || router.query.types==='caterers') &&
+																										<li className="list-inline-item">
+																											<button type="button" data-bs-toggle="modal" data-bs-target="#EnquireNow" className={`btn btn-danger text-white ${disable && 'disabled'}`}>Enquire Now</button>
+																										</li>
+																										}
+																										{(router.query.types==='restaurant' || router.query.types==='fun-zone') &&
 																										<li className="list-inline-item">
 																											<Link href={`/booking/${router.query.slug}?locations=${query?.locations || ''}&date=${formik?.values?.date?.length > 0 ? formik?.values?.date : query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || ''}&price=${item?.salePrice ? item?.salePrice : item?.price}&package=${item.title}`} className={`btn btn-danger text-white ${disable && 'disabled'}`}>Buy Now</Link>
 																										</li>
-
+																										}
 																									</ul>
 																								</div>
 																							</div>
@@ -844,7 +850,7 @@ const VenueDetails = (props: _Object) => {
 												</div>
 											}
 
-											{props?.data?.amenities?.nodes?.length > 0 &&
+											{router.query.types!=='caterers' && props?.data?.amenities?.nodes?.length > 0 &&
 												<div className={`tab-details ${activeLink === 'amenities' ? 'active' : ''}`} id="amenities">
 													<>
 														<h5 className="main-head">
@@ -888,7 +894,7 @@ const VenueDetails = (props: _Object) => {
 												</div>
 											</div>
 
-											{props?.data?.extraOptions?.propertyRules?.nodes?.length > 0 &&
+											{router.query.types!=='caterers' && props?.data?.extraOptions?.propertyRules?.nodes?.length > 0 &&
 												<div className={`tab-details ${activeLink === 'propertyRules' ? 'active' : ''}`} id="propertyRules">
 													<div className="property-rules-section">
 														<div className="property-rules-row">
@@ -922,7 +928,7 @@ const VenueDetails = (props: _Object) => {
 
 						</section>
 						<section className="simlar-properties-tabs">
-							{props?.data?.locations?.nodes[0]?.slug?.length > 0 && <SimilarProperty location={props?.data?.locations?.nodes[0]?.slug || ''} type={props?.data?.venueCategories?.nodes[0]?.slug || ''} />}
+							{props?.data?.locations?.nodes[0]?.slug?.length > 0 && <SimilarProperty location={props?.data?.locations?.nodes[0]?.slug || ''} type={props?.data?.venueCategories?.nodes[0]?.slug || ''} router={router}/>}
 							<MenuDetail data={modelData} />
 							<VenueImageSlider data={props?.data?.extraOptions?.mediaGallery?.imageGallery} />
 							<AlaCarteMenu data={images} />

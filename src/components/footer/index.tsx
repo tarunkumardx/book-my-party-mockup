@@ -22,6 +22,7 @@ import ComingSoon from '../modals/coming-soon';
 import VenueModal from '../modals/venue-modal';
 import EventModal from '../modals/event-modal';
 import { useRouter } from 'next/router';
+import EnquireNow from '../modals/enquire-now';
 
 const Footer = () => {
 	const router = useRouter();
@@ -476,7 +477,7 @@ const Footer = () => {
 					<BackToTopButton />
 					<VenueModal />
 					<EventModal />
-
+					<EnquireNow />
 				</footer>
 			}
 		</>

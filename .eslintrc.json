@@ -21,7 +21,10 @@
 		"no-unused-vars": "off",
 		"indent": [
 			"error",
-			2
+			"tab",
+			{
+				"SwitchCase": 1
+			}
 		],
 		"quotes": [
 			"error",

@@ -1,14 +1,14 @@
 import CommonService from './common.service'
 
 class PageService extends CommonService {
-  /**
+	/**
    * Fetches a list of pages.
    *
    * @returns - An object containing an array of page nodes, each with title, content, slug, and featuredImage details.
    */
-  async getAllPages() {
-    const data = await this.post({
-      query: `
+	async getAllPages() {
+		const data = await this.post({
+			query: `
       query getAllPages {
         pages(first: 50) {
           nodes {
@@ -23,18 +23,18 @@ class PageService extends CommonService {
       }
     `})
 
-    return data.data.pages.nodes
-  }
+		return data.data.pages.nodes
+	}
 
-  /**
+	/**
    * Get page details by slug
    *
    * @param {String} id - Page slug
    * @returns - An object containing page details, including content, title, slug, ID, and URI.
    */
-  async getPageBySlug(id: string) {
-    const data = await this.post({
-      query: `
+	async getPageBySlug(id: string) {
+		const data = await this.post({
+			query: `
       query getPageBySlug($id: ID = "") {
         page(id: $id, idType: URI) {
           id
@@ -100,20 +100,20 @@ class PageService extends CommonService {
          }
        }
       `, variables: { id }
-    });
+		});
 
-    return data.data.page
-  }
+		return data.data.page
+	}
 
-  /**
+	/**
    * Get home page hero slider
    *
    * @param {String} id - Page slug
    * @returns {Object} - An object containing page details, including content, title, slug, ID, and URI.
    */
-  async getPageBuilderElements(id: string) {
-    const result = await this.post({
-      query: `
+	async getPageBuilderElements(id: string) {
+		const result = await this.post({
+			query: `
       query PageBuilder($id: ID = "") {
         page(id: $id, idType: URI) {
           id
@@ -268,14 +268,14 @@ class PageService extends CommonService {
         }
       }
   `, variables: { id }
-    });
+		});
 
-    return result?.data?.page
-  }
+		return result?.data?.page
+	}
 
-  async getAllPosts() {
-    const result = await this.post({
-      query: `
+	async getAllPosts() {
+		const result = await this.post({
+			query: `
         query Post {
           posts(first: 6, where: { orderby: { field: DATE, order: DESC } }) {
             nodes {
@@ -291,9 +291,9 @@ class PageService extends CommonService {
           }
         }
       `
-    })
-    return result.data.posts.nodes
-  }
+		})
+		return result.data.posts.nodes
+	}
 }
 
 export const pageService = new PageService();

@@ -3,11 +3,11 @@ type data={
   data:string
 }
 const Avatar = ({ data }: data) => {
-  const matches = data?.match(/\b(\w)/g)
-  const avtar = matches?.join('').toUpperCase()
+	const matches = data?.match(/\b(\w)/g)
+	const avtar = matches?.join('').toUpperCase()
 
-  return (
-    <span className="avatar">{avtar}</span>
-  )
+	return (
+		<span className="avatar">{avtar}</span>
+	)
 }
 export default Avatar

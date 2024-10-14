@@ -10,20 +10,20 @@ type DashboardLayoutProps = {
 }
 
 const Layout = ({ footer, children }: DashboardLayoutProps) => {
-  return (
-    <>
-      <Header />
-      {children}
-      <Footer {...footer || {}} />
-      {/* <div className="phone">
-				<Link href="tel:+91%2098180%2000526">
+	return (
+		<>
+			<Header />
+			{children}
+			<Footer {...footer || {}} />
+			{/* <div className="phone">
+				<Link href="tel:+919911412626">
 					<Image src={MassesIcon} width="40" height="40" alt="Masses Icon" />
 				</Link>
 			</div> */}
 
-      <Enquiry />
-    </>
-  )
+			<Enquiry />
+		</>
+	)
 }
 
 export default Layout
