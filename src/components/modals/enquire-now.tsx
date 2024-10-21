@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import * as yup from 'yup'
 import { useFormik } from 'formik';
@@ -7,22 +8,21 @@ import { amountFormat, closeModal } from '@/utils/helpers';
 import { listService } from '@/services/venue.service';
 import ReactDatePicker from 'react-datepicker';
 import { _Object } from '@/utils/types';
-import SelectField from '@/stories/form-inputs/select-field';
 import PhoneNumberField from '../phone-number-field';
 import { useRouter } from 'next/router';
 import emailjs from 'emailjs-com';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const EnquireNow = () => {
 	const [props, setProps] = useState({
-		locations: [],
 		occasions:[]
 	});
-	console.log(props)
 	const router: _Object = useRouter();
+	// console.log(router)
 	const fetchData = async () => {
-		const locationsData = await listService.getLocations()
 		const occasionsData = await listService.getOccasions()
-		setProps({locations: locationsData, occasions:occasionsData});
+		setProps({occasions:occasionsData});
 	};
 	useEffect(() => {
 		fetchData();
@@ -32,14 +32,14 @@ const EnquireNow = () => {
 	const formik = useFormik({
 		initialValues: {
 			input_1: router.query.types, // types
-			input_3: router.query.slug, // slug
+			input_3: router?.components['/venues/[slug]']?.props?.pageProps?.data?.title, // title
 			input_4: '', // username
 			input_5: '', // emailId
 			input_6: '', // phoneNo
 			input_7: '', // budget
 			input_8: '', // occassion
 			input_9: '', // guests
-			input_10: '', // location
+			input_10: router.query.types != 'caterers' ? router.query.locations : '', // location
 			input_11: '', //date
 			input_12: '', // menu
 			input_13: '' // drinks
@@ -50,10 +50,11 @@ const EnquireNow = () => {
 		validationSchema: yup.object().shape({
 			input_1: yup.string(),
 			input_4: yup.string().label('Name').required('Name is required'),
+			input_5: yup.string().label('Email').required('Email is required'),
 			input_6: yup.number().label('Phone').required('Phone number is required').min(10, 'Phone number must be at least 10 digits'),
 			input_7: yup.string().label('Per Person Budget').required('Budget is required'),
 			input_8: yup.string().label('Occasions').required('Occasion is required'),
-			input_9: yup.string().label('Number of guest').required('Number of guest is required'),
+			input_9: yup.number().label('Number of guest').required('Number of guest is required').min(50, 'Minimum 50 guests required').max(3000, 'Maximum 3000 guests are allowed'),
 			input_10: router.query.types ==='caterers' ? yup.string().label('Locations').required('Location is required') : yup.string().notRequired(),
 			input_11: yup.string().label('Date').required('Date is required'),
 			input_12: yup.string().label('Menu').required('Menu is required'),
@@ -161,22 +162,23 @@ const EnquireNow = () => {
 									error: formik.touched.input_6 && formik.errors.input_6
 								}}
 							/>
-							<SelectField
-								className="col-12 col-md-6"
-								placeholder="Select Occasion"
-								// label="Occasion"
-								name="input_8"
-								// eslint-disable-next-line react/prop-types
-								options={props?.occasions?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-								value={{ value: formik.values.input_8 }}
-								onChange={(val: _Object) => {
-									formik.setFieldValue('input_8', val.value)
-								}}
-								getOptionLabel={(option: { [key: string]: string }) => option?.label}
-								getOptionValue={(option: { [key: string]: string }) => option?.label}
-								error={formik.touched.input_8 && formik.errors.input_8}
-							/>
-
+							<div className="form-group col-12 col-md-6 EnquireNowDropdown">
+								<DropdownButton
+									title={formik.values.input_8 || 'Select Occasion'}
+									onSelect={(label: string | null) => {
+										formik.setFieldValue('input_8', label)
+									}}
+								>
+									{props.occasions.map(({OccasionSlug, name}) => (
+										<Dropdown.Item key={OccasionSlug} eventKey={name}>
+											{name}
+										</Dropdown.Item>
+									))}
+								</DropdownButton>
+								{formik.errors.input_8 && formik.touched.input_8 && (
+									<div className="invalid-feedback text-danger d-block mt-1">{formik.errors.input_8}</div>
+								)}
+							</div>
 							<div className="form-group mb-3 col-12 col-md-6 plan-your-date">
 								<ReactDatePicker
 									name="input_11"
@@ -197,57 +199,69 @@ const EnquireNow = () => {
 								// label="No. of Guest"
 								name="input_9"
 								type="number"
-								min={50}
-								max={3000}
 								required={true}
 								value={formik.values.input_9}
 								onChange={formik.handleChange}
 								error={formik.touched.input_9 && formik.errors.input_9}
 							/>
-							<SelectField
-								className="col-12 col-md-6 EnquireNowDropdown"
-								placeholder="Select Budget Range"
-								name="input_7"
-								value={{ value: formik.values.input_7 }}
-								options={budgets}
-								onChange={(val: _Object) => {
-									formik.setFieldValue('input_7', val.value)
-								}}
-								getOptionLabel={(option: { [key: string]: string }) => option?.label}
-								getOptionValue={(option: { [key: string]: string }) => option?.label}
-								error={formik.touched.input_7 && formik.errors.input_7}
-							/>
-							<SelectField
-								className="col-12 col-md-6 EnquireNowDropdown"
-								placeholder="Menu"
-								name="input_12"
-								value={{ value: formik.values.input_12 }}
-								options={menu}
-								onChange={(val: _Object) => {
-									formik.setFieldValue('input_12', val.value)
-								}}
-								getOptionLabel={(option: { [key: string]: string }) => option?.label}
-								getOptionValue={(option: { [key: string]: string }) => option?.label}
-								error={formik.touched.input_12 && formik.errors.input_12}
-							/>
-							<SelectField
-								className="col-12 col-md-6 EnquireNowDropdown"
-								placeholder="Drinks"
-								name="input_13"
-								value={{ value: formik.values.input_13 }}
-								options={drinks}
-								onChange={(val: _Object) => {
-									formik.setFieldValue('input_13', val.value)
-								}}
-								getOptionLabel={(option: { [key: string]: string }) => option?.label}
-								getOptionValue={(option: { [key: string]: string }) => option?.label}
-								error={formik.touched.input_13 && formik.errors.input_13}
-							/>
+
+							<div className="form-group col-12 col-md-6 EnquireNowDropdown">
+								<DropdownButton
+									title={formik.values.input_7 || 'Select Budget Range'}
+									onSelect={(label: string | null) => {
+										formik.setFieldValue('input_7', label)
+									}}
+								>
+									{budgets.map((budget) => (
+										<Dropdown.Item key={budget.value} eventKey={budget.label}>
+											{budget.label}
+										</Dropdown.Item>
+									))}
+								</DropdownButton>
+								{formik.errors.input_7 && formik.touched.input_7 && (
+									<div className="invalid-feedback text-danger d-block mt-1">{formik.errors.input_7}</div>
+								)}
+							</div>
+
+							<div className="form-group col-12 col-md-6 EnquireNowDropdown">
+								<DropdownButton
+									title={formik.values.input_12 || 'Menu'}
+									onSelect={(label: string | null) => {
+										formik.setFieldValue('input_12', label)
+									}}
+								>
+									{menu.map((menu) => (
+										<Dropdown.Item key={menu.value} eventKey={menu.label}>
+											{menu.label}
+										</Dropdown.Item>
+									))}
+								</DropdownButton>
+								{formik.errors.input_12 && formik.touched.input_12 && (
+									<div className="invalid-feedback text-danger d-block mt-1">{formik.errors.input_12}</div>
+								)}
+							</div>
+							<div className="form-group col-12 col-md-6 EnquireNowDropdown">
+								<DropdownButton
+									title={formik.values.input_13 || 'Drinks'}
+									className={formik.errors.input_13 && 'invalid'}
+									onSelect={(label: string | null) => {
+										formik.setFieldValue('input_13', label)
+									}}
+								>
+									{drinks.map((drink) => (
+										<Dropdown.Item key={drink.value} eventKey={drink.label}>
+											{drink.label}
+										</Dropdown.Item>
+									))}
+								</DropdownButton>
+								{formik.errors.input_13 && formik.touched.input_13 && (
+									<div className="invalid-feedback text-danger d-block mt-1">{formik.errors.input_13}</div>
+								)}</div>
 
 							{router.query.types ==='caterers' && <>
 								<InputField
 									className="col-12"
-									placeholder="Choose location"
+									placeholder="Provide your location"
 									type="text"
 									name="input_10"
 									required={true}

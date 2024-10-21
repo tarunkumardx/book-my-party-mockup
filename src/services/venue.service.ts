@@ -544,6 +544,7 @@ class ListService extends CommonService {
                 freeCancellation
                 menuDetail
                 minPax
+                maxPax
                 salePrice
                 shortDescription
                 timing
@@ -707,6 +708,7 @@ class ListService extends CommonService {
                 freeCancellation
                 menuDetail
                 minPax
+                maxPax
                 salePrice
                 shortDescription
                 timing

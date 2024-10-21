@@ -719,7 +719,12 @@ const VenueDetails = (props: _Object) => {
 																								<ul className="list-inline">
 
 																									{item?.minPax &&
+																									<>
 																										<li className="list-inline-item"><p><span>Min.Pax</span>&nbsp;:&nbsp;{item?.minPax}</p></li>
+																										{item?.maxPax && item?.maxPax > item?.minPax &&
+																										<><li className="list-inline-item">|</li>
+																											<li className="list-inline-item"><p><span>Max.Pax</span>&nbsp;:&nbsp;{item?.maxPax}</p></li></>}
+																										</>
 																									}
 
 																									{item?.validOn?.length > 0 &&

@@ -254,6 +254,41 @@
   }
 }
 
+.EnquireNowDropdown {
+  .dropdown button {
+    border: 1px solid #dae1e7;
+    background-color: #ff8965;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    &:focus {
+      border: 1px solid #dae1e7;
+      background-color: #ff8965;
+    }
+  }
+  .dropdown-menu {
+    background: #ffefe9;
+    border: 1px solid #dae1e7;
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 11px hsla(0, 0%, 0%, 0.1);
+    margin-bottom: 8px;
+    margin-top: 8px;
+    overflow-y: scroll;
+    max-height: 200px;
+  }
+  .dropdown-item {
+    font-size: 14px;
+		padding: 10px 15px;
+    &:hover {
+      background-color: #ff8965;
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+
 .comingSoonModal.btn {
   justify-content: right;
 }
@@ -282,13 +317,13 @@
       .flag-dropdown {
         border-color: #dae1e7;
       }
-			.country-list {
-				width: 221px;
-			}
-			input {
-				height: 44px !important;
-				border-color: #dae1e7;
-			}
+      .country-list {
+        width: 221px;
+      }
+      input {
+        height: 44px !important;
+        border-color: #dae1e7;
+      }
     }
     .modal-close {
       width: 35px;
