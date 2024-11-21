@@ -6,277 +6,352 @@ import { useFormik } from 'formik'
 import * as yup from 'yup'
 
 import { _Object } from '@/utils/types'
-import { Banquet, Caterers, FarmHouse, FunZone, Restaurant, downArrow, location } from '@/assets/images'
+import { Banquet, Caterers, FarmHouse, FunZone, Restaurant, Banquetc, Caterersc, FarmHousec, FunZonec, Restaurantc, downArrow, location } from '@/assets/images'
 import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 
 const HeroBanner = ({ props }: _Object) => {
-  const router: _Object = useRouter();
+	console.log(props.locations)
+	const router: _Object = useRouter();
 
-  const [locationData, setLocationData] = useState<_Object>({});
+	const [locationData, setLocationData] = useState<_Object>({});
 
-  const currentDate = new Date();
-  currentDate.setDate(currentDate.getDate() + 2);
+	const currentDate = new Date();
+	currentDate.setDate(currentDate.getDate() + 2);
 
-  console.log('locationData :>> ', locationData);
-  const formik = useFormik({
-    initialValues: {
-      type: 'restaurant',
-      location: 'delhi-ncr',
-      locations: [],
-      date: '',
-      occasion: 'get-together',
-      pax: '1'
-    },
+	console.log('locationData :>> ', locationData);
+	const formik = useFormik({
+		initialValues: {
+			type: 'restaurant',
+			location: 'delhi-ncr',
+			locations: [],
+			date: '',
+			occasion: 'get-together',
+			pax: 1
+		},
 
-    enableReinitialize: true,
+		enableReinitialize: true,
 
-    validationSchema: yup.object().shape({
-      pax: yup.string().label('Pax').required('Pax is required')
-    }),
+		validationSchema: yup.object().shape({
+			pax: yup.string().label('Pax').required('Pax is required')
+		}),
 
-    onSubmit: async (values) => {
-      const date = typeof values?.date === 'object' ? new Date(values?.date) : currentDate
+		onSubmit: async (values) => {
+			const date = typeof values?.date === 'object' ? new Date(values?.date) : currentDate
 
-      const month = (date.getMonth() + 1).toString().padStart(2, '0');
-      const day = date.getDate().toString().padStart(2, '0');
-      const year = date.getFullYear();
+			const month = (date.getMonth() + 1).toString().padStart(2, '0');
+			const day = date.getDate().toString().padStart(2, '0');
+			const year = date.getFullYear();
 
-      const formattedDate = `${month}-${day}-${year}`;
+			const formattedDate = `${month}-${day}-${year}`;
 
-      router.push({
-        pathname: '/venues',
-        query: `locations=${values?.location}&types=${values?.type}&date=${formattedDate}&occasions=${values?.occasion}&pax=${values?.pax}&order_by=recommended`
-      });
-    }
-  })
+			const basePath = values?.type === 'caterers' ? '/caterers' : '/venues';
 
-  const locations = [
-    { name: 'Popular Destinations', slug: '' }
-  ]
+			router.push({
+				pathname: basePath,
+				query: `locations=${values?.location}&types=${values?.type}&date=${formattedDate}&occasions=${values?.occasion}&pax=${(values?.pax)}&order_by=recommended`
+			});
+		}
+	})
 
-  const filteredLocations = locations.filter(data => !props?.locations?.some((item: _Object) => item.slug === data.slug));
+	const locations = [
+		{ name: 'Popular Destinations', slug: '' }
+	]
 
-  const newLocationsArray = [...filteredLocations, ...props.locations];
+	const filteredLocations = locations.filter(data => !props?.locations?.some((item: _Object) => item.slug === data.slug));
+	const newLocationsArray = [...filteredLocations, ...props.locations];
 
-  const slugToMove = 'india';
+	const slugToMove = 'india';
 
-  const newIndex = 1;
+	const newIndex = 1;
 
-  const indexToMove = newLocationsArray.findIndex(item => item.slug === slugToMove);
+	const indexToMove = newLocationsArray.findIndex(item => item.slug === slugToMove);
 
-  const removedElement = newLocationsArray.splice(indexToMove, 1)[0];
+	const removedElement = newLocationsArray.splice(indexToMove, 1)[0];
 
-  newLocationsArray.splice(newIndex, 0, removedElement);
+	newLocationsArray.splice(newIndex, 0, removedElement);
 
-  const isPastDate = (date: number | Date) => {
-    const comparisonDate = date instanceof Date ? date : new Date(date);
-    return comparisonDate < new Date() && !isToday(comparisonDate);
-  };
+	const isPastDate = (date: number | Date) => {
+		const comparisonDate = date instanceof Date ? date : new Date(date);
+		return comparisonDate < new Date() && !isToday(comparisonDate);
+	};
 
-  // Custom function to set underline for future dates
-  const isFutureDate = (date: number | Date) => {
-    const comparisonDate = date instanceof Date ? date : new Date(date);
-    return comparisonDate > new Date() && !isToday(comparisonDate);
-  };
+	// Custom function to set underline for future dates
+	const isFutureDate = (date: number | Date) => {
+		const comparisonDate = date instanceof Date ? date : new Date(date);
+		return comparisonDate > new Date() && !isToday(comparisonDate);
+	};
 
-  // Function to check if date is today
-  const isToday = (date: { getDate: () => number; getMonth: () => number; getFullYear: () => number }) => {
-    const today = new Date();
-    return (
-      date.getDate() === today.getDate() &&
-			date.getMonth() === today.getMonth() &&
-			date.getFullYear() === today.getFullYear()
-    );
-  };
+	// Function to check if date is today
+	const isToday = (date: { getDate: () => number; getMonth: () => number; getFullYear: () => number }) => {
+		const today = new Date();
+		return (
+			date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+		);
+	};
 
-  const [calendarOpen, setCalendarOpen] = useState(false);
-  const [datePickerIsOpen, setDatePickerIsOpen] = useState(false);
+	const [calendarOpen, setCalendarOpen] = useState(false);
+	const [datePickerIsOpen, setDatePickerIsOpen] = useState(false);
+	const [minPax, setMinPax] = useState(1);
+	const [maxPax, setMaxPax] = useState(100);
+	const [message, setMessage] = useState<string>('');
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setMessage('');
+		},3000);
 
-  const openDatePicker = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const target = event.target as HTMLDivElement;
-    if (target.id === '') {
-      setDatePickerIsOpen(!datePickerIsOpen);
-      setCalendarOpen(!datePickerIsOpen)
-    }
-  };
+		return () => clearTimeout(timer);
+	}, [message]);
 
-  const [isActive, setIsActive] = useState(false); // State to track active class
-  const formGroupRef = useRef<HTMLDivElement>(null); // Ref for form-group element
+	useEffect(() => {
+		if(formik.values.type === 'farm-house'){
+			setMinPax(1);
+			setMaxPax(5000);
+		}
+		if(formik.values.type === 'banquet'){
+			setMinPax(1);
+			setMaxPax(5000);
+		}
+		if(formik.values.type === 'caterers'){
+			setMinPax(1);
+			setMaxPax(5000);
+		}
+		if(formik.values.type === 'restaurant'){
+			setMinPax(1);
+			setMaxPax(200);
+		}
+		if(formik.values.type === 'fun-zone'){
+			setMinPax(1);
+			setMaxPax(1000);
+		}
+		formik.setFieldValue('pax', minPax);
+	}, [formik.values.type, minPax, maxPax]);
+	const openDatePicker = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+		const target = event.target as HTMLDivElement;
+		if (target.id === '') {
+			setDatePickerIsOpen(!datePickerIsOpen);
+			setCalendarOpen(!datePickerIsOpen)
+		}
+	};
 
-  useEffect(() => {
-    // Function to handle clicks outside the form-group
-    function handleClickOutside(event: MouseEvent) {
-      if (formGroupRef.current && !formGroupRef.current.contains(event.target as Node)) {
-        setIsActive(false); // Deactivate the class when clicked outside
-      }
-    }
+	const [isActive, setIsActive] = useState(false); // State to track active class
+	const formGroupRef = useRef<HTMLDivElement>(null); // Ref for form-group element
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [formGroupRef]);
+	useEffect(() => {
+		// Function to handle clicks outside the form-group
+		function handleClickOutside(event: MouseEvent) {
+			if (formGroupRef.current && !formGroupRef.current.contains(event.target as Node)) {
+				setIsActive(false); // Deactivate the class when clicked outside
+			}
+		}
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleClick = (event: any) => {
-    const target = event.target as HTMLDivElement;
-    if (target.id === 'datepicker-herobanner-1' || target.id === 'datepicker-herobanner-11') {
-      setCalendarOpen(!datePickerIsOpen)
-      setDatePickerIsOpen(!datePickerIsOpen);
-    }
-  }
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, [formGroupRef]);
 
-  useEffect(() => {
-    const fetchLocation = () => {
-      if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            setLocationData({
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude
-            });
-          },
-          (error) => {
-            console.log('error :>> ', error);
-          }
-        );
-      }
-    };
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const handleClick = (event: any) => {
+		const target = event.target as HTMLDivElement;
+		if (target.id === 'datepicker-herobanner-1' || target.id === 'datepicker-herobanner-11') {
+			setCalendarOpen(!datePickerIsOpen)
+			setDatePickerIsOpen(!datePickerIsOpen);
+		}
+	}
 
-    fetchLocation();
-  }, []);
+	useEffect(() => {
+		const fetchLocation = () => {
+			if ('geolocation' in navigator) {
+				navigator.geolocation.getCurrentPosition(
+					(position) => {
+						setLocationData({
+							latitude: position.coords.latitude,
+							longitude: position.coords.longitude
+						});
+					},
+					(error) => {
+						console.log('error :>> ', error);
+					}
+				);
+			}
+		};
 
-  return (
-    <>
-      <section className="hero-banner pie-container">
-        <div className="container">
-          <div className="row">
-            <div className="col">
-              <div className="main-wrapper">
-                <form onSubmit={formik.handleSubmit}>
-                  <div className="radios">
-                    <RadioButton
-                      value={[formik.values.type]}
-                      options={[
-                        { label: 'Restaurant', value: 'restaurant', image: Restaurant },
-                        { label: 'Banquet', value: 'banquet', image: Banquet },
-                        { label: 'Farm House', value: 'farm-house', image: FarmHouse },
-                        { label: 'Fun Zone', value: 'fun-zone', image: FunZone },
-                        { label: 'Caterers', value: 'caterers', image: Caterers }
-                      ]}
-                      displayInline={true}
-                      onChange={(e: _Object) => {
-                        formik.setFieldValue('type', e.target.value)
-                        formik.setFieldValue('occasion', e.target.value === 'banquet' ? 'anniversary' : 'get-together')
-                      }}
-                    />
-                  </div>
+		fetchLocation();
+	}, []);
 
-                  {formik.values.type === 'caterers' ?
-                    <div className="output bg-light coming-soon">
-                      <h3 className="text-center">COMING SOON</h3>
-                    </div>
-                    :
-                    <div className="output bg-light">
-                      <div className="form-inputs">
-                        <div className="row">
-                          <div className="col-12 col-md-6 col-lg-3 content-box pe-lg-0">
-                            <div className="inner location">
-                              <SelectField
-                                name="location"
-                                label="Location"
-                                value={{ value: formik?.values?.location }}
-                                options={newLocationsArray?.map((item: _Object) => { return item.slug === 'india' ? { label: 'INDIA', value: item.slug } : { label: item.name, value: item.slug, icon: item?.slug?.length > 0 ? location : '' } })}
-                                onChange={(val: _Object) => {
-                                  formik.setFieldValue('location', val.value)
-                                }}
-                                getOptionLabel={(option: { [key: string]: string }) => option?.label}
-                                getOptionValue={(option: { [key: string]: string }) => option?.label}
-                                imageSrc={downArrow}
-                              />
-                            </div>
-                          </div>
+	return (
+		<>
+			<section className="hero-banner pie-container">
+				<div className="container">
+					<div className="row">
+						<div className="col">
+							<div className="main-wrapper">
+								<form onSubmit={formik.handleSubmit}>
+									<div className="radios">
+										<RadioButton
+											value={[formik.values.type]}
+											options={[
+												{ label: 'Restaurant', value: 'restaurant', image: Restaurant, imagec: Restaurantc },
+												{ label: 'Banquet', value: 'banquet', image: Banquet , imagec: Banquetc},
+												{ label: 'Farm House', value: 'farm-house', image: FarmHouse, imagec: FarmHousec },
+												{ label: 'Fun Zone', value: 'fun-zone', image: FunZone, imagec: FunZonec },
+												{ label: 'Caterers', value: 'caterers', image: Caterers, imagec: Caterersc }
+											]}
+											displayInline={true}
+											onChange={(e: _Object) => {
+												formik.setFieldValue('type', e.target.value)
+												formik.setFieldValue('occasion', e.target.value === 'banquet' ? 'anniversary' : 'get-together')
+												setMessage('')
+											}}
+										/>
+									</div>
 
-                          <div className="col-12 col-md-6 col-lg-3 content-box p-lg-0">
-                            <div className="inner">
-                              <div id="datepicker-herobanner-1" className={`form-group ${calendarOpen ? 'active' : ''}`} onClick={handleClick}>
-                                <p id="datepicker-herobanner-1" className="label-form" onClick={handleClick}>Date
-                                  <Image id="datepicker-herobanner-1" src={downArrow} alt="Image" width={20} height={20} style={{ marginLeft: '60px' }} className="date-arrow" onClick={handleClick} />
-                                </p>
-                                <ReactDatePicker
-                                  id="datepicker-herobanner-11"
-                                  name="date"
-                                  placeholderText="DD/MM/YYYY"
-                                  selected={formik?.values?.date ? new Date(formik.values.date) : currentDate}
-                                  onChange={(date: Date) => { formik.setFieldValue('date', date), handleClick({ target: { id: 'datepicker-herobanner-1' } }) }}
-                                  dayClassName={(date) => (isPastDate(date) ? 'past-date' : isFutureDate(date) ? 'future-date' : '')}
-                                  minDate={currentDate}
-                                  dateFormat="dd/MM/YYYY"
-                                  open={datePickerIsOpen}
-                                  onClickOutside={openDatePicker}
-                                />
-                              </div>
-                            </div>
-                          </div>
+									{/* {formik.values.type === 'caterers' ?
+										<div className="output bg-light coming-soon">
+											<h3 className="text-center">COMING SOON</h3>
+										</div>
+										: */}
+									<div className="output bg-light">
+										<div className="form-inputs">
+											<div className="row">
+												<div className="col-12 col-md-6 col-lg-3 content-box pe-lg-0">
+													<div className="inner location">
+														<SelectField
+															name="location"
+															label="Location"
+															value={{ value: formik?.values?.location }}
+															options={newLocationsArray?.map((item: _Object) => { return item.slug === 'india' ? { label: 'INDIA', value: item.slug } : { label: item.name, value: item.slug, icon: item?.slug?.length > 0 ? location : '' } })}
+															onChange={(val: _Object) => {
+																formik.setFieldValue('location', val.value)
+															}}
+															getOptionLabel={(option: { [key: string]: string }) => option?.label}
+															getOptionValue={(option: { [key: string]: string }) => option?.label}
+															imageSrc={downArrow}
+														/>
+													</div>
+												</div>
 
-                          <div className="col-12 col-md-6 col-lg-3 content-box p-lg-0">
-                            <div className="inner">
-                              <SelectField
-                                label="Occasion"
-                                value={{ value: formik?.values?.occasion }}
-                                options={props?.occasions?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
-                                onChange={(val: _Object) => {
-                                  formik.setFieldValue('occasion', val.value)
-                                }}
-                                getOptionLabel={(option: { [key: string]: string }) => option?.label}
-                                getOptionValue={(option: { [key: string]: string }) => option?.label}
-                                imageSrc={downArrow}
-                              />
-                            </div>
-                          </div>
+												<div className="col-12 col-md-6 col-lg-3 content-box p-lg-0">
+													<div className="inner">
+														<div id="datepicker-herobanner-1" className={`form-group ${calendarOpen ? 'active' : ''}`} onClick={handleClick}>
+															<p id="datepicker-herobanner-1" className="label-form" onClick={handleClick}>Date
+																<Image id="datepicker-herobanner-1" src={downArrow} alt="Image" width={20} height={20} style={{ marginLeft: '60px' }} className="date-arrow" onClick={handleClick} />
+															</p>
+															<ReactDatePicker
+																id="datepicker-herobanner-11"
+																name="date"
+																placeholderText="DD/MM/YYYY"
+																selected={formik?.values?.date ? new Date(formik.values.date) : currentDate}
+																// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+																onChange={(date: Date) => { formik.setFieldValue('date', date), handleClick({ target: { id: 'datepicker-herobanner-1' } }) }}
+																dayClassName={(date) => (isPastDate(date) ? 'past-date' : isFutureDate(date) ? 'future-date' : '')}
+																minDate={currentDate}
+																dateFormat="dd/MM/YYYY"
+																open={datePickerIsOpen}
+																onClickOutside={openDatePicker}
+															/>
+														</div>
+													</div>
+												</div>
 
-                          <div className="col-12 col-md-6 col-lg-3 content-box ps-lg-0">
-                            <div className="inner">
-                              <div ref={formGroupRef} className={`form-group ${isActive ? 'active' : ''}`}>
-                                <p className="label-form pax-label">Pax</p>
-                                <Quantity
-                                  value={formik.values.pax}
-                                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                    formik.setFieldValue('pax', parseInt(e.target.value) <= 0 ? 1 : e.target.value);
-                                    setIsActive(true);
-                                  }}
-                                  decrementQuantity={() => {
-                                    formik.setFieldValue('pax', parseInt(formik.values.pax) - 1);
-                                    setIsActive(+formik.values.pax > 1);
-                                  }}
-                                  incrementQuantity={() => {
-                                    formik.setFieldValue('pax', parseInt(formik.values.pax) + 1);
-                                    setIsActive(true);
-                                  }}
-                                />
-                                {formik.touched.pax && formik.errors.pax ? (
-                                  <p className="text-danger mb-0">{formik.touched.pax && formik.errors.pax}</p>
-                                ) : null}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="search-btn">
-                        <Button label="Search" type="submit" className="primary text-center" />
-                      </div>
-                    </div>
-                  }
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
-  )
+												<div className="col-12 col-md-6 col-lg-3 content-box p-lg-0">
+													<div className="inner">
+														<SelectField
+															label="Occasion"
+															value={{ value: formik?.values?.occasion }}
+															options={props?.occasions?.map((item: _Object) => { return { label: item.name, value: item.slug } })}
+															onChange={(val: _Object) => {
+																formik.setFieldValue('occasion', val.value)
+															}}
+															getOptionLabel={(option: { [key: string]: string }) => option?.label}
+															getOptionValue={(option: { [key: string]: string }) => option?.label}
+															imageSrc={downArrow}
+														/>
+													</div>
+												</div>
+
+												<div className="col-12 col-md-6 col-lg-3 content-box ps-lg-0">
+													<div className="inner">
+														<div ref={formGroupRef} className={`form-group ${isActive ? 'active' : ''}`}>
+															<p className="label-form pax-label">Pax</p>
+															<Quantity
+																value={formik.values.pax}
+																onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+																	const value = parseInt(e.target.value);
+																	// if (value < minPax) value = minPax;
+																	// if (value > maxPax) value = maxPax;
+																	formik.setFieldValue('pax', value);
+																	// setIsActive(value > minPax);
+																	setMessage('');
+																}}
+																onBlur={() => {
+																	// Once the user stops typing (on blur), check if the value is less than minPax
+																	const value = formik.values.pax;
+																	if (value < minPax) {
+																		formik.setFieldValue('pax', minPax);
+																		setIsActive(false);
+																		setMessage(`The number of guests cannot be less than ${minPax}`);
+																	} else if (value > maxPax) {
+																		formik.setFieldValue('pax', maxPax);
+																		setIsActive(false);
+																		setMessage(`The number of guests cannot exceed ${maxPax}`);
+																	} else if (!value) {
+																		formik.setFieldValue('pax', minPax);
+																		setMessage(`No guests entered. Set to minimum of ${minPax}`);
+																	} else {
+																		setIsActive(value > minPax);
+																		setMessage('');
+																	}
+																}}
+																decrementQuantity={() => {
+																	const newValue = Math.max(minPax-1, formik.values.pax - 1);
+																	formik.setFieldValue('pax', (newValue < minPax)? minPax: newValue);
+																	setIsActive(newValue > minPax);
+																	if (newValue < minPax) {
+																		setMessage(`The number of guests cannot be less than ${minPax}`);
+																	} else {
+																		setMessage('');
+																	}
+																}}
+																incrementQuantity={() => {
+																	const newValue = Math.min(maxPax+1, formik.values.pax + 1);
+																	formik.setFieldValue('pax', (newValue > maxPax)? maxPax: newValue);
+																	setIsActive(newValue > minPax);
+																	if (newValue > maxPax) {
+																		setMessage(`The number of guests cannot exceed ${maxPax}`);
+																	} else {
+																		setMessage('');
+																	}
+																}}
+															/>
+															{message && (
+																<div className="tooltip">
+																	{message}
+																</div>
+															)}
+															{formik.touched.pax && formik.errors.pax ? (
+																<p className="text-danger mb-0">{formik.touched.pax && formik.errors.pax}</p>
+															) : null}
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div style={{ gap: '10%' }} className="search-btn d-flex justify-content-center align-items-center">
+											<Button label="Search" type="submit" className="primary text-center" /> </div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</>
+	)
 }
 export default HeroBanner

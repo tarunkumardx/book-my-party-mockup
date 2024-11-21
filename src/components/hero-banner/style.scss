@@ -185,7 +185,7 @@
 
               .date-arrow {
                 @media screen and (max-width: 767px) {
-                  margin-left: 45px !important;
+                  margin-left: 54px !important;
                 }
               }
 
@@ -242,6 +242,30 @@
                 text-align: start;
                 align-items: center;
                 height: 100%;
+              }
+
+              .tooltip {
+                position: absolute;
+                top: -25px;
+                background-color: rgba(0, 0, 0, 0.75);
+                color: white;
+                padding: 5px 10px;
+                border-radius: 4px;
+                font-size: 12px;
+                visibility: visible;
+                opacity: 1;
+                transition: opacity 1s ease-in-out;
+                user-select: none;
+
+                @media (max-width: 767px){
+                  top: -15px;
+                  right: 10px;
+                }
+              }
+
+              .tooltip.hidden {
+                visibility: hidden;
+                opacity: 0;
               }
 
               .react-dropdown {
@@ -387,7 +411,7 @@
 
               .input-number {
                 border: 0;
-                max-width: 35px;
+                max-width: 60px;
                 width: auto;
                 margin-left: 10px;
                 margin-right: 10px;

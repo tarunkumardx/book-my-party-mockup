@@ -1,6 +1,7 @@
 import placeholder from '../images/placeholder-image.png';
-// import logo from '../images/logo.gif';
-import logo from '../images/logo.png';
+import logo from '../images/download.gif';
+
+// import logo from '../images/logo.png';
 import mailBox from '../images/mail-box.svg';
 import facebook from '../images/social-icons/facebook.svg';
 import instagram from '../images/social-icons/instagram.svg';
@@ -20,9 +21,16 @@ import redDot from '../images/red-dot.jpg';
 import greenDot from '../images/green-dot.jpg';
 import Restaurant from '../images/Restaurant.svg';
 import Banquet from '../images/banquet.svg';
-import FarmHouse from '../images/Farmhouse.jpg';
+import FarmHouse from '../images/Farmhouse.svg';
 import Caterers from '../images/Caterers.svg';
 import FunZone from '../images/Funzone.svg';
+
+import Restaurantc from '../images/Restaurantc.svg';
+import Banquetc from '../images/banquetc.svg';
+import FarmHousec from '../images/Farmhousec.svg';
+import Caterersc from '../images/Caterersc.svg';
+import FunZonec from '../images/Funzonec.svg';
+
 import name from '../images/name.svg';
 import password from '../images/password.svg';
 import user from '../images/user.svg';
@@ -78,7 +86,7 @@ import SpcialPackage from '../images/spcial-package.svg'
 import MenuImages from '../images/menu-images.png'
 import SimlarImages from '../images/simlar-images.png'
 import SimlarLocation from '../images/simlar-location.png'
-import FooterLogo from '../images/footer-logo.png'
+import FooterLogo from '../images/footer-logo-1.png'
 import WhatsappIcon from '../images/whatsapp-icon.png'
 import PhoneCall from '../images/phone-call.png'
 import MassesIcon from '../images/masses-icon.png'
@@ -88,95 +96,104 @@ import CakeColored from '../images/cake-colored.png'
 import CorporateGift from '../images/corporate-gift.png'
 import CorporateGiftColored from '../images/coporate-gift-colored.png'
 import rightArrow from '../images/icons8-right-arrow-50.png'
+import offers from '../images/offers.svg'
+import partyImgs from '../images/party-img.png'
 
 export {
-  placeholder,
-  Dotsbutton,
-  ShowPassword,
-  page404,
-  ListView,
-  CalendarView,
-  arrowDownSolid,
-  arrowUpSolid,
-  search,
-  SuccessIcon,
-  RedHeart,
-  WishList,
-  EditUser,
-  logo,
-  mailBox,
-  facebook,
-  instagram,
-  linkedin,
-  google,
-  twitter,
-  youtube,
-  backToTop,
-  plans,
-  celebrate,
-  booking,
-  quotes,
-  star,
-  wishlist,
-  share,
-  redDot,
-  greenDot,
-  Restaurant,
-  Banquet,
-  FarmHouse,
-  Caterers,
-  FunZone,
-  name,
-  password,
-  user,
-  mail,
-  modalClose,
-  googleFull,
-  twitterFull,
-  facebookFull,
-  indiaFalg,
-  location,
-  starYellow,
-  correctIcon,
-  facebookBlack,
-  linkedinBlack,
-  twitterBlack,
-  pinterestBlack,
-  question,
-  phone,
-  whatsapp,
-  userAvtar,
-  wishlistWhite,
-  filterlist,
-  bookingHistory,
-  dashboard,
-  setting,
-  venue,
-  downArrow,
-  contactGirl,
-  phoneWhite,
-  locationWhite,
-  bannerPlus,
-  bannerMinus,
-  RocketChat,
-  calender,
-  m1,
-  deleteSvg,
-  icoCheckBadge,
-  tourDetailImg,
-  feedback3,
-  LocationIcon,
-  SpcialPackage,
-  MenuImages,
-  SimlarImages,
-  SimlarLocation,
-  FooterLogo,
-  WhatsappIcon,
-  PhoneCall,
-  MassesIcon,
-  Cake,
-  CakeColored,
-  CorporateGift,
-  CorporateGiftColored,
-  rightArrow
+	placeholder,
+	Dotsbutton,
+	ShowPassword,
+	page404,
+	ListView,
+	CalendarView,
+	arrowDownSolid,
+	arrowUpSolid,
+	search,
+	SuccessIcon,
+	RedHeart,
+	WishList,
+	EditUser,
+	logo,
+	mailBox,
+	facebook,
+	instagram,
+	linkedin,
+	google,
+	twitter,
+	youtube,
+	backToTop,
+	plans,
+	celebrate,
+	booking,
+	quotes,
+	star,
+	wishlist,
+	share,
+	redDot,
+	greenDot,
+	Restaurant,
+	Banquet,
+	FarmHouse,
+	Caterers,
+	FunZone,
+	Restaurantc,
+	Banquetc,
+	FarmHousec,
+	Caterersc,
+	FunZonec,
+	name,
+	password,
+	user,
+	mail,
+	modalClose,
+	googleFull,
+	twitterFull,
+	facebookFull,
+	indiaFalg,
+	location,
+	starYellow,
+	correctIcon,
+	facebookBlack,
+	linkedinBlack,
+	twitterBlack,
+	pinterestBlack,
+	question,
+	phone,
+	whatsapp,
+	userAvtar,
+	wishlistWhite,
+	filterlist,
+	bookingHistory,
+	dashboard,
+	setting,
+	venue,
+	downArrow,
+	contactGirl,
+	phoneWhite,
+	locationWhite,
+	bannerPlus,
+	bannerMinus,
+	RocketChat,
+	calender,
+	m1,
+	deleteSvg,
+	icoCheckBadge,
+	tourDetailImg,
+	feedback3,
+	LocationIcon,
+	SpcialPackage,
+	MenuImages,
+	SimlarImages,
+	SimlarLocation,
+	FooterLogo,
+	WhatsappIcon,
+	PhoneCall,
+	MassesIcon,
+	Cake,
+	CakeColored,
+	CorporateGift,
+	CorporateGiftColored,
+	rightArrow,
+	offers,
+	partyImgs
 };

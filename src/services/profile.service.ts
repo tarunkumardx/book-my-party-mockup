@@ -1,9 +1,9 @@
 import CommonService from './common.service'
 
 class UserProfileService extends CommonService {
-  async me() {
-    return await this.post({
-      query:
+	async me() {
+		return await this.post({
+			query:
 				` query  {
 				customer(id: "Y3VzdG9tZXI6Mg==") {
 					firstName
@@ -19,12 +19,12 @@ class UserProfileService extends CommonService {
 					}
 				}
 		  }`
-    })
-  }
+		})
+	}
 
-  async getMe() {
-    const data = await this.post({
-      query:
+	async getMe() {
+		const data = await this.post({
+			query:
 				`query viewer{
 					viewer {
 						email
@@ -50,14 +50,14 @@ class UserProfileService extends CommonService {
 					}
 				}
 			`
-    })
-    console.log(data.data.viewer)
-    return data.data.viewer
-  }
+		})
+		console.log(data.data.viewer)
+		return data.data.viewer
+	}
 
-  async updateProfile(ID: string, firstName: string, lastName: string, email: string, mobileNumber: string, avatar:string) {
-    console.log(avatar)
-    const query = `
+	async updateProfile(ID: string, firstName: string, lastName: string, email: string, mobileNumber: string, avatar:string) {
+		console.log(avatar)
+		const query = `
 			mutation EditProfile($ID: ID!, $firstName: String!, $email: String!, $lastName: String!, , $mobileNumber: String!, $avatar: String!) {
 				updateUser(
 					input: {id: $ID, firstName: $firstName, lastName: $lastName, email: $email, mobileNumber: $mobileNumber, avatar: $avatar}
@@ -71,22 +71,22 @@ class UserProfileService extends CommonService {
 			}
 		`
 
-    const variables = {
-      firstName,
-      lastName,
-      email,
-      ID,
-      mobileNumber,
-      avatar
-    };
+		const variables = {
+			firstName,
+			lastName,
+			email,
+			ID,
+			mobileNumber,
+			avatar
+		};
 
-    const result = await this.post({ query: query, variables: variables });
+		const result = await this.post({ query: query, variables: variables });
 
-    return result.data?.updateUser?.user || result
-  }
+		return result.data?.updateUser?.user || result
+	}
 
-  async updatePassword(ID: string, password: string) {
-    const query = `
+	async updatePassword(ID: string, password: string) {
+		const query = `
 			mutation EditProfile($ID: ID!, $password: String!) {
 				updateUser(
 					input: {id: $ID, password: $password}
@@ -99,14 +99,14 @@ class UserProfileService extends CommonService {
 			}
 		`
 
-    const variables = {
-      ID,
-      password
-    };
+		const variables = {
+			ID,
+			password
+		};
 
-    const result = await this.post({ query: query, variables: variables });
+		const result = await this.post({ query: query, variables: variables });
 
-    return result.data?.updateUser?.user || result
-  }
+		return result.data?.updateUser?.user || result
+	}
 }
 export const userProfileService = new UserProfileService()

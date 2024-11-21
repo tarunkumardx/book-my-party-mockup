@@ -139,7 +139,7 @@
 }
 
 body {
-  font-family: "Outfit";
+  font-family: "Outfit" !important;
   margin: 0;
   padding: 0;
   font-size: 16px;
@@ -147,6 +147,91 @@ body {
   line-height: 1.5;
   font-size: 13px;
   color: $headingColor;
+}
+
+.coming-soon2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid #dedede;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08),
+    0px 4px 12px rgba(0, 0, 0, 0.05);
+  width: fit-content;
+  margin: auto;
+  font-size: 27px;
+  padding: 10px 50px 10px 50px !important;
+  animation: Color 4s linear infinite;
+  -webkit-animation: Color 4s ease-in-out infinite;
+  text-shadow: 0px 6px #f0f0f0;
+
+  @keyframes Color {
+    0% {
+      color: #92060f;
+    }
+
+    20% {
+      color: #5a3483;
+    }
+
+    40% {
+      color: #ffce54;
+    }
+
+    60% {
+      color: #fc6e51;
+    }
+
+    80% {
+      color: #ed5565;
+    }
+
+    100% {
+      color: #ac92ec;
+    }
+  }
+
+  // h3 {
+  //   background: #fff;
+  //   border: 1px solid #dedede;
+  //   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08),
+  //     0px 4px 12px rgba(0, 0, 0, 0.05);
+  //   width: fit-content;
+  //   margin: auto;
+  //   font-size: 27px;
+  //   padding: 10px 50px 10px 50px !important;
+  //   animation: Color 4s linear infinite;
+  //   -webkit-animation: Color 4s ease-in-out infinite;
+  //   text-shadow: 0px 6px #f0f0f0;
+
+  //   @keyframes Color {
+  //     0% {
+  //       color: #92060f;
+  //     }
+
+  //     20% {
+  //       color: #5a3483;
+  //     }
+
+  //     40% {
+  //       color: #ffce54;
+  //     }
+
+  //     60% {
+  //       color: #fc6e51;
+  //     }
+
+  //     80% {
+  //       color: #ed5565;
+  //     }
+
+  //     100% {
+  //       color: #ac92ec;
+  //     }
+  //   }
+  // }
 }
 
 .pie-container {
@@ -208,7 +293,7 @@ h2 {
   color: $headingColor;
   font-family: "Outfit", Sans-serif;
   font-size: 50px;
-  font-weight: 500;
+  font-weight: 600;
 
   @media screen and (max-width: 1199px) {
     font-size: 45px;
@@ -297,6 +382,58 @@ a {
   //   line-height: 45px;
   //   bottom: 25px;
   // }
+}
+
+.hello {
+  text-align: center;
+  // line-height: 50px;
+  // border-radius: 100px;
+  position: fixed;
+  bottom: 100px;
+  z-index: 1;
+  right: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hello2 {
+  text-align: center;
+  // line-height: 50px;
+  // border-radius: 100px;
+  position: fixed;
+  bottom: 100px;
+  z-index: 1;
+  left: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hello3 {
+  text-align: center;
+  // line-height: 50px;
+  // border-radius: 100px;
+  position: fixed;
+  bottom: 200px;
+  z-index: 1;
+  right: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hello4 {
+  text-align: center;
+  // line-height: 50px;
+  // border-radius: 100px;
+  position: fixed;
+  bottom: 200px;
+  z-index: 1;
+  left: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .whatsapp {
@@ -443,7 +580,7 @@ table {
         top: 5px;
         color: #fff;
         font-family: Arial;
-        font-weight: 100;
+        font-weight: 200;
         font-size: 15px;
         line-height: 23px;
         border: 0px solid #fff;
@@ -462,7 +599,7 @@ table {
           input {
             border-radius: 8px;
             font-size: 1rem;
-            font-weight: 400;
+            font-weight: 500;
             font-family: "Poppins";
 
             &::placeholder {
@@ -496,7 +633,7 @@ table {
         textarea {
           border-radius: 8px;
           font-size: 1rem;
-          font-weight: 400;
+          font-weight: 500;
           font-family: "Poppins";
 
           &::placeholder {
@@ -511,7 +648,7 @@ table {
           padding: 12px 18px !important;
           text-align: center;
           width: 22vh;
-          font-weight: 500;
+          font-weight: 600;
         }
       }
     }
@@ -578,7 +715,7 @@ table {
   h4 {
     font-family: "Outfit", Sans-serif;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 600;
 
     a {
       text-decoration: none;
@@ -591,7 +728,7 @@ table {
     a {
       font-family: "Outfit", Sans-serif;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
       text-decoration: none;
       color: #000;
 
@@ -608,7 +745,7 @@ table {
       padding: 8px 12px;
       line-height: 22px;
       font-size: 1rem;
-      font-weight: 400;
+      font-weight: 500;
       width: inherit;
       border: 0px;
       border-radius: 3px;

@@ -4,7 +4,7 @@ import { bannerMinus, bannerPlus } from '@/assets/images';
 import Image from 'next/image';
 import React from 'react'
 
-const Quantity = ({ value = '1', type = 'header', label, onChange, decrementQuantity, incrementQuantity, ...props }: any) => {
+const Quantity = ({ value = '0', type = 'header', label, onChange, decrementQuantity, incrementQuantity, ...props }: any) => {
   return (
     <>
       {type === 'header' ?
@@ -15,7 +15,7 @@ const Quantity = ({ value = '1', type = 'header', label, onChange, decrementQuan
             </label>
           )}
           <div className="input-group">
-            <button className="btn" type="button" disabled={typeof value === 'string' ? value === '1' : value === 1} onClick={decrementQuantity}>
+            <button className="btn" type="button" disabled={typeof value === 'string' ? value === '0' : value === 0} onClick={decrementQuantity}>
               <Image src={bannerMinus} alt="" width="13" height="18" />
             </button>
 
@@ -36,7 +36,7 @@ const Quantity = ({ value = '1', type = 'header', label, onChange, decrementQuan
         :
         <div className="quantity">
           <div className="input-group">
-            <button className="btn" type="button" disabled={typeof value === 'string' ? value === '1' : value === 1} onClick={decrementQuantity}>
+            <button className="btn" type="button" disabled={typeof value === 'string' ? value === '0' : value === 0} onClick={decrementQuantity}>
               -
             </button>
 

@@ -3,66 +3,66 @@ import CommonService from './common.service'
 // import { changeDateFormat } from '@/utils/helpers'
 
 class ListService extends CommonService {
-  // async getAll() {
-  // 	// let allVenues: string[] = []
+	// async getAll() {
+	// 	// let allVenues: string[] = []
 
-  // 	const { data } = await this.post({
-  // 		query: `
-  //       query getAll ($after: String){
-  //         venues(first: 50, after: $after) {
-  //           nodes {
-  //             id
-  //             title
-  //             slug
-  //             content
-  //             seo {
-  //               title
-  //               metaDesc
-  //             }
-  //             featuredImage {
-  //               node {
-  //                 sourceUrl
-  //               }
-  //             }
-  //             extraOptions {
-  //               address {
-  //                 address
-  //                 googleMap
-  //                 landmarks
-  //               }
-  //             }
-  //           }
-  //           pageInfo {
-  //             endCursor
-  //             hasNextPage
-  //             hasPreviousPage
-  //             startCursor
-  //           }
-  //         }
-  //       }
-  //     `
-  // 	})
+	// 	const { data } = await this.post({
+	// 		query: `
+	//       query getAll ($after: String){
+	//         venues(first: 50, after: $after) {
+	//           nodes {
+	//             id
+	//             title
+	//             slug
+	//             content
+	//             seo {
+	//               title
+	//               metaDesc
+	//             }
+	//             featuredImage {
+	//               node {
+	//                 sourceUrl
+	//               }
+	//             }
+	//             extraOptions {
+	//               address {
+	//                 address
+	//                 googleMap
+	//                 landmarks
+	//               }
+	//             }
+	//           }
+	//           pageInfo {
+	//             endCursor
+	//             hasNextPage
+	//             hasPreviousPage
+	//             startCursor
+	//           }
+	//         }
+	//       }
+	//     `
+	// 	})
 
-  // 	// if (data?.venues?.nodes) {
-  // 	// 	allVenues = [...allVenues, ...data.venues.nodes]
-  // 	// }
+	// 	// if (data?.venues?.nodes) {
+	// 	// 	allVenues = [...allVenues, ...data.venues.nodes]
+	// 	// }
 
-  // 	// if (data?.venues?.pageInfo?.hasNextPage) {
-  // 	// 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // 	// 	const postCursor: any = await this.getAll(data?.venues?.pageInfo.endCursor)
-  // 	// 	if (postCursor) {
-  // 	// 		allVenues = [...allVenues, ...postCursor.nodes]
-  // 	// 	}
-  // 	// }
+	// 	// if (data?.venues?.pageInfo?.hasNextPage) {
+	// 	// 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// 	// 	const postCursor: any = await this.getAll(data?.venues?.pageInfo.endCursor)
+	// 	// 	if (postCursor) {
+	// 	// 		allVenues = [...allVenues, ...postCursor.nodes]
+	// 	// 	}
+	// 	// }
 
-  // 	return { nodes: data?.venues?.nodes }
-  // }
+	// 	return { nodes: data?.venues?.nodes }
+	// }
 
-  async getAll(after = null) {
-    let allVenues: string[] = []
+	async getAll(after = null) {
+		let allVenues: string[] = []
 
-    const { data } = await this.post({
-      query: `
+		const { data } = await this.post({
+			query: `
 	      query getAll ($after: String){
 	        venues(first: 50, after: $after) {
 	          nodes {
@@ -98,199 +98,199 @@ class ListService extends CommonService {
 	        }
 	      }
 	    `, variables: { after }
-    })
+		})
 
-    if (data?.venues?.nodes) {
-      allVenues = [...allVenues, ...data.venues.nodes]
-    }
+		if (data?.venues?.nodes) {
+			allVenues = [...allVenues, ...data.venues.nodes]
+		}
 
-    if (data?.venues?.pageInfo?.hasNextPage) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const postCursor: any = await this.getAll(data?.venues?.pageInfo.endCursor)
-      if (postCursor) {
-        allVenues = [...allVenues, ...postCursor.nodes]
-      }
-    }
+		if (data?.venues?.pageInfo?.hasNextPage) {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const postCursor: any = await this.getAll(data?.venues?.pageInfo.endCursor)
+			if (postCursor) {
+				allVenues = [...allVenues, ...postCursor.nodes]
+			}
+		}
 
-    return { nodes: allVenues }
-  }
+		return { nodes: allVenues }
+	}
 
-  async getVenues(
-    first?: number | undefined,
-    endCursor?: string | undefined | null,
-    startCursor?: string | undefined | null,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    filters?: any,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    search?: any
-  ) {
-    const taxArray: string[] = []
+	async getVenues(
+		first?: number | undefined,
+		endCursor?: string | undefined | null,
+		startCursor?: string | undefined | null,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		filters?: any,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		search?: any
+	) {
+		const taxArray: string[] = []
 
-    const taxonomyConfigs: TaxonomyConfig[] = [
-      { taxonomy: 'LOCATION', filterKey: 'locations' },
-      { taxonomy: 'VENUECATEGORY', filterKey: 'types' },
-      { taxonomy: 'VENUETYPE', filterKey: 'venueTypes' },
-      { taxonomy: 'CUISINE', filterKey: 'cuisines' },
-      { taxonomy: 'FRANCHISECHAIN', filterKey: 'franchises' },
-      { taxonomy: 'AMENITY', filterKey: 'amenities' },
-      { taxonomy: 'OCCASION', filterKey: 'occasions' },
-      { taxonomy: 'ACTIVITY', filterKey: 'activities' },
-      { taxonomy: 'AGEGROUP', filterKey: 'age' }
-    ];
+		const taxonomyConfigs: TaxonomyConfig[] = [
+			{ taxonomy: 'LOCATION', filterKey: 'locations' },
+			{ taxonomy: 'VENUECATEGORY', filterKey: 'types' },
+			{ taxonomy: 'VENUETYPE', filterKey: 'venueTypes' },
+			{ taxonomy: 'CUISINE', filterKey: 'cuisines' },
+			{ taxonomy: 'FRANCHISECHAIN', filterKey: 'franchises' },
+			{ taxonomy: 'AMENITY', filterKey: 'amenities' },
+			{ taxonomy: 'OCCASION', filterKey: 'occasions' },
+			{ taxonomy: 'ACTIVITY', filterKey: 'activities' },
+			{ taxonomy: 'AGEGROUP', filterKey: 'age' }
+		];
 
-    function updateTaxArray(filters: _Object, taxArray: string[]) {
-      console.log(filters)
-      for (const config of taxonomyConfigs) {
-        const filterValues = filters?.[config.filterKey];
-        if (filterValues?.length > 0 && filterValues[0]?.length > 0) {
-          taxArray.push(`
+		function updateTaxArray(filters: _Object, taxArray: string[]) {
+			console.log(filters)
+			for (const config of taxonomyConfigs) {
+				const filterValues = filters?.[config.filterKey];
+				if (filterValues?.length > 0 && filterValues[0]?.length > 0) {
+					taxArray.push(`
             {
                 field: SLUG,
                 taxonomy: ${config.taxonomy},
                 terms: ["${filterValues.join('","')}"]
             }`
-          );
-        } else {
-          const itemIndex = taxArray.findIndex((item: string) => item.includes(`taxonomy: ${config.taxonomy}`));
-          if (itemIndex !== -1) {
-            taxArray.splice(itemIndex, 1);
-          }
-        }
-      }
-    }
+					);
+				} else {
+					const itemIndex = taxArray.findIndex((item: string) => item.includes(`taxonomy: ${config.taxonomy}`));
+					if (itemIndex !== -1) {
+						taxArray.splice(itemIndex, 1);
+					}
+				}
+			}
+		}
 
-    updateTaxArray(filters, taxArray);
+		updateTaxArray(filters, taxArray);
 
-    const metaArray: string[] = []
+		const metaArray: string[] = []
 
-    if (filters?.priceRange?.length > 0 && filters?.priceRange[0]?.length > 0) {
-      const minMaxValues = filters?.priceRange?.map((range: string) => {
-        const [min, max] = range.split('-').map(Number);
-        return [min, max];
-      });
+		if (filters?.priceRange?.length > 0 && filters?.priceRange[0]?.length > 0) {
+			const minMaxValues = filters?.priceRange?.map((range: string) => {
+				const [min, max] = range.split('-').map(Number);
+				return [min, max];
+			});
 
-      // Flatten the array of arrays into a single array
-      const flattenedMinMaxValues = minMaxValues.reduce((acc: number[], [min, max]: number[]) => {
-        acc.push(min, max);
-        return acc;
-      }, []);
+			// Flatten the array of arrays into a single array
+			const flattenedMinMaxValues = minMaxValues.reduce((acc: number[], [min, max]: number[]) => {
+				acc.push(min, max);
+				return acc;
+			}, []);
 
-      // Find the minimum and maximum values
-      const min = Math.min(...flattenedMinMaxValues);
-      const max = Math.max(...flattenedMinMaxValues);
+			// Find the minimum and maximum values
+			const min = Math.min(...flattenedMinMaxValues);
+			const max = Math.max(...flattenedMinMaxValues);
 
-      if (min != 2000 && min != 3000) {
-        metaArray.push(`{
+			if (min != 2000 && min != 3000) {
+				metaArray.push(`{
 					compare: BETWEEN,
 					key: "pax_price",
 					type: NUMERIC,
 					value: "${[min, max]}"
 				}`);
-      }
+			}
 
-      minMaxValues?.map((item: _Object) => {
-        if ((item[1] == 2000 && item[0] == 2000) || (item[1] == 3000 && item[0] == 3000)) {
-          metaArray.push(`{
+			minMaxValues?.map((item: _Object) => {
+				if ((item[1] == 2000 && item[0] == 2000) || (item[1] == 3000 && item[0] == 3000)) {
+					metaArray.push(`{
             compare: GREATER_THAN_OR_EQUAL_TO,
             key: "pax_price",
             type: NUMERIC,
             value: "${item[1]}"
           }`);
-        }
-      })
-    } else {
-      const itemIndex = metaArray.findIndex((item: string) => item.includes('key: "pax_price"'));
-      if (itemIndex !== -1) {
-        metaArray.splice(itemIndex, 1);
-      }
-    }
+				}
+			})
+		} else {
+			const itemIndex = metaArray.findIndex((item: string) => item.includes('key: "pax_price"'));
+			if (itemIndex !== -1) {
+				metaArray.splice(itemIndex, 1);
+			}
+		}
 
-    if (filters?.capacity?.length > 0 && filters?.capacity[0]?.length > 0) {
-      const minMaxValues = filters?.capacity?.map((range: string) => {
-        const [min, max] = range.split('-').map(Number);
-        return [min, max];
-      });
+		if (filters?.capacity?.length > 0 && filters?.capacity[0]?.length > 0) {
+			const minMaxValues = filters?.capacity?.map((range: string) => {
+				const [min, max] = range.split('-').map(Number);
+				return [min, max];
+			});
 
-      // Flatten the array of arrays into a single array
-      const flattenedMinMaxValues = minMaxValues.reduce((acc: number[], [min, max]: number[]) => {
-        acc.push(min, max);
-        return acc;
-      }, []);
+			// Flatten the array of arrays into a single array
+			const flattenedMinMaxValues = minMaxValues.reduce((acc: number[], [min, max]: number[]) => {
+				acc.push(min, max);
+				return acc;
+			}, []);
 
-      // Find the minimum and maximum values
-      const min = Math.min(...flattenedMinMaxValues);
-      const max = Math.max(...flattenedMinMaxValues);
+			// Find the minimum and maximum values
+			const min = Math.min(...flattenedMinMaxValues);
+			const max = Math.max(...flattenedMinMaxValues);
 
-      if (min != 1000) {
-        metaArray.push(`{
+			if (min != 1000) {
+				metaArray.push(`{
 					compare: BETWEEN,
 					key: "capacity",
 					type: NUMERIC,
 					value: "${[min, max]}"
 				}`);
-      }
+			}
 
-      minMaxValues?.map((item: _Object) => {
-        if ((item[1] == 1000 && item[0] == 1000)) {
-          metaArray.push(`{
+			minMaxValues?.map((item: _Object) => {
+				if ((item[1] == 1000 && item[0] == 1000)) {
+					metaArray.push(`{
 					compare: GREATER_THAN_OR_EQUAL_TO,
 					key: "capacity",
 					type: NUMERIC,
 					value: "${item[1]}"
 				}`);
-        }
-      })
-    } else {
-      const itemIndex = metaArray.findIndex((item: string) => item.includes('key: "capacity"'));
-      if (itemIndex !== -1) {
-        metaArray.splice(itemIndex, 1);
-      }
-    }
+				}
+			})
+		} else {
+			const itemIndex = metaArray.findIndex((item: string) => item.includes('key: "capacity"'));
+			if (itemIndex !== -1) {
+				metaArray.splice(itemIndex, 1);
+			}
+		}
 
-    // if (filters?.date?.length > 0 && changeDateFormat(filters.date)) {
-    // 	metaArray.push(`{
-    // 		value: "${changeDateFormat(filters.date)}",
-    // 		key: "holidays",
-    // 		compare: NOT_LIKE
-    // 	}`);
-    // 	metaArray.push(`{
-    // 		key: "holidays",
-    // 		compare: NOT_EXISTS
-    // 	}`);
-    // }
+		// if (filters?.date?.length > 0 && changeDateFormat(filters.date)) {
+		// 	metaArray.push(`{
+		// 		value: "${changeDateFormat(filters.date)}",
+		// 		key: "holidays",
+		// 		compare: NOT_LIKE
+		// 	}`);
+		// 	metaArray.push(`{
+		// 		key: "holidays",
+		// 		compare: NOT_EXISTS
+		// 	}`);
+		// }
 
-    let sortKey: string
-    let sortValue: string
+		let sortKey: string
+		let sortValue: string
 
-    switch (filters?.sort) {
-    case 'recommended':
-      sortKey = 'RANKING_PRIORITY';
-      sortValue = 'ASC';
-      break;
-    case '-price':
-      sortKey = 'PAXPRICE';
-      sortValue = 'ASC';
-      break;
-    case 'price':
-      sortKey = 'PAXPRICE';
-      sortValue = 'DESC';
-      break;
-    case '-title':
-      sortKey = 'TITLE';
-      sortValue = 'ASC';
-      break;
-    case 'title':
-      sortKey = 'TITLE';
-      sortValue = 'DESC';
-      break;
-    default:
-      sortKey = 'RANKING_PRIORITY';
-      sortValue = 'ASC';
-      break;
-    }
+		switch (filters?.sort) {
+			case 'recommended':
+				sortKey = 'RANKING_PRIORITY';
+				sortValue = 'ASC';
+				break;
+			case '-price':
+				sortKey = 'PAXPRICE';
+				sortValue = 'ASC';
+				break;
+			case 'price':
+				sortKey = 'PAXPRICE';
+				sortValue = 'DESC';
+				break;
+			case '-title':
+				sortKey = 'TITLE';
+				sortValue = 'ASC';
+				break;
+			case 'title':
+				sortKey = 'TITLE';
+				sortValue = 'DESC';
+				break;
+			default:
+				sortKey = 'RANKING_PRIORITY';
+				sortValue = 'ASC';
+				break;
+		}
 
-    const { data } = await this.post({
-      query: `
+		const { data } = await this.post({
+			query: `
       query getVenues(
         $first: Int
         $after: String
@@ -320,6 +320,18 @@ class ListService extends CommonService {
               slug
               content
               databaseId
+              allCuisine {
+                nodes {
+                  name
+                  slug
+                }
+              }
+              activities {
+                nodes {
+                  name
+                  slug
+                }
+              }
               seo {
                 title
                 metaDesc
@@ -353,20 +365,20 @@ class ListService extends CommonService {
           }
       }
       `, variables: {
-        first: first,
-        after: endCursor,
-        before: startCursor
-      }
-    })
+				first: first,
+				after: endCursor,
+				before: startCursor
+			}
+		})
 
-    return data?.venues
-  }
+		return data?.venues
+	}
 
-  async getVenueDetails(id: string, type?: string) {
-    const idType = type ? type : 'URI'
+	async getVenueDetails(id: string, type?: string) {
+		const idType = type ? type : 'URI'
 
-    const { data } = await this.post({
-      query: `
+		const { data } = await this.post({
+			query: `
         query getVenue ($id: ID = "") {
           venue(id: $id, idType: ${idType}) {
             allCuisine(first: 100) {
@@ -532,6 +544,7 @@ class ListService extends CommonService {
                 freeCancellation
                 menuDetail
                 minPax
+                maxPax
                 salePrice
                 shortDescription
                 timing
@@ -664,17 +677,17 @@ class ListService extends CommonService {
           }
         }
       `,
-      variables: { id }
-    })
+			variables: { id }
+		})
 
-    return data?.venue
-  }
+		return data?.venue
+	}
 
-  async getVenueDetailsById(id: string, type?: string) {
-    const idType = type ? type : 'DATABASE_ID'
+	async getVenueDetailsById(id: string, type?: string) {
+		const idType = type ? type : 'DATABASE_ID'
 
-    const { data } = await this.post({
-      query: `
+		const { data } = await this.post({
+			query: `
         query getVenue ($id: ID = "") {
           venue(id: $id, idType: ${idType}) {
           venueCategories(first: 100) {
@@ -695,6 +708,7 @@ class ListService extends CommonService {
                 freeCancellation
                 menuDetail
                 minPax
+                maxPax
                 salePrice
                 shortDescription
                 timing
@@ -711,15 +725,15 @@ class ListService extends CommonService {
           }
         }
       `,
-      variables: { id }
-    })
+			variables: { id }
+		})
 
-    return data?.venue
-  }
+		return data?.venue
+	}
 
-  async getAmenities() {
-    const { data } = await this.post({
-      query: `
+	async getAmenities() {
+		const { data } = await this.post({
+			query: `
         query getAmenities {
           amenities(where: {orderby: TERM_ORDER, order: ASC}, first: 100) {
             nodes {
@@ -739,14 +753,14 @@ class ListService extends CommonService {
           }
         }
       `
-    })
+		})
 
-    return data?.amenities?.nodes
-  }
+		return data?.amenities?.nodes
+	}
 
-  async getCuisines() {
-    const { data } = await this.post({
-      query: `
+	async getCuisines() {
+		const { data } = await this.post({
+			query: `
         query cuisines {
           allCuisine(where: {orderby: TERM_ORDER, order: ASC}, first: 100) {
             nodes {
@@ -766,14 +780,14 @@ class ListService extends CommonService {
           }
         }
       `
-    })
+		})
 
-    return data?.allCuisine?.nodes
-  }
+		return data?.allCuisine?.nodes
+	}
 
-  async getVenueCategories() {
-    const { data } = await this.post({
-      query: `
+	async getVenueCategories() {
+		const { data } = await this.post({
+			query: `
         query venueCategories {
           venueCategories(first: 100) {
             nodes {
@@ -784,14 +798,14 @@ class ListService extends CommonService {
           }
         }
       `
-    })
+		})
 
-    return data?.venueCategories?.nodes
-  }
+		return data?.venueCategories?.nodes
+	}
 
-  async uploadMedia(mediaItemInput: string) {
-    const { data } = await this.post({
-      query: `
+	async uploadMedia(mediaItemInput: string) {
+		const { data } = await this.post({
+			query: `
         mutation MyMutation {
           createMediaItem(input: {filePath: "${mediaItemInput}"}) {
             mediaItem {
@@ -800,14 +814,14 @@ class ListService extends CommonService {
           }
         }
       `
-    })
+		})
 
-    return data?.createMediaItem?.mediaItem?.databaseId
-  }
+		return data?.createMediaItem?.mediaItem?.databaseId
+	}
 
-  async getVenueTypes() {
-    const { data } = await this.post({
-      query: `
+	async getVenueTypes() {
+		const { data } = await this.post({
+			query: `
         query getVenueTypes {
           venueTypes(where: {orderby: TERM_ORDER, order: ASC}, first: 100) {
             nodes {
@@ -827,14 +841,14 @@ class ListService extends CommonService {
           }
         }
       `
-    })
+		})
 
-    return data?.venueTypes?.nodes
-  }
+		return data?.venueTypes?.nodes
+	}
 
-  async getFranchises() {
-    const { data } = await this.post({
-      query: `
+	async getFranchises() {
+		const { data } = await this.post({
+			query: `
         query franchises {
           franchises(where: {orderby: TERM_ORDER, order: ASC}, first: 100) {
             nodes {
@@ -854,14 +868,14 @@ class ListService extends CommonService {
           }
         }
       `
-    })
+		})
 
-    return data?.franchises?.nodes
-  }
+		return data?.franchises?.nodes
+	}
 
-  async getLocations() {
-    const { data } = await this.post({
-      query: `
+	async getLocations() {
+		const { data } = await this.post({
+			query: `
         query locations {
           locations(where: {orderby: TERM_ORDER, order: ASC}, first: 100) {
             nodes {
@@ -877,18 +891,30 @@ class ListService extends CommonService {
                   }
                 }
               }
+              ancestors {
+                nodes {
+                  name
+                  slug
+                  ancestors {
+                    nodes {
+                      name
+                      slug
+                    }
+                  }
+                }
+              }
             }
           }
         }
       `
-    })
+		})
 
-    return data?.locations?.nodes
-  }
+		return data?.locations?.nodes
+	}
 
-  async getAgeGroups() {
-    const { data } = await this.post({
-      query: `
+	async getAgeGroups() {
+		const { data } = await this.post({
+			query: `
         query ageGroups {
           ageGroups(where: {orderby: TERM_ORDER, order: ASC}, first: 100) {
             nodes {
@@ -908,14 +934,14 @@ class ListService extends CommonService {
           }
         }
       `
-    })
+		})
 
-    return data?.ageGroups?.nodes
-  }
+		return data?.ageGroups?.nodes
+	}
 
-  async getActivities() {
-    const { data } = await this.post({
-      query: `
+	async getActivities() {
+		const { data } = await this.post({
+			query: `
         query activities {
           activities(where: {orderby: TERM_ORDER, order: ASC}, first: 100) {
             nodes {
@@ -935,14 +961,14 @@ class ListService extends CommonService {
           }
         }
       `
-    })
+		})
 
-    return data?.activities?.nodes
-  }
+		return data?.activities?.nodes
+	}
 
-  async getOccasions() {
-    const { data } = await this.post({
-      query: `
+	async getOccasions() {
+		const { data } = await this.post({
+			query: `
         query occasions {
           occasions(where: {orderby: TERM_ORDER, order: ASC}, first: 100) {
             nodes {
@@ -962,14 +988,14 @@ class ListService extends CommonService {
           }
         }
       `
-    })
+		})
 
-    return data?.occasions?.nodes
-  }
+		return data?.occasions?.nodes
+	}
 
-  async createVenue(variables: _Object) {
-    const { data } = await this.post({
-      query: `
+	async createVenue(variables: _Object) {
+		const { data } = await this.post({
+			query: `
         mutation MyMutation(
           $title: String!
           $content: String!
@@ -1032,15 +1058,15 @@ class ListService extends CommonService {
           }
         }      
       `,
-      variables: variables
-    })
+			variables: variables
+		})
 
-    return data?.createVenue?.venue
-  }
+		return data?.createVenue?.venue
+	}
 
-  async updateVenue(variables: _Object) {
-    const { data } = await this.post({
-      query: `
+	async updateVenue(variables: _Object) {
+		const { data } = await this.post({
+			query: `
         mutation MyMutation(
           $ID: ID!
           $title: String!
@@ -1104,15 +1130,15 @@ class ListService extends CommonService {
           }
         }
       `,
-      variables: variables
-    })
+			variables: variables
+		})
 
-    return data?.updateVenue?.venue
-  }
+		return data?.updateVenue?.venue
+	}
 
-  async getMenuItemCategories() {
-    const { data } = await this.post({
-      query: `
+	async getMenuItemCategories() {
+		const { data } = await this.post({
+			query: `
 				query menuItemCategories {
 					menuItemCategories(first: 860) {
 						nodes {
@@ -1132,14 +1158,14 @@ class ListService extends CommonService {
 					}
 				}
       `
-    })
+		})
 
-    return data?.menuItemCategories?.nodes
-  }
+		return data?.menuItemCategories?.nodes
+	}
 
-  async getPropertyRules() {
-    const { data } = await this.post({
-      query: `
+	async getPropertyRules() {
+		const { data } = await this.post({
+			query: `
 				query propertyRules {
         propertyRules(first: 100) {
           nodes {
@@ -1151,28 +1177,28 @@ class ListService extends CommonService {
         }
       }
       `
-    })
+		})
 
-    return data.propertyRules?.nodes
-  }
+		return data.propertyRules?.nodes
+	}
 
-  async deleteVenue(id: string) {
-    const { data } = await this.post({
-      query: `
+	async deleteVenue(id: string) {
+		const { data } = await this.post({
+			query: `
         mutation deleteVenue {
           deleteVenue(input: {id: "${id}"}) {
             deletedId
           }
         }
       `
-    })
+		})
 
-    return data?.deleteVenue
-  }
+		return data?.deleteVenue
+	}
 
-  async getVenueSlug(id: number) {
-    const { data } = await this.post({
-      query: `
+	async getVenueSlug(id: number) {
+		const { data } = await this.post({
+			query: `
       query Venue {
         venue(id: "${id}", idType: DATABASE_ID) {
           id
@@ -1181,14 +1207,14 @@ class ListService extends CommonService {
         }
       }
       `
-    })
+		})
 
-    return data?.venue
-  }
+		return data?.venue
+	}
 
-  async getVenueMenuItems(authorIn: _Object) {
-    const { data } = await this.post({
-      query: `
+	async getVenueMenuItems(authorIn: _Object) {
+		const { data } = await this.post({
+			query: `
 			query allVenueMenuItem {
 				menuItemCategories(first: 860) {
 					nodes {
@@ -1216,28 +1242,28 @@ class ListService extends CommonService {
 				}
 			}
 			`
-    })
+		})
 
-    return data?.menuItemCategories?.nodes
-  }
+		return data?.menuItemCategories?.nodes
+	}
 
-  async addToVenueWsihlist(venueId: number) {
-    const { data } = await this.post({
-      query: `
+	async addToVenueWsihlist(venueId: number) {
+		const { data } = await this.post({
+			query: `
         mutation MyMutation {
           addToVenueWishlist(input: {id: "${venueId}"}) {
             success
           }
         }
       `
-    })
+		})
 
-    return data?.addToVenueWishlist
-  }
+		return data?.addToVenueWishlist
+	}
 
-  async getVenuesIds(id: number) {
-    const { data } = await this.post({
-      query: `
+	async getVenuesIds(id: number) {
+		const { data } = await this.post({
+			query: `
       query NewQuery {
         venues(first: 100, where: {author: ${id}}) {
           edges {
@@ -1248,14 +1274,14 @@ class ListService extends CommonService {
         }
       }
       `
-    })
+		})
 
-    return data?.venues
-  }
+		return data?.venues
+	}
 
-  async getVenueWsihlist() {
-    const { data } = await this.post({
-      query: `
+	async getVenueWsihlist() {
+		const { data } = await this.post({
+			query: `
         query MyQuery {
           venueWishlist {
             id
@@ -1273,14 +1299,14 @@ class ListService extends CommonService {
           }
         }
       `
-    })
+		})
 
-    return data?.venueWishlist
-  }
+		return data?.venueWishlist
+	}
 
-  async createVenueMenueItem(category: string, subCategory: string, authorId: number, title: string) {
-    const { data } = await this.post({
-      query: `
+	async createVenueMenueItem(category: string, subCategory: string, authorId: number, title: string) {
+		const { data } = await this.post({
+			query: `
       mutation MyMutation {
         createFoodMenuItem(
           input: {
@@ -1302,14 +1328,14 @@ class ListService extends CommonService {
           }
       }
       `
-    })
+		})
 
-    return data?.createFoodMenuItem?.foodMenuItem
-  }
+		return data?.createFoodMenuItem?.foodMenuItem
+	}
 
-  async authorsList() {
-    const { data } = await this.post({
-      query: `
+	async authorsList() {
+		const { data } = await this.post({
+			query: `
       query authorsList {
         authorsList(roles: ["administrator"]) {
           id
@@ -1318,14 +1344,14 @@ class ListService extends CommonService {
         }
       }
       `
-    })
+		})
 
-    return data?.authorsList
-  }
+		return data?.authorsList
+	}
 
-  async updateVenueListing(id:number | null, rankingPriority:number | null = null, hide:boolean | null = null){
-    const {data} = await this.post({
-      query: `mutation MyMutation {
+	async updateVenueListing(id:number | null, rankingPriority:number | null = null, hide:boolean | null = null){
+		const {data} = await this.post({
+			query: `mutation MyMutation {
   updateVenue(input: {id: ${id}, rankingPriority: ${rankingPriority}, hide: ${hide}}) {
     venue {
       extraOptions {
@@ -1335,10 +1361,10 @@ class ListService extends CommonService {
     }
   }
 }`
-    })
-    console.log(data)
-    return data
-  }
+		})
+		console.log(data)
+		return data
+	}
 }
 
 export const listService = new ListService()

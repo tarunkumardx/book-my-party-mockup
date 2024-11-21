@@ -12,8 +12,6 @@
   }
 
   .form-group {
-
-
     .label-form {
       font-size: 11px;
       color: grey;
@@ -325,6 +323,31 @@
         border: 1px solid #ccc;
         border-radius: 6px;
 
+        .tooltipContainer{
+          position: absolute;
+          bottom: 50px;
+          right: 0px;
+          background-color: rgba(0, 0, 0, 0.75);
+          color: white;
+          padding: 5px 10px;
+          border-radius: 4px;
+          font-size: 12px;
+          visibility: visible;
+          opacity: 1;
+          transition: opacity 1s ease-in-out;
+          user-select: none;
+          z-index: 5;
+    
+          @media (max-width: 767px){
+            bottom: 65px;
+          }
+    
+        .tooltipContainer.hidden {
+          visibility: hidden;
+          opacity: 0;
+        }
+        }
+        
         p {
           margin-bottom: 0;
           color: #5a3483;

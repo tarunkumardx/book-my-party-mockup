@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import ReactPlayer from 'react-player'
 
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { ElfsightWidget } from 'react-elfsight-widget';
 
 import { _Object } from '@/utils/types'
@@ -33,37 +33,37 @@ import 'swiper/swiper-bundle.css';
 // import SelectField from '@/stories/form-inputs/select-field';
 // import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import EnquireNow from '@/components/modals/enquire-now';
 // import { AppDispatch } from '@/redux/store';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { getUserWishlist } from '@/redux/slices/session.slice';
 // import moment from 'moment';
 // import useIsSearchable from '@/components/useIsSearchable';
 
-export const getStaticPaths: GetStaticPaths = async () => {
-	const data: _Object = await listService.getAll();
+export const getServerSideProps: GetServerSideProps = async ({ params }: GetServerSidePropsContext) => {
+	try {
+	  const data = await listService.getVenueDetails(params?.slug as string);
+	  const locations: _Object = await listService.getLocations();
+	  const occasions: _Object = await listService.getOccasions();
 
-	const paths = data?.nodes?.map((item: _Object) => `/venues/${item.slug}`) || [];
-	return {
-		paths,
-		fallback: false
-	};
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }: _Object) => {
-	const data = await listService.getVenueDetails(params.slug)
-
-	const locations: _Object = await listService.getLocations()
-
-	const occasions: _Object = await listService.getOccasions()
-
-	return {
+	  return {
 		props: {
-			data: data,
-			locations: locations,
-			occasions: occasions
+		  data,
+		  locations,
+		  occasions
 		}
+	  };
+	} catch (error) {
+	  console.error('Error fetching venue details, locations, or occasions:', error);
+	  return {
+		props: {
+		  data: null,
+		  locations: [],
+		  occasions: []
+		}
+	  };
 	}
-}
+  };
 
 const VenueDetails = (props: _Object) => {
 	// const dispatch = useDispatch<AppDispatch>()
@@ -76,6 +76,8 @@ const VenueDetails = (props: _Object) => {
 	const [images, setImages] = useState([])
 	console.log('disable :>> ', disable);
 	const [show, setShow] = useState(false)
+	const [minPax, setMinPax] = useState(1);
+	const [maxPax, setMaxPax] = useState(1);
 	// const [like, setLike] = useState(false)
 	// const { userWishlist, isUserLoggedIn } = useSelector((state: RootState) => state.session);
 
@@ -228,6 +230,12 @@ const VenueDetails = (props: _Object) => {
 
 		return activeURL;
 	};
+
+	 // Function to handle setting Pax values
+	 const handlePax = (minPaxValue: number, maxPaxValue: number) => {
+    setMinPax(minPaxValue || 1);
+    setMaxPax(maxPaxValue || 5000);
+  };
 
 	// Share active URL code on whatsapp
 	const shareOnWhatsApp = () => {
@@ -530,12 +538,12 @@ const VenueDetails = (props: _Object) => {
 
 																		<div className="view-all-button">
 																			<div className="whatsapps">
-																				<Link href="https://api.whatsapp.com/send/?phone=%2B919818000526&text&type=phone_number&app_absent=0" target="_self">
+																				<Link href="https://api.whatsapp.com/send/?phone=%2B919911412626&text&type=phone_number&app_absent=0" target="_self">
 																					<Image src={WhatsappIcon} width="40" height="40" alt="WhatSapp" />
 																				</Link>
 																			</div>
 																			<div className="phone-call">
-																				<Link href="tel:+91%2098180%2000526">
+																				<Link href="tel:+919911412626">
 																					<Image src={PhoneCall} width="32" height="32" alt="Phone Call" />
 																				</Link>
 																			</div>
@@ -545,7 +553,7 @@ const VenueDetails = (props: _Object) => {
 																	</div>
 																</li>
 																{
-																	props?.data?.allCuisine?.nodes?.length > 0 &&
+																	props?.data?.allCuisine?.nodes?.length > 0 && router?.query?.types!=='fun-zone' &&
 																	<li className="cuisines-served-list border-bottom-0 pb-0">
 																		<div className="cusisines-served-heading">
 																			<h6>Cuisines Served</h6>
@@ -553,6 +561,28 @@ const VenueDetails = (props: _Object) => {
 																		<ul className="list-inline mb-0">
 																			{
 																				props?.data?.allCuisine?.nodes?.map((item: _Object, i: number) => {
+																					return (
+																						<>
+																							{
+																								i <= 6 &&
+																								<li className="list-inline-item" key={i}><span>{item?.name}</span></li>
+																							}
+																						</>
+																					)
+																				})
+																			}
+																		</ul>
+																	</li>
+																}
+																{
+																	props?.data?.activities?.nodes?.length > 0 && router?.query?.types ==='fun-zone' &&
+																	<li className="cuisines-served-list border-bottom-0 pb-0">
+																		<div className="cusisines-served-heading">
+																			<h6>Activites</h6>
+																		</div>
+																		<ul className="list-inline mb-0">
+																			{
+																				props?.data?.activities?.nodes?.map((item: _Object, i: number) => {
 																					return (
 																						<>
 																							{
@@ -618,7 +648,7 @@ const VenueDetails = (props: _Object) => {
 											}
 
 											{
-												props?.data?.amenities?.nodes?.length > 0 &&
+												router.query.types!=='caterers' && props?.data?.amenities?.nodes?.length > 0 &&
 												<li className="nav-item">
 													<a href="#amenities" className={`nav-link ${activeLink === 'amenities' ? 'active' : ''}`} onClick={(e) => handleClick(e, 'amenities')}>
 														Amenities
@@ -633,7 +663,7 @@ const VenueDetails = (props: _Object) => {
 											</li>
 
 											{
-												props?.data?.extraOptions?.propertyRules?.nodes?.length > 0 &&
+												router.query.types!=='caterers' && props?.data?.extraOptions?.propertyRules?.nodes?.length > 0 &&
 												<li className="nav-item">
 													<a href="#propertyRules" className={`nav-link ${activeLink === 'propertyRules' ? 'active' : ''}`} onClick={(e) => handleClick(e, 'propertyRules')}>
 														Property Rules
@@ -696,13 +726,25 @@ const VenueDetails = (props: _Object) => {
 																								<ul className="list-inline">
 
 																									{item?.minPax &&
+																									<>
 																										<li className="list-inline-item"><p><span>Min.Pax</span>&nbsp;:&nbsp;{item?.minPax}</p></li>
+																										<li className="list-inline-item">|</li>
+																									</>
 																									}
+
+																										{item?.maxPax && item?.maxPax > item?.minPax &&<>
+																											<li className="list-inline-item"><p><span>Max.Pax</span>&nbsp;:&nbsp;{item?.maxPax}</p></li><li className="list-inline-item">|</li></>}
 
 																									{item?.validOn?.length > 0 &&
 																										<>
-																											<li className="list-inline-item">|</li>
 																											<li className="list-inline-item"><p><span>Valid On</span>&nbsp;:&nbsp;{item?.validOn[0] || '-'}</p></li>
+																										</>
+																									}
+
+																									{props?.data?.extraOptions?.capacity > 0 &&
+																										<>
+																											<li className="list-inline-item">|</li>
+																											<li className="list-inline-item"><p><span>Max Seating Capacity</span>&nbsp;:&nbsp;{props?.data?.extraOptions?.capacity}</p></li>
 																										</>
 																									}
 
@@ -735,10 +777,16 @@ const VenueDetails = (props: _Object) => {
 																											</span>
 
 																										</li>
+																										{(router.query.types==='banquet' || router.query.types==='farm-house' || router.query.types==='caterers') &&
+																										<li className="list-inline-item">
+																											<button type="button" data-bs-toggle="modal" data-bs-target="#EnquireNow" className={`btn btn-danger text-white ${disable && 'disabled'}`} onClick={()=>handlePax(item.minPax, item.maxPax)}>Enquire Now</button>
+																										</li>
+																										}
+																										{(router.query.types==='restaurant' || router.query.types==='fun-zone') &&
 																										<li className="list-inline-item">
 																											<Link href={`/booking/${router.query.slug}?locations=${query?.locations || ''}&date=${formik?.values?.date?.length > 0 ? formik?.values?.date : query?.date || ''}&types=${router?.query?.types || ''}&occasions=${router?.query?.occasions || ''}&amenities=${router?.query?.amenities || ''}&franchises=${router?.query?.franchises || ''}&cuisines=${router?.query?.cuisines || ''}&price_range=${router?.query?.price_range || ''}&pax=${router?.query?.pax || ''}&price=${item?.salePrice ? item?.salePrice : item?.price}&package=${item.title}`} className={`btn btn-danger text-white ${disable && 'disabled'}`}>Buy Now</Link>
 																										</li>
-
+																										}
 																									</ul>
 																								</div>
 																							</div>
@@ -804,9 +852,9 @@ const VenueDetails = (props: _Object) => {
 																		{
 																			props?.data?.extraOptions?.alaCarteMenu.map((item: _Object, i: number) => {
 																				return (
-																					<SwiperSlide key={i}>
+																					<SwiperSlide key={i} className="venueDetailsMenu">
 																						<a onClick={() => { setImages(item?.gallery?.length > 0 ? item?.gallery : [{ image: { node: { mediaItemUrl: placeholder } } }]) }} href="#" data-bs-toggle="modal" data-bs-target="#AlaCarteMenuModel">
-																							<Image src={item?.gallery?.length > 0 && item.gallery[0]?.image?.node?.mediaItemUrl || placeholder} width={380} height={540} alt="Menu Images" />
+																							<Image src={item?.gallery?.length > 0 && item.gallery[0]?.image?.node?.mediaItemUrl || placeholder} width={380} height={320} alt="Menu Images" />
 																						</a>
 																						<div className="menu-name">{item.title}</div>
 																					</SwiperSlide>
@@ -821,7 +869,7 @@ const VenueDetails = (props: _Object) => {
 												</div>
 											}
 
-											{props?.data?.amenities?.nodes?.length > 0 &&
+											{router.query.types!=='caterers' && props?.data?.amenities?.nodes?.length > 0 &&
 												<div className={`tab-details ${activeLink === 'amenities' ? 'active' : ''}`} id="amenities">
 													<>
 														<h5 className="main-head">
@@ -865,7 +913,7 @@ const VenueDetails = (props: _Object) => {
 												</div>
 											</div>
 
-											{props?.data?.extraOptions?.propertyRules?.nodes?.length > 0 &&
+											{router.query.types!=='caterers' && props?.data?.extraOptions?.propertyRules?.nodes?.length > 0 &&
 												<div className={`tab-details ${activeLink === 'propertyRules' ? 'active' : ''}`} id="propertyRules">
 													<div className="property-rules-section">
 														<div className="property-rules-row">
@@ -899,7 +947,7 @@ const VenueDetails = (props: _Object) => {
 
 						</section>
 						<section className="simlar-properties-tabs">
-							{props?.data?.locations?.nodes[0]?.slug?.length > 0 && <SimilarProperty location={props?.data?.locations?.nodes[0]?.slug || ''} type={props?.data?.venueCategories?.nodes[0]?.slug || ''} />}
+							{props?.data?.locations?.nodes[0]?.slug?.length > 0 && <SimilarProperty location={props?.data?.locations?.nodes[0]?.slug || ''} type={props?.data?.venueCategories?.nodes[0]?.slug || ''} router={router}/>}
 							<MenuDetail data={modelData} />
 							<VenueImageSlider data={props?.data?.extraOptions?.mediaGallery?.imageGallery} />
 							<AlaCarteMenu data={images} />
@@ -908,6 +956,8 @@ const VenueDetails = (props: _Object) => {
 				</>
 			)
 			}
+
+<EnquireNow router={router} props={props} minPax={minPax} maxPax={maxPax}/>
 		</>
 	)
 }

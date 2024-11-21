@@ -148,7 +148,7 @@
         td {
           padding: 8px !important;
           line-height: 1.42857143;
-          vertical-align: top;
+          // vertical-align: top;
           color: #333;
         }
       }
@@ -197,6 +197,7 @@
           }
 
           &.status {
+            min-width: 11rem;
             .complete {
               margin-right: 4px;
               color: #10cd78;
@@ -293,4 +294,26 @@ select {
   top: 5px;
   overflow: visible;
 }
+}
+
+.approved {
+  background-color: #10cd7830;
+  color: #10cd78;
+  padding: 1px 10px;
+  border-radius: 80px;
+  margin-top: 15px;
+}
+.declined {
+  background-color: rgb(255 135 135 / 19%);
+  color: #cd1310;
+  padding: 1px 10px;
+  border-radius: 80px;
+  margin-top: 15px;
+}
+.waitlisted {
+  background-color: #cdc71030;
+  color: #cd9b10;
+  padding: 1px 10px;
+  border-radius: 80px;
+  margin-top: 15px;
 }

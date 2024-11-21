@@ -13,9 +13,8 @@ import { destroyAuthSession, getUserWishlist, setLoggedInUser } from '@/redux/sl
 import Avatar from '../avatar'
 import Image from 'next/image';
 import { facebook, indiaFalg, instagram, youtube } from '@/assets/images';
-import { LoginModal, SignUp, VenueModal } from '..';
+import { LoginModal, SignUp } from '..';
 import { useRouter } from 'next/router'
-
 type RootState = {
   session: {
     isUserLoggedIn: boolean;
@@ -97,8 +96,6 @@ const Header = () => {
                         <button type="button" className="btn btn-head" data-bs-toggle="modal" data-bs-target="#venueModal">
                           List Your Venue
                         </button>
-
-                        <VenueModal />
                       </li>
                       <li className="list-inline-item d-md-inline-block img-flag">
                         <Image src={indiaFalg} alt="Flag" height={25} />
@@ -112,21 +109,15 @@ const Header = () => {
           </header>
           <div className="main-header">
             <div className="page-container">
-              <div className="row align-items-center">
+              <div className="row align-items-center justify-between">
                 {/* Logo Section */}
                 <div className="col-4 col-md-3">
                   <Logo />
                 </div>
 
-                {/* Buttons Section */}
-                <div className="col-4 d-none d-md-flex col-md-6 text-center d-flex justify-content-center">
-                  <button className="btn btn-primary corporate-gifting-btn me-2"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/cake" target="_blank" rel="noreferrer">Cake Shop</a></button>
-                  <button style={{ background: '#fc6f33', border: 'none' }} className="btn btn-primary corporate-gifting-btn"><a style={{ color: 'white', textDecoration: 'none' }} href="https://mockup4clients.com/corporate-gifting" target="_blank" rel="noreferrer">Corporate Giftings</a></button>
-                </div>
-
                 {/* Right Side User/Account Section */}
                 <div className="col-8 col-md-3">
-                  <ul className="list-inline float-end mb-0">
+                  <ul className="list-inline float-end mb-0 d-flex align-items-center">
                     {isUserLoggedIn ? (
                       <>
                         <li className="list-inline-item dropdown">
@@ -184,9 +175,10 @@ const Header = () => {
                     )}
 
                     <li className="list-inline-item me-0 me-md-3">
-                      <Link href="/event" className="btn btn-primary">
+                    <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventModal">
+                      {/* <Link href="/event" className="btn btn-primary"> */} {/* </Link> */}
                         Plan your event
-                      </Link>
+                        </button>
                     </li>
                   </ul>
                 </div>
