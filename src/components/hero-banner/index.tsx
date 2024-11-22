@@ -102,7 +102,7 @@ const HeroBanner = ({ props }: _Object) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setMessage('');
-    },3000);
+    },500);
 
     return () => clearTimeout(timer);
   }, [message]);
