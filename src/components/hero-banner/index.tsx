@@ -39,8 +39,9 @@ const HeroBanner = ({ props }: _Object) => {
     }),
 
     onSubmit: async (values) => {
-      const date = typeof values?.date === 'object' ? new Date(values?.date) : currentDate
+      console.time('submitTime'); // Start the timer
 
+      const date = typeof values?.date === 'object' ? new Date(values?.date) : currentDate;
       const month = (date.getMonth() + 1).toString().padStart(2, '0');
       const day = date.getDate().toString().padStart(2, '0');
       const year = date.getFullYear();
@@ -49,11 +50,17 @@ const HeroBanner = ({ props }: _Object) => {
 
       const basePath = values?.type === 'caterers' ? '/caterers' : '/venues';
 
-      router.push({
+      // Construct the query string
+      const queryString = `locations=${values?.location}&types=${values?.type}&date=${formattedDate}&occasions=${values?.occasion}&pax=${(values?.pax)}&order_by=recommended`;
+
+      // Perform the navigation (with router.push)
+      await router.push({
         pathname: basePath,
-        query: `locations=${values?.location}&types=${values?.type}&date=${formattedDate}&occasions=${values?.occasion}&pax=${(values?.pax)}&order_by=recommended`
+        query: queryString
       });
+      console.timeEnd('submitTime');
     }
+
   })
 
   const locations = [
@@ -102,7 +109,7 @@ const HeroBanner = ({ props }: _Object) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setMessage('');
-    },500);
+    },3000);
 
     return () => clearTimeout(timer);
   }, [message]);
