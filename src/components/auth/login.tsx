@@ -22,119 +22,119 @@ import Image from 'next/image';
 // import { useRouter } from 'next/router';
 
 const LoginModal = () => {
-	// const router = useRouter();
-	const dispatch = useDispatch<AppDispatch>()
+  // const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>()
 
-	const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
-	// const reloadPage = () => {
-	//   router.reload(); // Reload the page
-	// };
+  // const reloadPage = () => {
+  //   router.reload(); // Reload the page
+  // };
 
-	const formik = useFormik({
-		initialValues: {
-			userName: '',
-			password: ''
-		},
+  const formik = useFormik({
+    initialValues: {
+      userName: '',
+      password: ''
+    },
 
-		enableReinitialize: true,
+    enableReinitialize: true,
 
-		validationSchema: yup.object().shape({
-			userName: yup.string().label('Username & Email').required('Username & Email is required').min(4, 'Username must be at least 4 characters'),
-			password: yup.string().label('Password').required('Password is required').min(4, 'Password must be at least 4 characters')
-		}),
+    validationSchema: yup.object().shape({
+      userName: yup.string().label('Username & Email').required('Username & Email is required').min(4, 'Username must be at least 4 characters'),
+      password: yup.string().label('Password').required('Password is required').min(4, 'Password must be at least 4 characters')
+    }),
 
-		onSubmit: async (values) => {
-			setLoading(true)
-			authService.customerLogin(values.password, values.userName).then((result: _Object) => {
-				if (result?.authToken?.length > 0) {
-					console.log(result)
-					toast.success('Login successfully')
-					dispatch(setAuthToken(result))
-					dispatch(setLoggedInUser())
-					formik.resetForm();
-					setLoading(false)
-					closeModal('LoginModal')
-					// if (router.pathname != '/booking/[slug]') {
-					//   setTimeout(() => {
-					//     reloadPage()
-					//   }, 4000);
-					// }
-				} else {
-					setLoading(false)
-				}
-			})
-		}
-	})
+    onSubmit: async (values) => {
+      setLoading(true)
+      authService.customerLogin(values.password, values.userName).then((result: _Object) => {
+        if (result?.authToken?.length > 0) {
+          console.log(result)
+          toast.success('Login successfully')
+          dispatch(setAuthToken(result))
+          dispatch(setLoggedInUser())
+          formik.resetForm();
+          setLoading(false)
+          closeModal('LoginModal')
+          // if (router.pathname != '/booking/[slug]') {
+          //   setTimeout(() => {
+          //     reloadPage()
+          //   }, 4000);
+          // }
+        } else {
+          setLoading(false)
+        }
+      })
+    }
+  })
 
-	return (
-		<>
-			<div className="modal fade" id="LoginModal" tabIndex={-1} aria-labelledby="LoginModalLabel" aria-hidden="true">
-				<div className="modal-dialog modal-dialog-centered">
-					<div className="modal-content">
-						<div className="modal-body">
-							<h4 className="d-flex align-items-center justify-content-center">
+  return (
+    <>
+      <div className="modal fade" id="LoginModal" tabIndex={-1} aria-labelledby="LoginModalLabel" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-body">
+              <h4 className="d-flex align-items-center justify-content-center">
                 Log In
-								<button type="button" onClick={() => formik.resetForm()} className="btn border-0 p-0 px-2 modal-close" data-bs-dismiss="modal" aria-label="Close">
-									<Image style={{ position: 'absolute', right: '20px' }} src={modalClose} alt="" />
-								</button>
-							</h4>
+                <button type="button" onClick={() => formik.resetForm()} className="btn border-0 p-0 px-2 modal-close" data-bs-dismiss="modal" aria-label="Close">
+                  <Image style={{ position: 'absolute', right: '20px' }} src={modalClose} alt="" />
+                </button>
+              </h4>
 
-							<form className="mt-3" onSubmit={formik.handleSubmit}>
-								<div className="input-container">
-									<InputField
-										type="text"
-										name="userName"
-										placeholder="Email or Username"
-										required={true}
-										value={formik.values.userName}
-										onChange={formik.handleChange}
-										error={formik.touched.userName && formik.errors.userName}
-									/>
-									<Image src={mail} alt="password-icon" className="password-icon" />
-								</div>
+              <form className="mt-3" onSubmit={formik.handleSubmit}>
+                <div className="input-container">
+                  <InputField
+                    type="text"
+                    name="userName"
+                    placeholder="Email or Username"
+                    required={true}
+                    value={formik.values.userName}
+                    onChange={formik.handleChange}
+                    error={formik.touched.userName && formik.errors.userName}
+                  />
+                  <Image src={mail} alt="password-icon" className="password-icon" />
+                </div>
 
-								<div className="input-container">
-									<InputField
-										name="password"
-										placeholder="Password"
-										type="password"
-										required={true}
-										value={formik.values.password}
-										onChange={formik.handleChange}
-										error={formik.touched.password && formik.errors.password}
-									/>
-									<Image src={password} alt="password-icon" className="password-icon" />
-								</div>
+                <div className="input-container">
+                  <InputField
+                    name="password"
+                    placeholder="Password"
+                    type="password"
+                    required={true}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    error={formik.touched.password && formik.errors.password}
+                  />
+                  <Image src={password} alt="password-icon" className="password-icon" />
+                </div>
 
-								<div className="btn-login">
-									<Button
-										className="primary w-100"
-										label="Log in"
-										loading={loading}
-										type="submit"
-										disabled={loading}
-									/>
-								</div>
-								<div className="remember-me mt-3">
+                <div className="btn-login">
+                  <Button
+                    className="primary w-100"
+                    label="Log in"
+                    loading={loading}
+                    type="submit"
+                    disabled={loading}
+                  />
+                </div>
+                <div className="remember-me mt-3">
 
-									<ul className="list-unstyled d-flex justify-content-between mb-0">
-										<li>
-											<CheckBox
-												options={[{
-													label: 'Remember me', value: 'Remember me'
-												}]}
-											/>
-										</li>
-										<li>
-											<Link onClick={() => formik.resetForm()} href="" data-bs-toggle="modal" data-bs-target="#ResetPasswordModal" className="text-decoration-none">
+                  <ul className="list-unstyled d-flex justify-content-between mb-0">
+                    <li>
+                      <CheckBox
+                        options={[{
+                          label: 'Remember me', value: 'Remember me'
+                        }]}
+                      />
+                    </li>
+                    <li>
+                      <Link onClick={() => formik.resetForm()} href="" data-bs-toggle="modal" data-bs-target="#ResetPasswordModal" className="text-decoration-none">
                         Forgot Password?
-											</Link>
-										</li>
-									</ul>
-								</div>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
 
-								{/* <p className="text-center fw-normal continue-with">
+                {/* <p className="text-center fw-normal continue-with">
 									or continue with
 								</p>
 
@@ -222,23 +222,23 @@ const LoginModal = () => {
 									</div>
 								</div> */}
 
-								<hr />
+                <hr />
 
-								<p className="mb-0 mt-3 pt-1 text-center fw-medium">
+                <p className="mb-0 mt-3 pt-1 text-center fw-medium">
                   Do not have an account?&nbsp;
-									<Link onClick={() => formik.resetForm()} href="#" className="text-decoration-none" data-bs-toggle="modal" data-bs-target="#SignUpModal">
+                  <Link onClick={() => formik.resetForm()} href="#" className="text-decoration-none" data-bs-toggle="modal" data-bs-target="#SignUpModal">
                     Sign Up
-									</Link>
-								</p>
-							</form>
+                  </Link>
+                </p>
+              </form>
 
-						</div>
-					</div>
-				</div>
-			</div>
-			<ResetPasswordModal />
-		</>
-	)
+            </div>
+          </div>
+        </div>
+      </div>
+      <ResetPasswordModal />
+    </>
+  )
 }
 
 export default LoginModal

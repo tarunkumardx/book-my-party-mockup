@@ -6,10 +6,10 @@ import TextArea from './textarea/index'
 import FileUpload from './fileUpload/index'
 
 export {
-	Button,
-	CheckBox,
-	RadioButton,
-	InputField,
-	TextArea,
-	FileUpload
+  Button,
+  CheckBox,
+  RadioButton,
+  InputField,
+  TextArea,
+  FileUpload
 }

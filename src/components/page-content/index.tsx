@@ -1,11 +1,11 @@
 import React from 'react'
 
 const PageContent = () => {
-	return (
-		<>
+  return (
+    <>
       pagecontet
-		</>
-	)
+    </>
+  )
 }
 
 export default PageContent

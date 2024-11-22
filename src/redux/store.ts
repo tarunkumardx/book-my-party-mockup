@@ -3,10 +3,10 @@ import sessionSlice from './slices/session.slice'
 import venueSlice from './slices/venue.slice'
 
 const store = configureStore({
-	reducer: {
-		session: sessionSlice,
-		venueDetails: venueSlice
-	}
+  reducer: {
+    session: sessionSlice,
+    venueDetails: venueSlice
+  }
 })
 console.log(store)
 

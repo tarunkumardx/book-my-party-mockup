@@ -7,9 +7,9 @@ class MenuService extends CommonService {
  * @param {String} location - The menu location enum value.
  * @returns - An object containing an array of menu item nodes, each with label and uri details.
  */
-	async getNavigation(location: string) {
-		const result = await this.post({
-			query: `
+  async getNavigation(location: string) {
+    const result = await this.post({
+      query: `
         query getMenuItems($location: MenuLocationEnum) {
           menuItems(first: 60, where: { location: $location }) {
             nodes {
@@ -28,11 +28,11 @@ class MenuService extends CommonService {
           }
         }
       `,
-			variables: { location }
-		});
+      variables: { location }
+    });
 
-		return result.data.menuItems.nodes
-	}
+    return result.data.menuItems.nodes
+  }
 }
 
 export const menuService = new MenuService()
